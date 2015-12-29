@@ -1,4 +1,4 @@
-	include "..\exe\macro.asm"
+	include "exe/macro.asm"
 
 StartOfRom:	dc.l Stack, EntryPoint
 HBlank:		rte		; used to be bus error pointer
@@ -29,12 +29,25 @@ Console:	dc.b 'SEGA MEGA DRIVE ' ; Hardware system ID
 		dc.l EndOfRom-1		; ROM end
 		dc.l $FF0000		; RAM start
 		dc.l $FFFFFF		; RAM end
-		dc.l 'NO SRAM     '
+		dc.b 'NO SRAM     '
 		dc.b 'OPEN SOURCE SOFTWARE. YOU ARE WELCOME TO MAKE YOUR  '
-		dc.b 'JUE ' ; Region
-		dc.b 'OWN MODIFICATIONS. PLEASE CREDIT WHEN USED.'
+		dc.b 'JUE '
+		dc.b 'OWN MODIFICATIONS. PLEASE CREDIT WHEN USED. '
+; ===========================================================================
+SystemPalette:
+	incbin  'exe/main.pal'		; system main palette
+	even
 
-	include crash.asm
-	include init.asm
+	include 'string.asm'		; string display library
+	include 'crash.asm'		; crash handlers and debuggers
+	include 'init.asm'		; initialization code and main loop
+	include 'VBlank.asm'		; Vertical Blanking code.
+	include 'decompressors.asm'	; decompressors used
+
+SystemFont:
+	incbin  'exe/font.kos'		; System font
+	even				; made by Bakayote
+
+; ===========================================================================
 EndOfRom:
 		END

@@ -1,4 +1,4 @@
 @echo off
-exe\asm68k /p main.asm, player.bin
-if exist s1.bin GOTO :eof
+exe\asm68k /p /m main.asm, player.bin, , .lst
+if exist player.bin GOTO:eof
 pause

@@ -1,7 +1,7 @@
 EntryPoint:
-		tst.l	($A10008).l	; test port A control
+		tst.l	HW_Port_1_Control-1	; test port A control
 		bne.s	PortA_Ok
-		tst.w	($A1000C).l	; test port C control
+		tst.w	HW_Expansion_Control-1	; test port C control
 
 PortA_Ok:
 		bne.s	PortC_Ok
@@ -11,20 +11,21 @@ PortA_Ok:
 		move.b	-$10FF(a1),d0	; get hardware version
 		andi.b	#$F,d0
 		beq.s	SkipSecurity
-		move.l	#'SEGA',$2F00(a1)
+		move.l	Console.w,$2F00(a1)
 
 SkipSecurity:
 		move.w	(a4),d0		; check	if VDP works
 		moveq	#0,d0
 		movea.l	d0,a6
 		move.l	a6,usp		; set usp to $0
-		moveq	#$17,d1
 
+		moveq	#$17,d1
 VDPInitLoop:
 		move.b	(a5)+,d5	; add $8000 to value
 		move.w	d5,(a4)		; move value to	VDP register
 		add.w	d7,d5		; next register
 		dbf	d1,VDPInitLoop
+
 		move.l	(a5)+,(a4)
 		move.w	d0,(a3)		; clear	the screen
 		move.w	d7,(a1)		; stop the Z80
@@ -34,35 +35,36 @@ WaitForZ80:
 		btst	d0,(a1)		; has the Z80 stopped?
 		bne.s	WaitForZ80	; if not, branch
 		moveq	#$25,d2
-
 Z80InitLoop:
 		move.b	(a5)+,(a0)+
 		dbf	d2,Z80InitLoop
+
 		move.w	d0,(a2)
 		move.w	d0,(a1)		; start	the Z80
 		move.w	d7,(a2)		; reset	the Z80
-
 ClrRAMLoop:
 		move.l	d0,-(a6)
 		dbf	d6,ClrRAMLoop	; clear	the entire RAM
+
 		move.l	(a5)+,(a4)	; set VDP display mode and increment
 		move.l	(a5)+,(a4)	; set VDP to CRAM write
 		moveq	#$1F,d3
-
 ClrCRAMLoop:
 		move.l	d0,(a3)
 		dbf	d3,ClrCRAMLoop	; clear	the CRAM
+
 		move.l	(a5)+,(a4)
 		moveq	#$13,d4
 
 ClrVDPStuff:
 		move.l	d0,(a3)
 		dbf	d4,ClrVDPStuff
-		moveq	#3,d5
 
+		moveq	#3,d5
 PSGInitLoop:
 		move.b	(a5)+,$11(a3)	; reset	the PSG
 		dbf	d5,PSGInitLoop
+
 		move.w	d0,(a2)
 		movem.l	(a6),d0-a6	; clear	all registers
 		move	#$2700,sr	; set the sr
@@ -80,10 +82,10 @@ SetupValues:	dc.w $8000		; XREF: PortA_Ok
 		dc.l $C00000
 		dc.l $C00004		; address for VDP registers
 
-		dc.b 4,	$14, $30, $3C	; values for VDP registers
+		dc.b 4,	4, $30, $3C	; values for VDP registers
 		dc.b 7,	$6C, 0,	0
 		dc.b 0,	0, $FF,	0
-		dc.b $81, $37, 0, 1
+		dc.b 0, $37, 0, 1
 		dc.b 1,	0, 0, $FF
 		dc.b $FF, 0, 0,	$80
 
@@ -94,7 +96,7 @@ SetupValues:	dc.w $8000		; XREF: PortA_Ok
 		dc.b $D1, $E1, $F1, 8, $D9, $C1, $D1, $E1, $F1,	$F9, $F3
 		dc.b $ED, $56, $36, $E9, $E9
 
-		dc.w $8104		; value	for VDP	display	mode
+		dc.w $8174		; value	for VDP	display	mode
 		dc.w $8F02		; value	for VDP	increment
 		dc.l $C0000000		; value	for CRAM write mode
 		dc.l $40000010
@@ -103,3 +105,26 @@ SetupValues:	dc.w $8000		; XREF: PortA_Ok
 ; ===========================================================================
 
 GameProgram:
+		lea	VScrollRAM.w,a0		; get vertical scroll rAM
+		moveq	#(80/4)-1,d0		; amount of segments to write to
+		moveq	#8*4,d1			; set Vscroll amount
+
+.load1		move.l	d1,(a1)+		; copy 1 segment
+		dbf	d0,.load1		; loop until done
+
+		lea	SystemPalette.w,a0	; get system palette
+		lea	MainPalette.w,a1	; get the palette file
+		moveq	#3-1,d0			; get length
+
+.load2		move.w	(a0)+,(a1)+		; copy 1 entry
+		dbf	d0,.load2		; loop until done
+
+		lea	SystemFont,a0			; get system font
+		lea	$FF0000,a1			; get start of RAM
+		jsr	KosDec				; decompress the art
+	dma68kToVDP	$FF0000, $20, $BC0, VRAM	; DMA font art
+		move	#$2300,sr			; enable vertical interrupts
+
+		illegal
+		bra *
+

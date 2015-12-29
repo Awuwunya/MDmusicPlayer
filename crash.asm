@@ -1,6 +1,6 @@
 crash	macro	id
 	move	sr,Crash_SR		; copy Status Register to RAM
-	move.b	#id,CrashID.w		; set crash ID
+	move.b	#id,CrashID		; set crash ID
 	bra.w	CrashHandler		; run crash handler
     endm
 ; ===========================================================================
@@ -41,6 +41,7 @@ Trace:		crash 28+2
 Line1010Emu:	crash 32+2
 Line1111Emu:	crash 36+2
 ErrorExcept:	crash 0+2
+ErrorTrap:	crash 40+2
 
 ; ===========================================================================
 CrashHandler:
@@ -62,40 +63,42 @@ CrashHandler:
 		lea	Crash_StackPtr,a0		; get crash stack RAM
 		lea	Stack,a7			; get normal stack RAM
 .copy		move.w	-(a7),-(a0)			; copy next word
-		dbf	d0,.clr				; loop until done
+		dbf	d0,.copy				; loop until done
 	; write error name to screen
 		moveq	#0,d3				; length of write
-		move.b	CrashID,d3			; get crash ID
+		move.b	CrashID,d4			; get crash ID
 		lea	CrashNames(pc),a0		; get crash name strings
-		move.w	-2(a0,d3.w),d4			; get length of the string
-		adda.w	(a0,d3.w),a0			; add the offset to name
-		move.l	#$40000003,d5			; location to write to in VRAM
-		jsr	ShowString			; display error message
-
-
+		move.w	-2(a0,d4.w),d6			; get length of the string
+		adda.w	(a0,d4.w),a0			; add the offset to name
+		moveq	#1,d4				; x-position to write to
+		moveq	#0,d5				; y-position to write to
+		jsr	WriteString2.w			; display error message
+		bra	*		; for not loop indefinately. TODO: run reset polling code
 
 ; ===========================================================================
 CrashNames:
-	dc.w 15, .ErrExpt-CrashNames
-	dc.w 13, .Addr-CrashNames
-	dc.w 19, .Illegal-CrashNames
-	dc.w 11, .ZeroDiv-CrashNames
-	dc.w 15, .Chk-CrashNames
-	dc.w 17, .Trapv-CrashNames
-	dc.w 19, .Priv-CrashNames
-	dc.w  5, .Trace-CrashNames
-	dc.w 15, .LineA-CrashNames
-	dc.w 15, .LineF-CrashNames
+	dc.w 14, .ErrExpt-CrashNames
+	dc.w 12, .Addr-CrashNames
+	dc.w 18, .Illegal-CrashNames
+	dc.w 12, .zerodiv-CrashNames
+	dc.w 14, .Chk-CrashNames
+	dc.w 16, .Trapv-CrashNames
+	dc.w 18, .Priv-CrashNames
+	dc.w  4, .Trace-CrashNames
+	dc.w 14, .LineA-CrashNames
+	dc.w 14, .LineF-CrashNames
+	dc.w  8, .trapped-CrashNames
 	; you can here define custom error messages
 
-.ErrExpt	asc.w 'ERROR EXECPTION'		; miscellaneous error.
-.Addr		asc.w 'ADDRESS ERROR'		; address error
-.illegal	asc.w 'ILLEGAL INSTRUCTION'	; illegal instruction (code runs in data likely)
-,zerodiv	asc.w 'ZERO DIVIDE'		; zero divide (ex: 1/0)
-.chk		asc.w 'CHK INSTRUCTION'		; CHK
-.trapv		asc.w 'TRAPV INSTRUCTION'	; TRAPV
-.priv		asc.w 'PRIVILEGE VIOLATION'	; Privilege violation (68k trying to use privileged instructions while supervisor mode)
-.trace		asc.w 'TRACE'			; Tracing instruction. TODO: handle properly
-.lineA		asc.w 'LINE A EMULATOR'		; line A emulator (running instruction that is not implemented in 68000)
-.lineF		asc.w 'LINE F EMULATOR'		; line F emulator (running instruction that is not implemented in 68000)
+.ErrExpt	asc.w 0, 'ERROR EXECPTION'	; miscellaneous error.
+.Addr		asc.w 0, 'ADDRESS ERROR'	; address error
+.illegal	asc.w 0, 'ILLEGAL INSTRUCTION'	; illegal instruction (code runs in data likely)
+.zerodiv	asc.w 0, 'ZERO DIVISION'	; zero divide (ex: 1/0)
+.chk		asc.w 0, 'CHK INSTRUCTION'	; CHK
+.trapv		asc.w 0, 'TRAPV INSTRUCTION'	; TRAPV
+.priv		asc.w 0, 'PRIVILEGE VIOLATION'	; Privilege violation (68k trying to use privileged instructions while supervisor mode)
+.trace		asc.w 0, 'TRACE'		; Tracing instruction. TODO: handle properly
+.lineA		asc.w 0, 'LINE A EMULATOR'	; line A emulator (running instruction that is not implemented in 68000)
+.lineF		asc.w 0, 'LINE F EMULATOR'	; line F emulator (running instruction that is not implemented in 68000)
+.trapped	asc.w 0, 'ERRORTRAP'		; ran into ErrorTrap.
 ; ===========================================================================
