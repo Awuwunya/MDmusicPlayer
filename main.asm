@@ -1,4 +1,5 @@
 	include "exe/macro.asm"
+Maincode	section org(0)
 
 StartOfRom:	dc.l Stack, EntryPoint
 HBlank:		rte		; used to be bus error pointer

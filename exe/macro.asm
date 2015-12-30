@@ -67,8 +67,8 @@ dmaFillVRAM macro byte,addr,length
 ; ===========================================================================
 ; allows you to declare string to be converted to character map or mappings
 asc2	macro	or, str
-	dc.b strlen(\str)
-	asc	or, str
+	dc.W strlen(\str)-1
+	asc	\or, \str
     endm
 
 asc	macro	or, str
@@ -83,109 +83,109 @@ asc	macro	or, str
 			dc.\0 ('\.cc'-'0'+1)|or		; 0-9
 
 		elseif ('\.cc'>='a')&('\.cc'<='z')
-			dc.\0 ('\.cc'-'a'+$2B)|or	;a-z
+			dc.\0 ('\.cc'-'a'+$2B)|or	; a-z
 
 		elseif ('\.cc'>='A')&('\.cc'<='Z')
 			dc.\0 ('\.cc'-'A'+$B)|or	; A-Z
 
-		elseif '.cc'='!'
-			dc.\0 $24|or	; !
+		elseif '\.cc'='!'
+			dc.\0 $25|or	; !
 
-		elseif '.cc'='?'
-			dc.\0 $25|or	; ?
+		elseif '\.cc'='?'
+			dc.\0 $26|or	; ?
 
-		elseif '.cc'='.'
-			dc.\0 $26|or	; .
+		elseif '\.cc'='.'
+			dc.\0 $27|or	; .
 
-		elseif '.cc'=','
-			dc.\0 $26|or	; ,
+		elseif '\.cc'=','
+			dc.\0 $28|or	; ,
 
-		elseif '.cc'=':'
-			dc.\0 $27|or	; :
+		elseif '\.cc'=':'
+			dc.\0 $29|or	; :
 
-		elseif '.cc'=';'
-			dc.\0 $28|or	; ;
+		elseif '\.cc'=';'
+			dc.\0 $2A|or	; ;
 
-		elseif '.cc'='^'
-			dc.\0 $44|or	; ^
+		elseif '\.cc'='^'
+			dc.\0 $45|or	; ^
 
-		elseif '.cc'='/'
-			dc.\0 $45|or	; /
+		elseif '\.cc'='/'
+			dc.\0 $46|or	; /
 
 		elseif '\.cc'='\\'
-			dc.\0 $46|or	; \
+			dc.\0 $47|or	; \
 
-		elseif '.cc'='*'
-			dc.\0 $47|or	; *
+		elseif '\.cc'='*'	; I cant seem to figure out how to define
+			dc.\0 $48|or	; * ; it as a string. Sorry for inconvinience
 
-		elseif '.cc'='-'
-			dc.\0 $48|or	; -
+		elseif '\.cc'='-'
+			dc.\0 $49|or	; -
 
-		elseif '.cc'='¤'
-			dc.\0 $49|or	; _ (wider)
+		elseif '\.cc'='|'
+			dc.\0 $4A|or	; _ (wider)
 
-		elseif '.cc'='$'
-			dc.\0 $4A|or	; $
+		elseif '\.cc'='$'
+			dc.\0 $4B|or	; $
 
-		elseif '.cc'='%'
-			dc.\0 $4B|or	; %
+		elseif '\.cc'='%'
+			dc.\0 $4C|or	; %
 
-		elseif '.cc'='#'
-			dc.\0 $4C|or	; #
+		elseif '\.cc'='#'
+			dc.\0 $4D|or	; #
 
-		elseif '.cc'='+'
-			dc.\0 $4D|or	; +
+		elseif '\.cc'='+'
+			dc.\0 $4E|or	; +
 
-		elseif '.cc'='}'
-			dc.\0 $4E|or	; ->
+		elseif '\.cc'='}'
+			dc.\0 $4F|or	; ->
 
-		elseif '.cc'='{'
-			dc.\0 $4F|or	; <-
+		elseif '\.cc'='{'
+			dc.\0 $50|or	; <-
 
-		elseif '.cc'='@'
-			dc.\0 $50|or	; @
+		elseif '\.cc'='@'
+			dc.\0 $51|or	; @
 
-		elseif '.cc'='_'
-			dc.\0 $51|or	; _
+		elseif '\.cc'='_'
+			dc.\0 $52|or	; _
 
-		elseif '.cc'='('
-			dc.\0 $52|or	; (
+		elseif '\.cc'='('
+			dc.\0 $53|or	; (
 
-		elseif '.cc'=')'
-			dc.\0 $53|or	; )
+		elseif '\.cc'=')'
+			dc.\0 $54|or	; )
 
-		elseif '.cc'='['
-			dc.\0 $54|or	; [
+		elseif '\.cc'='['
+			dc.\0 $55|or	; [
 
-		elseif '.cc'=']'
-			dc.\0 $55|or	; ]
+		elseif '\.cc'=']'
+			dc.\0 $56|or	; ]
 
-		elseif '.cc'='>'
-			dc.\0 $56|or	; >
+		elseif '\.cc'='>'
+			dc.\0 $57|or	; >
 
-		elseif '.cc'='<'
-			dc.\0 $57|or	; <
+		elseif '\.cc'='<'
+			dc.\0 $58|or	; <
 
-		elseif '.cc'='&'
-			dc.\0 $58|or	; &
+		elseif '\.cc'='&'
+			dc.\0 $59|or	; &
 
-		elseif '.cc'='~'
-			dc.\0 $59|or	; ~
+		elseif '\.cc'='~'
+			dc.\0 $5A|or	; ~
 
 		elseif '\.cc'="'"
-			dc.\0 $5A|or	; '
+			dc.\0 $5B|or	; '
 
-		elseif '.cc'='"'
-			dc.\0 $5B|or	; "
+		elseif '\.cc'='"'
+			dc.\0 $5C|or	; "
 
-		elseif '.cc'='='
-			dc.\0 $5C|or	; =
+		elseif '\.cc'='='
+			dc.\0 $5D|or	; =
 
-		elseif '.cc'='`'
-			dc.\0 $5D|or	; `
+		elseif '\.cc'='`'
+			dc.\0 $5E|or	; `
 
 		else
-			dc.\0 '\.cc'|or			; unknown, defaulting to ASCII value
+			inform 2,"ASCII value failure: \.cc %d", .cc
 		endif
 
 .lc =		.lc+1

@@ -86,7 +86,7 @@ SetupValues:	dc.w $8000		; XREF: PortA_Ok
 		dc.b 7,	$6C, 0,	0
 		dc.b 0,	0, $FF,	0
 		dc.b 0, $37, 0, 1
-		dc.b 1,	0, 0, $FF
+		dc.b 0,	0, 0, $FF
 		dc.b $FF, 0, 0,	$80
 
 		dc.l $40000080
@@ -125,6 +125,7 @@ GameProgram:
 	dma68kToVDP	$FF0000, $20, $BC0, VRAM	; DMA font art
 		move	#$2300,sr			; enable vertical interrupts
 
-		illegal
-		bra *
+		move.w	#0,1.w
+	;	illegal
+		bra	offset(*)
 
