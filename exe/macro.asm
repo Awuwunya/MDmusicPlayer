@@ -115,8 +115,8 @@ asc	macro	or, str
 		elseif '\.cc'='\\'
 			dc.\0 $47|or	; \
 
-		elseif '\.cc'='*'	; I cant seem to figure out how to define
-			dc.\0 $48|or	; * ; it as a string. Sorry for inconvinience
+		elseif '\.cc'='*'
+			dc.\0 $48|or	; *
 
 		elseif '\.cc'='-'
 			dc.\0 $49|or	; -
@@ -193,6 +193,19 @@ asc	macro	or, str
     endm
 
 ; ===========================================================================
+; tells the Z80 to stop, and waits for it to finish stopping (acquire bus)
+stopZ80 macro
+		move.w	#$100,Z80_bus_request	; stop the Z80
+.loop\@		btst	#0,Z80_bus_request
+		bne.s	.loop\@			; loop until it says it's stopped
+    endm
+
+; tells the Z80 to start again
+startZ80 macro
+		move.w	#0,Z80_bus_request	; start the Z80
+    endm
+
+; ===========================================================================
 ; Z80 addresses
 Z80_RAM =			$A00000 ; start of Z80 RAM
 Z80_RAM_end =			$A02000 ; end of non-reserved Z80 RAM
@@ -233,11 +246,18 @@ Driver68K	rs.b $8000	; 68k driver ROM. if Z80 driver, this is rte
 Drv68Kmem	rs.b $1000	; memory for the 68k driver. This may be used by z80 drivers for things too
 		rs.l 3		; stack overflow area
 StackUflowRAM	rs.l 1		; stack overflow area
-		rs.b $100	; 68k stack
+StackStart	rs.b $100	; 68k stack
 Stack		rs.b 0		; 68k stack pointer
 StackOflowRAM	rs.l 4		; stack underflow area
 MainPalette	rs.b $80	; current palette of the program
 VScrollRAM	rs.b 80		; Vertical scrolling RAM
 MusSelection	rs.w 1		; current song selection
 MusPlaying	rs.w 1		; current song playing
+Ctrl1Held	rs.b 1		; controller 1 held buttons
+Ctrl1Press	rs.b 1		; controller 1 pressed buttons
+Ctrl2Held	rs.b 1		; controller 2 held buttons
+Ctrl2Press	rs.b 1		; controller 2 pressed buttons
+Ctrl0Held	rs.b 1		; controller 0 held buttons
+Ctrl0Press	rs.b 1		; controller 0 pressed buttons
+DebugFlag	rs.b 1		; whether or not debug mode is active
 ; ===========================================================================

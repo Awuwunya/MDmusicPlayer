@@ -70,6 +70,7 @@ PSGInitLoop:
 		move	#$2700,sr	; set the sr
 
 PortC_Ok:
+		jsr	InitControllers		; initialize controllers
 		bra.s	GameProgram
 ; ===========================================================================
 SetupValues:	dc.w $8000		; XREF: PortA_Ok
@@ -104,12 +105,21 @@ SetupValues:	dc.w $8000		; XREF: PortA_Ok
 		dc.b $9F, $BF, $DF, $FF	; values for PSG channel volumes
 ; ===========================================================================
 
+ResetProgram:
+		move.w	SetupValues+2(pc),d1	; get length
+		moveq	#0,d0			; get 0
+		move.w	d0,a0			; set RAM start
+
+.loop		move.l	d0,-(a0)		; clear next word of RAM
+		dbf	d1,.loop		; clear entire RAM
+		move.w	#Stack,sp		; reset stack ptr
+
 GameProgram:
-		lea	VScrollRAM.w,a0		; get vertical scroll rAM
+		lea	VScrollRAM.w,a0		; get vertical scroll RAM
 		moveq	#(80/4)-1,d0		; amount of segments to write to
 		moveq	#8*4,d1			; set Vscroll amount
 
-.load1		move.l	d1,(a1)+		; copy 1 segment
+.load1		move.l	d1,(a0)+		; copy 1 segment
 		dbf	d0,.load1		; loop until done
 
 		lea	SystemPalette.w,a0	; get system palette
@@ -125,7 +135,5 @@ GameProgram:
 	dma68kToVDP	$FF0000, $20, $BC0, VRAM	; DMA font art
 		move	#$2300,sr			; enable vertical interrupts
 
-		move.w	#0,1.w
-	;	illegal
-		bra	offset(*)
+		; program start
 

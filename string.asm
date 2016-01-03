@@ -29,6 +29,7 @@ WriteString4:
 ; If WriteNumberWord2, writing right after last string.
 ; Breaks after V-int.
 ; input:
+;  d2 - value to be or'd to the number
 ;  d3 - number to write. ignores most significant word. Is destroyed
 ;  d4 - x-cell position
 ;  d5 - y-cell position
@@ -73,12 +74,11 @@ WriteNumberNibble2:
 	; continue directly to WriteNumberLoop.
 ; ===========================================================================
 WriteNumberLoop:
-		moveq	#0,d5			; clear scratch register
 		move.w	d6,d4			; copy length
-.loop		move.b	d3,d5			; get next nibble
-		andi.b	#%1111,d5		; keep the nibble only
-		addq.b	#1,d5			; increment 1 (to skip null)
-		move.w	d5,-(sp)		; then store the number on plane
+.loop		move.b	d3,d2			; get next nibble
+		andi.b	#%1111,d2		; keep the nibble only
+		addq.b	#1,d2			; increment 1 (to skip null)
+		move.w	d2,-(sp)		; then store the number on plane
 		ror.l	#4,d3			; rotate right four times, to get the next nibble.
 						; Also returns d3 to original value
 		dbf	d6,.loop		; loop until full number is done

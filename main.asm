@@ -42,7 +42,8 @@ SystemPalette:
 	include 'string.asm'		; string display library
 	include 'crash.asm'		; crash handlers and debuggers
 	include 'init.asm'		; initialization code and main loop
-	include 'VBlank.asm'		; Vertical Blanking code.
+	include 'program.asm'		; main program (must be after init.asm)
+	include 'VBlank.asm'		; Vertical Blanking code & controller polling
 	include 'decompressors.asm'	; decompressors used
 
 SystemFont:
