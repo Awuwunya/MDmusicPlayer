@@ -5,9 +5,10 @@
 ; driver: the name of the sound driver to use
 ; file: the filename of the music file to include. must not contain spaces
 ; name: name to be displayed as information for this file. max 32 characters
-	incmusbin	S1_SMPS, ghz, "Green Hill Zone"
-
-
+	incmusbin	S1_SMPS, ghz, "Green Hill Zone", 0
+	incmusbin	S1_SMPS, musicEC, "Magician's hall", 0
+	incmusbin	S3K_SMPS, icz1, "Ice Cap Zone 1", 1
+	incmusbin	S3K_SMPS, icz2, "Ice Cap Zone 2", 1
 
 ; ===========================================================================
 ; the following will construct all the drivers with the information needed.
@@ -43,3 +44,4 @@ WriteMusicString:
 		moveq	#0,d4			; x-position
 		moveq	#27,d5			; y-position
 		jmp	WriteString1.w		; display it
+; ===========================================================================

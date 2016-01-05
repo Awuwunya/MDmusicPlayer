@@ -1,0 +1,436 @@
+00000000                            ; /=========================================================================\
+00000000                            	include "..\exe\macro.asm"
+00000000                            	opt ae+		; automatic even's
+00000000                            	opt l+		; . is local lable symbol
+00000000                            	opt w-		; don't print warnings
+00000000                            	opt op+		; optimize PC relative addressing
+00000000                            	opt os+		; optimize short branches
+00000000                            	opt ow+		; optimize absolute long addressing
+00000000                            	opt oz+		; optimize zero displacements
+00000000                            	opt oaq+	; optimize addq
+00000000                            	opt osq+	; optimize subq
+00000000                            	opt omq+	; optimize moveq
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            align macro
+00000000                            	cnop 0,\1
+00000000                            	endm
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            ; general purpose macro to turn a variable into string, for example
+00000000                            ; to add after lable name.
+00000000                            numToStr	macro	var, nibbles
+00000000                            numc	= \var			; create temporary variable
+00000000                            outStr	equs ""			; this is our final output variables
+00000000                            	rept	\nibbles	; repeat for each required nibble
+00000000                            num	=	numc&$F		; get the nibble number
+00000000                            str	substr	num+1, num+1, "0123456789ABCDEF"; now transform it to string
+00000000                            outStr	equs "\str\\outStr"	; add it to out string
+00000000                            numc	= numc>>4		; finally shift the nibble out
+00000000                            	endr
+00000000                                endm
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            vdpComm		macro ins,addr,type,rwd,end,end2
+00000000                            	if narg=5
+00000000                            		\ins #(((\type&\rwd)&3)<<30)|((\addr&$3FFF)<<16)|(((\type&\rwd)&$FC)<<2)|((\addr&$C000)>>14), \end
+00000000                            
+00000000                            	elseif narg=6
+00000000                            		\ins #(((((\type&\rwd)&3)<<30)|((\addr&$3FFF)<<16)|(((\type&\rwd)&$FC)<<2)|((\addr&$C000)>>14))\end, \end2
+00000000                            
+00000000                            	else
+00000000                            		\ins (((\type&\rwd)&3)<<30)|((\addr&$3FFF)<<16)|(((\type&\rwd)&$FC)<<2)|((\addr&$C000)>>14)
+00000000                            	endif
+00000000                                endm
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            ; values for the type argument
+00000000 =00000021                  VRAM =  %100001
+00000000 =0000002B                  CRAM =  %101011
+00000000 =00000025                  VSRAM = %100101
+00000000                            
+00000000                            ; values for the rwd argument
+00000000 =0000000C                  READ =  %001100
+00000000 =00000007                  WRITE = %000111
+00000000 =00000027                  DMA =   %100111
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            ; tells the VDP to copy a region of 68k memory to VRAM or CRAM or VSRAM
+00000000                            dma68kToVDP macro source,dest,length,type
+00000000                            		lea	VDP_control_port,a5
+00000000                            		move.l	#(($9400|((((length)>>1)&$FF00)>>8))<<16)|($9300|(((length)>>1)&$FF)),(a5)
+00000000                            		move.l	#(($9600|((((source)>>1)&$FF00)>>8))<<16)|($9500|(((source)>>1)&$FF)),(a5)
+00000000                            		move.w	#$9700|(((((source)>>1)&$FF0000)>>16)&$7F),(a5)
+00000000                            	vdpComm	move.w,\dest,\type,DMA,>>16)&$FFFF,(a5)
+00000000                            	vdpComm	move.w,\dest,\type,DMA,)&$FFFF,(a5)
+00000000                                endm
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            ; tells the VDP to fill a region of VRAM with a certain byte
+00000000                            dmaFillVRAM macro byte,addr,length
+00000000                            	lea	VDP_control_port,a5
+00000000                            	move.w	#$8F01,(a5) ; VRAM pointer increment: $0001
+00000000                            	move.l	#(($9400|((((length)-1)&$FF00)>>8))<<16)|($9300|(((length)-1)&$FF)),(a5) ; DMA length ...
+00000000                            	move.w	#$9780,(a5) ; VRAM fill
+00000000                            	move.l	#$40000080|(((addr)&$3FFF)<<16)|(((addr)&$C000)>>14),(a5) ; Start at ...
+00000000                            	move.w	#(byte)<<8,(VDP_data_port).l ; Fill with byte
+00000000                            .loop\@	move.w	(a5),d1
+00000000                            	btst	#1,d1
+00000000                            	bne.s	.loop\@	; busy loop until the VDP is finished filling...
+00000000                            	move.w	#$8F02,(a5) ; VRAM pointer increment: $0002
+00000000                                endm
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            ; allows you to declare string to be converted to character map or mappings
+00000000                            asc2	macro	or, str
+00000000                            	dc.W strlen(\str)-1
+00000000                            	asc	\or, \str
+00000000                                endm
+00000000                            
+00000000                            asc	macro	or, str
+00000000                            .lc = 0
+00000000                            	rept strlen(\str)
+00000000                            .cc		substr .lc+1,.lc+1,\str
+00000000                            
+00000000                            		if '\.cc'=' '
+00000000                            			dc.\0 0|or			; whitespace
+00000000                            
+00000000                            		elseif ('\.cc'>='0')&('\.cc'<='9')
+00000000                            			dc.\0 ('\.cc'-'0'+1)|or		; 0-9
+00000000                            
+00000000                            		elseif ('\.cc'>='a')&('\.cc'<='z')
+00000000                            			dc.\0 ('\.cc'-'a'+$2B)|or	; a-z
+00000000                            
+00000000                            		elseif ('\.cc'>='A')&('\.cc'<='Z')
+00000000                            			dc.\0 ('\.cc'-'A'+$B)|or	; A-Z
+00000000                            
+00000000                            		elseif '\.cc'='!'
+00000000                            			dc.\0 $25|or	; !
+00000000                            
+00000000                            		elseif '\.cc'='?'
+00000000                            			dc.\0 $26|or	; ?
+00000000                            
+00000000                            		elseif '\.cc'='.'
+00000000                            			dc.\0 $27|or	; .
+00000000                            
+00000000                            		elseif '\.cc'=','
+00000000                            			dc.\0 $28|or	; ,
+00000000                            
+00000000                            		elseif '\.cc'=':'
+00000000                            			dc.\0 $29|or	; :
+00000000                            
+00000000                            		elseif '\.cc'=';'
+00000000                            			dc.\0 $2A|or	; ;
+00000000                            
+00000000                            		elseif '\.cc'='^'
+00000000                            			dc.\0 $45|or	; ^
+00000000                            
+00000000                            		elseif '\.cc'='/'
+00000000                            			dc.\0 $46|or	; /
+00000000                            
+00000000                            		elseif '\.cc'='\\'
+00000000                            			dc.\0 $47|or	; \
+00000000                            
+00000000                            		elseif '\.cc'='*'
+00000000                            			dc.\0 $48|or	; *
+00000000                            
+00000000                            		elseif '\.cc'='-'
+00000000                            			dc.\0 $49|or	; -
+00000000                            
+00000000                            		elseif '\.cc'='|'
+00000000                            			dc.\0 $4A|or	; _ (wider)
+00000000                            
+00000000                            		elseif '\.cc'='$'
+00000000                            			dc.\0 $4B|or	; $
+00000000                            
+00000000                            		elseif '\.cc'='%'
+00000000                            			dc.\0 $4C|or	; %
+00000000                            
+00000000                            		elseif '\.cc'='#'
+00000000                            			dc.\0 $4D|or	; #
+00000000                            
+00000000                            		elseif '\.cc'='+'
+00000000                            			dc.\0 $4E|or	; +
+00000000                            
+00000000                            		elseif '\.cc'='}'
+00000000                            			dc.\0 $4F|or	; ->
+00000000                            
+00000000                            		elseif '\.cc'='{'
+00000000                            			dc.\0 $50|or	; <-
+00000000                            
+00000000                            		elseif '\.cc'='@'
+00000000                            			dc.\0 $51|or	; @
+00000000                            
+00000000                            		elseif '\.cc'='_'
+00000000                            			dc.\0 $52|or	; _
+00000000                            
+00000000                            		elseif '\.cc'='('
+00000000                            			dc.\0 $53|or	; (
+00000000                            
+00000000                            		elseif '\.cc'=')'
+00000000                            			dc.\0 $54|or	; )
+00000000                            
+00000000                            		elseif '\.cc'='['
+00000000                            			dc.\0 $55|or	; [
+00000000                            
+00000000                            		elseif '\.cc'=']'
+00000000                            			dc.\0 $56|or	; ]
+00000000                            
+00000000                            		elseif '\.cc'='>'
+00000000                            			dc.\0 $57|or	; >
+00000000                            
+00000000                            		elseif '\.cc'='<'
+00000000                            			dc.\0 $58|or	; <
+00000000                            
+00000000                            		elseif '\.cc'='&'
+00000000                            			dc.\0 $59|or	; &
+00000000                            
+00000000                            		elseif '\.cc'='~'
+00000000                            			dc.\0 $5A|or	; ~
+00000000                            
+00000000                            		elseif '\.cc'="'"
+00000000                            			dc.\0 $5B|or	; '
+00000000                            
+00000000                            		elseif '\.cc'='"'
+00000000                            			dc.\0 $5C|or	; "
+00000000                            
+00000000                            		elseif '\.cc'='='
+00000000                            			dc.\0 $5D|or	; =
+00000000                            
+00000000                            		elseif '\.cc'='`'
+00000000                            			dc.\0 $5E|or	; `
+00000000                            
+00000000                            		else
+00000000                            			inform 2,"ASCII value failure: \.cc %d", .cc
+00000000                            		endif
+00000000                            
+00000000                            .lc =		.lc+1
+00000000                            	endr
+00000000                                endm
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            ; tells the Z80 to stop, and waits for it to finish stopping (acquire bus)
+00000000                            stopZ80 macro
+00000000                            		move.w	#$100,Z80_bus_request	; stop the Z80
+00000000                            .loop\@		btst	#0,Z80_bus_request
+00000000                            		bne.s	.loop\@			; loop until it says it's stopped
+00000000                                endm
+00000000                            
+00000000                            ; tells the Z80 to start again
+00000000                            startZ80 macro
+00000000                            		move.w	#0,Z80_bus_request	; start the Z80
+00000000                                endm
+00000000                            
+00000000                            ; waits for YM
+00000000                            waitYM        macro	reg
+00000000                            .wait\@:	move.b	(\reg),d2
+00000000                            		btst	#7,d2
+00000000                            		bne.s	.wait\@
+00000000                                    endm
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            	rsreset		; set __rs to 0
+00000000 =00000000                  cmp_unc		rs.b 4	; uncompressed driver image
+00000000 =00000004                  cmp_kos		rs.b 4	; kosinski compressed driver image
+00000000 =00000008                  cmp_comp	rs.b 4	; comper compressed driver image
+00000000 =0000000C                  cmp_eni		rs.b 4	; enigma compressed driver image
+00000000 =00000010                  cmp_nem		rs.b 4	; nemesis compressed driver image
+00000000 =00000014                  cmp_sax		rs.b 4	; saxman compressed driver image
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            ; resets variables which are responsible for dealing with adding drivers.
+00000000                            ; the next macro includes the sound driver's into the mix and sets up
+00000000                            ; variables specific to it.
+00000000                            drvinit	macro
+00000000                            drvnum		= 0
+00000000                                endm
+00000000                            
+00000000                            incdrv	macro	folder, name, comp
+00000000                            \name	=	drvnum		; equate driver name with it's ID
+00000000                            	numToStr drvnum, 4
+00000000                            Driver68k_Folder_\outStr	equs "\folder"; get the folder the driver is installed on
+00000000                            
+00000000                            Driver68k_\outStr:
+00000000                            	dc.w \comp		; set compression mode
+00000000                            	if \comp=cmp_unc	; set size of the driver if uncompressed
+00000000                            		dc.w ((DriverZ80_\outStr-DriverZ80_End_\outStr-4)/4)-1
+00000000                            	else			; if not uncompressed, set a pointer to z80 driver
+00000000                            		dc.l DriverZ80_\outStr
+00000000                            	endif
+00000000                            	incbin	"\folder\/drv.68k"; include the actual driver code
+00000000                            Driver68k_End_\outStr:		; set ending point for the driver (uncompressed only)
+00000000                            
+00000000                            DriverZ80_\outStr:
+00000000                            	if \comp=cmp_unc	; set size of the driver if uncompressed
+00000000                            		dc.w ((DriverZ80_\outStr-DriverZ80_End_\outStr-4)/4)-1
+00000000                            	endif
+00000000                            	incbin	"\folder\/drv.z80"; include the actual driver code
+00000000                            DriverZ80_End_\outStr:		; set ending point for the driver (uncompressed only)
+00000000                            
+00000000                            drvnum	=	drvnum+4	; next driver ID
+00000000                                endm
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            ; following macros are all about including specific array's to driver images
+00000000                            ; and specific data.
+00000000                            drvimg	macro
+00000000                            rvar	= 0			; reset driver ID
+00000000                            	rept	drvnum/4	; do for all installed drivers
+00000000                            		numToStr rvar, 4
+00000000                            		dc.l Driver68k_\outStr; set pointer to driver data
+00000000                            
+00000000                            rvar	= rvar+4		; next driver
+00000000                            	endr
+00000000                                endm
+00000000                            
+00000000                            drvplay	macro
+00000000                            rvar	= 0			; reset driver ID
+00000000                            	rept	drvnum/4	; do for all installed drivers
+00000000                            		numToStr rvar, 4
+00000000                            		dc.l DrvPlay_\outStr; set pointer to driver data
+00000000                            
+00000000                            rvar	= rvar+4		; next driver
+00000000                            	endr
+00000000                            
+00000000                            rvar	= 0			; reset driver ID
+00000000                            	rept	drvnum/4	; do for all installed drivers
+00000000                            		numToStr rvar, 4
+00000000                            dir		equs Driver68k_Folder_\outStr
+00000000                            DrvPlay_\outStr:
+00000000                            	include	"\dir\/play.asm"
+00000000                            
+00000000                            rvar	= rvar+4		; next driver
+00000000                            	endr
+00000000                                endm
+00000000                            
+00000000                            drvload	macro
+00000000                            rvar	= 0			; reset driver ID
+00000000                            	rept	drvnum/4	; do for all installed drivers
+00000000                            		numToStr rvar, 4
+00000000                            		dc.l DrvLoad_\outStr; set pointer to driver data
+00000000                            
+00000000                            rvar	= rvar+4		; next driver
+00000000                            	endr
+00000000                            
+00000000                            rvar	= 0			; reset driver ID
+00000000                            	rept	drvnum/4	; do for all installed drivers
+00000000                            		numToStr rvar, 4
+00000000                            dir		equs Driver68k_Folder_\outStr
+00000000                            DrvLoad_\outStr:
+00000000                            	include	"\dir\/load.asm"
+00000000                            
+00000000                            rvar	= rvar+4		; next driver
+00000000                            	endr
+00000000                                endm
+00000000                            ; ===========================================================================
+00000000                            ; following macros initialize music files and allows to add music files
+00000000                            ; that can be played on the program.
+00000000                            musinit	macro
+00000000                            musnum		= 0
+00000000                                endm
+00000000                            
+00000000                            incmusbin	macro	driver, file, name, isZ80
+00000000                            	numToStr musnum, 4
+00000000                            	if isZ80=1
+00000000                            		if ((offset(*)+filesize("music/\file\.bin"))&$FF8000)>(offset(*)&$FF8000)
+00000000                            			align $8000
+00000000                            		endif
+00000000                            	endif
+00000000                            MusicFile_\outStr:
+00000000                            	asc2.w $8000, \name
+00000000                            	dc.w \driver
+00000000                            	incbin "music/\file\.bin"
+00000000                            	even
+00000000                            
+00000000                            musnum		= musnum+4	; next music ID
+00000000                                endm
+00000000                            
+00000000                            ; the following is for music that are in smps2asm format.
+00000000                            incmusasm	macro	driver, file, name, isZ80
+00000000                            	numToStr musnum, 4
+00000000                            	if isZ80=1
+00000000                            		align $8000	; can not check if align is needed
+00000000                            	endif
+00000000                            MusicFile_\outStr:
+00000000                            	asc2.w $8000, \name
+00000000                            	dc.w \driver
+00000000                            	include "music/\file\.asm"
+00000000                            	even
+00000000                            
+00000000                            musnum		= musnum+4	; next music ID
+00000000                                endm
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            ; following macros are all about including specific array's to music files.
+00000000                            musfile	macro
+00000000                            		dc.l MusicStop	; information for stop sfx (id 0)
+00000000                            rvar	= 0			; reset driver ID
+00000000                            	rept	musnum/4	; do for all installed drivers
+00000000                            		numToStr rvar, 4
+00000000                            		dc.l MusicFile_\outStr; set pointer to driver data
+00000000                            
+00000000                            rvar	= rvar+4		; next driver
+00000000                            	endr
+00000000                                endm
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            ; Z80 addresses
+00000000 =00A00000                  Z80_RAM =			$A00000 ; start of Z80 RAM
+00000000 =00A02000                  Z80_RAM_end =			$A02000 ; end of non-reserved Z80 RAM
+00000000 =00A11100                  Z80_bus_request =		$A11100
+00000000 =00A11200                  Z80_reset =			$A11200
+00000000                            
+00000000 =00A130F1                  SRAM_access =			$A130F1
+00000000 =00A14000                  Security_addr =			$A14000
+00000000                            ; ===========================================================================
+00000000                            ; I/O Area
+00000000 =00A10001                  HW_Version =			$A10001
+00000000 =00A10003                  HW_Port_1_Data =		$A10003
+00000000 =00A10005                  HW_Port_2_Data =		$A10005
+00000000 =00A10007                  HW_Expansion_Data =		$A10007
+00000000 =00A10009                  HW_Port_1_Control =		$A10009
+00000000 =00A1000B                  HW_Port_2_Control =		$A1000B
+00000000 =00A1000D                  HW_Expansion_Control =		$A1000D
+00000000 =00A1000F                  HW_Port_1_TxData =		$A1000F
+00000000 =00A10011                  HW_Port_1_RxData =		$A10011
+00000000 =00A10013                  HW_Port_1_SCtrl =		$A10013
+00000000 =00A10015                  HW_Port_2_TxData =		$A10015
+00000000 =00A10017                  HW_Port_2_RxData =		$A10017
+00000000 =00A10019                  HW_Port_2_SCtrl =		$A10019
+00000000 =00A1001B                  HW_Expansion_TxData =		$A1001B
+00000000 =00A1001D                  HW_Expansion_RxData =		$A1001D
+00000000 =00A1001F                  HW_Expansion_SCtrl =		$A1001F
+00000000                            
+00000000                            ; ===========================================================================
+00000000                            ; VDP addresses
+00000000 =00C00000                  VDP_data_port =			$C00000
+00000000 =00C00004                  VDP_control_port =		$C00004
+00000000 =00C00011                  PSG_input =			$C00011
+00000000                            ; ===========================================================================
+00000000                            	rsset	$FFFF0000
+00000000 =FFFF0002                  Z80music	equ __rs+2	; if z80 driver, this is the address of the music file.
+00000000 =FFFF0000                  Driver68K	rs.b $8000	; 68k driver ROM. if Z80 driver, this is rte
+00000000 =FFFF8000                  Drv68Kmem	rs.b $1000	; memory for the 68k driver. This may be used by z80 drivers for things too
+00000000                            		rs.l 3		; stack overflow area
+00000000 =FFFF900C                  StackUflowRAM	rs.l 1		; stack overflow area
+00000000 =FFFF9010                  StackStart	rs.b $100	; 68k stack
+00000000 =FFFF9110                  Stack		rs.b 0		; 68k stack pointer
+00000000 =FFFF9110                  StackOflowRAM	rs.l 4		; stack underflow area
+00000000 =FFFF9120                  MainPalette	rs.b $80	; current palette of the program
+00000000 =FFFF91A0                  VScrollRAM	rs.b 80		; Vertical scrolling RAM
+00000000 =FFFF91F0                  MusSelection	rs.w 1		; current song selection
+00000000 =FFFF91F2                  MusPlaying	rs.w 1		; current song playing
+00000000 =FFFF91F4                  LoadedDriver	rs.b 1		; currently loaded sound driver
+00000000                            		rs.w 0		; make sure these addresses are even
+00000000 =FFFF91F6                  Ctrl1Held	rs.b 1		; controller 1 held buttons
+00000000 =FFFF91F7                  Ctrl1Press	rs.b 1		; controller 1 pressed buttons
+00000000 =FFFF91F8                  Ctrl2Held	rs.b 1		; controller 2 held buttons
+00000000 =FFFF91F9                  Ctrl2Press	rs.b 1		; controller 2 pressed buttons
+00000000 =FFFF91FA                  Ctrl0Held	rs.b 1		; controller 0 held buttons
+00000000 =FFFF91FB                  Ctrl0Press	rs.b 1		; controller 0 pressed buttons
+00000000 =FFFF91FC                  DebugFlag	rs.b 1		; whether or not debug mode is active
+00000000                            ; ===========================================================================
+00000000                            ; ===========================================================================
+00000000                            
+00000000                            	org $FFFF0000		; pretend we are in RAM
+FFFF0000 4E75                       		rts		; no 68k code

@@ -41,8 +41,6 @@ SystemPalette:
 
 	include 'string.asm'		; string display library
 	include 'crash.asm'		; crash handlers and debuggers
-	include 'music.asm'		; include all music files
-	include 'drivers.asm'		; include all sound driver data
 	include 'init.asm'		; initialization code and main loop
 	include 'program.asm'		; main program (must be after init.asm)
 	include 'VBlank.asm'		; Vertical Blanking code & controller polling
@@ -51,6 +49,9 @@ SystemPalette:
 SystemFont:
 	incbin  'exe/font.kos'		; System font
 	even				; made by Bakayote
+
+	include 'music.asm'		; include all music files
+	include 'drivers.asm'		; include all sound driver data
 ; ===========================================================================
 EndOfRom:
 		END

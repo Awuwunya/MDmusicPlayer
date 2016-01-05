@@ -1,6 +1,6 @@
 	opt ae+		; automatic even's
 	opt l+		; . is local lable symbol
-	opt w+		; print warnings
+	opt w-		; don't print warnings
 	opt op+		; optimize PC relative addressing
 	opt os+		; optimize short branches
 	opt ow+		; optimize absolute long addressing
@@ -23,8 +23,8 @@ outStr	equs ""			; this is our final output variables
 	rept	\nibbles	; repeat for each required nibble
 num	=	numc&$F		; get the nibble number
 str	substr	num+1, num+1, "0123456789ABCDEF"; now transform it to string
-outStr	equs "\outStr\\str"	; add it to out string
-numc	= numc>4		; finally shift the nibble out
+outStr	equs "\str\\outStr"	; add it to out string
+numc	= numc>>4		; finally shift the nibble out
 	endr
     endm
 
@@ -218,6 +218,14 @@ stopZ80 macro
 startZ80 macro
 		move.w	#0,Z80_bus_request	; start the Z80
     endm
+
+; waits for YM
+waitYM        macro	reg
+.wait\@:	move.b	(\reg),d2
+		btst	#7,d2
+		bne.s	.wait\@
+        endm
+
 ; ===========================================================================
 	rsreset		; set __rs to 0
 cmp_unc		rs.b 4	; uncompressed driver image
@@ -293,6 +301,25 @@ rvar	= rvar+4		; next driver
 	endr
     endm
 
+drvload	macro
+rvar	= 0			; reset driver ID
+	rept	drvnum/4	; do for all installed drivers
+		numToStr rvar, 4
+		dc.l DrvLoad_\outStr; set pointer to driver data
+
+rvar	= rvar+4		; next driver
+	endr
+
+rvar	= 0			; reset driver ID
+	rept	drvnum/4	; do for all installed drivers
+		numToStr rvar, 4
+dir		equs Driver68k_Folder_\outStr
+DrvLoad_\outStr:
+	include	"\dir\/load.asm"
+
+rvar	= rvar+4		; next driver
+	endr
+    endm
 ; ===========================================================================
 ; following macros initialize music files and allows to add music files
 ; that can be played on the program.
@@ -300,8 +327,13 @@ musinit	macro
 musnum		= 0
     endm
 
-incmusbin	macro	driver, file, name
+incmusbin	macro	driver, file, name, isZ80
 	numToStr musnum, 4
+	if isZ80=1
+		if ((offset(*)+filesize("music/\file\.bin"))&$FF8000)>(offset(*)&$FF8000)
+			align $8000
+		endif
+	endif
 MusicFile_\outStr:
 	asc2.w $8000, \name
 	dc.w \driver
@@ -312,8 +344,11 @@ musnum		= musnum+4	; next music ID
     endm
 
 ; the following is for music that are in smps2asm format.
-incmusasm	macro	driver, file, name
+incmusasm	macro	driver, file, name, isZ80
 	numToStr musnum, 4
+	if isZ80=1
+		align $8000	; can not check if align is needed
+	endif
 MusicFile_\outStr:
 	asc2.w $8000, \name
 	dc.w \driver
@@ -345,7 +380,6 @@ Z80_reset =			$A11200
 
 SRAM_access =			$A130F1
 Security_addr =			$A14000
-
 ; ===========================================================================
 ; I/O Area
 HW_Version =			$A10001
