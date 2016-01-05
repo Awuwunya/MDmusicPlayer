@@ -52,6 +52,7 @@ StackUnderflow:	crash 22, 6; custom error: If stack would underflow, run here
 StackOverflow:	crash 24, 6; custom error: If stack would overflow, run here
 ; ===========================================================================
 CrashHandler:; initialize the system
+		move.b	#-1,LoadedDriver.w		; do NOT run sound driver code
 		movem.l	d0-a7,Crash_D0			; store registers to RAM
 		moveq	#0,d0
 		move.b	CrashStckFrm,d0			; get stack frame size
@@ -90,9 +91,9 @@ CrashHandler:; initialize the system
 		lea	ConditionCodeStr(pc),a0		; get CCR field string
 		jsr	WriteString3.w			; display it
 		move.l	usp,a0				; get usp
-		move.l	a0,d3				; put to a3
+		move.l	a0,d3				; put to d3
 		moveq	#0,d2				; no or
-		jsr	WriteNumberAddr2		; display
+		jsr	WriteNumberAddr2.w		; display
 
 	; start by writing frame for CCR values
 		lea	ConditionCodeStr2(pc),a0	; get CCR field string 2
@@ -121,7 +122,7 @@ CrashHandler:; initialize the system
 		movea.l	d0,a0				; get the final stack address to a0
 		move.l	-4(a0),d3			; get the PC addredd to d3
 		moveq	#0,d2				; no or
-		jsr	WriteNumberAddr2		; finally write to display
+		jsr	WriteNumberAddr2.w		; finally write to display
 
 	; write status register
 		lea	srErrorStr(pc),a0		; get SR string
@@ -129,7 +130,7 @@ CrashHandler:; initialize the system
 		moveq	#$16,d4				; x-position
 		jsr	WriteString1.w			; display it
 		move.w	(sp)+,d3			; get status register num
-		jsr	WriteNumberWord2		; display value
+		jsr	WriteNumberWord2.w		; display value
 
 	; write d0-a7
 		moveq	#0,d4				; x-position to write to
@@ -142,7 +143,7 @@ CrashHandler:; initialize the system
 
 .regsloop	jsr	WriteString3.w			; display regsiter string
 		move.l	(a1)+,d3			; get register value
-		jsr	WriteNumberLong2		; display value
+		jsr	WriteNumberLong2.w		; display value
 		dbf	d0,.regsloop			; loop for each register
 
 	; next write entire stack after the point it was used
@@ -176,7 +177,7 @@ CrashHandler:; initialize the system
 .nextvalue	move.w	(a1)+,d3			; get next word
 		move.w	(sp),d5				; get y-position from stack
 		move.w	2(sp),d4			; get x-position from stack
-		jsr	WriteNumberWord1		; display value
+		jsr	WriteNumberWord1.w		; display value
 
 		add.w	#5,2(sp)			; advance x-position
 		sub.w	#2,4(sp)			; sub 2 bytes from stack size left
@@ -230,7 +231,7 @@ CrashCodeTable:
 		moveq	#$16,d4				; x-position
 		jsr	WriteString1.w			; display it
 		move.w	-8(a1),d3			; get instruction register num
-		jsr	WriteNumberWord2		; display value
+		jsr	WriteNumberWord2.w		; display value
 
 	; next replaces USP with address error was in
 		lea	addrErrorStr(pc),a0		; get SR string
@@ -238,7 +239,7 @@ CrashCodeTable:
 		moveq	#$A,d4				; x-position
 		jsr	WriteString1.w			; display it
 		move.l	-12(a1),d3			; get the address
-		jsr	WriteNumberAddr2		; display value
+		jsr	WriteNumberAddr2.w		; display value
 
 	; write bitfield info into screen
 		lea	aesErrorStr(pc),a0		; get address error special bitfield string

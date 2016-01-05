@@ -4,7 +4,10 @@ VBlank:
 	dma68kToVDP	VScrollRAM, 0, 80, VSRAM	; DMA Vertical scrolling to VSRAM
 
 		bsr.s	ReadControllers			; read controller input
-		movem.l	(sp)+,d0-d1/a0-a1
+		tst.b	LoadedDriver			; has driver been loaded?
+		bmi.s	.nope				; branch if not
+		jsr	Driver68K			; run sound driver code
+.nope		movem.l	(sp)+,d0-d1/a0-a1
 		rte
 ; ===========================================================================
 

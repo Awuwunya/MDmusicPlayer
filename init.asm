@@ -71,7 +71,7 @@ PSGInitLoop:
 
 PortC_Ok:
 		jsr	InitControllers		; initialize controllers
-		bra.s	GameProgram
+		bra	GameProgram
 ; ===========================================================================
 SetupValues:	dc.w $8000		; XREF: PortA_Ok
 		dc.w $3FFF
@@ -104,7 +104,8 @@ SetupValues:	dc.w $8000		; XREF: PortA_Ok
 
 		dc.b $9F, $BF, $DF, $FF	; values for PSG channel volumes
 ; ===========================================================================
-
+SoundSelectStr:	asc2.w $8000,'Currently playing:$0000         Play music:$0000           Name:Stop music sfx'
+; ===========================================================================
 ResetProgram:
 		move.w	SetupValues+2(pc),d1	; get length
 		moveq	#0,d0			; get 0
@@ -128,12 +129,22 @@ GameProgram:
 
 .load2		move.w	(a0)+,(a1)+		; copy 1 entry
 		dbf	d0,.load2		; loop until done
+		move.w	#$4E75,Driver68K	; put RTS in 68k RAM
+		move.b	#-1,LoadedDriver.w	; no sound driver loaded
+		move.w	#$100,Z80_reset		; reset the Z80
 
+	; load system font
 		lea	SystemFont,a0			; get system font
 		lea	$FF0000,a1			; get start of RAM
 		jsr	KosDec				; decompress the art
 	dma68kToVDP	$FF0000, $20, $BC0, VRAM	; DMA font art
 		move	#$2300,sr			; enable vertical interrupts
+
+	; right here we initialize what you see onscreen
+		lea	SoundSelectStr(pc),a0	; get sound select string
+		moveq	#25,d5			; text x-position
+		moveq	#0,d4			; text y-position
+		jsr	WriteString1.w		; display it
 
 		; program start
 

@@ -15,6 +15,20 @@ align macro
 	endm
 
 ; ===========================================================================
+; general purpose macro to turn a variable into string, for example
+; to add after lable name.
+numToStr	macro	var, nibbles
+numc	= \var			; create temporary variable
+outStr	equs ""			; this is our final output variables
+	rept	\nibbles	; repeat for each required nibble
+num	=	numc&$F		; get the nibble number
+str	substr	num+1, num+1, "0123456789ABCDEF"; now transform it to string
+outStr	equs "\outStr\\str"	; add it to out string
+numc	= numc>4		; finally shift the nibble out
+	endr
+    endm
+
+; ===========================================================================
 vdpComm		macro ins,addr,type,rwd,end,end2
 	if narg=5
 		\ins #(((\type&\rwd)&3)<<30)|((\addr&$3FFF)<<16)|(((\type&\rwd)&$FC)<<2)|((\addr&$C000)>>14), \end
@@ -204,6 +218,123 @@ stopZ80 macro
 startZ80 macro
 		move.w	#0,Z80_bus_request	; start the Z80
     endm
+; ===========================================================================
+	rsreset		; set __rs to 0
+cmp_unc		rs.b 4	; uncompressed driver image
+cmp_kos		rs.b 4	; kosinski compressed driver image
+cmp_comp	rs.b 4	; comper compressed driver image
+cmp_eni		rs.b 4	; enigma compressed driver image
+cmp_nem		rs.b 4	; nemesis compressed driver image
+cmp_sax		rs.b 4	; saxman compressed driver image
+
+; ===========================================================================
+; resets variables which are responsible for dealing with adding drivers.
+; the next macro includes the sound driver's into the mix and sets up
+; variables specific to it.
+drvinit	macro
+drvnum		= 0
+    endm
+
+incdrv	macro	folder, name, comp
+\name	=	drvnum		; equate driver name with it's ID
+	numToStr drvnum, 4
+Driver68k_Folder_\outStr	equs "\folder"; get the folder the driver is installed on
+
+Driver68k_\outStr:
+	dc.w \comp		; set compression mode
+	if \comp=cmp_unc	; set size of the driver if uncompressed
+		dc.w ((DriverZ80_\outStr-DriverZ80_End_\outStr-4)/4)-1
+	else			; if not uncompressed, set a pointer to z80 driver
+		dc.l DriverZ80_\outStr
+	endif
+	incbin	"\folder\/drv.68k"; include the actual driver code
+Driver68k_End_\outStr:		; set ending point for the driver (uncompressed only)
+
+DriverZ80_\outStr:
+	if \comp=cmp_unc	; set size of the driver if uncompressed
+		dc.w ((DriverZ80_\outStr-DriverZ80_End_\outStr-4)/4)-1
+	endif
+	incbin	"\folder\/drv.z80"; include the actual driver code
+DriverZ80_End_\outStr:		; set ending point for the driver (uncompressed only)
+
+drvnum	=	drvnum+4	; next driver ID
+    endm
+
+; ===========================================================================
+; following macros are all about including specific array's to driver images
+; and specific data.
+drvimg	macro
+rvar	= 0			; reset driver ID
+	rept	drvnum/4	; do for all installed drivers
+		numToStr rvar, 4
+		dc.l Driver68k_\outStr; set pointer to driver data
+
+rvar	= rvar+4		; next driver
+	endr
+    endm
+
+drvplay	macro
+rvar	= 0			; reset driver ID
+	rept	drvnum/4	; do for all installed drivers
+		numToStr rvar, 4
+		dc.l DrvPlay_\outStr; set pointer to driver data
+
+rvar	= rvar+4		; next driver
+	endr
+
+rvar	= 0			; reset driver ID
+	rept	drvnum/4	; do for all installed drivers
+		numToStr rvar, 4
+dir		equs Driver68k_Folder_\outStr
+DrvPlay_\outStr:
+	include	"\dir\/play.asm"
+
+rvar	= rvar+4		; next driver
+	endr
+    endm
+
+; ===========================================================================
+; following macros initialize music files and allows to add music files
+; that can be played on the program.
+musinit	macro
+musnum		= 0
+    endm
+
+incmusbin	macro	driver, file, name
+	numToStr musnum, 4
+MusicFile_\outStr:
+	asc2.w $8000, \name
+	dc.w \driver
+	incbin "music/\file\.bin"
+	even
+
+musnum		= musnum+4	; next music ID
+    endm
+
+; the following is for music that are in smps2asm format.
+incmusasm	macro	driver, file, name
+	numToStr musnum, 4
+MusicFile_\outStr:
+	asc2.w $8000, \name
+	dc.w \driver
+	include "music/\file\.asm"
+	even
+
+musnum		= musnum+4	; next music ID
+    endm
+
+; ===========================================================================
+; following macros are all about including specific array's to music files.
+musfile	macro
+		dc.l MusicStop	; information for stop sfx (id 0)
+rvar	= 0			; reset driver ID
+	rept	musnum/4	; do for all installed drivers
+		numToStr rvar, 4
+		dc.l MusicFile_\outStr; set pointer to driver data
+
+rvar	= rvar+4		; next driver
+	endr
+    endm
 
 ; ===========================================================================
 ; Z80 addresses
@@ -253,6 +384,8 @@ MainPalette	rs.b $80	; current palette of the program
 VScrollRAM	rs.b 80		; Vertical scrolling RAM
 MusSelection	rs.w 1		; current song selection
 MusPlaying	rs.w 1		; current song playing
+LoadedDriver	rs.b 1		; currently loaded sound driver
+		rs.w 0		; make sure these addresses are even
 Ctrl1Held	rs.b 1		; controller 1 held buttons
 Ctrl1Press	rs.b 1		; controller 1 pressed buttons
 Ctrl2Held	rs.b 1		; controller 2 held buttons

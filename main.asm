@@ -33,7 +33,7 @@ Console:	dc.b 'SEGA MEGA DRIVE ' ; Hardware system ID
 		dc.b 'NO SRAM     '
 		dc.b 'OPEN SOURCE SOFTWARE. YOU ARE WELCOME TO MAKE YOUR  '
 		dc.b 'JUE '
-		dc.b 'OWN MODIFICATIONS. PLEASE CREDIT WHEN USED. '
+		dc.b 'OWN MODIFICATIONS. PLEASE CREDIT WHEN USED'
 ; ===========================================================================
 SystemPalette:
 	incbin  'exe/main.pal'		; system main palette
@@ -41,15 +41,16 @@ SystemPalette:
 
 	include 'string.asm'		; string display library
 	include 'crash.asm'		; crash handlers and debuggers
+	include 'music.asm'		; include all music files
+	include 'drivers.asm'		; include all sound driver data
 	include 'init.asm'		; initialization code and main loop
 	include 'program.asm'		; main program (must be after init.asm)
 	include 'VBlank.asm'		; Vertical Blanking code & controller polling
 	include 'decompressors.asm'	; decompressors used
-
+; ===========================================================================
 SystemFont:
 	incbin  'exe/font.kos'		; System font
 	even				; made by Bakayote
-
 ; ===========================================================================
 EndOfRom:
 		END
