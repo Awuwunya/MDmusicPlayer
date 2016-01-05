@@ -3,6 +3,4 @@
 !*.exe
 player.bin
 S1 drv/s1.bin
-.lst
-S1_drv/68k.lst
-S1_drv/z80.lst
+*.lst
