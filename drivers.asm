@@ -6,6 +6,7 @@
 ; name: ID to be referred by when including SMPS files.
 ; compression: the compression of the sound driver. See macro.asm for further details.
 	incdrv	S1_SMPS, cmp_kos
+	incdrv	MegaPCM, cmp_kos
 	incdrv	S3K_SMPS, cmp_kos
 	incdrv	DyHe_SMPS, cmp_kos
 

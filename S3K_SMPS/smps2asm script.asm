@@ -4,7 +4,6 @@
 }
 
 ?header {
-	! > smpsHeaderStartSong:;
 	¤ /nw == 0x17D8 {
 		! > smpsHeaderVoiceUVB:;
 		$ /sw;

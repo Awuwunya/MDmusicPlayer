@@ -10,7 +10,7 @@ enum	macro	num, lable
 
 	rept narg-1
 \lable		equ .num
-.num =		.num+1
+.num =	.num+1
 	shift
 	endr
     endm

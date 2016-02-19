@@ -192,13 +192,13 @@ Sample3_Pitch:
 
 
 
-DAC_Sample1:	incbin	"dac/DAC1.bin"
+DAC_Sample1:	incbin	"dac/DAC_81.bin"
 DAC_Sample1_End:
 
-DAC_Sample2:	incbin	"dac/DAC2.bin"
+DAC_Sample2:	incbin	"dac/DAC_82.bin"
 DAC_Sample2_End:
 
-DAC_Sample3:	incbin	"dac/DAC3.bin"
+DAC_Sample3:	incbin	"dac/DAC_83.bin"
 DAC_Sample3_End:
 
 EndOfDriver:

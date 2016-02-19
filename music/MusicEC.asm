@@ -16,9 +16,8 @@ MagiciansHall_Header:
 
 MagiciansHall_FM1:
 	dc.b nRst, $06
-	smpsPan	 panCentre, $00
-
 MagiciansHall_Jump1:
+	smpsPan	 panCentre, $00
 	smpsSetvoice	$00
 	dc.b nAb2, $04, nEb3, nAb3, nA3, nB3, nEb4, nAb4
 	dc.b nA4, nB4, nEb5, nA5, nB5, nA5, nFs5, nCs5
@@ -60,9 +59,8 @@ MagiciansHall_Jump1:
 	smpsJump	MagiciansHall_Jump1
 
 MagiciansHall_FM2:
-	smpsPan	 panCentre, $00
-
 MagiciansHall_Jump2:
+	smpsPan	 panCentre, $00
 	smpsSetvoice	$00
 	dc.b nAb2, $04, nEb3, nAb3, nA3, nB3, nEb4, nAb4
 	dc.b nA4, nB4, nEb5, nA5, nB5, nA5, nFs5, nCs5
@@ -104,9 +102,8 @@ MagiciansHall_Jump2:
 	smpsJump	MagiciansHall_Jump2
 
 MagiciansHall_FM3:
-	smpsPan	 panCentre, $00
-
 MagiciansHall_Jump3:
+	smpsPan	 panCentre, $00
 	smpsSetvoice	$01
 	dc.b nAb1, $10, nEb2, nB2, nA2, nCs2, nFs1, nAb1
 	dc.b nEb2, nB2, nFs2, nCs2, nFs1, nAb1, nEb2, nB2
@@ -121,9 +118,8 @@ MagiciansHall_Jump3:
 	smpsJump	MagiciansHall_Jump3
 
 MagiciansHall_FM4:
-	smpsPan	 panRight, $00
-
 MagiciansHall_Jump4:
+	smpsPan	 panRight, $00
 	smpsSetvoice	$02
 	dc.b nEb4, $08
 	smpsPan	 panCentre, $00
@@ -232,9 +228,8 @@ MagiciansHall_Jump4:
 
 MagiciansHall_FM5:
 	dc.b nRst, $06
-	smpsPan	 panRight, $00
-
 MagiciansHall_Jump5:
+	smpsPan	 panRight, $00
 	smpsSetvoice	$02
 	dc.b nEb4, $04
 	smpsPan	 panCentre, $00
@@ -347,9 +342,8 @@ MagiciansHall_Jump5:
 
 MagiciansHall_FM6:
 	dc.b nRst, $04
-	smpsPan	 panCentre, $00
-
 MagiciansHall_Jump6:
+	smpsPan	 panCentre, $00
 	smpsSetvoice	$02
 	dc.b nEb3, $08, $08, nEb4, $08, $08
 	smpsPan	 panLeft, $00
@@ -459,9 +453,8 @@ MagiciansHall_Jump6:
 	smpsJump	MagiciansHall_Jump6
 
 MagiciansHall_PSG1:
-	smpsPSGvoice	 sTone_05
-
 MagiciansHall_Jump7:
+	smpsPSGvoice	 sTone_05
 	dc.b nEb4, $30, nCs4, $20, nE4, $10, nEb4, $30
 	dc.b nE4, $10, nFs4, nE4, nEb4, $30, nCs4, $20
 	dc.b nE4, $10, nEb4, $30, nE4, $10, nFs4, nE4
@@ -484,9 +477,8 @@ MagiciansHall_Jump7:
 	smpsJump	MagiciansHall_Jump7
 
 MagiciansHall_PSG2:
-	smpsPSGvoice	 sTone_05
-
 MagiciansHall_Jump8:
+	smpsPSGvoice	 sTone_05
 	dc.b nAb4, $30, nFs4, $20, nA4, $10, nAb4, $30
 	dc.b nA4, $10, nB4, nA4, nAb4, $30, nFs4, $20
 	dc.b nA4, $10, nAb4, $30, nA4, $10, nB4, nA4
@@ -509,9 +501,8 @@ MagiciansHall_Jump8:
 
 MagiciansHall_PSG3:
 	dc.b nRst, $06
-	smpsPSGvoice	 sTone_05
-
 MagiciansHall_Jump9:
+	smpsPSGvoice	 sTone_05
 	dc.b nAb4, $30, nFs4, $20, nA4, $10, nAb4, $30
 	dc.b nA4, $10, nB4, nA4, nAb4, $30, nFs4, $20
 	dc.b nA4, $10, nAb4, $30, nA4, $10, nB4, nA4
@@ -533,7 +524,7 @@ MagiciansHall_Jump9:
 	smpsJump	MagiciansHall_Jump9
 
 MagiciansHall_DAC:
-	smpsStop
+	smpsStop	
 
 MagiciansHall_Voices:
 	dc.b $34, $33, $41, $7E, $74, $5B, $9F, $5F, $1F, $04, $07, $07, $08, $00, $00, $00, $00, $FF, $FF, $EF, $FF, $23, $80, $29, $87

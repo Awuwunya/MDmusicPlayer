@@ -38,13 +38,13 @@
 
 ?DAC {
 	=nRst 0x80
-	=dKick 0x81
-	=dSnare 0x82
-	=dTimpani 0x83
-	=dHiTimpani 0x88
-	=dMidTimpani 0x89
-	=dLowTimpani 0x8A
-	=dVLowTimpani 0x8B
+	=dMKick 0x81
+	=dMSnare 0x82
+	=dMTimpani 0x83
+	=dMHiTimpani 0x88
+	=dMMidTimpani 0x89
+	=dMMidLowTimpani 0x8A
+	=dMLowTimpani 0x8B
 }
 
 ?note {

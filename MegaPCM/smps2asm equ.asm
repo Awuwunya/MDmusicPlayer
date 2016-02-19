@@ -1,4 +1,4 @@
-s2e_S1_SMPS	macro
+s2e_MegaPCM	macro
 smpsIsZ80 =	0
 smpsNoAttack =	$E7
 nMaxPSG	=	nA5
@@ -8,114 +8,114 @@ nMaxPSG	=	nA5
 	enum sTone_06+1, sTone_07,sTone_08,sTone_09
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
-	enum $81, dKick,dSnare,dTimpani
-	enum $88, dHiTimpani,dMidTimpani,dLowTimpani,dVLowTimpani
+	enum $81, dMKick,dMSnare,dTMimpani
+	enum $88, dMHiTimpani,dMMidTimpani,dMMidLowTimpani,dMLowTimpani
     endm
 
-s2e_S1_SMPS_smpsPan	macro direction,amsfms
+s2e_MegaPCM_smpsPan	macro direction,amsfms
 	dc.b $E0,direction+amsfms
     endm
 
-s2e_S1_SMPS_smpsAlterNote	macro val
+s2e_MegaPCM_smpsAlterNote	macro val
 	dc.b $E1,val
     endm
 
-s2e_S1_SMPS_smpsNop	macro arg
+s2e_MegaPCM_smpsNop	macro arg
 	dc.b $E2,arg
     endm
 
-s2e_S1_SMPS_smpsReturn	macro
+s2e_MegaPCM_smpsReturn	macro
 	dc.b $E3
     endm
 
-s2e_S1_SMPS_smpsFade	macro
+s2e_MegaPCM_smpsFade	macro
 	dc.b $E4
     endm
 
-s2e_S1_SMPS_smpsTempoDiv	macro val
+s2e_MegaPCM_smpsTempoDiv	macro val
 	dc.b $E5,val
     endm
 
-s2e_S1_SMPS_smpsFMAlterVol	macro val
+s2e_MegaPCM_smpsFMAlterVol	macro val
 	dc.b $E6,val
     endm
 
-s2e_S1_SMPS_smpsNoteFill	macro val
+s2e_MegaPCM_smpsNoteFill	macro val
 	dc.b $E8,val
     endm
 
-s2e_S1_SMPS_smpsAlterPitch	macro val
+s2e_MegaPCM_smpsAlterPitch	macro val
 	dc.b $E9,val
     endm
 
-s2e_S1_SMPS_smpsSetTempo	macro mod
+s2e_MegaPCM_smpsSetTempo	macro mod
 	dc.b $EA,mod
     endm
 
-s2e_S1_SMPS_smpsSetTempoMod	macro val
+s2e_MegaPCM_smpsSetTempoMod	macro val
 	dc.b $EB,val
     endm
 
-s2e_S1_SMPS_smpsPSGAlterVol	macro vol
+s2e_MegaPCM_smpsPSGAlterVol	macro vol
 	dc.b	$EC,vol
     endm
 
-s2e_S1_SMPS_smpsClearPush macro
+s2e_MegaPCM_smpsClearPush macro
 	dc.b $ED
     endm
 
-s2e_S1_SMPS_smpsStopSpecial macro
+s2e_MegaPCM_smpsStopSpecial macro
 	dc.b $EE
     endm
 
-s2e_S1_SMPS_smpsSetvoice	macro voice
+s2e_MegaPCM_smpsSetvoice	macro voice
 	dc.b $EF,voice
     endm
 
-s2e_S1_SMPS_smpsModSet	macro wait,speed,change,step
+s2e_MegaPCM_smpsModSet	macro wait,speed,change,step
 	dc.b $F0,wait,speed,change,step
     endm
 
-s2e_S1_SMPS_smpsModOn	macro
+s2e_MegaPCM_smpsModOn	macro
 	dc.b $F1
     endm
 
-s2e_S1_SMPS_smpsStop	macro
+s2e_MegaPCM_smpsStop	macro
 	dc.b $F2
     endm
 
-s2e_S1_SMPS_smpsPSGform	macro form
+s2e_MegaPCM_smpsPSGform	macro form
 	dc.b $F3,form
     endm
 
-s2e_S1_SMPS_smpsModOff	macro
+s2e_MegaPCM_smpsModOff	macro
 	dc.b $F4
     endm
 
-s2e_S1_SMPS_smpsPSGvoice	macro voice
+s2e_MegaPCM_smpsPSGvoice	macro voice
 	dc.b $F5,voice
     endm
 
-s2e_S1_SMPS_smpsJump	macro loc
+s2e_MegaPCM_smpsJump	macro loc
 	dc.b $F6
 	dc.w loc-offset(*)-1
     endm
 
-s2e_S1_SMPS_smpsLoop	macro index,loops,loc
+s2e_MegaPCM_smpsLoop	macro index,loops,loc
 	dc.b $F7,index,loops
 	dc.w loc-offset(*)-1
     endm
 
-s2e_S1_SMPS_smpsCall	macro loc
+s2e_MegaPCM_smpsCall	macro loc
 	dc.b $F8
 	dc.w loc-offset(*)-1
     endm
 
-s2e_S1_SMPS_smpsWeirdD1LRR	macro val
+s2e_MegaPCM_smpsWeirdD1LRR	macro val
 	dc.b $F9
     endm
 
-s2e_S1_SMPS_smpsVcTotalLevel	macro op1,op2,op3,op4
+s2e_MegaPCM_smpsVcTotalLevel	macro op1,op2,op3,op4
 vcTL1 set op1
 vcTL2 set op2
 vcTL3 set op3
