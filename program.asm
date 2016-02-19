@@ -60,9 +60,8 @@ ControlPrg:
 .noredraw	tst.b	d0			; was start pressed?
 		bpl.s	.noplay			; if not, don't play music
 
-		lea	MusPlaying-MusSelection(a5),a4; get music playing RAM to a4
 		move.w	(a5),d3			; get music selection ID
-		move.w	d3,(a4)			; copy music selection to music playing
+		move.w	d3,MusPlaying-MusSelection(a5); copy music selection to music playing
 		move.w	d3,d7			; copy sound driver to d7
 		lsr.w	#2,d3			; shift right twice (divide by 4)
 

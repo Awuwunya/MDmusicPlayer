@@ -1,5 +1,5 @@
 VBlank:
-		movem.l	d0-d1/a0-a1,-(sp)
+		movem.l	d0-a6,-(sp)
 	dma68kToVDP	MainPalette, 0, $80, CRAM	; DMA palette to CRAM
 	dma68kToVDP	VScrollRAM, 0, 80, VSRAM	; DMA Vertical scrolling to VSRAM
 
@@ -7,7 +7,13 @@ VBlank:
 		tst.b	LoadedDriver			; has driver been loaded?
 		bmi.s	.nope				; branch if not
 		jsr	Driver68K			; run sound driver code
-.nope		movem.l	(sp)+,d0-d1/a0-a1
+		jsr	DrawChaninfo			; draw information about active channels
+
+		btst	#5,Ctrl1Press.w
+		beq.s	.nope
+		eori.w	#-1,ActiveChn.w
+
+.nope		movem.l	(sp)+,d0-a6
 		rte
 ; ===========================================================================
 
@@ -37,7 +43,7 @@ ReadControllers:
 		move.b	d1,(a0)+		; Put pressed controller input in RAM
 		rts
 ; End of function Poll_Controller
-; ===========================================================================
+; ======================================		=====================================
 InitControllers:
 ;	stopZ80
 		moveq	#$40,d0

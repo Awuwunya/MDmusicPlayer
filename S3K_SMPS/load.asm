@@ -6,7 +6,7 @@
 		dbf	d0,.replaceDAC		; replace all DAC bank ptr's with actual ones
 		rts
 
-
+	opt ae-		; each DAC setup entry is 5 bytes, and ae+ will screw us up
 ; ===========================================================================
 ; creates Z80 bank ID from ROM address
 MakeBankID	macro addr
@@ -19,13 +19,13 @@ MakeBankID	macro addr
 ; macro to create multiple pointers with macro below
 Z80PtrROMBank	macro addr
 	rept narg
-		Z80PtrROM \addr
+		Z80PtrROM2 \addr
 		shift
 	endr
     endm
 
 ; creates a single Z80 pointer (relative to bank) to a lable of choice
-Z80PtrROM	macro addr, lable
+Z80PtrROM2	macro addr, lable
 	if narg>1
 \lable
 	endif
@@ -67,7 +67,7 @@ Z80Bank_End	macro
 
 ; ===========================================================================
 ; simple macro to create little endian word values
-littleEndian	macro value, lable
+littleEndian2	macro value, lable
 \lable equ 	(((value)<<8)&$FF00)|(((value)>>8)&$FF)
     endm
 
@@ -89,8 +89,8 @@ DAC_Setup macro rate, dacptr
 ; but also creates the length and pointer information for later use in DAC_Setup
 incDAC		macro name, ext
 DAC_\name\_Inc =	offset(*)
-	incbin 'S3K_drv/DAC/\name\.\ext'
-		littleEndian offset(*)-DAC_\name\_Inc, DAC_\name\_Len
+	incbin 'S3K_SMPS/DAC/\name\.\ext'
+		littleEndian2 offset(*)-DAC_\name\_Inc, DAC_\name\_Len
 		Z80PtrDo DAC_\name\_Inc, DAC_\name\_Ptr
     endm
 
@@ -98,7 +98,7 @@ DAC_\name\_Inc =	offset(*)
 ; this macro lists the universal DAC list definitions for each bank
 ; used to simplify the disassembly view.
 DACBank_Defs	macro	id
-	Z80Bank_Start Z80BankAlign_Both,"DAC0\id"
+	Z80Bank_Start Z80BankAlign_Start,"DACS3K0\id"
 	Z80PtrROMBank	DAC_81_Setup\id, DAC_82_Setup\id, DAC_83_Setup\id, DAC_84_Setup\id
 	Z80PtrROMBank	DAC_85_Setup\id, DAC_86_Setup\id, DAC_87_Setup\id, DAC_88_Setup\id
 	Z80PtrROMBank	DAC_89_Setup\id, DAC_8A_Setup\id, DAC_8B_Setup\id, DAC_8C_Setup\id
@@ -274,3 +274,4 @@ S3KZ80DACBanks:
 	MakeBankID DAC_B4C1_C4_Inc, DAC_B4C1_C4_Inc, DAC_B4C1_C4_Inc, DAC_B4C1_C4_Inc
 S3KZ80DACBanks_End:
 ; ===========================================================================
+	opt ae+		; return automatic evens because yes

@@ -21,9 +21,9 @@
 ; Segment type:	Pure code
 
 	org 0
-DefaultMusicBank = 0h
-SoundBank = 0h
-SegaPCMBank = 0h
+DefaultMusicBank = 1h
+SoundBank = 1h
+SegaPCMBank = 2h
 SegaPCMPtr = 0h
 
 EntryPoint:
@@ -213,11 +213,11 @@ sub_CD:					; CODE XREF: sub_7FF+1A6p
 ; End of function sub_CD
 
 ; ---------------------------------------------------------------------------
-DACbanks:	dsb 1Ch, 0h		; S&K samples	; Natsumi: Changed to bank on SRAM
-		dsb 0Fh, 1h		; S3 samples
-		dsb 07h, 2h		; S3 samples
-		db 0h, 0h		; S&K samples
-		dsb 11h, 2h		; S3 samples
+DACbanks:	dsb 1Ch, 2h		; S&K samples	; Natsumi: Changed to bank on SRAM
+		dsb 0Fh, 3h		; S3 samples
+		dsb 07h, 4h		; S3 samples
+		db 2h, 2h		; S&K samples
+		dsb 11h, 4h		; S3 samples
 ; =============== S U B	R O U T	I N E =======================================
 
 
@@ -1926,7 +1926,7 @@ word_AA5:	dw 3FFh, 3FFh, 3FFh, 3FFh, 3FFh, 3FFh, 3FFh, 3FFh, 3FFh
 word_B4D:	dw 284h, 2ABh, 2D3h, 2FEh, 32Dh, 35Ch, 38Fh, 3C5h, 3FFh
 		dw 43Ch, 47Ch, 4C0h
 
-MusicBanks:	dsb 33h, 40h	; Natsumi: Changed to bank to SRAM
+MusicBanks:	dsb 33h, 0h	; Natsumi: Changed to bank to ROM bank 1
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -3023,8 +3023,8 @@ off_1300:	dw MusicPointers, UniversalVoices, MusicPointers, SFXPointers, ModEnvP
 	org 1618h
 MusicAmount = 		51	; S&K had 51 music slots
 SFXAmount = 		173	; S&K and S3 had 173 music slots
-MusicPointers =		$
-SFXPointers =		$
+MusicPointers:
+SFXPointers:
 			dw 0
 		org 17D8h
 UniversalVoices:

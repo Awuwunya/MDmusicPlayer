@@ -1,4 +1,5 @@
 	include "exe/macro.asm"
+	include "exe/smps2asm.asm"
 Maincode	section org(0)
 
 StartOfRom:	dc.l Stack, EntryPoint
@@ -50,8 +51,9 @@ SystemFont:
 	incbin  'exe/font.kos'		; System font
 	even				; made by Bakayote
 
-	include 'music.asm'		; include all music files
 	include 'drivers.asm'		; include all sound driver data
+	include 'music.asm'		; include all music files
+	include 'chaninfo.asm'		; Draws information about channels during VBlank
 ; ===========================================================================
 EndOfRom:
 		END

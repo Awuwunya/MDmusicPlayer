@@ -5,10 +5,17 @@
 ; driver: the name of the sound driver to use
 ; file: the filename of the music file to include. must not contain spaces
 ; name: name to be displayed as information for this file. max 32 characters
+	selectdrv S3K_SMPS
+	incmusasm	S3K_SMPS, ssz, "Sky Sanctuary Zone", 1
+	incmusasm	S3K_SMPS, icz1, "Ice Cap Zone 1", 1
+	incmusasm	S3K_SMPS, datasel, "Data Select", 1
+	selectdrv S1_SMPS
 	incmusbin	S1_SMPS, ghz, "Green Hill Zone", 0
-	incmusbin	S1_SMPS, musicEC, "Magician's hall", 0
-	incmusbin	S3K_SMPS, icz1, "Ice Cap Zone 1", 1
-	incmusbin	S3K_SMPS, icz2, "Ice Cap Zone 2", 1
+	incmusasm	S1_SMPS, musicEC, "Magician's hall", 0
+	selectdrv DyHe_SMPS
+	incmusasm	DyHe_SMPS, Izayoi, "You're Izayoi", 0
+	incmusasm	DyHe_SMPS, FunnyAngry, "Funny Angry", 0
+	incmusbin	DyHe_SMPS, Hattari, "Hattari is Here", 0
 
 ; ===========================================================================
 ; the following will construct all the drivers with the information needed.

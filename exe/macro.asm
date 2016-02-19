@@ -11,7 +11,11 @@
 
 ; ===========================================================================
 align macro
-	cnop 0,\1
+	if narg>=2
+		cnop \2,\1
+	else
+		cnop 0,\1
+	endif
 	endm
 
 ; ===========================================================================
@@ -243,8 +247,8 @@ drvinit	macro
 drvnum		= 0
     endm
 
-incdrv	macro	folder, name, comp
-\name	=	drvnum		; equate driver name with it's ID
+incdrv	macro	folder, comp
+\folder	=	drvnum		; equate driver name with it's ID
 	numToStr drvnum, 4
 Driver68k_Folder_\outStr	equs "\folder"; get the folder the driver is installed on
 
@@ -264,6 +268,8 @@ DriverZ80_\outStr:
 	endif
 	incbin	"\folder\/drv.z80"; include the actual driver code
 DriverZ80_End_\outStr:		; set ending point for the driver (uncompressed only)
+
+	include	"\folder\/smps2asm equ.asm"; include smps2asm macros
 
 drvnum	=	drvnum+4	; next driver ID
     endm
@@ -320,6 +326,26 @@ DrvLoad_\outStr:
 rvar	= rvar+4		; next driver
 	endr
     endm
+
+drvupd	macro
+rvar	= 0			; reset driver ID
+	rept	drvnum/4	; do for all installed drivers
+		numToStr rvar, 4
+		dc.l DrvUpdate_\outStr; set pointer to driver data
+
+rvar	= rvar+4		; next driver
+	endr
+
+rvar	= 0			; reset driver ID
+	rept	drvnum/4	; do for all installed drivers
+		numToStr rvar, 4
+dir		equs Driver68k_Folder_\outStr
+DrvUpdate_\outStr:
+	include	"\dir\/update.asm"
+
+rvar	= rvar+4		; next driver
+	endr
+    endm
 ; ===========================================================================
 ; following macros initialize music files and allows to add music files
 ; that can be played on the program.
@@ -328,6 +354,7 @@ musnum		= 0
     endm
 
 incmusbin	macro	driver, file, name, isZ80
+	even
 	numToStr musnum, 4
 	if isZ80=1
 		if ((offset(*)+filesize("music/\file\.bin"))&$FF8000)>(offset(*)&$FF8000)
@@ -347,15 +374,26 @@ musnum		= musnum+4	; next music ID
 incmusasm	macro	driver, file, name, isZ80
 	numToStr musnum, 4
 	if isZ80=1
+		if ((offset(*)&$7FFF)>$6000)
 		align $8000	; can not check if align is needed
+		endif
 	endif
 MusicFile_\outStr:
 	asc2.w $8000, \name
 	dc.w \driver
+
+	opt ae-	; in asm format music, automatic evens will screw us over
 	include "music/\file\.asm"
+	opt ae+	; return automatic evens because yes
 	even
 
 musnum		= musnum+4	; next music ID
+    endm
+
+; the following is for music that are in smps2asm format with the special music only mode.
+incmusasmonly	macro	file
+	opt ae-	; in asm format music, automatic evens will screw us over
+	include "music/\file\.asm"
     endm
 
 ; ===========================================================================
@@ -369,6 +407,11 @@ rvar	= 0			; reset driver ID
 
 rvar	= rvar+4		; next driver
 	endr
+    endm
+
+selectdrv	macro id
+smpsdrv equs "\id"
+	s2e_\id		; call the macro
     endm
 
 ; ===========================================================================
@@ -416,9 +459,12 @@ Stack		rs.b 0		; 68k stack pointer
 StackOflowRAM	rs.l 4		; stack underflow area
 MainPalette	rs.b $80	; current palette of the program
 VScrollRAM	rs.b 80		; Vertical scrolling RAM
+ActiveChnLast	rs.w 1		; active sound channels for last frame
+ActiveChn	rs.w 1		; currently active sound channels. Bits 0-5 = FM1-FM6, Bits 6-9 = PSG1-PSG3, Bit 10 = DAC
 MusSelection	rs.w 1		; current song selection
 MusPlaying	rs.w 1		; current song playing
 LoadedDriver	rs.b 1		; currently loaded sound driver
+DebugFlag	rs.b 1		; whether or not debug mode is active
 		rs.w 0		; make sure these addresses are even
 Ctrl1Held	rs.b 1		; controller 1 held buttons
 Ctrl1Press	rs.b 1		; controller 1 pressed buttons
@@ -426,5 +472,12 @@ Ctrl2Held	rs.b 1		; controller 2 held buttons
 Ctrl2Press	rs.b 1		; controller 2 pressed buttons
 Ctrl0Held	rs.b 1		; controller 0 held buttons
 Ctrl0Press	rs.b 1		; controller 0 pressed buttons
-DebugFlag	rs.b 1		; whether or not debug mode is active
+DACnumber	rs.b 1		; the DAC ID we are playing currently
+DACtime		rs.b 1		; timer for the currently playing DAC
+		rs.w 0		; make sure these addresses are even
+PSG3vol		rs.b 1		; PSG3 volume
+PSG3inst	rs.b 1		; PSG3 instrument
+PSG3note	rs.b 1		; PSG3 note
+PSG3time	rs.b 1		; PSG3 timer
+		rs.b 4*8	; do the same for the rest of the channels
 ; ===========================================================================

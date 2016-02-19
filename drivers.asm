@@ -5,8 +5,9 @@
 ; directory: The directory driver files are in. Must not contain spaces.
 ; name: ID to be referred by when including SMPS files.
 ; compression: the compression of the sound driver. See macro.asm for further details.
-	incdrv	S1_drv, S1_SMPS, cmp_kos
-	incdrv	S3K_drv, S3K_SMPS, cmp_kos
+	incdrv	S1_SMPS, cmp_kos
+	incdrv	S3K_SMPS, cmp_kos
+	incdrv	DyHe_SMPS, cmp_kos
 
 
 ; ===========================================================================
@@ -19,7 +20,7 @@ DriverImageArrays:
 ; ===========================================================================
 ; this is the code to load a sound driver.
 ; input;
-; d7 = sound driver ID
+; d7 = music file ID
 ; ===========================================================================
 LoadSoundDriver:
 		lea	MusicFileArrays,a3	; get music file array
@@ -38,7 +39,7 @@ LoadSoundDriver:
 		bmi.s	.loadstop		; special case: load stop sfx driver
 		move.b	#-1,LoadedDriver.w	; disable sound driver
 
-		lea	DrvPlayCodes,a0		; sound driver load code array
+		lea	DrvLoadCodes,a0		; sound driver load code array
 		move.l	(a0,d0.w),a2		; get pointer to a2
 
 		lea	DriverImageArrays,a0	; get sound driver array
@@ -51,13 +52,12 @@ LoadSoundDriver:
 		move.w	#$100,Z80_bus_request
 		move.w	#$100,Z80_reset
 		jsr	(a1)			; run decompressor code
-		jsr	(a2)			; run play code
+		jsr	(a2)			; run load code
 
 		move.w	#0,Z80_reset
+	rept 4
 		nop
-		nop
-		nop
-		nop
+	endr
 		move.w	#$100,Z80_reset
 	startZ80			; return z80 bus
 		move.b	5(sp),LoadedDriver.w	; set loaded driver
@@ -65,6 +65,7 @@ LoadSoundDriver:
 .alreadyloaded	move.l	(sp)+,d7		; get music file from stack
 		addq.w	#2,sp			; pop driver from stack
 		rts
+; ===========================================================================
 
 .loadstop	move.b	#-1,LoadedDriver.w	; no sound driver loaded
 		addq.w	#6,sp			; pop stack stuff
@@ -151,10 +152,11 @@ DrvDecom_Kos:
 		move.l	a2,-(sp)	; store a2
 		move.l	(a0)+,-(sp)	; store z80 pointer to stack
 		lea	Driver68K,a1	; get 68k driver address
-		jsr	KosDec		; kosinski decompress
+		jsr	KosDec.w	; kosinski decompress
+
 		move.l	(sp)+,a0	; get z80 pointer from stack
 		lea	Z80_RAM,a1	; get z80 driver address
-		jsr	KosDec		; kosinski decompress
+		jsr	KosDec.w	; kosinski decompress
 		move.l	(sp)+,a2	; restore a2
 		rts
 
@@ -168,8 +170,7 @@ PlayMusicFile:
 		move.b	LoadedDriver.w,d0	; get sound driver to d0
 		bmi.s	.nope			; special case: load stop sfx driver
 
-		lea	DrvPlayCodes,a1		; get music playing code array
-		move.l	(a1,d0.w),a1		; get the right entry to a1
+		move.l	DrvPlayCodes(pc,d0.w),a1; get the right entry to a1
 	stopZ80				; request z80 bus
 		jsr	(a1)			; run play music code
 	startZ80			; return z80 bus

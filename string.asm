@@ -58,25 +58,25 @@ WriteNumberAddr2:
 		bra.s	WriteNumberLoop		; write the number then!
 
 ; ===========================================================================
-WriteNumberByte1:
-		jsr	SetupStringWrite.w	; get position onscreen
-
-WriteNumberByte2:
-		moveq	#2-1,d6			; set up nibbles in num
-		bra.s	WriteNumberLoop		; write the number then!
-
-; ===========================================================================
 WriteNumberNibble1:
 		jsr	SetupStringWrite.w	; get position onscreen
 
 WriteNumberNibble2:
 		moveq	#1-1,d6			; set up nibbles in num
+		bra.s	WriteNumberLoop		; write the number then!
+
+; ===========================================================================
+WriteNumberByte1:
+		jsr	SetupStringWrite.w	; get position onscreen
+
+WriteNumberByte2:
+		moveq	#2-1,d6			; set up nibbles in num
 	; continue directly to WriteNumberLoop.
 ; ===========================================================================
 WriteNumberLoop:
 		move.w	d6,d4			; copy length
 .loop		move.b	d3,d2			; get next nibble
-		andi.b	#%1111,d2		; keep the nibble only
+		andi.w	#%1111,d2		; keep the nibble only
 		addq.b	#1,d2			; increment 1 (to skip null)
 		move.w	d2,-(sp)		; then store the number on plane
 		ror.l	#4,d3			; rotate right four times, to get the next nibble.

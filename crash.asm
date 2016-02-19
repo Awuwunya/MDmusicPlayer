@@ -297,7 +297,7 @@ irErrorStr:		asc2.w 0, ' IR:$'
 srErrorStr:		asc2.w 0, ' SR:$'
 addrErrorStr:		asc2.w 0, 'ADDR:$'
 ConditionCodeStr2:	asc2.w 0, '          CCR '
-aesErrorStr:		asc2.w 0, 'RN012'	; R = Write(0)/Read(1), N = Instruction(0)/Not(1), 0-2 = Function Code(?)
+aesErrorStr:		asc2.w 0, 'RN012'	; R = Write(0)/Read(1), N = Instruction(0)/Not(1), 0-2 = Function Code
 pcErrorStr:		asc2.w 0, '   PC:$'
 d0ErrorStr:		asc2.w 0, 'd0:$'
 d1ErrorStr:		asc2.w 0, '        d1:$'
@@ -317,3 +317,13 @@ a6ErrorStr:		asc2.w 0, 'a6:$'
 spErrorStr:		asc2.w 0, '        sp:$'
 spWriteStr:		asc2.w 0, '-$'
 ; ===========================================================================
+; Function Codes (all may not apply to 68k)
+; 012 <- bits
+; CCC - Undefined
+; SCC - User Data
+; CSC - User Program
+; SSC - Undefined
+; CCS - Undefined
+; SCS - Supervisor Data
+; CSS - Supervisor Program
+; SSS - CPU space
