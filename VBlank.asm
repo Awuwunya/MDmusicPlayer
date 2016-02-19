@@ -9,10 +9,6 @@ VBlank:
 		jsr	Driver68K			; run sound driver code
 		jsr	DrawChaninfo			; draw information about active channels
 
-		btst	#5,Ctrl1Press.w
-		beq.s	.nope
-		eori.w	#-1,ActiveChn.w
-
 .nope		movem.l	(sp)+,d0-a6
 		rte
 ; ===========================================================================

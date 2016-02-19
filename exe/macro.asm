@@ -354,7 +354,6 @@ musnum		= 0
     endm
 
 incmusbin	macro	driver, file, name, isZ80
-	even
 	numToStr musnum, 4
 	if isZ80=1
 		if ((offset(*)+filesize("music/\file\.bin"))&$FF8000)>(offset(*)&$FF8000)
