@@ -3,7 +3,13 @@
 
 	org $FFFF0000		; pretend we are in RAM
 UpdateSound:
+	if pal60mod=1
+		jmp	DoDoubleUpdate(pc)
+DoUpdate:
+	else
 		clr.b	(Drv68Kmem+$0E).w
+	endif
+
 		tst.b	(Drv68Kmem+$07).w
 		bne.w	PauseMusic
 		jsr	sub_5CEF6
@@ -229,7 +235,6 @@ DACDrum_Table:	dc.b	8, $80,	  0, $80,   2,	 0,   0,   0 ; DATA XREF: UpdateDACTr
 		dc.b	9,   0,	$1C, $80,   8,	 0,   0,   0
 		dc.b	9,   0,	$1C, $80,   9,	 0,   0,   0
 		dc.b	9,   0,	$1C, $80,  $A,	 0,   0,   0
-
 ; =============== S U B	R O U T	I N E =======================================
 
 
@@ -695,7 +700,7 @@ PanAniPtrList:	dc.l byte_5C49E, byte_5C4A0, byte_5C4A3	; DATA XREF: ROM:0005C46E
 byte_5C49E:	dc.b $40, $80		; DATA XREF: ROM:PanAniPtrListo
 byte_5C4A0:	dc.b $40, $C0, $80	; DATA XREF: ROM:PanAniPtrListo
 byte_5C4A3:	dc.b $C0, $80, $C0, $40	; DATA XREF: ROM:PanAniPtrListo
-		align 2
+		even
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -3172,3 +3177,20 @@ SndPriorities:	dc.b $80, $80, $80, $80, $80, $80, $80,	$80, $80, $80
 		dc.b $50, $50, $50, $50, $50, $50, $50,	$50, $50, $50
 		dc.b $50, $50, $55, $50, $55, $50, $50,	$50, $50, $50
 		dc.b $80, $80, $80, $80, $80
+
+	if pal60mod=1
+		even
+
+DoDoubleUpdate:
+		tst.b	IsPal
+		bpl.s	.notPAL		; NATSUMI: Branch if this is not a PAL Mega Drive
+		subq.b	#1,PalCounter	; NATSUMI: sub 1 from the delay
+		bpl.s	.notPAL		; NATSUMI: branch if not 0
+		bsr.s	.notPAL		; NATSUMI: run twice
+		move.b	#5,PalCounter	; NATSUMI: reset PAL counter
+
+.notPAL		clr.b	(Drv68Kmem+$0E).w
+		jmp	DoUpdate(pc)
+	endif
+PalCounter:	dc.b 0	; NATSUMI: Count from 5 to -1 to check which frame to do double update
+IsPal:		dc.b 0	; NATSUMI: Is -1 if PAL mode is active.

@@ -464,7 +464,7 @@ ActiveChn	rs.w 1		; currently active sound channels. Bits 0-5 = FM1-FM6, Bits 6-
 MusSelection	rs.w 1		; current song selection
 MusPlaying	rs.w 1		; current song playing
 LoadedDriver	rs.b 1		; currently loaded sound driver
-DebugFlag	rs.b 1		; whether or not debug mode is active
+HWVersion	rs.b 1		; determines the region of the machine
 		rs.w 0		; make sure these addresses are even
 Ctrl1Held	rs.b 1		; controller 1 held buttons
 Ctrl1Press	rs.b 1		; controller 1 pressed buttons
@@ -481,3 +481,5 @@ PSG3note	rs.b 1		; PSG3 note
 PSG3time	rs.b 1		; PSG3 timer
 		rs.b 4*8	; do the same for the rest of the channels
 ; ===========================================================================
+pal60mod =	0	; Set to 1 if you want to enable 60hz PAL mode for all sound drivers (note; some may not correctly play music)
+			; NOTE: Drivers are modified in order to support this feature.

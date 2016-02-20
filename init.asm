@@ -70,8 +70,11 @@ PSGInitLoop:
 		move	#$2700,sr	; set the sr
 
 PortC_Ok:
+		move.b	HW_Version,d0		; get System version bits
+		andi.b	#$C0,d0
+		move.b	d0,HWVersion.w		; save into RAM
 		jsr	InitControllers		; initialize controllers
-		bra	GameProgram
+		bra.w	GameProgram
 ; ===========================================================================
 SetupValues:	dc.w $8000		; XREF: PortA_Ok
 		dc.w $3FFF
@@ -132,6 +135,14 @@ GameProgram:
 		move.w	#$4E75,Driver68K	; put RTS in 68k RAM
 		move.b	#-1,LoadedDriver.w	; no sound driver loaded
 		move.w	#$100,Z80_reset		; reset the Z80
+
+
+		; fill the entire VRAM with null
+		dmaFillVRAM 0,$FFFF,$0000
+
+.waitFillDone	move.w	(a5),d1
+		btst	#1,d1
+		bne.s	.waitFillDone
 
 	; load system font
 		lea	SystemFont,a0			; get system font

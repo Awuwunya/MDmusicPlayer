@@ -4,7 +4,11 @@
 
 .replaceDAC	move.b	(a1)+,(a0)+
 		dbf	d0,.replaceDAC		; replace all DAC bank ptr's with actual ones
-		rts
+
+		btst	#6,HWVersion.w		; is this NTSC Genesis?
+		beq.s	.isNTSC			; if is, branch
+		move.b	#1,Z80_RAM+$1C02	; set PAL mode
+.isNTSC		rts
 
 	opt ae-		; each DAC setup entry is 5 bytes, and ae+ will screw us up
 ; ===========================================================================

@@ -24,7 +24,9 @@ Go_PSGIndex:	dc.l PSG_Index		; XREF: sub_72926
 ; ---------------------------------------------------------------------------
 ; Music	Pointers
 ; ---------------------------------------------------------------------------
-MusicIndex:	dc.l 0			; no SMPS by default
+MusicIndex:	dc.l 0	; no SMPS by default
+PalCounter:	dc.b 0	; NATSUMI: Count from 5 to -1 to check which frame to do double update
+IsPal:		dc.b 0	; NATSUMI: Is -1 if PAL mode is active.
 ; ---------------------------------------------------------------------------
 ; PSG instruments used in music
 ; ---------------------------------------------------------------------------
@@ -57,6 +59,18 @@ SoundTypes:	dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90
 
 
 sub_71B4C:				; XREF: loc_B10; PalToCRAM
+		lea	Drv68Kmem(pc),a6; NATSUMI: changing to relative PC reference to static RAM address
+
+	if pal60mod=1
+		tst.b	IsPal-Drv68Kmem(a6)
+		bpl.s	.notPAL				; NATSUMI: Branch if this is not a PAL Mega Drive
+		subq.b	#1,PalCounter-Drv68Kmem(a6)	; NATSUMI: sub 1 from the delay
+		bpl.s	.notPAL				; NATSUMI: branch if not 0
+		bsr.s	.notPAL				; NATSUMI: run twice
+		move.b	#5,PalCounter-Drv68Kmem(a6)	; NATSUMI: reset PAL counter
+
+.notPAL
+	endif
 		move.w	#$100,($A11100).l ; stop the Z80
 		nop
 		nop
@@ -78,7 +92,6 @@ loc_71B5A:
 ; ===========================================================================
 
 loc_71B82:
-		lea	Drv68Kmem(pc),a6			; NATSUMI: changing to relative PC reference to static RAM address
 		clr.b	$E(a6)
 		tst.b	3(a6)		; is music paused?
 		bne.w	loc_71E50	; if yes, branch

@@ -1,5 +1,4 @@
 		jsr	Driver68K+$1054
-	;	rts
 
 		lea	Driver68K+$17E,a0
 		lea	DyHeDACBanks,a1
@@ -7,7 +6,11 @@
 
 .replaceDAC	move.l	(a1)+,(a0)+
 		dbf	d0,.replaceDAC		; replace all DAC bank ptr's with actual ones
-		rts
+
+		btst	#6,HWVersion.w		; is this NTSC Genesis?
+		beq.s	.isNTSC			; if is, branch
+		st	Driver68K+$211B		; set PAL mode
+.isNTSC		rts
 
 	opt ae-		; ae+ will screw us up
 ; ===========================================================================
