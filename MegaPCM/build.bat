@@ -15,3 +15,4 @@ exit
 
 :compress2
 ..\FW_KENSC\koscmp.exe drv.unc drv.z80
+del drv.unc
