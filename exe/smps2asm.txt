@@ -1,0 +1,319 @@
+================================================================================
+SMPS2ASM/Nat documentation
+================================================================================
+This documentation details the usage fo SMPS2ASM/Nat made by Natsumi.
+
+Contents:
+    * 1 - Commandline, basic usage & introduction.
+    * 2 - Scripting & mnemonics
+    * 3 - Inner functionality
+================================================================================
+
+*1 - Commandline, basic usage & introduction.*
+  *1.1 - Introduction*
+    SMPS2ASM/Nat is specifically tailored to go with the MDMusicPlayer, and
+    therefore may not be optimal outside of it. SMPS2ASM/Nat works using
+    scripting files to convert music. The advantage is that it can support
+    theoretically any SMPS format sound driver, or even similar formats.
+    Scripting is fairly easy, even if a little intuitive for a first timer. See
+    chapter 2 and 3 for more info.
+
+  *1.2 - Basic usage*
+    To convert SMPS, put it into the Music folder, then go to exe and lauch
+    SMPS2ASM.exe. The application will ask you some necessary questions to
+    convert the file. Remember, the symbol for hex number is '0x'.
+
+  *1.3 - Commandline*
+    The commandline for the program will be similar than what you would input
+    into the prompt itself. Do note, some scripts may require additional
+    parameters. You can put them right after the other parameters. Here is an
+    example:
+    	"SMPS2ASM ICZ.bin S3K_SMPS IceCap1 0x86AA"
+================================================================================
+
+*2 - Scripting & mnemonics*
+  *2.1 - Basic scripting*
+    Scripting in SMPS2ASM/Nat works based on functions; you define a function on
+    the main script, then the program evaluates if this function should be
+    executed. There also can be equates, which will be evaluated when they are
+    first found (That is, not at script parse time, but when the script at its
+    location is ran first). Scripts are split into a few subscripts;
+      * dat - Contains some basic pointers and functions for the entire file.
+
+      * header - Contains instructions for how to construct a header. The
+        entire header script is attempted to parse at once, over other times
+        when the script is only parse by matching. You can still limit the
+        matching in same way however.
+
+      * DAC - Is used when attempting to parse DAC code. Contains pointers to
+        different possible DAC ID's.
+
+      * note - Is used when attempting to parse FM or PSG code. Contains pointers
+        to different possible notes.
+
+      * coordination - Contains information about coordination flags.
+
+  *2.2 - mnemonics*
+    *2.2.1 - Function types*
+      The very basic type of scripting, Function types, serves to tell to the
+      program what type of function we want to execute. This is the whole
+      backbone of the program, and determines what the rest of the line should
+      be. Here is the types:
+        * Equate - Equates a symbol or value to a lable. The program may put the
+          result in the output file. The symbol for this operation is '='
+
+        * Macro - Macros are used to print just that; macros. Macros allow to
+          define one, multiple or no bytes that trigger the macro. The macro
+          is able to define arguments as well. The symbol for this operation
+          is '!'
+
+        * Script block start - This is used to start a script block or
+          conditional script block, which may be used to run specific script
+          after a function. This may be used to modify the output of the
+          previous function or do something after it. The symbol is usually
+          used after the function line. The symbol for this operation is '{'
+
+        * Script block end - Similar to script block start, but is used to end a
+          script block. Only to be used in a separate line. The symbol for this
+          operation is '}'
+
+        * Subscript - This function is much like 'Script block start', but it is
+          its own function, over than extension of an existing function. Mostly
+          used to make a subscript of a specified type, which the interpreter
+          will use to define output file. The symbol for this operation is '?'
+
+        * Argument modifier - This adds the functionality to modify an argument
+          of a macro. It can be defined it to one argument only, and will change
+          equated value to its lable. The symbol for this operation is '#'
+
+        * If block - This function is used to run alternate code based on
+          condition. If blocks can also contain only true condition. The symbol
+          for this operation is '¤'
+
+        * Operation - This function allows you to fake operators without them
+          actually outputting anything to the output file. Most useful in
+          skipping bytes (for example, DAC pointers two unused bytes). The
+          symbol for this operation is '$'
+
+        * For loop - This operation can be used to loop for x amount of times.
+          Useful in defining FM and PSG headers with variable length. The
+          symbol for this operation is '*'
+
+        * Argument equate - This function will try to get an argument from the
+          commandline and equate it to a lable. If it can not find equate at the
+          requested offset, it will ask from the user with the given string.
+          Most used to get the offset of the song in Z80 bank. The symbol for
+          this operation is '@'
+
+        * Stop - This function is used to stop interpreting data at current
+          offset, and to return to the function which called this (usually
+          a jump or call). If no caller was present, parsing of the file will
+          stop and final file will be output. See further explanation in
+          chapter 3.3. The symbol for this operation is ';'
+
+        * Lable format - Is used to set the lable format used in different
+          operations. Mostly used by jumps, calls and header. The symbol for
+          this operation is '~'
+
+    *2.2.2 - Operators*
+      There are some special operators that allow to better interact with
+      equates or bytes of the input file. The operator to interact with an
+      equate goes as follows: '\<str>\' where str is the name of the equate.
+      Other operators start with '/' and have 2-letter code;
+        * db - Data Byte; Reads a byte from the ROM on current cursor position,
+          and then increments the cursor position by 1.
+
+        * lb - Last Byte; Reads a byte from the ROM on current cursor position
+          minus 1.
+
+        * nb - Next Byte; Reads a byte from the ROM on current cursor position.
+
+        * sb - Skip Byte; Increments the cursor position by 1, but does not read
+          a byte.
+
+        * dw - Data Word; Reads a word from the ROM on current cursor position,
+          and then increments the cursor position by 2.
+
+        * lw - Last Word; Reads a word from the ROM on current cursor position
+          minus 2.
+
+        * nw - Next Word; Reads a word from the ROM on current cursor position.
+
+        * sw - Skip Word; Increments the cursor position by 2, but does not read
+          a word.
+
+        * aw - Absolute Word; Reads a word from the ROM on current cursor
+          position, treats it as an absolute pointer (usually to Z80 bank). Then
+          the data at destination position will be interpreted.
+
+        * ow - Offset Word; Reads a word from the ROM on current cursor
+          position, treats it as an offset pointer on the cursor position. Then
+          the data at destination position will be interpreted.
+
+        * hw - Header offset Word; Reads a word from the ROM on current cursor
+          position, treats it as an offset pointer on the header position. Then
+          the data at destination position will be interpreted.
+
+        * dl - Data Long; Reads a long from the ROM on current cursor position,
+          and then increments the cursor position by 4.
+
+        * ll - Last Long; Reads a long from the ROM on current cursor position
+          minus 4.
+
+        * nl - Next Long; Reads a long from the ROM on current cursor position.
+
+        * sl - Skip Long; Increments the cursor position by 4, but does not read
+          a long.
+
+  *2.3 - Function format*
+    *2.3.0 - Format*
+      <format>
+      <example 1>
+      <example 2>
+        <text describing the examples>
+
+    *2.3.1 - Equates*
+      =<lable> <value>
+      =nRst 0x80
+      =endian "little"
+        <lable> is the lable of the equate, used to identify it. Having multiple
+        equates with the same lable will likely break things. <value> is the
+        value or statement evaluated to the string. The first time the equate is
+        found on the script it will be evaluated and can not be evaluated again.
+
+    *2.3.2 - Macro*
+      !<flags> > <lable>: <arguments><end>
+      ! > smpsHeaderVoice: /aw;
+      !0xFF, 3 > smpsCopyData: /db, /db {
+      !0xFA > smpsModOff:;
+        <flags> is none, one, or more bytes which define the data necessary to
+        trigger this macro, which are separated by ','. <lable> is the lable
+        used to identify this macro, and functions as the macro name. Having
+        multiple macros with the same lable will likely break things.
+        <arguments> define the arguments of the macro, separated by ','. These
+        will be evaluated when the macro is used. <end> will be ';' if you do
+        not need additional code block. If you do, you use '{' instead.
+
+    *2.3.3 - Argument modifier*
+      #<num> {
+      #4 {
+        <num> is a 0-based offset of the argument that will be modified. This
+        function always starts a new code block which define the possible
+        argument lables.
+
+    *2.3.4 - If block*
+      ¤ <condition> {
+      ¤ /nw == 0x17D8 {
+      ¤ false {
+        <condition> defines on what basis the if block will evaluate when to run
+        the true block (right after the line) or false block (after the first
+        '}' if '{' is provided in same line). The script will be evaluated once
+        the interpreter finds an if block.
+
+    *2.3.5 - Operation*
+      $ <operation>
+      $ /sb
+        <operation> will be the raw operation, typically consisting of operators
+        only. The operation will be evaluated once the interpreter finds it. The
+        operation may only contain operators or statements, not other functions.
+        Operations are best used to skip bytes.
+
+    *2.3.6 - For loop*
+      * <times> {
+      * \FMnum\ - 1 {
+      * 0xA {
+        <times> defines the amount of times the code block will be ran, which
+        will be evaluated once the interpreter finds it. Most useful for
+        defining variable size header fields, such as FM and PSG headers.
+
+    *2.3.7 - Argument equate*
+      @<lable> <argument> <text>
+      @offset 0 "Please specify offset of this song in Z80 bank"
+        <lable> will be the lable applied to the final evaluated equate when the
+        interpreter finds it. <argument> is the argument offset from where it
+        attempts to get the value from. In commandline this will be the argument
+        3+<argument>. <text> will be shown on the screen if argument at
+        specified offset could not be found. The user will be promted with this
+        string to enter an input to evaluate the equate.
+
+    *2.3.8 - Lable format*
+      ~<string>
+      ~£_PSG#
+      ~£_DAC
+        <string> is a string representing what the format for lable names will
+        be. '£' is special character which will be replaced with the given name
+        of this project is. '#' is special character, which will be replaced
+        with the next available number, starting from 1. Any lable created by
+        the interpreter will be in this format until it is changed by the
+        script. Most used to change lable names for jumps, calls, and channel
+        definitions, etc.
+
+      *2.3.9 - Subscript*
+        ?<lable> {
+        ?header {
+          <lable> is used to identify this
+================================================================================
+
+*3 - Inner functionality*
+  *3.1 - Script parsing*
+    Scripts are parsed line by line, tabs and carriage returns are ignored.
+    The first letter of a line determines what type of function the line is
+    assigned to do. Code blocks (including the entire script) is handle by a
+    stack of of Dic elements, which are an easier way to interact with a
+    Dictionary<?,?> in C#, as there is no implementation allowing you to
+    define Dictionary with ambigious attributes. Reflection API is used to
+    call functions within the Dictionary and then will be translated to
+    appropriate objects during runtime. The stack will get objects pushed into
+    it and popped from it by code block start and code block end respectively.
+    If Dictionary operations fail or stack underflows, an error will be
+    detected, the line number and error report is shown to the user and
+    parsing will stop. Similarly, if an illegal line is found, the program
+    attempts to warn the user as best as it can.
+
+  *3.2 - Header parsing*
+    Header is sort of a special case, because parsing it differs fair bit from
+    parsing rest of the file. Unlike normal data, header field is read
+    fully, and usually consist only of operations that always happen. While in
+    header, equates are not treated as data, and data at offsets are not
+    followed to. Other than that header is treated like any normal code section.
+    Headers are hardcoded to have the song name lable and 'tsmpsHeaderStartSong'
+    macro during file outputting phase.
+
+  *3.3 - Main data parsing*
+    Main data is parsed by jumping into the offsets of lables found during
+    header parsing or data parsing. The data will be parse until Stop token is
+    found, and then the interpreter will return to the previous caller. Whenever
+    Absolute Word or Offset Word operator is found, the address will be resolved
+    and called. The data will be interpreted until a Stop is met, after which
+    the caller will resume interpreting data. This can lead to duplicates of
+    same data being resolved, but if this data is the same it will be discarded
+    when the output file is written. The program will not at this stage check
+    for unused data. The prasing function consist of two or more Dictionaries,
+    which are related to coordination flags, DAC names or note names. The
+    coordination flags always take priority over other Dictionaries. Main loop
+    checks first if there is found a match in coordination flags. If so, the
+    parsing function will return a boolean value, if a stop statement was met.
+    If not, it will check if the byte offset changed during the parsing. If it
+    did, it will check coordination flags again. If not, it will check for note
+    or DAC equates. If even then it did not find a match, it will flag it as
+    data, increment byte offset, and do the loop again, until it reaches a stop
+    or end of the file.
+
+  *3.4 - Parsing voices*
+    Currently, parsing voices is yet at a very early stage. Voices are just
+    split into 25-byte dc.b statements. In future, this will be improved and
+    parsed using macro's. If you want to contribute to this, please post a
+    script with the respective macros on how the parsing would work. The voices
+    would be parse like the header; sequentially, for each 25 bytes.
+
+  *3.5 - Outputting to file*
+    After the input file is fully parsed, the data will be written line by line
+    to the output file. The loop will read each byte, and write any line on that
+    byte. If there is multiple lines for the same byte, then the program checks
+    if they are equivalent. If so, it ignores one of them, but if not, then it
+    will warn the user, but print both anyway. The loop will also check for any
+    lables at the current byte, and write them after the data. The loop will
+    also format raw data or equated bytes into same line (max 8 per line), and
+    check if any byte has not been found. There is a string with offset to
+    every skipped byte, so it knows which bytes not to flag as unused.
+================================================================================
