@@ -251,7 +251,9 @@ Contents:
       *2.3.9 - Subscript*
         ?<lable> {
         ?header {
-          <lable> is used to identify this
+          <lable> is used to identify this subscript by. This is used mostly to
+          hold other functions, especially for system subscripts (for example
+          coordination, header, note).
 ================================================================================
 
 *3 - Inner functionality*
