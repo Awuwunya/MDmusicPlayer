@@ -235,9 +235,8 @@ waitYM        macro	reg
 cmp_unc		rs.b 4	; uncompressed driver image
 cmp_kos		rs.b 4	; kosinski compressed driver image
 cmp_comp	rs.b 4	; comper compressed driver image
-cmp_eni		rs.b 4	; enigma compressed driver image
 cmp_nem		rs.b 4	; nemesis compressed driver image
-cmp_sax		rs.b 4	; saxman compressed driver image
+cmp_eni		rs.b 4	; enigma compressed driver image
 
 ; ===========================================================================
 ; resets variables which are responsible for dealing with adding drivers.
@@ -450,7 +449,9 @@ PSG_input =			$C00011
 	rsset	$FFFF0000
 Z80music	equ __rs+2	; if z80 driver, this is the address of the music file.
 Driver68K	rs.b $8000	; 68k driver ROM. if Z80 driver, this is rte
-Drv68Kmem	rs.b $1000	; memory for the 68k driver. This may be used by z80 drivers for things too
+Drv68Kmem	rs.b 0		; memory for the 68k driver.
+NemDecBuffer	rs.b $1C00	; used when decompressing Nemesis format sound drivers
+HBlankRAM	rs.b $400	; code to run in HBlank. Can also be used as extra RAM for sound driver
 		rs.l 3		; stack overflow area
 StackUflowRAM	rs.l 1		; stack overflow area
 StackStart	rs.b $100	; 68k stack

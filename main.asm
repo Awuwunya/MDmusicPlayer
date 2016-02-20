@@ -2,16 +2,14 @@
 	include "exe/smps2asm.asm"
 Maincode	section org(0)
 
-StartOfRom:	dc.l Stack, EntryPoint
-HBlank:		rte		; used to be bus error pointer
-		bra.s	*	; bus error can't be caused by software
-		dc.l AddressError, IllegalInstr, ZeroDivide, ChkInstr, TrapvInstr
+StartOfRom:	dc.l Stack, EntryPoint, BusError, AddressError
+		dc.l IllegalInstr, ZeroDivide, ChkInstr, TrapvInstr
 		dc.l PrivilegeViol, Trace, Line1010Emu,	Line1111Emu
 		dc.l ErrorExcept, ErrorExcept, ErrorExcept, ErrorExcept
 		dc.l ErrorExcept, ErrorExcept, ErrorExcept, ErrorExcept
 		dc.l ErrorExcept, ErrorExcept, ErrorExcept, ErrorExcept
 		dc.l ErrorExcept, ErrorTrap, ErrorTrap,	ErrorTrap
-		dc.l HBlank,	ErrorTrap, VBlank, ErrorTrap
+		dc.l HBlankRAM,	ErrorTrap, VBlank, ErrorTrap
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
@@ -21,7 +19,7 @@ HBlank:		rte		; used to be bus error pointer
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 Console:	dc.b 'SEGA MEGA DRIVE ' ; Hardware system ID
-		dc.b 'NATSUMI 2016-JAN' ; Release date
+		dc.b 'NATSUMI 2016-FEB' ; Release date
 		dc.b "NATSUMI'S SEGA MEGA DRIVE SMPS PLAYER DEMO      " ; Domestic name
 		dc.b "NATSUMI'S SEGA MEGA DRIVE SMPS PLAYER DEMO      " ; International name
 		dc.b 'UNOFFICIAL-00 '   ; Serial/version number

@@ -35,20 +35,21 @@ Crash_SR	rs.w 1
 CrashID		rs.b 1		; the ID of crash which is recorded for later reference.
 CrashStckFrm	rs.b 1		; the size of the stack frame for the interrupt
 ; ===========================================================================
-AddressError:	crash  0,14
-ErrorExcept:	crash  2, 6
-IllegalInstr:	crash  4, 6
-ZeroDivide:	crash  6, 6
-ChkInstr:	crash  8, 6
-TrapvInstr:	crash 10, 6
-PrivilegeViol:	crash 12, 6
-Trace:		crash 14, 6
-Line1010Emu:	crash 16, 6
-Line1111Emu:	crash 18, 6
-ErrorTrap:	crash 20, 6
+BusError:	crash  0,14
+AddressError:	crash  2,14
+ErrorExcept:	crash  4, 6
+IllegalInstr:	crash  6, 6
+ZeroDivide:	crash  8, 6
+ChkInstr:	crash 10, 6
+TrapvInstr:	crash 12, 6
+PrivilegeViol:	crash 14, 6
+Trace:		crash 16, 6
+Line1010Emu:	crash 18, 6
+Line1111Emu:	crash 20, 6
+ErrorTrap:	crash 22, 6
 ; for the next two, the actual location where stack was written wrongly to can't be
 ; determined. Use emulator debugger testing writes to overflow addresses
-StackUnderflow:	crash 22, 6; custom error: If stack would underflow, run here
+StackUnderflow:	crash 24, 6; custom error: If stack would underflow, run here
 StackOverflow:	crash 24, 6; custom error: If stack would overflow, run here
 ; ===========================================================================
 CrashHandler:; initialize the system
@@ -263,23 +264,25 @@ CrashCodeTable:
 		rts
 ; ===========================================================================
 CrashNames:
-	dc.w .Addr-CrashNames
-	dc.w .ErrExpt-CrashNames
-	dc.w .Illegal-CrashNames
+	dc.w .bus-CrashNames
+	dc.w .addr-CrashNames
+	dc.w .errExpt-CrashNames
+	dc.w .illegal-CrashNames
 	dc.w .zerodiv-CrashNames
-	dc.w .Chk-CrashNames
-	dc.w .Trapv-CrashNames
-	dc.w .Priv-CrashNames
-	dc.w .Trace-CrashNames
-	dc.w .LineA-CrashNames
-	dc.w .LineF-CrashNames
+	dc.w .chk-CrashNames
+	dc.w .trapv-CrashNames
+	dc.w .priv-CrashNames
+	dc.w .trace-CrashNames
+	dc.w .lineA-CrashNames
+	dc.w .lineF-CrashNames
 	dc.w .trapped-CrashNames
 	dc.w .stkunder-CrashNames
 	dc.w .stkover-CrashNames
 	; you can here define custom error messages
 
-.ErrExpt	asc.w 0, '*||||||ERROR|EXECPTION|||||||*'; miscellaneous error.
-.Addr		asc.w 0, '*|||||||ADDRESS|ERROR||||||||*'; address error
+.errExpt	asc.w 0, '*||||||ERROR|EXECPTION|||||||*'; miscellaneous error.
+.addr		asc.w 0, '*|||||||ADDRESS|ERROR||||||||*'; address error
+.bus		asc.w 0, '*|||||||||BUS|ERROR||||||||||*'; bus error
 .illegal	asc.w 0, '*||||ILLEGAL|INSTRUCTION|||||*'; illegal instruction (code runs in data likely)
 .zerodiv	asc.w 0, '*|||||||ZERO|DIVISION||||||||*'; zero divide (ex: 1/0)
 .chk		asc.w 0, '*|||||||CHK|INSTRUCTION||||||*'; CHK
@@ -297,7 +300,7 @@ irErrorStr:		asc2.w 0, ' IR:$'
 srErrorStr:		asc2.w 0, ' SR:$'
 addrErrorStr:		asc2.w 0, 'ADDR:$'
 ConditionCodeStr2:	asc2.w 0, '          CCR '
-aesErrorStr:		asc2.w 0, 'RN012'	; R = Write(0)/Read(1), N = Instruction(0)/Not(1), 0-2 = Function Code
+aesErrorStr:		asc2.w 0, 'RN012'; R = Write(0)/Read(1), N = Instruction(0)/Not(1), 0-2 = Function Code
 pcErrorStr:		asc2.w 0, '   PC:$'
 d0ErrorStr:		asc2.w 0, 'd0:$'
 d1ErrorStr:		asc2.w 0, '        d1:$'

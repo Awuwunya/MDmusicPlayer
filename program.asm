@@ -1,7 +1,6 @@
 MainProgramLoop:
 		jsr	VSync.w			; wait for next VBlank
 		bsr.s	ControlPrg		; routine which handles controller input
-		bsr.w	DebugMode		; check debug controls and print debug info
 		bsr.s	ChkForErrors		; ensures program continues execution without errors
 		bra.s	MainProgramLoop		; do next frame
 ; ===========================================================================
@@ -11,8 +10,7 @@ ChkForErrors:
 		beq.s	.chkover		; if not, check for overflow
 		error	StackUnderflow.w	; stack underflow error
 
-.chkover
-		tst.l	StackUflowRAM.w		; check if overflow happened
+.chkover	tst.l	StackUflowRAM.w		; check if overflow happened
 		beq.s	.rts			; if not, branch
 		error	StackOverflow.w		; stack overflow error
 
@@ -71,22 +69,5 @@ ControlPrg:
 		jsr	LoadSoundDriver		; load target sound driver
 		jsr	PlayMusicFile		; play music file
 
-
 .noplay		rts
 ; ===========================================================================
-
-DebugMode:
-		tst.b	Ctrl0Held.w		; is start held?
-		bpl.s	.nochg			; if not, branch
-		btst	#6,Ctrl0Press.w		; is A pressed?
-		beq.s	.nochg			; if not, branch
-		bchg	#7,DebugFlag.w		; change most significant bit of debug mode flag
-
-.nochg		tst.b	DebugFlag.w		; is debug active?
-		bpl.s	.rts			; branch if not.
-		; TODO: insert code here
-		nop
-
-.rts		rts
-; ===========================================================================
-

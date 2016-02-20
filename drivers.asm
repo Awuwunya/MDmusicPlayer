@@ -10,7 +10,6 @@
 	incdrv	S3K_SMPS, cmp_kos
 	incdrv	DyHe_SMPS, cmp_kos
 
-
 ; ===========================================================================
 ; the following will construct all the drivers with the information needed.
 ; Do not touch this.
@@ -37,7 +36,7 @@ LoadSoundDriver:
 		cmp.b	LoadedDriver.w,d0	; check if driver was loaded already
 		beq.s	.alreadyloaded		; branch if was already loaded
 		tst.w	d0
-		bmi.s	.loadstop		; special case: load stop sfx driver
+		bmi.w	.loadstop		; special case: load stop sfx driver
 		move.b	#-1,LoadedDriver.w	; disable sound driver
 
 		lea	DrvLoadCodes,a0		; sound driver load code array
@@ -52,6 +51,7 @@ LoadSoundDriver:
 
 		move.w	#$100,Z80_bus_request
 		move.w	#$100,Z80_reset
+		bsr.s	.unloadDriver		; unload the sound driver
 		jsr	(a1)			; run decompressor code
 		jsr	(a2)			; run load code
 
@@ -66,11 +66,26 @@ LoadSoundDriver:
 .alreadyloaded	move.l	(sp)+,d7		; get music file from stack
 		addq.w	#2,sp			; pop driver from stack
 		rts
+
+.unloadDriver	lea	Z80_RAM,a6		; get Z80 ram to a6
+		moveq	#0,d6			; fill with value 0
+		move.w	#(($2000)/4)-1,d5	; fill entire RAM
+		bsr.s	.null			;
+
+		lea	Driver68K,a6		; get 68K RAM to a6
+		move.w	#((HBlankRAM-Driver68K)/4)-1,d5; fill the entire driver RAM
+
+.null		move.l	d6,(a6)+		; fill next 4 bytes with 0
+		dbf	d5,.null		; loop until fully clear
+		rts
 ; ===========================================================================
 
 .loadstop	move.b	#-1,LoadedDriver.w	; no sound driver loaded
 		addq.w	#6,sp			; pop stack stuff
+
 		lea	$A04000,a0		; get faster access to RAM
+		move.w	#$100,Z80_bus_request
+		move.w	#$100,Z80_reset
 
 	; stop all the sound on FM channels
 		moveq	#2,d3		; 3 FM channels for each YM2612 parts
@@ -96,13 +111,22 @@ LoadSoundDriver:
 		dbf	d4,.channelloop
 
 	; stop all the sound on PSG channels
-		lea	PSG_input,a0
-		move.b	#$9F,(a0)	; Silence PSG 1
-		move.b	#$BF,(a0)	; Silence PSG 2
-		move.b	#$DF,(a0)	; Silence PSG 3
-		move.b	#$FF,(a0)	; Silence noise channel
-		rts
+		lea	PSG_input,a1
+		move.b	#$9F,(a1)	; Silence PSG 1
+		move.b	#$BF,(a1)	; Silence PSG 2
+		move.b	#$DF,(a1)	; Silence PSG 3
+		move.b	#$FF,(a1)	; Silence noise channel
+		bsr.w	.unloadDriver	; unload the sound driver
 
+		move.b	#$C3,$A04000-Z80_RAM(a0)
+		move.b	#$C3,$A04000-(Z80_RAM+$38)(a0)
+		move.w	#0,Z80_reset
+	rept 4
+		nop
+	endr
+		move.w	#$100,Z80_reset
+	startZ80			; return z80 bus
+		rts
 ; ===========================================================================
 WriteFMI:
 	stopZ80
@@ -129,7 +153,8 @@ WriteFMII:
 ; ===========================================================================
 ; decompressing code for sound drivers
 CompressionFormats:
-		dc.l DrvDecom_Unc, DrvDecom_Kos
+		dc.l DrvDecom_Unc, DrvDecom_Kos, DrvDecom_Comp
+		dc.l DrvDecom_Nem, DrvDecom_Eni
 
 ; ===========================================================================
 ; copy bytes to RAM
@@ -158,6 +183,53 @@ DrvDecom_Kos:
 		move.l	(sp)+,a0	; get z80 pointer from stack
 		lea	Z80_RAM,a1	; get z80 driver address
 		jsr	KosDec.w	; kosinski decompress
+		move.l	(sp)+,a2	; restore a2
+		rts
+
+; ===========================================================================
+; decompress from comper
+DrvDecom_Comp:
+		move.l	a2,-(sp)	; store a2
+		move.l	(a0)+,-(sp)	; store z80 pointer to stack
+		lea	Driver68K,a1	; get 68k driver address
+		jsr	CompDec.w	; kosinski decompress
+
+		move.l	(sp)+,a0	; get z80 pointer from stack
+		lea	Z80_RAM,a1	; get z80 driver address
+		jsr	CompDec.w	; kosinski decompress
+		move.l	(sp)+,a2	; restore a2
+		rts
+
+; ===========================================================================
+; decompress from nemesis
+; WARNING: It is not suggested to use this compression method!
+; Use at your own risk
+DrvDecom_Nem:
+		move.l	a2,-(sp)	; store a2
+		move.l	(a0)+,-(sp)	; store z80 pointer to stack
+		lea	Driver68K,a4	; get 68k driver address
+		jsr	NemDec_RAM.w	; kosinski decompress
+
+		move.l	(sp)+,a0	; get z80 pointer from stack
+		lea	Z80_RAM,a4	; get z80 driver address
+		jsr	NemDec_RAM.w	; kosinski decompress
+		move.l	(sp)+,a2	; restore a2
+		rts
+
+; ===========================================================================
+; decompress from nemesis
+; WARNING: It is not suggested to use this compression method!
+; Use at your own risk
+DrvDecom_Eni:
+		move.l	a2,-(sp)	; store a2
+		moveq	#0,d0		; clear offset
+		move.l	(a0)+,-(sp)	; store z80 pointer to stack
+		lea	Driver68K,a1	; get 68k driver address
+		jsr	EniDec.w	; kosinski decompress
+
+		move.l	(sp)+,a0	; get z80 pointer from stack
+		lea	Z80_RAM,a1	; get z80 driver address
+		jsr	EniDec.w	; kosinski decompress
 		move.l	(sp)+,a2	; restore a2
 		rts
 

@@ -7,10 +7,12 @@ VBlank:
 		tst.b	LoadedDriver			; has driver been loaded?
 		bmi.s	.nope				; branch if not
 		jsr	Driver68K			; run sound driver code
-		jsr	DrawChaninfo			; draw information about active channels
-
-.nope		movem.l	(sp)+,d0-a6
+.draw		jsr	DrawChaninfo			; draw information about active channels
+		movem.l	(sp)+,d0-a6
 		rte
+
+.nope		move.w	#0,ActiveChn.w			; clear active channel list
+		bra.s	.draw
 ; ===========================================================================
 
 ReadControllers:
@@ -39,7 +41,8 @@ ReadControllers:
 		move.b	d1,(a0)+		; Put pressed controller input in RAM
 		rts
 ; End of function Poll_Controller
-; ======================================		=====================================
+; ===========================================================================
+
 InitControllers:
 ;	stopZ80
 		moveq	#$40,d0
@@ -50,6 +53,7 @@ InitControllers:
 		rts
 ; End of function Init_Controllers
 ; ===========================================================================
+
 VSync:
 		stop	#$2300		; enable ints and stop CPU
 		rts			; return

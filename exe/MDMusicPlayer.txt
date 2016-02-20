@@ -1,0 +1,172 @@
+================================================================================
+MDMusicPlayer documentation
+================================================================================
+This documentation details the usage for MDMusicPlayer made by Natsumi.
+
+Contents:
+    * 1 - Introduction
+    * 2 - Music
+    * 3 - Sound drivers
+    * 4 - Whats in where
+    * 5 - Credits
+================================================================================
+
+*1 - Introduction*
+  MDMusicPlayer is an application which allows you to test any Mega Drive SMPS
+  or non-SMPS music in a single package. It supports up to 64 sound drivers, and
+  theoretically up to 16383 different music files. It is also fully open source
+  and contains few tools for easier development of sound drivers and/or SMPS
+  music. The support for non-SMPS music is not verified as of yet, however it
+  should still work just fine provided certain modifications are done. See
+  chapter 3 for more details.
+================================================================================
+
+*2 - Music*
+  MDMusicPlayer accepts two types of music; binary and SMPS2ASM format music.
+  However, any music that relies on absolute pointers (most often music used
+  with a Z80 sound driver) can not be guaranteed to work when they are in binary
+  format. This music should be converted to ASM using the provided SMPS2ASM
+  converter. Here is a simple guide for adding more music;
+    * 1 - Copy the music you want to play to the 'music' folder.
+    * 2 - If you want or need to, use SMPS2ASM to convert the music to ASM
+      format. See 'SMPS2ASM.txt' for detailed instructions on how to use
+      SMPS2ASM.
+    * 3 - Open music.asm on the root folder, and create a new music entry for
+      the file.
+    * 4 - Ensure you use correct macro depending on the music format
+      ('incmusasm' for ASM format, 'incmusbin' for binary format.), and make
+      sure the correct sound driver is selected with the 'selectdrv' macro.
+    * 5 - Click on 'build.bat' on the root folder and launch 'player-bin' on
+      your favourite emulator or on hardware!
+================================================================================
+
+*3 - Sound driver*
+  There are 4 sound drivers installed for you by default; Sonic 3 & Knuckles Z80
+  sound driver, Sonic the Hedgehog 68k sound driver with Z80 DAC driver,
+  Mega PCM DAC driver (including Sonic 1 68k driver), and Dynamite Headdy 68k
+  sound driver and Z80 DAC driver. You can add yourself more sound drivers as
+  well, provided you can disassemble them, and add appropriate code. Sound
+  drivers need to be able to fit in 0x8000 bytes, and they can use additional
+  0x2000 bytes if they do not require code to be ran on horizontal blanking.
+  Else they may only use 0x1C00 bytes for memory. Each 68k sound driver will be
+  ran from RAM, at address 0xFF0000 and their RAM section should be at 0xFF8000.
+  You can include the file 'exe/macro.asm' for helpful macros and equates of
+  these addresses. Eeach sound driver also has to have few additional files
+  helping the system to run the music files properly. 'load.asm' is used after
+  loading the sound driver, and it can be used to set variables, or for example
+  construct Z80 banks and overwrite Z80 RAM with them. 'play.asm' is used when
+  user requests to play a music file. The pointer to said file is given at d7.
+  'update.asm' is used each frame during vertical blanking to update various
+  information about the sound driver, including active channels, notes and DAC
+  samples being played, etc. 'smps2asm equ.asm' is used to set the macros and
+  equates for that particular sound driver. This is not required if you do not
+  use ASM format music files. 'smps2asm script.asm' is the script for SMPS2ASM
+  to convert ASM files, and is neither required. You can red more about it in
+  SMPS2ASM.txt. '68k.asm' and 'z80.asm' are used to assemble the respective
+  sound drivers with. Both files are required even if only one processor is
+  used. 'drv.68k' and 'drv.z80' are the built and compressed versions of these
+  sound drivers. 'build.bat' is used to build both sound drivers at once. To
+  include additional driver, open 'drivers.asm' in the root folder, add new line
+  under pre-existing 'incdrv' macros, put the driver folder and compression in.
+  You can refer to the new driver with its folder name. The folder may not
+  contain whitespaces, special characters and can not start with a number.
+================================================================================
+
+*4 - Whats in where*
+  There are quite large amount of different files in MDMusicPlayer. So here I
+  list all of the files (excluding driver specific files) and tell their
+  purpose.
+    *ASMfile equ.asm - This file defines the equates used in creating ASM music
+      only file (ASM -> BIN conversion). These are the values you enter to the
+      commandline.
+
+    *ASMfile.asm - This is the main script which makes the ASM to BIN conversion
+      happen.
+
+    *build SMPS ASM file.bat - Simply is a commandline wrapper over the building
+      process
+
+    *build.bat - Assembles 'player.bin'. Starts from 'main.asm'.
+
+    *chaninfo.asm - This contains the code necessary to update the channel
+      information when playing a music file.
+
+    *crash.asm - Contains the crash handler of the application. If something
+      goes wrong, code in this file will handle it.
+
+    *decompressors.asm - This contains all the compression methods used by the
+      application. Contains Kosinski, Comper, Nemesis and Enigma compression
+      routines.
+
+    *drivers,asn - Contains the installed sound drivers, code for loading them,
+      as well as code to initialize decompression, handling of 'load.asm',
+      'play.asm', and stopping sound when stop sfx is played.
+
+    *init.asm - Contains code for initializing Sega Mega Drive, and the player
+      itself.
+
+    *main.asm - Contains the header, and includes all necessary files.
+
+    *music.asm - Includes all the music files.
+
+    *program.asm - Contains the main loop of the program, checks for errors,
+      handles controlling the program, and starting music playback.
+
+    *string.asm - Contains functions used to write different strings onscreen,
+      and displaying numbers of varying sizes
+
+    *VBlank.asm - Has the code ran during vertical blanking, reads controllers
+      and calls the 68k sound driver.
+
+    *exe/asm68k.exe - Used to assemble 68000 assembly code, including sound
+      drivers and the player itself.
+
+    *exe/font.bin - Raw uncompressed font used in the program.
+
+    *exe/font.kos - Kosinski compressed font.
+
+    *exe/macro.asm - Contains all kinds of supporting macros as well as equates
+      that are necessary for the correct functionality of the program.
+
+    *exe/main.pal - Program palette.
+
+    *exe/MDMusicPlayer.txt - This document.
+
+    *exe/NCalc.dll - Used by SMPS2ASM to help evaluating different things.
+
+    *exe/smps2asm src.7z - 7-Zip compressed source code of SMPS2ASM/Nat
+
+    *exe/smps2asm.asm - Contains macros that will forward a request to the
+      current sound driver to resolve. See 'smps2asm equ.asm' in sound driver
+      folders.
+
+    *smps2asm.exe - main SMPS2ASM/Nat executable, used to translate binary music
+      files into ASM format.
+
+    *smps2asm.txt - Document describing SMPS2ASM/Nat in detail.
+
+    *vasmZ80.exe - Z80 assembler used by Z80 sound drivers and Z80 DAC drivers
+      to assemble the source code.
+================================================================================
+
+*5 - Credits*
+  Of course, I couldn't do all of this myself. A few people helped me along the
+  way to make all of this possible.
+    *ValleyBell - His SMPS research packs and direct help has helped me to
+      understand SMPS format a lot more as well as implement all these sound
+      driver to go with my tool. Huge thanks for him, and if it weren't for him
+      this may have not ever come to light
+
+    *Bakayote - He provided me the great font used in this tool. If it weren't
+      for him I'd have to use the awful Sonic 1 menu font, and have to improvise
+      to add the missing ASCII characters. But thanks to him we have a nice
+      looking font with almost all ASCII characters.
+
+    *Oerg866 - He was the original inspiration to do this. I felt his SMPS
+      Player missed some key features I would have liked to see, and also
+      upon further examination was coded terribly badly. So I thought to
+      make something a lot more usable.
+
+    *Vladikcomper - I mention him simply because I use his MegaPCM DAC driver as
+      a pre-installed sound driver. But why wouldn't I? Its easy to use and
+      fairly good for what it does!

@@ -1,7 +1,7 @@
 ================================================================================
 SMPS2ASM/Nat documentation
 ================================================================================
-This documentation details the usage fo SMPS2ASM/Nat made by Natsumi.
+This documentation details the usage for SMPS2ASM/Nat made by Natsumi.
 
 Contents:
     * 1 - Commandline, basic usage & introduction.
@@ -28,7 +28,7 @@ Contents:
     into the prompt itself. Do note, some scripts may require additional
     parameters. You can put them right after the other parameters. Here is an
     example:
-    	"SMPS2ASM ICZ.bin S3K_SMPS IceCap1 0x86AA"
+      "SMPS2ASM ICZ.bin S3K_SMPS IceCap1 0x86AA"
 ================================================================================
 
 *2 - Scripting & mnemonics*
