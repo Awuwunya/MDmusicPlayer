@@ -98,7 +98,7 @@ Contents:
       application. Contains Kosinski, Comper, Nemesis and Enigma compression
       routines.
 
-    *drivers,asn - Contains the installed sound drivers, code for loading them,
+    *drivers.asm - Contains the installed sound drivers, code for loading them,
       as well as code to initialize decompression, handling of 'load.asm',
       'play.asm', and stopping sound when stop sfx is played.
 

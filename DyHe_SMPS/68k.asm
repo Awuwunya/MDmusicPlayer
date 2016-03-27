@@ -2243,17 +2243,11 @@ PSGFreqs:	dc.w  $356, $326, $2F9,	$2CE, $2A5, $280, $25C,	$23A, $21A, $1FB, $1DF
 ; =============== S U B	R O U T	I N E =======================================
 
 
-cfHandler:				; CODE XREF: UpdateDACTrack+1Cp
-					; sub_5C172+12p ...
-
-; FUNCTION CHUNK AT 0005D3EE SIZE 0000004C BYTES
-; FUNCTION CHUNK AT 0005D55C SIZE 000001B8 BYTES
-; FUNCTION CHUNK AT 0005D71C SIZE 0000001C BYTES
-; FUNCTION CHUNK AT 0005D740 SIZE 00000152 BYTES
-
+cfHandler:
 		subi.w	#$E0,d5
 		lsl.w	#2,d5
 		jmp	cfPtrTable(pc,d5.w)
+; ---------------------------------------------------------------------------
 
 cfPtrTable:
 		bra.w	cfE0_Pan
@@ -2267,7 +2261,7 @@ cfPtrTable:
 		bra.w	cfE4_PanAnim
 ; ---------------------------------------------------------------------------
 		bra.w	cfE5_ChgPFMVol
-; ---------------------------------------------------4------------------------
+; ---------------------------------------------------------------------------
 		bra.w	cfE6_ChgFMVol
 ; ---------------------------------------------------------------------------
 		bra.w	cfE7_Hold
@@ -2324,6 +2318,7 @@ cfMetaCoordFlag:
 		move.b	(a4)+,d0
 		lsl.w	#2,d0
 		jmp	cfMetaPtrTable(pc,d0.w)
+; ---------------------------------------------------------------------------
 
 cfMetaPtrTable:
 		bra.w	cf00_SSGEG
