@@ -428,10 +428,6 @@ smpsVcAlgorithm macro val
 vcAlgorithm set val
     endm
 
-smpsVcUnusedBits macro val
-vcUnusedBits set val
-    endm
-
 ; Voices - Detune
 smpsVcDetune macro op1,op2,op3,op4
 vcDT1 set op1
@@ -506,6 +502,11 @@ vcRR4 set op4
 
 ; Voices - Total Level
 smpsVcTotalLevel macro op1,op2,op3,op4
-	s2e_\smpsdrv\_smpsVcTotalLevel \_
+vcTL1 set op1
+vcTL2 set op2
+vcTL3 set op3
+vcTL4 set op4
+
+	s2e_\smpsdrv\_smpsVoice
     endm
 

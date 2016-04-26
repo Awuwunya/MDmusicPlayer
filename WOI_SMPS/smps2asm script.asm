@@ -4,14 +4,8 @@
 }
 
 ?header {
-	¤ /nw == 0x17D8 {
-		! > smpsHeaderVoiceUVB:;
-		$ /sw;
-	} {
-		~£_Voices
-		! > smpsHeaderVoice: /aw;
-	}
-
+	~£_Voices
+	! > smpsHeaderVoice: /aw;
 	=FMnum /db
 	=PSGnum /nb
 	! > smpsHeaderChan: /lb, /db;
@@ -51,22 +45,6 @@
 				=sTone_15 0x15
 				=sTone_16 0x16
 				=sTone_17 0x17
-				=sTone_18 0x18
-				=sTone_19 0x19
-				=sTone_1A 0x1A
-				=sTone_1B 0x1B
-				=sTone_1C 0x1C
-				=sTone_1D 0x1D
-				=sTone_1E 0x1E
-				=sTone_1F 0x1F
-				=sTone_20 0x20
-				=sTone_21 0x21
-				=sTone_22 0x22
-				=sTone_23 0x23
-				=sTone_24 0x24
-				=sTone_25 0x25
-				=sTone_26 0x26
-				=sTone_27 0x27
 			}
 		}
 	}
@@ -121,75 +99,6 @@
 ?DAC {
 	=nRst 0x80
 	=dSnareS3 0x81
-	=dHighTom 0x82
-	=dMidTomS3 0x83
-	=dLowTomS3 0x84
-	=dFloorTomS3 0x85
-	=dKickS3 0x86
-	=dMuffledSnare 0x87
-	=dCrashCymbal 0x88
-	=dRideCymbal 0x89
-	=dLowMetalHit 0x8A
-	=dMetalHit 0x8B
-	=dHighMetalHit 0x8C
-	=dHigherMetalHit 0x8D
-	=dMidMetalHit 0x8E
-	=dClapS3 0x8F
-	=dElectricHighTom 0x90
-	=dElectricMidTom 0x91
-	=dElectricLowTom 0x92
-	=dElectricFloorTom 0x93
-	=dTightSnare 0x94
-	=dMidpitchSnare 0x95
-	=dLooseSnare 0x96
-	=dLooserSnare 0x97
-	=dHiTimpaniS3 0x98
-	=dLowTimpaniS3 0x99
-	=dMidTimpaniS3 0x9A
-	=dQuickLooseSnare 0x9B
-	=dClick 0x9C
-	=dPowerKick 0x9D
-	=dQuickGlassCrash 0x9E
-	=dGlassCrashSnare 0x9F
-	=dGlassCrash 0xA0
-	=dGlassCrashKick 0xA1
-	=dQuietGlassCrash 0xA2
-	=dOddSnareKick 0xA3
-	=dKickExtraBass 0xA4
-	=dComeOn 0xA5
-	=dDanceSnare 0xA6
-	=dLooseKick 0xA7
-	=dModLooseKick 0xA8
-	=dWoo 0xA9
-	=dGo 0xAA
-	=dSnareGo 0xAB
-	=dPowerTom 0xAC
-	=dHiWoodBlock 0xAD
-	=dLowWoodBlock 0xAE
-	=dHiHitDrum 0xAF
-	=dLowHitDrum 0xB0
-	=dMetalCrashHit 0xB1
-	=dEchoedClapHit 0xB2
-	=dLowerEchoedClapHit 0xB3
-	=dHipHopHitKick 0xB4
-	=dHipHopHitPowerKick 0xB5
-	=dBassHey 0xB6
-	=dDanceStyleKick 0xB7
-	=dHipHopHitKick2 0xB8
-	=dHipHopHitKick3 0xB9
-	=dReverseFadingWind 0xBA
-	=dScratchS3 0xBB
-	=dLooseSnareNoise 0xBC
-	=dPowerKick2 0xBD
-	=dCrashingNoiseWoo 0xBE
-	=dQuickHit 0xBF
-	=dKickHey 0xC0
-	=dPowerKickHit 0xC1
-	=dLowPowerKickHit 0xC2
-	=dLowerPowerKickHit 0xC3
-	=dLowestPowerKickHit 0xC4
-	=dEchoedClapHit_S3 0xC5
-	=dLowerEchoedClapHit_S3 0xC6
 }
 
 ?note {
@@ -273,25 +182,12 @@
 	=nE6 0xCD
 	=nF6 0xCE
 	=nFs6 0xCF
-	=nG6 0xD0
-	=nAb6 0xD1
-	=nA6 0xD2
-	=nBb6 0xD3
-	=nB6 0xD4
-	=nC7 0xD5
-	=nCs7 0xD6
-	=nD7 0xD7
-	=nEb7 0xD8
-	=nE7 0xD9
-	=nF7 0xDA
-	=nFs7 0xDB
-	=nG7 0xDC
-	=nAb7 0xDD
-	=nA7 0xDE
-	=nBb7 0xDF
 }
 
 ?coordination {
+	¤ /nb >= 0xD0 && /nb < 0xE0 {
+		! > smpsVolQuick: /db&0xF;
+	}
 	!0xE0 > smpsPan: /db & 0xC0, /lb & 0x3F {
 		#0 {
 			=panNone 0x00
@@ -301,30 +197,24 @@
 		}
 	}
 	!0xE1 > smpsAlterNote: /db;
-	!0xE2 > smpsNop: /db;
+	!0xE2 > smpsSetComm: /db;
 	!0xE3 > smpsStopFM:;
-	!0xE4 > smpsSetVol: /db;
-	!0xE5 > smpsFMAlterVol: /db, /db;
-	!0xE6 > %smpsFMAlterVol: /db;
+	!0xE4 > smpsCondJump: /aw{
+		;
+	}
+	!0xE5 > smpsBaseVolSet: /db;
+	!0xE6 > smpsFMAlterVol: /db;
 	=smpsNoAttack 0xE7
 	!0xE8 > smpsNoteFill: /db;
-	!0xE9 > smpsSpindashRev:;
+	!0xE9 > smpsLF0: /db, /db;
 	!0xEA > smpsPlayDACSample: /db | 0x80;
-	~£_Jumpc#
 	!0xEB > smpsConditionalJump: /db, /aw;
 	!0xEC > smpsPSGAlterVol: /db;
-	!0xED > smpsSetNote: /db;
-	!0xEE > smpsFMICommand: /db, /db;
-	¤ /nb == 0xEF {
-		$ /sb
-		¤ (/nb & 0x80) == 0 {
-			! > smpsSetvoice: /db & 0x7F;
-		} {
-			! > smpsSetvoice: /db & 0x7F, /db - 0x81;
-		}
-	}
+	!0xED > smpsSetTempoMod: /db;
+	!0xEE > smpsSetTempoDiv: /db;
+	!0xEF > smpsSetvoice: /db;
 	!0xF0 > smpsModSet: /db, /db, /db, /db;
-	!0xF1 > smpsModChange2: /db, /db;
+	!0xF1 > smpsAlterPitch2: /db;
 	!0xF2 > smpsStop:{
 		;
 	}
@@ -356,22 +246,6 @@
 			=sTone_15 0x15
 			=sTone_16 0x16
 			=sTone_17 0x17
-			=sTone_18 0x18
-			=sTone_19 0x19
-			=sTone_1A 0x1A
-			=sTone_1B 0x1B
-			=sTone_1C 0x1C
-			=sTone_1D 0x1D
-			=sTone_1E 0x1E
-			=sTone_1F 0x1F
-			=sTone_20 0x20
-			=sTone_21 0x21
-			=sTone_22 0x22
-			=sTone_23 0x23
-			=sTone_24 0x24
-			=sTone_25 0x25
-			=sTone_26 0x26
-			=sTone_27 0x27
 		}
 	}
 	~£_Jump#
@@ -385,20 +259,10 @@
 	!0xF9 > smpsReturn:{
 		;
 	}
-	!0xFA > smpsModOff:;
+	!0xFA > smpsChanTempoDiv: /db;
 	!0xFB > smpsAlterPitch: /db;
-	~£_Loopc#
-	!0xFC > smpsContinuousLoop: /aw;
+	!0xFC > smpsPitchSlide: /db;
 	!0xFD > smpsAlternateSMPS: /db;
 	!0xFE > smpsFM3SpecialMode: /db, /db, /db, /db;
-	!0xFF, 0 > smpsSetTempoMod: /db;
-	!0xFF, 1 > smpsPlaySound: /db;
-	!0xFF, 2 > smpsHaltMusic: /db;
-	!0xFF, 3 > smpsCopyData: /db, /db {
-		=comment "No song should ever use this coordination flag. It may good idea to remove it."
-	}
-	!0xFF, 4 > smpsSetTempoDiv: /db;
-	!0xFF, 5 > smpsSSGEG: /db, /db, /db, /db;
-	!0xFF, 6 > smpsFMVolEnv: /db, /db;
-	!0xFF, 7 > smpsResetSpindashRev:;
+	!0xFF > smpsVolQuick: /db&0xF;
 }

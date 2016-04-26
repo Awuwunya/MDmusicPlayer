@@ -115,12 +115,8 @@ s2e_MegaPCM_smpsWeirdD1LRR	macro val
 	dc.b $F9
     endm
 
-s2e_MegaPCM_smpsVcTotalLevel	macro op1,op2,op3,op4
-vcTL1 set op1
-vcTL2 set op2
-vcTL3 set op3
-vcTL4 set op4
-	dc.b	(vcUnusedBits<<6)+(vcFeedback<<3)+vcAlgorithm
+s2e_MegaPCM_smpsVoice	macro
+	dc.b	(vcFeedback<<3)+vcAlgorithm
 ;   0     1     2     3     4     5     6     7
 ;%1000,%1000,%1000,%1000,%1010,%1110,%1110,%1111
 vcTLMask4 set ((vcAlgorithm=7)<<7)

@@ -115,6 +115,17 @@ Contents:
           operations. Mostly used by jumps, calls and header. The symbol for
           this operation is '~'
 
+        * Comment - Is used to set a note in the asm file. Can also be used to
+          set custom operations when necessary. You can use operators inside
+          comments and they are set on a new line. The symbol for this
+          operation is '%'
+
+        * Go to - This operator is used to go to file position, or advance
+          specified amount of bytes forward or backward. Useful for writing
+          comments or with complex commands. You define absolute position
+          ("a"), backwards jump ("b"), or forwards jump ("f") right after the
+          operation symbol. The symbol for this operation is '>'
+
     *2.2.2 - Operators*
       There are some special operators that allow to better interact with
       equates or bytes of the input file. The operator to interact with an
@@ -254,6 +265,21 @@ Contents:
           <lable> is used to identify this subscript by. This is used mostly to
           hold other functions, especially for system subscripts (for example
           coordination, header, note).
+
+      *2.3.10 - Comment*
+        %<note>
+        %; This is a comment!
+        %; The actual value was {/lb}
+          <note> is the string you want to notify user with. All the operations
+          you use must be between { and } tags.
+
+      *2.3.10 - Go to*
+        ><type> <off>
+        >a <dw>
+        >b 10
+          <type> is the type of the operation. 'a' is absolute address´, 'f' is
+          forward via offset addition, 'b' is backward via offset substraction.
+          <off> is the offset, evaluated once the interpreter finds the Go to.
 ================================================================================
 
 *3 - Inner functionality*

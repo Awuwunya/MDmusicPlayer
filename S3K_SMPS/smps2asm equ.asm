@@ -213,12 +213,8 @@ s2e_S3K_SMPS_smpsResetSpindashRev	macro
 	dc.b $FF,$07
     endm
 
-s2e_S3K_SMPS_smpsVcTotalLevel	macro op1,op2,op3,op4
-vcTL1 set op1
-vcTL2 set op2
-vcTL3 set op3
-vcTL4 set op4
-	dc.b	(vcUnusedBits<<6)+(vcFeedback<<3)+vcAlgorithm
+s2e_S3K_SMPS_smpsVoice	macro op1,op2,op3,op4
+	dc.b	(vcFeedback<<3)+vcAlgorithm
 ;   0     1     2     3     4     5     6     7
 ;%1000,%1000,%1000,%1000,%1010,%1110,%1110,%1111
 vcTLMask4 set ((vcAlgorithm=7)<<7)
@@ -227,7 +223,7 @@ vcTLMask2 set ((vcAlgorithm>=5)<<7)
 vcTLMask1 set $80
 	dc.b	(vcDT4<<4)+vcCF4, (vcDT3<<4)+vcCF3, (vcDT2<<4)+vcCF2, (vcDT1<<4)+vcCF1
 	dc.b	(vcRS4<<6)+vcAR4, (vcRS3<<6)+vcAR3, (vcRS2<<6)+vcAR2, (vcRS1<<6)+vcAR1
-	dc.b	(vcAM4<<5)+vcD1R4,(vcAM3<<5)+vcD1R3,(vcAM2<<5)+vcD1R2,(vcAM1<<5)+vcD1R1
+	dc.b	(vcAM4<<7)+vcD1R4,(vcAM3<<7)+vcD1R3,(vcAM2<<7)+vcD1R2,(vcAM1<<7)+vcD1R1
 	dc.b	vcD2R4,           vcD2R3,           vcD2R2,           vcD2R1
 	dc.b	(vcDL4<<4)+vcRR4, (vcDL3<<4)+vcRR3, (vcDL2<<4)+vcRR2, (vcDL1<<4)+vcRR1
 	dc.b	vcTL4|vcTLMask4,  vcTL3|vcTLMask3,  vcTL2|vcTLMask2,  vcTL1|vcTLMask1

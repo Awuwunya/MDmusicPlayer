@@ -36,6 +36,52 @@
 	}
 }
 
+?Voices {
+	=num 0
+	=b1 0
+	=b2 0
+	=b3 0
+	=b4 0
+	%; Voice {$2!\num\}\r\n\t; {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}
+	>b 17
+	! > smpsVcAlgorithm: /nb&0x7;
+	! > smpsVcFeedback: (/db&0x38)>>3;
+	=b1 /db
+	=b2 /db
+	=b3 /db
+	=b4 /db
+	! > smpsVcDetune: (\b4\&0xF0)>>4, (\b3\&0xF0)>>4, (\b2\&0xF0)>>4, (\b1\&0xF0)>>4;
+	! > smpsVcCoarseFreq: \b4\&0xF, \b3\&0xF, \b2\&0xF, \b1\&0xF;
+	=b1 /db
+	=b2 /db
+	=b3 /db
+	=b4 /db
+	! > smpsVcRateScale: (\b4\&0xC0)>>6, (\b3\&0xC0)>>6, (\b2\&0xC0)>>6, (\b1\&0xC0)>>6;
+	! > smpsVcAttackRate: \b4\&0x1F, \b3\&0x1F, \b2\&0x1F, \b1\&0x1F;
+	=b1 /db
+	=b2 /db
+	=b3 /db
+	=b4 /db
+	! > smpsVcAmpMod: (\b4\&0x80)>>7, (\b3\&0x80)>>7, (\b2\&0x80)>>7, (\b1\&0x80)>>7;
+	! > smpsVcDecayRate1: \b4\&0x1F, \b3\&0x1F, \b2\&0x1F, \b1\&0x1F;
+	=b1 /db
+	=b2 /db
+	=b3 /db
+	=b4 /db
+	! > smpsVcDecayRate2: \b4\, \b3\, \b2\, \b1\;
+	=b1 /db
+	=b2 /db
+	=b3 /db
+	=b4 /db
+	! > smpsVcDecayLevel: (\b4\&0xF0)>>4, (\b3\&0xF0)>>4, (\b2\&0xF0)>>4, (\b1\&0xF0)>>4;
+	! > smpsVcReleaseRate: \b4\&0xF, \b3\&0xF, \b2\&0xF, \b1\&0xF;
+	=b1 /db
+	=b2 /db
+	=b3 /db
+	! > smpsVcTotalLevel: /db&0x7F, \b3\&0x7F, \b2\&0x7F, \b1\&0x7F;
+	=num \num\+1
+}
+
 ?DAC {
 	=nRst 0x80
 	=dMKick 0x81

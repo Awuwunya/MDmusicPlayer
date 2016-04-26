@@ -1,22 +1,22 @@
-MagiciansHall_Header:
+MusicEC_Header:
 	smpsHeaderStartSong
-	smpsHeaderVoice	MagiciansHall_Voices
+	smpsHeaderVoice	MusicEC_Voices
 	smpsHeaderChan	$07, $03
 	smpsHeaderTempo	$02, $05
-	smpsHeaderDAC	MagiciansHall_DAC
-	smpsHeaderFM	MagiciansHall_FM1, $00, $12
-	smpsHeaderFM	MagiciansHall_FM2, $00, $0E
-	smpsHeaderFM	MagiciansHall_FM3, $00, $10
-	smpsHeaderFM	MagiciansHall_FM4, $00, $1D
-	smpsHeaderFM	MagiciansHall_FM5, $00, $1D
-	smpsHeaderFM	MagiciansHall_FM6, $00, $1C
-	smpsHeaderPSG	MagiciansHall_PSG1, $DC, $02, $00, sTone_00
-	smpsHeaderPSG	MagiciansHall_PSG2, $DC, $02, $00, sTone_00
-	smpsHeaderPSG	MagiciansHall_PSG3, $DC, $02, $00, sTone_00
+	smpsHeaderDAC	MusicEC_DAC
+	smpsHeaderFM	MusicEC_FM1, $00, $12
+	smpsHeaderFM	MusicEC_FM2, $00, $0E
+	smpsHeaderFM	MusicEC_FM3, $00, $10
+	smpsHeaderFM	MusicEC_FM4, $00, $1D
+	smpsHeaderFM	MusicEC_FM5, $00, $1D
+	smpsHeaderFM	MusicEC_FM6, $00, $1C
+	smpsHeaderPSG	MusicEC_PSG1, $DC, $02, $00, sTone_00
+	smpsHeaderPSG	MusicEC_PSG2, $DC, $02, $00, sTone_00
+	smpsHeaderPSG	MusicEC_PSG3, $DC, $02, $00, sTone_00
 
-MagiciansHall_FM1:
+MusicEC_FM1:
 	dc.b nRst, $06
-MagiciansHall_Jump1:
+MusicEC_Jump1:
 	smpsPan	 panCentre, $00
 	smpsSetvoice	$00
 	dc.b nAb2, $04, nEb3, nAb3, nA3, nB3, nEb4, nAb4
@@ -56,10 +56,10 @@ MagiciansHall_Jump1:
 	dc.b nF4, nG4, nBb4, nCs5, nF5, nCs2, nAb2, nB2
 	dc.b nEb3, nE3, nAb3, nB3, nEb4, nE4, nAb4, nB4
 	dc.b $08
-	smpsJump	MagiciansHall_Jump1
+	smpsJump	MusicEC_Jump1
 
-MagiciansHall_FM2:
-MagiciansHall_Jump2:
+MusicEC_FM2:
+MusicEC_Jump2:
 	smpsPan	 panCentre, $00
 	smpsSetvoice	$00
 	dc.b nAb2, $04, nEb3, nAb3, nA3, nB3, nEb4, nAb4
@@ -99,10 +99,10 @@ MagiciansHall_Jump2:
 	dc.b nF4, nG4, nBb4, nCs5, nF5, nCs2, nAb2, nB2
 	dc.b nEb3, nE3, nAb3, nB3, nEb4, nE4, nAb4, nB4
 	dc.b nEb5
-	smpsJump	MagiciansHall_Jump2
+	smpsJump	MusicEC_Jump2
 
-MagiciansHall_FM3:
-MagiciansHall_Jump3:
+MusicEC_FM3:
+MusicEC_Jump3:
 	smpsPan	 panCentre, $00
 	smpsSetvoice	$01
 	dc.b nAb1, $10, nEb2, nB2, nA2, nCs2, nFs1, nAb1
@@ -115,10 +115,10 @@ MagiciansHall_Jump3:
 	dc.b nBb1, nG2, nCs1, nB1, nEb2, nEb1, nBb1, nG2
 	dc.b nCs1, nB1, nEb2, nEb1, nBb1, nG2, nCs1, nB1
 	dc.b nEb2
-	smpsJump	MagiciansHall_Jump3
+	smpsJump	MusicEC_Jump3
 
-MagiciansHall_FM4:
-MagiciansHall_Jump4:
+MusicEC_FM4:
+MusicEC_Jump4:
 	smpsPan	 panRight, $00
 	smpsSetvoice	$02
 	dc.b nEb4, $08
@@ -224,11 +224,11 @@ MagiciansHall_Jump4:
 	dc.b $08
 	smpsPan	 panCentre, $00
 	dc.b $08, nD5, $08, $08
-	smpsJump	MagiciansHall_Jump4
+	smpsJump	MusicEC_Jump4
 
-MagiciansHall_FM5:
+MusicEC_FM5:
 	dc.b nRst, $06
-MagiciansHall_Jump5:
+MusicEC_Jump5:
 	smpsPan	 panRight, $00
 	smpsSetvoice	$02
 	dc.b nEb4, $04
@@ -338,11 +338,11 @@ MagiciansHall_Jump5:
 	dc.b nCs5
 	smpsPan	 panCentre, $00
 	dc.b nCs4, nCs5, nCs4, nD5, nD4, nD5, $08
-	smpsJump	MagiciansHall_Jump5
+	smpsJump	MusicEC_Jump5
 
-MagiciansHall_FM6:
+MusicEC_FM6:
 	dc.b nRst, $04
-MagiciansHall_Jump6:
+MusicEC_Jump6:
 	smpsPan	 panCentre, $00
 	smpsSetvoice	$02
 	dc.b nEb3, $08, $08, nEb4, $08, $08
@@ -450,10 +450,10 @@ MagiciansHall_Jump6:
 	dc.b $08
 	smpsPan	 panCentre, $00
 	dc.b $08, nD4, $08, $08
-	smpsJump	MagiciansHall_Jump6
+	smpsJump	MusicEC_Jump6
 
-MagiciansHall_PSG1:
-MagiciansHall_Jump7:
+MusicEC_PSG1:
+MusicEC_Jump7:
 	smpsPSGvoice	 sTone_05
 	dc.b nEb4, $30, nCs4, $20, nE4, $10, nEb4, $30
 	dc.b nE4, $10, nFs4, nE4, nEb4, $30, nCs4, $20
@@ -474,10 +474,10 @@ MagiciansHall_Jump7:
 	dc.b $02, nG4, $08, nF4, nG4, nAb4, nG4, nF4
 	dc.b $03, nG4, nF4, $02, nEb4, $08, nCs4, nEb4
 	dc.b nE4
-	smpsJump	MagiciansHall_Jump7
+	smpsJump	MusicEC_Jump7
 
-MagiciansHall_PSG2:
-MagiciansHall_Jump8:
+MusicEC_PSG2:
+MusicEC_Jump8:
 	smpsPSGvoice	 sTone_05
 	dc.b nAb4, $30, nFs4, $20, nA4, $10, nAb4, $30
 	dc.b nA4, $10, nB4, nA4, nAb4, $30, nFs4, $20
@@ -497,11 +497,11 @@ MagiciansHall_Jump8:
 	dc.b $02, nEb4, $08, nCs4, nEb4, nF4, nEb4, nCs4
 	dc.b $03, nEb4, nCs4, $02, nB3, $08, nA3, nB3
 	dc.b nCs4
-	smpsJump	MagiciansHall_Jump8
+	smpsJump	MusicEC_Jump8
 
-MagiciansHall_PSG3:
+MusicEC_PSG3:
 	dc.b nRst, $06
-MagiciansHall_Jump9:
+MusicEC_Jump9:
 	smpsPSGvoice	 sTone_05
 	dc.b nAb4, $30, nFs4, $20, nA4, $10, nAb4, $30
 	dc.b nA4, $10, nB4, nA4, nAb4, $30, nFs4, $20
@@ -521,15 +521,110 @@ MagiciansHall_Jump9:
 	dc.b $02, nEb4, $08, nCs4, nEb4, nF4, nEb4, nCs4
 	dc.b $03, nEb4, nCs4, $02, nB3, $08, nA3, nB3
 	dc.b nCs4
-	smpsJump	MagiciansHall_Jump9
+	smpsJump	MusicEC_Jump9
 
-MagiciansHall_DAC:
-	smpsStop	
+MusicEC_DAC:
+	smpsStop
 
-MagiciansHall_Voices:
-	dc.b $34, $33, $41, $7E, $74, $5B, $9F, $5F, $1F, $04, $07, $07, $08, $00, $00, $00, $00, $FF, $FF, $EF, $FF, $23, $80, $29, $87
-	dc.b $34, $33, $41, $7E, $74, $5B, $9F, $5F, $1F, $04, $07, $07, $08, $00, $00, $00, $00, $FF, $FF, $EF, $FF, $23, $80, $29, $87
-	dc.b $39, $0A, $D0, $00, $01, $1F, $5F, $5F, $5F, $13, $12, $0D, $08, $0C, $0F, $0F, $0C, $8F, $8F, $7F, $4F, $28, $27, $20, $06
-	dc.b $1C, $73, $72, $33, $32, $94, $99, $94, $99, $08, $0A, $08, $0A, $00, $05, $00, $05, $3F, $4F, $3F, $4F, $1E, $80, $19, $80
-	dc.b $1C, $73, $72, $33, $32, $94, $99, $94, $99, $08, $0A, $08, $0A, $00, $05, $00, $05, $3F, $4F, $3F, $4F, $1E, $80, $19, $80
-	dc.b $1C, $73, $72, $33, $32, $94, $99, $94, $99, $08, $0A, $08, $0A, $00, $05, $00, $05, $3F, $4F, $3F, $4F, $1E, $80, $19, $80
+MusicEC_Voices:
+	; Voice $00
+	; $34
+	; $33, $41, $7E, $74,	$5B, $9F, $5F, $1F
+	; $04, $07, $07, $08,	$00, $00, $00, $00
+	smpsVcAlgorithm	$04
+	smpsVcFeedback	$06
+	smpsVcDetune	$07, $07, $04, $03
+	smpsVcCoarseFreq	$04, $0E, $01, $03
+	smpsVcRateScale	$00, $01, $02, $01
+	smpsVcAttackRate	$1F, $1F, $1F, $1B
+	smpsVcAmpMod	$00, $00, $00, $00
+	smpsVcDecayRate1	$08, $07, $07, $04
+	smpsVcDecayRate2	$00, $00, $00, $00
+	smpsVcDecayLevel	$0F, $0E, $0F, $0F
+	smpsVcReleaseRate	$0F, $0F, $0F, $0F
+	smpsVcTotalLevel	$07, $29, $00, $23
+
+	; Voice $01
+	; $34
+	; $33, $41, $7E, $74,	$5B, $9F, $5F, $1F
+	; $04, $07, $07, $08,	$00, $00, $00, $00
+	smpsVcAlgorithm	$04
+	smpsVcFeedback	$06
+	smpsVcDetune	$07, $07, $04, $03
+	smpsVcCoarseFreq	$04, $0E, $01, $03
+	smpsVcRateScale	$00, $01, $02, $01
+	smpsVcAttackRate	$1F, $1F, $1F, $1B
+	smpsVcAmpMod	$00, $00, $00, $00
+	smpsVcDecayRate1	$08, $07, $07, $04
+	smpsVcDecayRate2	$00, $00, $00, $00
+	smpsVcDecayLevel	$0F, $0E, $0F, $0F
+	smpsVcReleaseRate	$0F, $0F, $0F, $0F
+	smpsVcTotalLevel	$07, $29, $00, $23
+
+	; Voice $02
+	; $39
+	; $0A, $D0, $00, $01,	$1F, $5F, $5F, $5F
+	; $13, $12, $0D, $08,	$0C, $0F, $0F, $0C
+	smpsVcAlgorithm	$01
+	smpsVcFeedback	$07
+	smpsVcDetune	$00, $00, $0D, $00
+	smpsVcCoarseFreq	$01, $00, $00, $0A
+	smpsVcRateScale	$01, $01, $01, $00
+	smpsVcAttackRate	$1F, $1F, $1F, $1F
+	smpsVcAmpMod	$00, $00, $00, $00
+	smpsVcDecayRate1	$08, $0D, $12, $13
+	smpsVcDecayRate2	$0C, $0F, $0F, $0C
+	smpsVcDecayLevel	$04, $07, $08, $08
+	smpsVcReleaseRate	$0F, $0F, $0F, $0F
+	smpsVcTotalLevel	$06, $20, $27, $28
+
+	; Voice $03
+	; $1C
+	; $73, $72, $33, $32,	$94, $99, $94, $99
+	; $08, $0A, $08, $0A,	$00, $05, $00, $05
+	smpsVcAlgorithm	$04
+	smpsVcFeedback	$03
+	smpsVcDetune	$03, $03, $07, $07
+	smpsVcCoarseFreq	$02, $03, $02, $03
+	smpsVcRateScale	$02, $02, $02, $02
+	smpsVcAttackRate	$19, $14, $19, $14
+	smpsVcAmpMod	$00, $00, $00, $00
+	smpsVcDecayRate1	$0A, $08, $0A, $08
+	smpsVcDecayRate2	$05, $00, $05, $00
+	smpsVcDecayLevel	$04, $03, $04, $03
+	smpsVcReleaseRate	$0F, $0F, $0F, $0F
+	smpsVcTotalLevel	$00, $19, $00, $1E
+
+	; Voice $04
+	; $1C
+	; $73, $72, $33, $32,	$94, $99, $94, $99
+	; $08, $0A, $08, $0A,	$00, $05, $00, $05
+	smpsVcAlgorithm	$04
+	smpsVcFeedback	$03
+	smpsVcDetune	$03, $03, $07, $07
+	smpsVcCoarseFreq	$02, $03, $02, $03
+	smpsVcRateScale	$02, $02, $02, $02
+	smpsVcAttackRate	$19, $14, $19, $14
+	smpsVcAmpMod	$00, $00, $00, $00
+	smpsVcDecayRate1	$0A, $08, $0A, $08
+	smpsVcDecayRate2	$05, $00, $05, $00
+	smpsVcDecayLevel	$04, $03, $04, $03
+	smpsVcReleaseRate	$0F, $0F, $0F, $0F
+	smpsVcTotalLevel	$00, $19, $00, $1E
+
+	; Voice $05
+	; $1C
+	; $73, $72, $33, $32,	$94, $99, $94, $99
+	; $08, $0A, $08, $0A,	$00, $05, $00, $05
+	smpsVcAlgorithm	$04
+	smpsVcFeedback	$03
+	smpsVcDetune	$03, $03, $07, $07
+	smpsVcCoarseFreq	$02, $03, $02, $03
+	smpsVcRateScale	$02, $02, $02, $02
+	smpsVcAttackRate	$19, $14, $19, $14
+	smpsVcAmpMod	$00, $00, $00, $00
+	smpsVcDecayRate1	$0A, $08, $0A, $08
+	smpsVcDecayRate2	$05, $00, $05, $00
+	smpsVcDecayLevel	$04, $03, $04, $03
+	smpsVcReleaseRate	$0F, $0F, $0F, $0F
+	smpsVcTotalLevel	$00, $19, $00, $1E
