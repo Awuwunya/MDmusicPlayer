@@ -1,17 +1,18 @@
 VBlank:
 		movem.l	d0-a6,-(sp)
-	dma68kToVDP	MainPalette, 0, $80, CRAM	; DMA palette to CRAM
-	dma68kToVDP	VScrollRAM, 0, 80, VSRAM	; DMA Vertical scrolling to VSRAM
-
 		bsr.s	ReadControllers			; read controller input
+
 		tst.b	LoadedDriver			; has driver been loaded?
 		bmi.s	.nope				; branch if not
+		bsr.w	FakeDMA				; do a fake DMA to VRAM and stop z80
 		jsr	Driver68K			; run sound driver code
 .draw		jsr	DrawChaninfo			; draw information about active channels
 		movem.l	(sp)+,d0-a6
 		rte
 
-.nope		move.w	#0,ActiveChn.w			; clear active channel list
+.nope		clr.w	ActiveChn.w			; clear active channel list
+	dma68kToVDP MainPalette,0,$80,CRAM	; DMA palette to CRAM
+	dma68kToVDP VScrollRAM, 0, 80,VSRAM	; DMA Vertical scrolling to VSRAM
 		bra.s	.draw
 ; ===========================================================================
 
@@ -59,3 +60,42 @@ VSync:
 		rts			; return
 ; ===========================================================================
 
+FakeDMA:
+	stopZ80				; stop z80 for the duration of the experiment
+
+		move.w	DMAlen.w,d0	; get DMA length setting
+		move.w	.offs(pc,d0.w),d1; get offset to the routine
+		jmp	.offs(pc,d1.w)	; jump to it
+; ===========================================================================
+.offs	dc.w .0xD0-.offs
+	if extremeDMA=1
+		dc.w .0x4000-.offs
+		dc.w .0x2000-.offs
+	endif
+	dc.w .0x1000-.offs
+	dc.w .0x900-.offs
+	dc.w .0x680-.offs
+; ===========================================================================
+
+	if extremeDMA=1
+.0x4000		dma68kToVDP 0,$400*32,$1000,VRAM
+		dma68kToVDP 0,$400*32,$1000,VRAM
+.0x2000		dma68kToVDP 0,$400*32,$2000-$1000,VRAM
+	endif
+.0x1000	dma68kToVDP 0,$400*32,$1000-$900,VRAM
+.0x900	dma68kToVDP 0,$400*32,$900-$680,VRAM
+.0x680	dma68kToVDP 0,$400*32,$900-$680,VRAM
+.0xD0	dma68kToVDP VScrollRAM, 0, 80,VSRAM	; DMA Vertical scrolling to VSRAM
+	dma68kToVDP MainPalette,0,$80,CRAM	; DMA palette to CRAM
+	startZ80			; start z80 up!
+		rts
+
+FakeDMAsz:
+	asc.w 0,'00D0'; minimal
+	if extremeDMA=1
+		asc.w 0,'4000'; extremely a lot
+		asc.w 0,'2000'; very lot
+	endif
+	asc.w 0,'1000'; a lot
+	asc.w 0,'0900'; usual max
+	asc.w 0,'0680'; normal

@@ -107,7 +107,7 @@ SetupValues:	dc.w $8000		; XREF: PortA_Ok
 
 		dc.b $9F, $BF, $DF, $FF	; values for PSG channel volumes
 ; ===========================================================================
-SoundSelectStr:	asc2.w $8000,'Currently playing:$0000         Play music:$0000           Name:Stop music sfx'
+SoundSelectStr:	asc2.w $8000,'DMA length:$00D0                Currently playing:$0000         Play music:$0000           Name:Stop music sfx'
 ; ===========================================================================
 ResetProgram:
 		move.w	SetupValues+2(pc),d1	; get length
@@ -153,8 +153,8 @@ GameProgram:
 
 	; right here we initialize what you see onscreen
 		lea	SoundSelectStr(pc),a0	; get sound select string
-		moveq	#25,d5			; text x-position
-		moveq	#0,d4			; text y-position
+		moveq	#24,d5			; text y-position
+		moveq	#0,d4			; text x-position
 		jsr	WriteString1.w		; display it
 
 		; program start

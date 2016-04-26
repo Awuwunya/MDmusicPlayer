@@ -463,6 +463,7 @@ ActiveChnLast	rs.w 1		; active sound channels for last frame
 ActiveChn	rs.w 1		; currently active sound channels. Bits 0-5 = FM1-FM6, Bits 6-9 = PSG1-PSG3, Bit 10 = DAC
 MusSelection	rs.w 1		; current song selection
 MusPlaying	rs.w 1		; current song playing
+DMAlen		rs.w 1		; current fake DMA mode
 LoadedDriver	rs.b 1		; currently loaded sound driver
 HWVersion	rs.b 1		; determines the region of the machine
 		rs.w 0		; make sure these addresses are even
@@ -483,3 +484,6 @@ PSG3time	rs.b 1		; PSG3 timer
 ; ===========================================================================
 pal60mod =	0	; Set to 1 if you want to enable 60hz PAL mode for all sound drivers (note; some may not correctly play music)
 			; NOTE: Drivers are modified in order to support this feature.
+extremeDMA =	0	; set to 1 to unlock extreme ($4000 bytes!!!) DMA mode.
+			; You must acknowledge however, that most drivers can not cope with this and it will cause all kinds of crazy glitches.
+			; this is nonstandard and no driver is designed to be able to deal with this.

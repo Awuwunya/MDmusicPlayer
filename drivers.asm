@@ -248,11 +248,11 @@ PlayMusicFile:
 		jsr	(a1)			; run play music code
 	startZ80			; return z80 bus
 .nope		rts
+
 ; ===========================================================================
 DrvPlayCodes:
 	drvplay
 
 DrvLoadCodes:
 	drvload
-
 ; ===========================================================================

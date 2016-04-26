@@ -24,7 +24,29 @@ ControlPrg:
 		or.w	Ctrl2Held.w,d0		; get player 2 controller input
 		move.w	d0,Ctrl0Held.w		; save as controller 0 input (both controllers combined)
 
-		lea	MusSelection.w,a5	; get music selection RAM to a5
+		btst	#6,d0			; was A pressed?
+		beq.s	.noA			; if not, branch
+		subq.w	#2,DMAlen.w		; change DMA length
+		bpl.s	.aw			; if positive, write the length
+
+	if extremeDMA=0
+		move.w	#6,DMAlen.w		; set to 6
+	else
+		move.w	#10,DMAlen.w		; set to 10
+	endif
+
+.aw		move.w	DMAlen.w,d6		; get the offset
+		add.w	d6,d6			; double it
+		add.w	d6,d6			; double it
+		lea	FakeDMAsz,a0
+		lea	(a0,d6.w),a0		; get the DMA size
+
+		moveq	#4-1,d6			; text length
+		moveq	#12,d4			; text x-position
+		moveq	#24,d5			; text y-position
+		jsr	WriteString2.w		; display it
+
+.noA		lea	MusSelection.w,a5	; get music selection RAM to a5
 		btst	#2,d0			; was right pressed?
 		beq.s	.notright		; if not, branch
 		addq.w	#4,(a5)			; go to next selection
