@@ -9,9 +9,9 @@ GreenHill_Header:
 	smpsHeaderFM	GreenHill_FM3, $F4, $14
 	smpsHeaderFM	GreenHill_FM4, $F4, $08
 	smpsHeaderFM	GreenHill_FM5, $F4, $20
-	smpsHeaderPSG	GreenHill_PSG1, $D0, $01, $00, sTone_03
-	smpsHeaderPSG	GreenHill_PSG2, $D0, $03, $00, sTone_06
-	smpsHeaderPSG	GreenHill_PSG3, $00, $03, $00, sTone_04
+	smpsHeaderPSG	GreenHill_PSG1, $D0, $01, $00, VolEnv_03
+	smpsHeaderPSG	GreenHill_PSG2, $D0, $03, $00, VolEnv_06
+	smpsHeaderPSG	GreenHill_PSG3, $00, $03, $00, VolEnv_04
 
 GreenHill_FM1:
 	smpsSetvoice	$02
@@ -66,7 +66,7 @@ GreenHill_Call1:
 	dc.b nA6, $04, nF6, nA6, nF6, nB6, nG6, nB6
 	dc.b nG6, nC7, nA6, nC7, nA6, nD7, nB6, nD7
 	dc.b nB6
-	smpsReturn	
+	smpsReturn
 
 GreenHill_Call2:
 	dc.b nC7, $08, nA6, $10, nC7, $08, nB6, $10
@@ -76,7 +76,7 @@ GreenHill_Call2:
 	dc.b $10, nC7, $08, nB6, $10, nC7, $08, nB6
 	dc.b $10, nG6, $30, nA6, $08, $08, nF6, $10
 	dc.b nA6, $08, nG6, $10, nA6, $08, nG6, $10
-	smpsReturn	
+	smpsReturn
 
 GreenHill_FM2:
 	smpsSetvoice	$00
@@ -139,7 +139,7 @@ GreenHill_Call3:
 	dc.b nE3, nE3, nE3, nE3, nE3
 	smpsNoteFill	$00
 	dc.b nC3, nD3, nE3
-	smpsReturn	
+	smpsReturn
 
 GreenHill_Call4:
 	smpsNoteFill	$04
@@ -156,7 +156,7 @@ GreenHill_Call4:
 	dc.b nD3
 	smpsNoteFill	$04
 	dc.b nC3, nC3, nC3, nC3, nC3
-	smpsReturn	
+	smpsReturn
 
 GreenHill_FM3:
 	smpsSetvoice	$02
@@ -199,7 +199,7 @@ GreenHill_Jump4:
 	dc.b nA6, nRst, $24, nRst, nC7, $04, nRst, $0C
 	dc.b nA6, $10, nG6, $04, nRst, nA6, nRst, nC7
 	dc.b nRst
-	smpsModOff	
+	smpsModOff
 	smpsSetvoice	$05
 	smpsCall	GreenHill_Call6
 	dc.b nG6, $04, nA6, nC7, $08, nA6
@@ -228,7 +228,7 @@ GreenHill_Jump4:
 
 GreenHill_Call5:
 	dc.b nRst, $34, nRst, nG6, $04, nA6, nC7, $08
-	smpsReturn	
+	smpsReturn
 
 GreenHill_Call6:
 	smpsFMAlterVol	$06
@@ -236,7 +236,7 @@ GreenHill_Call6:
 	dc.b $08, nC5, $04, nRst, nD5, $08, nB4, $04
 	dc.b nRst, $0E, nRst
 	smpsFMAlterVol	$FA
-	smpsReturn	
+	smpsReturn
 
 GreenHill_FM4:
 	smpsSetvoice	$08
@@ -264,7 +264,7 @@ GreenHill_Loop9:
 	dc.b $01, smpsNoAttack, nG5, $28, smpsNoAttack, $3F
 	smpsFMAlterVol	$F6
 	smpsAlterPitch	$18
-	smpsModOff	
+	smpsModOff
 
 GreenHill_Jump5:
 	smpsSetvoice	$05
@@ -308,7 +308,7 @@ GreenHill_Jump5:
 GreenHill_Call7:
 	dc.b nE5, $08, nE5, nC5, nC5, nA4, nA4, nF4
 	dc.b nF4, nD5, nD5, nB4, nB4, nG4, nG4
-	smpsReturn	
+	smpsReturn
 
 GreenHill_FM5:
 	smpsSetvoice	$03
@@ -390,10 +390,10 @@ GreenHill_Loop15:
 GreenHill_Call8:
 	dc.b nE5, $08, nE5, nC5, nC5, nA4, nA4, nF4
 	dc.b nF4, nD5, nD5, nB4, nB4, nG4, nG4
-	smpsReturn	
+	smpsReturn
 
 GreenHill_PSG1:
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	smpsModSet	$0E, $01, $01, $03
 	dc.b nRst, $40
 	smpsNoteFill	$10
@@ -406,11 +406,11 @@ GreenHill_PSG1:
 	dc.b nF5, $10, $18
 	smpsNoteFill	$00
 	dc.b nE5, $34, smpsNoAttack, $34
-	smpsModOff	
+	smpsModOff
 
 GreenHill_Loop17:
 GreenHill_Jump7:
-	smpsPSGvoice	 sTone_01
+	smpsPSGvoice	VolEnv_01
 
 GreenHill_Loop16:
 	dc.b nRst, $10, nC6, $04, nRst, $14, nC6, $08
@@ -421,7 +421,7 @@ GreenHill_Loop16:
 	dc.b nRst, $20, nG5, $04, nRst, $14, nG5, $08
 	dc.b nRst, $10
 	smpsLoop	$00, $02, GreenHill_Loop17
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	dc.b nBb6, $18, nA6, nG6, nF6, nE6, $08, nRst
 	dc.b nD6, nRst, nA5, $18, nB5, nC6, nD6, nE6
 	dc.b $08, nRst, nA6, nRst, nAb6, $18, nG6, nF6
@@ -430,7 +430,7 @@ GreenHill_Loop16:
 	smpsPSGAlterVol	$01
 	dc.b nA5, $18, $08, nRst, nA5, nRst
 	smpsPSGAlterVol	$FF
-	smpsPSGvoice	 sTone_03
+	smpsPSGvoice	VolEnv_03
 	smpsJump	GreenHill_Jump7
 
 GreenHill_PSG2:
@@ -446,7 +446,7 @@ GreenHill_Loop18:
 
 GreenHill_Loop20:
 GreenHill_Jump8:
-	smpsPSGvoice	 sTone_01
+	smpsPSGvoice	VolEnv_01
 
 GreenHill_Loop19:
 	dc.b nRst, $10, nE6, $04, nRst, $14, nE6, $08
@@ -460,10 +460,10 @@ GreenHill_Loop19:
 	dc.b nD6, $34, smpsNoAttack, $34, nC6, $08, nD6, nE6
 	dc.b $38, smpsNoAttack, $38, nC6, $08, nC6, nE6, nEb6
 	dc.b $34, smpsNoAttack, $34, nC6, $08, nEb6, nD6
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	dc.b nC5, $18, $18, $18, $18, $08, nRst, nC5
 	dc.b nRst
-	smpsPSGvoice	 sTone_03
+	smpsPSGvoice	VolEnv_03
 	smpsJump	GreenHill_Jump8
 
 GreenHill_PSG3:

@@ -6,21 +6,21 @@ nMaxPSG1 =		nBb6
 nMaxPSG2 =		nB6
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
-	enum $01, sTone_01,sTone_02,sTone_03,sTone_04,sTone_05,sTone_06
-	enum sTone_06+1, sTone_07,sTone_08,sTone_09,sTone_0A,sTone_0B,sTone_0C
-	enum sTone_0C+1, sTone_0D,sTone_0E,sTone_0F,sTone_10,sTone_11,sTone_12
-	enum sTone_12+1, sTone_13,sTone_14,sTone_15,sTone_16,sTone_17,sTone_18
-	enum sTone_18+1, sTone_19,sTone_1A,sTone_1B,sTone_1C,sTone_1D,sTone_1E
-	enum sTone_1E+1, sTone_1F,sTone_20,sTone_21,sTone_22,sTone_23,sTone_24
-	enum sTone_24+1, sTone_25,sTone_26,sTone_27
+	enum $00,	  VolEnv_00,VolEnv_01,VolEnv_02,VolEnv_03,VolEnv_04,VolEnv_05
+	enum VolEnv_05+1, VolEnv_06,VolEnv_07,VolEnv_08,VolEnv_09,VolEnv_0A,VolEnv_0B
+	enum VolEnv_0B+1, VolEnv_0C,VolEnv_0D,VolEnv_0E,VolEnv_0F,VolEnv_10,VolEnv_11
+	enum VolEnv_11+1, VolEnv_12,VolEnv_13,VolEnv_14,VolEnv_15,VolEnv_16,VolEnv_17
+	enum VolEnv_17+1, VolEnv_18,VolEnv_19,VolEnv_1A,VolEnv_1B,VolEnv_1C,VolEnv_1D
+	enum VolEnv_1D+1, VolEnv_1E,VolEnv_1F,VolEnv_20,VolEnv_21,VolEnv_22,VolEnv_23
+	enum VolEnv_23+1, VolEnv_24,VolEnv_25,VolEnv_26,VolEnv_27
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
-	enum $81, dSnareS3,dHighTom,dMidTomS3,dLowTomS3,dFloorTomS3,dKickS3,dMuffledSnare
+	enum $81, dSnare,dHighTom,dMidTom,dLowTom,dFloorTom,dKick,dMuffledSnare
 	enum dMuffledSnare+1, dCrashCymbal,dRideCymbal,dLowMetalHit,dMetalHit,dHighMetalHit
-	enum dHighMetalHit+1, dHigherMetalHit,dMidMetalHit,dClapS3,dElectricHighTom
+	enum dHighMetalHit+1, dHigherMetalHit,dMidMetalHit,dClap,dElectricHighTom
 	enum dElectricHighTom+1, dElectricMidTom,dElectricLowTom,dElectricFloorTom
 	enum dElectricFloorTom+1, dTightSnare,dMidpitchSnare,dLooseSnare,dLooserSnare
-	enum dLooserSnare+1, dHiTimpaniS3,dLowTimpaniS3,dMidTimpaniS3,dQuickLooseSnare
+	enum dLooserSnare+1, dHiTimpani,dLowTimpani,dMidTimpani,dQuickLooseSnare
 	enum dQuickLooseSnare+1, dClick,dPowerKick,dQuickGlassCrash
 
 	enum dQuickGlassCrash+1, dGlassCrashSnare,dGlassCrash,dGlassCrashKick,dQuietGlassCrash
@@ -29,10 +29,10 @@ nMaxPSG2 =		nB6
 	enum dLowWoodBlock+1, dHiHitDrum,dLowHitDrum,dMetalCrashHit,dEchoedClapHit
 	enum dEchoedClapHit+1, dLowerEchoedClapHit,dHipHopHitKick,dHipHopHitPowerKick
 	enum dHipHopHitPowerKick+1, dBassHey,dDanceStyleKick,dHipHopHitKick2,dHipHopHitKick3
-	enum dHipHopHitKick3+1, dReverseFadingWind,dScratchS3,dLooseSnareNoise,dPowerKick2
+	enum dHipHopHitKick3+1, dReverseFadingWind,dScratch,dLooseSnareNoise,dPowerKick2
 	enum dPowerKick2+1, dCrashingNoiseWoo,dQuickHit,dKickHey,dPowerKickHit
 	enum dPowerKickHit+1, dLowPowerKickHit,dLowerPowerKickHit,dLowestPowerKickHit
-	enum dLowestPowerKickHit+1, dEchoedClapHit_S3,dLowerEchoedClapHit_S3
+	enum dLowestPowerKickHit+1, dEchoedClapHit2,dLowerEchoedClapHit2
     endm
 
 s2e_S3K_SMPS_smpsPan	macro direction,amsfms

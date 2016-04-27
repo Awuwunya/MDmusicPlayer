@@ -1,6 +1,6 @@
 DataSelect_Header:
 	smpsHeaderStartSong
-	smpsHeaderVoiceUVB	
+	smpsHeaderVoiceUVB
 	smpsHeaderChan	$06, $03
 	smpsHeaderTempo	$01, $40
 	smpsHeaderDAC	DataSelect_DAC
@@ -9,9 +9,9 @@ DataSelect_Header:
 	smpsHeaderFM	DataSelect_FM3, $0C, $19
 	smpsHeaderFM	DataSelect_FM4, $0C, $19
 	smpsHeaderFM	DataSelect_FM5, $0C, $19
-	smpsHeaderPSG	DataSelect_PSG1, $00, $06, $00, sTone_0C
-	smpsHeaderPSG	DataSelect_PSG2, $00, $06, $00, sTone_0C
-	smpsHeaderPSG	DataSelect_PSG3, $00, $04, $00, sTone_0C
+	smpsHeaderPSG	DataSelect_PSG1, $00, $06, $00, VolEnv_0C
+	smpsHeaderPSG	DataSelect_PSG2, $00, $06, $00, VolEnv_0C
+	smpsHeaderPSG	DataSelect_PSG3, $00, $04, $00, VolEnv_0C
 	; Unused
 	dc.b $F2, $F2
 
@@ -26,8 +26,8 @@ DataSelect_Loop1:
 DataSelect_Jump1:
 	smpsCall	DataSelect_Call1
 	smpsLoop	$01, $03, DataSelect_Loop1
-	dc.b dKickS3, $12, dKickS3, $06, dKickS3, dElectricHighTom, $0C, dKickS3
-	dc.b $06, dKickS3, $02, dHigherMetalHit, $03, dHigherMetalHit, $01, dHigherMetalHit
+	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
+	dc.b $06, dKick, $02, dHigherMetalHit, $03, dHigherMetalHit, $01, dHigherMetalHit
 	dc.b $0C, dHigherMetalHit, $06, dHigherMetalHit, $08, dHigherMetalHit, dMidMetalHit
 
 DataSelect_Loop2:
@@ -39,31 +39,31 @@ DataSelect_Loop2:
 DataSelect_Loop3:
 	smpsCall	DataSelect_Call1
 	smpsLoop	$01, $07, DataSelect_Loop3
-	dc.b dKickS3, $12, dKickS3, $06, dKickS3, dElectricHighTom, $0C, dKickS3
-	dc.b $06, dKickS3, dHigherMetalHit, $0C, dHigherMetalHit, $06, dHigherMetalHit, $0C
+	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
+	dc.b $06, dKick, dHigherMetalHit, $0C, dHigherMetalHit, $06, dHigherMetalHit, $0C
 	dc.b dElectricLowTom
 
 DataSelect_Loop4:
 	smpsCall	DataSelect_Call1
 	smpsLoop	$01, $02, DataSelect_Loop4
-	dc.b dKickS3, $12, dKickS3, $06, dKickS3, dElectricHighTom, $0C, dKickS3
-	dc.b $06, dKickS3, $12, dKickS3, $06, dKickS3, dElectricMidTom, dElectricLowTom
+	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
+	dc.b $06, dKick, $12, dKick, $06, dKick, dElectricMidTom, dElectricLowTom
 	dc.b $0C, dElectricLowTom, $06, dElectricLowTom, dElectricLowTom, $12, dElectricLowTom, $06
 	dc.b dElectricLowTom, dElectricLowTom, $1E, dElectricMidTom, $18
 
 DataSelect_Loop5:
 	smpsCall	DataSelect_Call1
 	smpsLoop	$01, $03, DataSelect_Loop5
-	dc.b dElectricLowTom, $06, dKickS3, $0C, dElectricLowTom, $06, dKickS3, dElectricLowTom
-	dc.b dElectricLowTom, dElectricMidTom, $0C, dKickS3, $12, dKickS3, $06, dKickS3
+	dc.b dElectricLowTom, $06, dKick, $0C, dElectricLowTom, $06, dKick, dElectricLowTom
+	dc.b dElectricLowTom, dElectricMidTom, $0C, dKick, $12, dKick, $06, dKick
 	dc.b dElectricHighTom, $0C
 
 DataSelect_Loop6:
 	smpsCall	DataSelect_Call1
 	smpsLoop	$01, $02, DataSelect_Loop6
-	dc.b dKickS3, $12, dKickS3, $06, dKickS3, dElectricHighTom, $0C, dKickS3
-	dc.b $06, dKickS3, $12, dKickS3, $06, dKickS3, dElectricMidTom, dElectricLowTom
-	dc.b $0C, dElectricLowTom, dKickS3, $06, dElectricLowTom, $0C, dKickS3, $06
+	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
+	dc.b $06, dKick, $12, dKick, $06, dKick, dElectricMidTom, dElectricLowTom
+	dc.b $0C, dElectricLowTom, dKick, $06, dElectricLowTom, $0C, dKick, $06
 	dc.b dElectricLowTom, nRst, $36
 	smpsJump	DataSelect_Jump1
 	; Unused
@@ -613,12 +613,12 @@ DataSelect_Jump6:
 	dc.b $F2
 
 DataSelect_PSG1:
-	smpsPSGvoice	 sTone_04
+	smpsPSGvoice	VolEnv_04
 	smpsAlterNote	$00
 	dc.b nRst, $2A
 
 DataSelect_Jump7:
-	smpsPSGvoice	 sTone_04
+	smpsPSGvoice	VolEnv_04
 	smpsCall	DataSelect_Call2
 	dc.b nD3, nRst, $0C, nEb3, $06, nRst, $0C, nF3
 	dc.b $06, nRst, $0C, nG4, $06, nG5, nG4, nRst
@@ -660,12 +660,12 @@ DataSelect_Call2:
 	dc.b nRst, nEb3, nRst, nBb3, nG3, nRst, nD4, nRst
 	dc.b nEb3, nRst, nA3, nRst, nG3, nRst, nD4, nEb3
 	dc.b nRst
-	smpsReturn	
+	smpsReturn
 
 DataSelect_Call3:
 	dc.b nF3, $06, nF3, nF3, nRst, $0C, nF3, $06
 	dc.b nF3, nF3, nRst, $36
-	smpsReturn	
+	smpsReturn
 
 DataSelect_Call4:
 	dc.b nF4, $06, nF5, nF4, $0C, nF4, $06, nF5
@@ -685,17 +685,17 @@ DataSelect_Call4:
 	dc.b nF5, nF4, $0C, nF4, $06, nF5, nF4, $0C
 	dc.b nF4, $06, nF5, nF4, $0C, nF4, $06, nF5
 	dc.b nF4, $0C, nF4, $06, nF5, nF4, $36
-	smpsReturn	
+	smpsReturn
 	; Unused
 	dc.b $F2
 
 DataSelect_PSG2:
-	smpsPSGvoice	 sTone_04
+	smpsPSGvoice	VolEnv_04
 	smpsAlterNote	$FF
 	dc.b nRst, $2A
 
 DataSelect_Jump8:
-	smpsPSGvoice	 sTone_04
+	smpsPSGvoice	VolEnv_04
 	smpsCall	DataSelect_Call2
 	dc.b nBb3, nRst, $0C, nC4, $06, nRst, $0C, nD4
 	dc.b $06, nRst, $0C, nG5, $06, nG6, nG5, nRst
@@ -730,7 +730,7 @@ DataSelect_Jump8:
 	dc.b $F2
 
 DataSelect_PSG3:
-	smpsPSGvoice	 sTone_02
+	smpsPSGvoice	VolEnv_02
 	smpsPSGform	$E7
 	dc.b nRst, $2A
 
@@ -815,11 +815,11 @@ DataSelect_Call5:
 DataSelect_Loop7:
 	dc.b nBb6, $06
 	smpsLoop	$01, $0E, DataSelect_Loop7
-	smpsReturn	
+	smpsReturn
 
 DataSelect_Call6:
 	dc.b nBb6, $06, nBb6, $03, nBb6
 DataSelect_Loop9:
 	dc.b nBb6, $06
 	smpsLoop	$01, $0E, DataSelect_Loop9
-	smpsReturn	
+	smpsReturn

@@ -9,7 +9,7 @@ enum	macro	num, lable
 .num	= num
 
 	rept narg-1
-\lable		equ .num
+\lable		set .num
 .num =	.num+1
 	shift
 	endr
@@ -107,7 +107,7 @@ smpsHeaderVoiceUVB macro
 ; Header macros for music (not for SFX)
 ; Header - Set up Channel Usage
 smpsHeaderChan macro fm,psg
-	dc.b	fm,psg
+	dc.b	\fm,\psg
     endm
 
 ; Header - Set up Tempo
@@ -120,7 +120,7 @@ smpsHeaderDAC macro loc,pitch,vol
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
-		dc.w	loc-songStart
+		dc.w	\loc-songStart
 	endif
 	if narg>=2
 		dc.b	\pitch

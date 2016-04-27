@@ -2,23 +2,23 @@
 ; however, because I restricted myself to stock ones, it sounds a bit different.
 ; If you want to make it better, copy volume envelop 0A from S3K to Sonic 1.
 ; It is the file "S3K_SMPS\VolEnv\0A.bin", and must be copied to folder "S1_SMPS\VolEnv\".
-; You must then include it in next to "PSG9" i nSonic 1's 58k.asm and add to the array.
-; Since Sonic 1 has only 0x8 sTone's (Volume Envelopes), you must add blank entry or use entry 9.
-; then you must change each sTone_03 to sTone_09 or sTone_0A in this file!
+; You must then include it in next to "PSG9" in Sonic 1's 58k.asm and add to the array.
+; Since Sonic 1 has only 0x8 VolEnv's (Volume Envelopes), you must add blank entry or use entry 9.
+; then you must change each VolEnv_03 toVolEnv_09 or VolEnv_0A in this file!
 InvinciblityK_Header:
 	smpsHeaderStartSong
 	smpsHeaderVoice	InvinciblityK_Voices
 	smpsHeaderChan	$06, $03
-	smpsHeaderTempo	$02, $00
+	smpsHeaderTempo	$01, $02
 	smpsHeaderDAC	InvinciblityK_DAC
 	smpsHeaderFM	InvinciblityK_FM1, $00, $15
 	smpsHeaderFM	InvinciblityK_FM2, $00, $0A
 	smpsHeaderFM	InvinciblityK_FM3, $00, $1F
 	smpsHeaderFM	InvinciblityK_FM4, $00, $13
 	smpsHeaderFM	InvinciblityK_FM5, $00, $13
-	smpsHeaderPSG	InvinciblityK_PSG1, $00, $05, $00, $00
-	smpsHeaderPSG	InvinciblityK_PSG2, $00, $05, $00, $00
-	smpsHeaderPSG	InvinciblityK_PSG3, $E8, $01, $00, $00
+	smpsHeaderPSG	InvinciblityK_PSG1, $00, $05, $00, VolEnv_00
+	smpsHeaderPSG	InvinciblityK_PSG2, $00, $05, $00, VolEnv_00
+	smpsHeaderPSG	InvinciblityK_PSG3, $E8, $01, $00, VolEnv_00
 
 InvinciblityK_FM1:
 	smpsModSet	$14, $01, $06, $06
@@ -40,7 +40,7 @@ InvinciblityK_Jump2:
 	dc.b nRst, $0C
 	smpsJump	InvinciblityK_Jump2
 	; Unused
-	dc.b $F2
+	smpsStop
 
 InvinciblityK_FM2:
 	dc.b nRst, $18
@@ -58,7 +58,7 @@ InvinciblityK_Jump3:
 	dc.b smpsNoAttack, nE2, nE1, nE1, nE1
 	smpsJump	InvinciblityK_Jump3
 	; Unused
-	dc.b $F2
+	smpsStop
 
 InvinciblityK_FM3:
 	dc.b nRst, $0B
@@ -67,7 +67,7 @@ InvinciblityK_FM3:
 	smpsPan	 panLeft, $00
 	smpsJump	InvinciblityK_Jump4
 	; Unused
-	dc.b $F2
+	smpsStop
 
 InvinciblityK_FM4:
 	smpsPan	 panRight, $00
@@ -86,7 +86,7 @@ InvinciblityK_Jump5:
 	dc.b nG5, $0C, nE5, $18, nRst, $06
 	smpsJump	InvinciblityK_Jump5
 	; Unused
-	dc.b $F2
+	smpsStop
 
 InvinciblityK_FM5:
 	smpsPan	 panLeft, $00
@@ -105,11 +105,11 @@ InvinciblityK_Jump6:
 	dc.b nD5, $0C, nB4, $18, nRst, $06
 	smpsJump	InvinciblityK_Jump6
 	; Unused
-	dc.b $F2
+	smpsStop
 
 InvinciblityK_PSG1:
 	dc.b nRst, $18
-	smpsPSGvoice	 sTone_03
+	smpsPSGvoice	VolEnv_03
 
 InvinciblityK_Jump7:
 	dc.b nE4, $06, nB3, nE4, nB3, nE4, nB3, nE4
@@ -123,11 +123,11 @@ InvinciblityK_Jump7:
 	dc.b nAb3, nB3, nB3, nD4
 	smpsJump	InvinciblityK_Jump7
 	; Unused
-	dc.b $F2
+	smpsStop
 
 InvinciblityK_PSG2:
 	dc.b nRst, $18
-	smpsPSGvoice	 sTone_03
+	smpsPSGvoice	VolEnv_03
 	dc.b nRst, $03
 
 InvinciblityK_Jump8:
@@ -142,15 +142,15 @@ InvinciblityK_Jump8:
 	dc.b nA3, nCs4, nCs4, nE4
 	smpsJump	InvinciblityK_Jump8
 	; Unused
-	dc.b $F2
+	smpsStop
 
 InvinciblityK_PSG3:
-	smpsPSGvoice	 sTone_03
+	smpsPSGvoice	VolEnv_03
 	smpsModSet	$14, $01, $02, $06
 	dc.b nRst, $18
 	smpsJump	InvinciblityK_Jump2
 	; Unused
-	dc.b $F2
+	smpsStop
 
 InvinciblityK_DAC:
 	dc.b dSnare, $06, dSnare, dSnare, $03, dSnare, dSnare, dSnare
@@ -162,7 +162,7 @@ InvinciblityK_Jump1:
 	dc.b $06, dKick, dSnare, $03, nRst, dSnare, dSnare
 	smpsJump	InvinciblityK_Jump1
 	; Unused
-	dc.b $F2
+	smpsStop
 
 InvinciblityK_Voices:
 	; Voice $00

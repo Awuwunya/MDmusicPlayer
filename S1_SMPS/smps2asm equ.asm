@@ -4,8 +4,8 @@ smpsNoAttack =	$E7
 nMaxPSG	=	nA5
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
-	enum $00, sTone_00,sTone_01,sTone_02,sTone_03,sTone_04,sTone_05,sTone_06
-	enum sTone_06+1, sTone_07,sTone_08,sTone_09
+	enum $00, 	  VolEnv_00,VolEnv_01,VolEnv_02,VolEnv_03,VolEnv_04
+	enum VolEnv_04+1, VolEnv_05,VolEnv_06,VolEnv_07,VolEnv_08,VolEnv_09
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
 	enum $81, dKick,dSnare,dTimpani

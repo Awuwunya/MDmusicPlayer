@@ -9,9 +9,9 @@ SkySanctuary_Header:
 	smpsHeaderFM	SkySanctuary_FM3, $00, $17
 	smpsHeaderFM	SkySanctuary_FM4, $00, $1C
 	smpsHeaderFM	SkySanctuary_FM5, $00, $15
-	smpsHeaderPSG	SkySanctuary_PSG1, $F4, $05, $00, $00
-	smpsHeaderPSG	SkySanctuary_PSG2, $F4, $05, $00, $00
-	smpsHeaderPSG	SkySanctuary_PSG3, $00, $02, $00, $00
+	smpsHeaderPSG	SkySanctuary_PSG1, $F4, $05, $00, VolEnv_00
+	smpsHeaderPSG	SkySanctuary_PSG2, $F4, $05, $00, VolEnv_00
+	smpsHeaderPSG	SkySanctuary_PSG3, $00, $02, $00, VolEnv_00
 
 SkySanctuary_FM1:
 	smpsSetvoice	$00
@@ -130,7 +130,7 @@ SkySanctuary_Loop7:
 	dc.b nAb1, nF3, nAb1, nE3, nAb1, nD3, nAb1, nE3
 	dc.b nAb1
 	smpsLoop	$00, $02, SkySanctuary_Loop7
-	smpsReturn	
+	smpsReturn
 
 SkySanctuary_FM5:
 	smpsModSet	$24, $01, $04, $08
@@ -199,7 +199,7 @@ SkySanctuary_FM4:
 	dc.b $F2
 
 SkySanctuary_PSG1:
-	smpsPSGvoice	 sTone_04
+	smpsPSGvoice	VolEnv_04
 
 SkySanctuary_Loop15:
 SkySanctuary_Jump6:
@@ -232,18 +232,18 @@ SkySanctuary_Loop16:
 	dc.b nC4, nC6, nC4, nC6, nC4, nC5, nC4, nC5
 	dc.b nC4
 	smpsLoop	$01, $02, SkySanctuary_Loop16
-	smpsReturn	
+	smpsReturn
 
 SkySanctuary_PSG2:
-	smpsStop	
+	smpsStop
 
 SkySanctuary_PSG3:
 	smpsPSGform	$E7
 
 SkySanctuary_Jump7:
-	smpsPSGvoice	 sTone_01
+	smpsPSGvoice	VolEnv_01
 	dc.b nB6, $06, nB6
-	smpsPSGvoice	 sTone_04
+	smpsPSGvoice	VolEnv_04
 	dc.b nB6, $0C
 	smpsJump	SkySanctuary_Jump7
 	; Unused
@@ -253,17 +253,17 @@ SkySanctuary_DAC:
 SkySanctuary_Jump1:
 	smpsPan	 panCentre, $00
 	dc.b nRst, $60, nRst, nRst, nRst, $17, nRst, $0C
-	dc.b dSnareS3, nRst, dSnareS3, nRst, dKickS3, $06, dKickS3
+	dc.b dSnare, nRst, dSnare, nRst, dKick, $06, dKick
 
 SkySanctuary_Loop1:
 	smpsPan	 panCentre, $00
-	dc.b dKickS3, $05, dKickS3, dKickS3, $0E, nRst, $0C, dMuffledSnare
-	dc.b $05, dMuffledSnare, dMuffledSnare, $0E, dMuffledSnare, $0C, nRst, dKickS3
-	dc.b $06, dKickS3, dKickS3, $0C, dKickS3, nRst, dMuffledSnare, $05
-	dc.b dMuffledSnare, dMuffledSnare, $0E, dMuffledSnare, $0C, nRst, dKickS3, dKickS3
-	dc.b $0C, dKickS3, nRst, dMuffledSnare, $05, dMuffledSnare, dMuffledSnare, $0E
-	dc.b dMuffledSnare, $0C, nRst, dKickS3, $06, dKickS3, dKickS3, $0C
-	dc.b dKickS3, nRst, dMuffledSnare, $05, dMuffledSnare, dMuffledSnare, $08
+	dc.b dKick, $05, dKick, dKick, $0E, nRst, $0C, dMuffledSnare
+	dc.b $05, dMuffledSnare, dMuffledSnare, $0E, dMuffledSnare, $0C, nRst, dKick
+	dc.b $06, dKick, dKick, $0C, dKick, nRst, dMuffledSnare, $05
+	dc.b dMuffledSnare, dMuffledSnare, $0E, dMuffledSnare, $0C, nRst, dKick, dKick
+	dc.b $0C, dKick, nRst, dMuffledSnare, $05, dMuffledSnare, dMuffledSnare, $0E
+	dc.b dMuffledSnare, $0C, nRst, dKick, $06, dKick, dKick, $0C
+	dc.b dKick, nRst, dMuffledSnare, $05, dMuffledSnare, dMuffledSnare, $08
 	smpsPan	 panLeft, $00
 	dc.b dElectricMidTom, $06, dElectricMidTom, dElectricMidTom
 	smpsPan	 panCentre, $00

@@ -10,9 +10,9 @@ MusicEC_Header:
 	smpsHeaderFM	MusicEC_FM4, $00, $1D
 	smpsHeaderFM	MusicEC_FM5, $00, $1D
 	smpsHeaderFM	MusicEC_FM6, $00, $1C
-	smpsHeaderPSG	MusicEC_PSG1, $DC, $02, $00, sTone_00
-	smpsHeaderPSG	MusicEC_PSG2, $DC, $02, $00, sTone_00
-	smpsHeaderPSG	MusicEC_PSG3, $DC, $02, $00, sTone_00
+	smpsHeaderPSG	MusicEC_PSG1, $DC, $02, $00, VolEnv_00
+	smpsHeaderPSG	MusicEC_PSG2, $DC, $02, $00, VolEnv_00
+	smpsHeaderPSG	MusicEC_PSG3, $DC, $02, $00, VolEnv_00
 
 MusicEC_FM1:
 	dc.b nRst, $06
@@ -454,7 +454,7 @@ MusicEC_Jump6:
 
 MusicEC_PSG1:
 MusicEC_Jump7:
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	dc.b nEb4, $30, nCs4, $20, nE4, $10, nEb4, $30
 	dc.b nE4, $10, nFs4, nE4, nEb4, $30, nCs4, $20
 	dc.b nE4, $10, nEb4, $30, nE4, $10, nFs4, nE4
@@ -478,7 +478,7 @@ MusicEC_Jump7:
 
 MusicEC_PSG2:
 MusicEC_Jump8:
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	dc.b nAb4, $30, nFs4, $20, nA4, $10, nAb4, $30
 	dc.b nA4, $10, nB4, nA4, nAb4, $30, nFs4, $20
 	dc.b nA4, $10, nAb4, $30, nA4, $10, nB4, nA4
@@ -502,7 +502,7 @@ MusicEC_Jump8:
 MusicEC_PSG3:
 	dc.b nRst, $06
 MusicEC_Jump9:
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	dc.b nAb4, $30, nFs4, $20, nA4, $10, nAb4, $30
 	dc.b nA4, $10, nB4, nA4, nAb4, $30, nFs4, $20
 	dc.b nA4, $10, nAb4, $30, nA4, $10, nB4, nA4

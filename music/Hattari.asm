@@ -10,9 +10,9 @@ Hattari_Header:
 	smpsHeaderFM	Hattari_FM4, $00, $23
 	smpsHeaderFM	Hattari_FM5, $00, $23
 	smpsHeaderFM	Hattari_FM6, $00, $0D
-	smpsHeaderPSG	Hattari_PSG1, $DC, $09, $00, sTone_00
-	smpsHeaderPSG	Hattari_PSG2, $DC, $09, $00, sTone_00
-	smpsHeaderPSG	Hattari_PSG3, $00, $02, $00, sTone_03
+	smpsHeaderPSG	Hattari_PSG1, $DC, $09, $00, VolEnv_00
+	smpsHeaderPSG	Hattari_PSG2, $DC, $09, $00, VolEnv_00
+	smpsHeaderPSG	Hattari_PSG3, $00, $02, $00, VolEnv_03
 
 Hattari_PSG3:
 	smpsPSGform	$E7
@@ -22,11 +22,11 @@ Hattari_Loop3:
 Hattari_Jump4:
 	smpsNoteFill	$01
 	dc.b nRst, $12
-	smpsPSGvoice	 sTone_01
+	smpsPSGvoice	VolEnv_01
 	dc.b nA5, $06
-	smpsPSGvoice	 sTone_02
+	smpsPSGvoice	VolEnv_02
 	dc.b nA5
-	smpsPSGvoice	 sTone_04
+	smpsPSGvoice	VolEnv_04
 	dc.b nA5, nA5, nA5
 	smpsLoop	$00, $10, Hattari_Loop3
 	dc.b nRst, $30, nRst, nRst, nRst
@@ -133,7 +133,7 @@ Hattari_Jump2:
 	dc.b smpsNoAttack, nE4
 	smpsFMAlterVol	$02
 	dc.b smpsNoAttack, nEb4
-	smpsModOff	
+	smpsModOff
 	smpsFMAlterVol	$FB
 	smpsCall	Hattari_Call1
 	smpsNoteFill	$04
@@ -236,7 +236,7 @@ Hattari_Call1:
 	dc.b nG3, $06, nG4
 	smpsFMAlterVol	$01
 	smpsSetvoice	$06
-	smpsReturn	
+	smpsReturn
 
 Hattari_FM2:
 	dc.b nRst, $30, nRst, nRst, $24
@@ -297,7 +297,7 @@ Hattari_FM2:
 	smpsNoteFill	$00
 	smpsSetvoice	$07
 	dc.b nFs5, $06, smpsNoAttack, $18
-	smpsStop	
+	smpsStop
 
 Hattari_FM3:
 	dc.b nRst, $30, nRst, nRst, $24
@@ -315,19 +315,19 @@ Hattari_Jump3:
 	dc.b $F2
 
 Hattari_FM4:
-	smpsStop	
+	smpsStop
 
 Hattari_FM5:
-	smpsStop	
+	smpsStop
 
 Hattari_FM6:
-	smpsStop	
+	smpsStop
 
 Hattari_PSG1:
-	smpsStop	
+	smpsStop
 
 Hattari_PSG2:
-	smpsStop	
+	smpsStop
 
 Hattari_Voices:
 	; Voice $00

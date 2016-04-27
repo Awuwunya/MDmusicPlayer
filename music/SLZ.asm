@@ -9,9 +9,9 @@ StarLight_Header:
 	smpsHeaderFM	StarLight_FM3, $DC, $1A
 	smpsHeaderFM	StarLight_FM4, $DC, $1A
 	smpsHeaderFM	StarLight_FM5, $F4, $20
-	smpsHeaderPSG	StarLight_PSG1, $C4, $06, $00, sTone_05
-	smpsHeaderPSG	StarLight_PSG2, $C4, $06, $00, sTone_05
-	smpsHeaderPSG	StarLight_PSG3, $00, $04, $00, sTone_04
+	smpsHeaderPSG	StarLight_PSG1, $C4, $06, $00, VolEnv_05
+	smpsHeaderPSG	StarLight_PSG2, $C4, $06, $00, VolEnv_05
+	smpsHeaderPSG	StarLight_PSG3, $00, $04, $00, VolEnv_04
 
 StarLight_FM1:
 	smpsSetvoice	$00
@@ -99,7 +99,7 @@ StarLight_Call4:
 
 StarLight_FM3:
 	smpsSetvoice	$02
-	smpsPan	 panLeft, $00
+	smpsPan	panLeft, $00
 
 StarLight_PSG1:
 	dc.b nRst, $30
@@ -148,7 +148,7 @@ StarLight_Call6:
 
 StarLight_FM4:
 	smpsSetvoice	$02
-	smpsPan	 panRight, $00
+	smpsPan	panRight, $00
 
 StarLight_PSG2:
 	dc.b nRst, $30
@@ -293,10 +293,10 @@ StarLight_PSG3:
 StarLight_Jump7:
 	dc.b nA5, $03, $03
 	smpsPSGAlterVol	$02
-	smpsPSGvoice	 sTone_08
+	smpsPSGvoice	VolEnv_08
 	smpsNoteFill	$08
 	dc.b $06
-	smpsPSGvoice	 sTone_04
+	smpsPSGvoice	VolEnv_04
 	smpsNoteFill	$03
 	smpsPSGAlterVol	$FE
 	smpsJump	StarLight_Jump7
@@ -312,6 +312,7 @@ StarLight_Voices:
 	; $34
 	; $33, $41, $7E, $74,	$5B, $9F, $5F, $1F
 	; $04, $07, $07, $08,	$00, $00, $00, $00
+	; $FF, $FF, $EF, $FF,	$23, $90, $29, $97
 	smpsVcAlgorithm	$04
 	smpsVcFeedback	$06
 	smpsVcDetune	$07, $07, $04, $03
@@ -329,6 +330,7 @@ StarLight_Voices:
 	; $3A
 	; $61, $3C, $14, $31,	$9C, $DB, $9C, $DA
 	; $04, $09, $04, $03,	$03, $01, $03, $00
+	; $1F, $0F, $0F, $AF,	$21, $47, $31, $80
 	smpsVcAlgorithm	$02
 	smpsVcFeedback	$07
 	smpsVcDetune	$03, $01, $03, $06
@@ -346,6 +348,7 @@ StarLight_Voices:
 	; $04
 	; $72, $42, $32, $32,	$1F, $1F, $1F, $1F
 	; $00, $00, $00, $00,	$00, $00, $00, $00
+	; $00, $07, $00, $07,	$23, $80, $23, $80
 	smpsVcAlgorithm	$04
 	smpsVcFeedback	$00
 	smpsVcDetune	$03, $03, $04, $07
@@ -363,6 +366,7 @@ StarLight_Voices:
 	; $3A
 	; $01, $07, $01, $01,	$8E, $8E, $8D, $53
 	; $0E, $0E, $0E, $03,	$00, $00, $00, $00
+	; $1F, $FF, $1F, $0F,	$18, $28, $27, $80
 	smpsVcAlgorithm	$02
 	smpsVcFeedback	$07
 	smpsVcDetune	$00, $00, $00, $00
@@ -380,6 +384,7 @@ StarLight_Voices:
 	; $3C
 	; $38, $74, $76, $33,	$10, $10, $10, $10
 	; $02, $07, $04, $07,	$03, $09, $03, $09
+	; $2F, $2F, $2F, $2F,	$1E, $80, $1E, $80
 	smpsVcAlgorithm	$04
 	smpsVcFeedback	$07
 	smpsVcDetune	$03, $07, $07, $03
@@ -397,6 +402,7 @@ StarLight_Voices:
 	; $F4
 	; $06, $04, $0F, $0E,	$1F, $1F, $1F, $1F
 	; $00, $00, $0B, $0B,	$00, $00, $05, $08
+	; $0F, $0F, $FF, $FF,	$15, $85, $02, $8A
 	smpsVcAlgorithm	$04
 	smpsVcFeedback	$06
 	smpsVcDetune	$00, $00, $00, $00

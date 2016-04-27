@@ -9,9 +9,9 @@ Izayoi_Header:
 	smpsHeaderFM	Izayoi_FM3, $00, $0E
 	smpsHeaderFM	Izayoi_FM4, $00, $10
 	smpsHeaderFM	Izayoi_FM5, $00, $15
-	smpsHeaderPSG	Izayoi_PSG1, $DC, $06, $00, sTone_08
-	smpsHeaderPSG	Izayoi_PSG2, $DC, $09, $00, sTone_08
-	smpsHeaderPSG	Izayoi_PSG3, $00, $01, $00, sTone_02
+	smpsHeaderPSG	Izayoi_PSG1, $DC, $06, $00, VolEnv_08
+	smpsHeaderPSG	Izayoi_PSG2, $DC, $09, $00, VolEnv_08
+	smpsHeaderPSG	Izayoi_PSG3, $00, $01, $00, VolEnv_02
 
 Izayoi_FM1:
 Izayoi_Jump6:
@@ -21,7 +21,7 @@ Izayoi_Jump6:
 	smpsModSet	$05, $03, $BE, $A4
 	smpsPanAnim	$02, $01, $00, $03, $02
 	dc.b nE4, $15
-	smpsModOff	
+	smpsModOff
 	smpsFMAlterVol	$FE
 	smpsSetvoice	$13
 	dc.b nC3, $0C
@@ -109,7 +109,7 @@ Izayoi_Call1:
 	smpsNoteFill	$00
 	dc.b nD3, smpsNoAttack, nD3, $30, smpsNoAttack, nD3, $30
 	smpsFMAlterVol	$06
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call2:
 	smpsFMAlterVol	$04
@@ -138,7 +138,7 @@ Izayoi_Call2:
 	dc.b nEb4, nD4, nBb3, nC4, smpsNoAttack, $06, nA3, nF3
 	dc.b nD4, $0C, nB3, $06, nG3, nE4, smpsNoAttack, $06
 	dc.b nCs4, nA3, nFs4, smpsNoAttack, $18
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call3:
 	smpsSetvoice	$41
@@ -195,7 +195,7 @@ Izayoi_Loop4:
 	smpsModSet	$1C, $01, $0A, $04
 	dc.b smpsNoAttack, nAb4, $24, smpsNoAttack, $0C
 	smpsFMAlterVol	$03
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call4:
 	smpsSetvoice	$42
@@ -253,7 +253,7 @@ Izayoi_Call4:
 	smpsAlterPitch	$F4
 	smpsModSet	$1C, $01, $0A, $04
 	smpsFMAlterVol	$03
-	smpsReturn	
+	smpsReturn
 	; Unused
 	dc.b $E0, $C0, $80, $30, $80, $80, $18, $EF
 	dc.b $30, $E0, $C0, $FB, $0C, $F0, $04, $03
@@ -343,7 +343,7 @@ Izayoi_Jump3:
 	dc.b nA2, $06, nA3, nA2, nA3
 	smpsSetLFO	$00, $00
 	smpsNoteFill	$00
-	smpsModOff	
+	smpsModOff
 	smpsFMAlterVol	$FC
 	dc.b nRst, $18, nRst, $30
 	smpsFMAlterVol	$FE
@@ -358,7 +358,7 @@ Izayoi_Jump3:
 	dc.b nA2, $06, nA3, nA2, nA3
 	smpsSetLFO	$00, $00
 	smpsNoteFill	$00
-	smpsModOff	
+	smpsModOff
 	smpsFMAlterVol	$FC
 	dc.b nRst, $12
 	smpsFMAlterVol	$FC
@@ -367,7 +367,7 @@ Izayoi_Jump3:
 	smpsModSet	$01, $05, $E5, $A0
 	smpsPanAnim	$01, $01, $01, $03, $01
 	dc.b smpsNoAttack, $30, smpsNoAttack, $30
-	smpsModOff	
+	smpsModOff
 	smpsPanAnim	$00
 	smpsFMAlterVol	$04
 	smpsFMAlterVol	$01
@@ -379,7 +379,7 @@ Izayoi_Loop5:
 	dc.b nD3, $06
 	smpsModSet	$14, $01, $DF, $AF
 	dc.b smpsNoAttack, $18
-	smpsModOff	
+	smpsModOff
 	dc.b nD3, $06, nD3, nD2, nD3
 
 Izayoi_Loop6:
@@ -416,7 +416,7 @@ Izayoi_Loop8:
 	dc.b nD3, $06
 	smpsModSet	$14, $01, $DF, $AF
 	dc.b smpsNoAttack, $18
-	smpsModOff	
+	smpsModOff
 	dc.b nD3, $06, nD3, nD2, nD3
 
 Izayoi_Loop9:
@@ -502,7 +502,7 @@ Izayoi_Loop13:
 	dc.b nD2, nEb3, $06, nEb3, nRst, $18, nRst, $06
 	smpsModSet	$14, $01, $DF, $AF
 	dc.b nE3, $06, smpsNoAttack, $60
-	smpsModOff	
+	smpsModOff
 	smpsFMAlterVol	$FF
 	smpsJump	Izayoi_Jump3
 	; Unused
@@ -622,7 +622,7 @@ Izayoi_Call5:
 	dc.b nA3, smpsNoAttack, nA3, $30, smpsNoAttack, nA3, $30
 	smpsFMAlterVol	$06
 	smpsAlterPitch	$F4
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call6:
 	smpsSetvoice	$42
@@ -658,7 +658,7 @@ Izayoi_Call6:
 	dc.b nA3, smpsNoAttack, nA3, $30, smpsNoAttack, nA3, $30
 	smpsFMAlterVol	$06
 	smpsAlterPitch	$F4
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call7:
 	smpsSetvoice	$41
@@ -709,7 +709,7 @@ Izayoi_Loop14:
 	smpsFMAlterVol	$02
 	smpsLoop	$00, $02, Izayoi_Loop14
 	smpsFMAlterVol	$05
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call8:
 	smpsSetvoice	$42
@@ -796,7 +796,7 @@ Izayoi_Call8:
 	smpsNoteFill	$00
 	dc.b nB2, $06, smpsNoAttack, $18, smpsNoAttack, $18
 	smpsFMAlterVol	$04
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call9:
 	smpsSetvoice	$41
@@ -854,7 +854,7 @@ Izayoi_Loop15:
 	dc.b smpsNoAttack, $60
 	smpsFMAlterVol	$02
 	smpsModSet	$1C, $01, $0A, $04
-	smpsReturn	
+	smpsReturn
 	; Unused
 	dc.b $B1, $30, $B0, $18, $AE, $12, $AA, $36
 	dc.b $E7, $18, $80, $06, $A7, $AA, $AE, $B1
@@ -925,7 +925,7 @@ Izayoi_Jump5:
 	smpsModSet	$01, $05, $E5, $A0
 	smpsPanAnim	$01, $03, $01, $01, $01
 	dc.b smpsNoAttack, $30, smpsNoAttack, $30
-	smpsModOff	
+	smpsModOff
 	smpsPanAnim	$00
 	smpsFMAlterVol	$04
 	smpsCall	Izayoi_Call10
@@ -949,7 +949,7 @@ Izayoi_Jump5:
 Izayoi_Call10:
 	dc.b nRst, $30, nRst, nRst, $30, nRst, nRst, $30
 	dc.b nRst, nRst, $30, nRst, nRst, $30, nRst
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call11:
 	smpsSetvoice	$41
@@ -1000,7 +1000,7 @@ Izayoi_Loop16:
 	smpsFMAlterVol	$02
 	smpsLoop	$00, $02, Izayoi_Loop16
 	smpsFMAlterVol	$07
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call12:
 	smpsSetvoice	$42
@@ -1086,20 +1086,20 @@ Izayoi_Call12:
 	smpsNoteFill	$00
 	dc.b nEb3, $06, smpsNoAttack, $18, smpsNoAttack, $18
 	smpsFMAlterVol	$03
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call13:
 	dc.b nRst, $30, nRst, nRst, $30, nRst, nRst, $30
 	dc.b nRst, nRst, $30, nRst, nRst, $30, nRst, nRst
 	dc.b $30, nRst, nRst, $30, nRst, nRst, $30, nRst
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call14:
 	dc.b nRst, $30, nRst, nRst, $30, nRst, nRst, $30
 	dc.b nRst, nRst, $30, nRst, nRst, $30, nRst, nRst
 	dc.b $30, nRst, nRst, $30, nRst, nRst, $30, nRst
 	dc.b nRst, $30, nRst, nRst, $30
-	smpsReturn	
+	smpsReturn
 
 Izayoi_FM5:
 	dc.b nRst, $12
@@ -1130,27 +1130,27 @@ Izayoi_Jump7:
 Izayoi_Call15:
 	smpsAlterPitch	$0C
 	smpsModSet	$0C, $02, $02, $03
-	smpsPSGvoice	 sTone_08
+	smpsPSGvoice	VolEnv_08
 	dc.b nRst, $30, nRst, nRst, $30, nRst, nRst, $30
 	dc.b nRst, nRst, $30, nRst, nRst
 	smpsAlterPitch	$F4
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call16:
 	smpsAlterPitch	$0C
 	smpsModSet	$0C, $02, $02, $03
-	smpsPSGvoice	 sTone_08
+	smpsPSGvoice	VolEnv_08
 	dc.b nRst, $30, nRst, nRst, $30, nRst, nRst, $30
 	dc.b nRst, nRst, $30, nRst, nRst, $30, nRst
 	smpsAlterPitch	$F4
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call17:
 	smpsAlterPitch	$0C
 	smpsModSet	$0C, $02, $02, $03
 
 Izayoi_Loop17:
-	smpsPSGvoice	 sTone_08
+	smpsPSGvoice	VolEnv_08
 	smpsNoteFill	$05
 	smpsPSGAlterVol	$FE
 	dc.b nE3, $06
@@ -1193,12 +1193,12 @@ Izayoi_Loop17:
 	smpsPSGAlterVol	$02
 	smpsLoop	$00, $02, Izayoi_Loop17
 	smpsAlterPitch	$F4
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call18:
 	smpsAlterPitch	$0C
 	smpsModSet	$0C, $02, $02, $03
-	smpsPSGvoice	 sTone_08
+	smpsPSGvoice	VolEnv_08
 	dc.b nD3, $30
 	smpsNoteFill	$01
 	dc.b nD3, $06
@@ -1255,7 +1255,7 @@ Izayoi_Call18:
 	dc.b nEb3, $06, smpsNoAttack, $18, smpsNoAttack, $18
 	smpsPSGAlterVol	$03
 	smpsAlterPitch	$F4
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call19:
 	smpsModSet	$1C, $02, $03, $02
@@ -1276,14 +1276,14 @@ Izayoi_Loop18:
 	dc.b smpsNoAttack, $06, nAb4, $06, smpsNoAttack, $30
 	smpsPSGAlterVol	$03
 	smpsAlterPitch	$F4
-	smpsReturn	
+	smpsReturn
 
 Izayoi_Call20:
 	dc.b nRst, $30, nRst, nRst, $30, nRst, nRst, $30
 	dc.b nRst, nRst, $30, nRst, nRst, $30, nRst, nRst
 	dc.b $30, nRst, nRst, $30, nRst, nRst, $30, nRst
 	dc.b nRst, $30, nRst, nRst, $30
-	smpsReturn	
+	smpsReturn
 
 Izayoi_PSG2:
 	dc.b nRst, $09
@@ -1301,33 +1301,33 @@ Izayoi_Jump9:
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, $30, nRst
 	dc.b nRst, $30, nRst, nRst, nRst
 Izayoi_Loop19:
-	smpsPSGvoice	 sTone_01
+	smpsPSGvoice	VolEnv_01
 	smpsNoteFill	$02
 	dc.b nA5, $06, nA5, nA5, nA5
 	smpsLoop	$00, $1D, Izayoi_Loop19
 
 Izayoi_Loop20:
-	smpsPSGvoice	 sTone_01
+	smpsPSGvoice	VolEnv_01
 	smpsNoteFill	$14
 	dc.b nA5, $0C, nA5, nA5, nA5
 	smpsLoop	$00, $09, Izayoi_Loop20
 	dc.b nRst, $30
 
 Izayoi_Loop21:
-	smpsPSGvoice	 sTone_01
+	smpsPSGvoice	VolEnv_01
 	smpsNoteFill	$02
 	dc.b nA5, $06, nA5, nA5, nA5
 	smpsLoop	$00, $10, Izayoi_Loop21
 
 Izayoi_Loop22:
-	smpsPSGvoice	 sTone_01
+	smpsPSGvoice	VolEnv_01
 	smpsNoteFill	$14
 	dc.b nA5, $0C, nA5, nA5, nA5
 	smpsLoop	$00, $0B, Izayoi_Loop22
 	dc.b nRst, $18
 
 Izayoi_Loop23:
-	smpsPSGvoice	 sTone_01
+	smpsPSGvoice	VolEnv_01
 	smpsNoteFill	$0F
 	dc.b nA5, $18
 	smpsLoop	$00, $18, Izayoi_Loop23
@@ -1338,7 +1338,7 @@ Izayoi_Loop24:
 	smpsLoop	$00, $08, Izayoi_Loop24
 
 Izayoi_Loop25:
-	smpsPSGvoice	 sTone_01
+	smpsPSGvoice	VolEnv_01
 	smpsNoteFill	$14
 	dc.b nA5, $0C, nA5, nA5, nA5
 	smpsLoop	$00, $10, Izayoi_Loop25

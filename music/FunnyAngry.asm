@@ -9,9 +9,9 @@ FunnyAngry_Header:
 	smpsHeaderFM	FunnyAngry_FM3, $0C, $02
 	smpsHeaderFM	FunnyAngry_FM4, $00, $18
 	smpsHeaderFM	FunnyAngry_FM5, $00, $0F
-	smpsHeaderPSG	FunnyAngry_PSG1, $DC, $02, $00, sTone_00
-	smpsHeaderPSG	FunnyAngry_PSG2, $DC, $01, $00, sTone_00
-	smpsHeaderPSG	FunnyAngry_PSG3, $00, $01, $00, sTone_03
+	smpsHeaderPSG	FunnyAngry_PSG1, $DC, $02, $00, VolEnv_00
+	smpsHeaderPSG	FunnyAngry_PSG2, $DC, $01, $00, VolEnv_00
+	smpsHeaderPSG	FunnyAngry_PSG3, $00, $01, $00, VolEnv_03
 
 FunnyAngry_FM1:
 	dc.b nRst, $30, nRst, nRst, nRst
@@ -27,7 +27,7 @@ FunnyAngry_FM1:
 	dc.b $30, smpsNoAttack, $30, smpsNoAttack, $30, smpsNoAttack, $30, smpsNoAttack
 	dc.b $30, smpsNoAttack, $30, smpsNoAttack, $30, smpsNoAttack, $30
 	smpsFMAlterVol	$09
-	smpsModOff	
+	smpsModOff
 	smpsPanAnim	$00
 	smpsSetLFO	$0D, $4E
 	smpsModSet	$0C, $01, $07, $03
@@ -36,7 +36,7 @@ FunnyAngry_FM1:
 	dc.b nG4, $60, smpsNoAttack, $60
 	smpsFMAlterVol	$02
 	smpsSetLFO	$00, $00
-	smpsModOff	
+	smpsModOff
 
 FunnyAngry_Jump2:
 	smpsModSet	$30, $02, $70, $70
@@ -51,14 +51,14 @@ FunnyAngry_Jump2:
 	dc.b smpsNoAttack, $42
 	smpsFMAlterVol	$FC
 	smpsFMAlterVol	$FD
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $06
 	smpsAlterPitch	$F4
 	smpsModSet	$10, $01, $0C, $06
 	smpsSetvoice	$11
 	smpsCall	FunnyAngry_Call2
 	smpsAlterPitch	$0C
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $30
 	smpsSetvoice	$14
 	smpsFMAlterVol	$FE
@@ -67,7 +67,7 @@ FunnyAngry_Jump2:
 	dc.b nE3, nG3, nA3, nBb3, nE3, nG3, nA3, nB3
 	dc.b nD4
 	smpsFMAlterVol	$02
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, nRst, nRst, nRst, $2A
 	smpsAlterPitch	$F4
@@ -75,7 +75,7 @@ FunnyAngry_Jump2:
 	smpsSetvoice	$11
 	smpsCall	FunnyAngry_Call2
 	smpsAlterPitch	$0C
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $30
 	smpsSetvoice	$14
 	smpsFMAlterVol	$FF
@@ -84,7 +84,7 @@ FunnyAngry_Jump2:
 	dc.b nE3, nG3, nA3, nBb3, nE3, nG3, nA3, nB3
 	dc.b nD4
 	smpsFMAlterVol	$01
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $1E, nRst, $30, nRst, nRst, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, nRst, nRst, nRst, nRst
 	dc.b $2A
@@ -111,7 +111,7 @@ FunnyAngry_Jump2:
 	dc.b nD4, nB3, nA3, nE3
 	smpsFMAlterVol	$04
 	smpsAlterPitch	$0C
-	smpsModOff	
+	smpsModOff
 	smpsJump	FunnyAngry_Jump2
 	; Unused
 	dc.b $F2
@@ -135,7 +135,7 @@ FunnyAngry_Call2:
 	dc.b smpsNoAttack, $48, nRst, $18, nG5, $60, nRst, $18
 	dc.b nG5, nFs5, nD5, nE5, $24, nA4, $06, nRst
 	dc.b nA4, $60
-	smpsReturn	
+	smpsReturn
 
 FunnyAngry_FM2:
 	smpsSetvoice	$10
@@ -197,13 +197,13 @@ FunnyAngry_Call3:
 	dc.b nE5, $06, nD5, nRst, nG5
 	smpsModSet	$20, $01, $DF, $FF
 	dc.b nE5, $24, nRst, $06
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $30, nRst, nRst, $0C, nE5, $18, nD5
 	dc.b $05, nRst, $07, nG4, $06, nA4, nG4, nA4
 	dc.b nBb4, nA4, nG4, nE4, nG4, nE4, $0C
 	smpsModSet	$20, $01, $DF, $FF
 	dc.b nE5, $24
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $2A, nRst, $30, nC5, $06, nBb4, nA4
 	dc.b nG4, nBb4, nA4, nG4, nF4, nF4, nF5, nRst
 	dc.b nF5, nRst, nF5, nRst, nE5, nD5, nBb4, nRst
@@ -212,7 +212,7 @@ FunnyAngry_Call3:
 	dc.b nBb4, nA4
 	smpsModSet	$28, $01, $EF, $FF
 	dc.b nE5, $30
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, nRst, nRst
 	smpsNoteFill	$06
 	dc.b nFs5, $06, nFs5, nFs5, nFs5
@@ -247,7 +247,7 @@ FunnyAngry_Call3:
 	smpsNoteFill	$00
 	smpsModSet	$1E, $01, $DF, $FF
 	dc.b nG5, $28
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $02, nA5, $18
 	smpsFMAlterVol	$FF
 	smpsSetvoice	$14
@@ -260,7 +260,7 @@ FunnyAngry_Call3:
 	dc.b nG3, nFs3, $24, nE3, $06, nRst, nE3, $30
 	dc.b smpsNoAttack, $48, nRst, $18
 	smpsFMAlterVol	$05
-	smpsModOff	
+	smpsModOff
 	smpsSetLFO	$00, $00
 	smpsNoteFill	$00
 	smpsSetvoice	$1A
@@ -289,7 +289,7 @@ FunnyAngry_Call3:
 	dc.b $06, nE6, nE6, nE6, nRst, $0C, nE6, $06
 	dc.b nE6
 	smpsNoteFill	$00
-	smpsReturn	
+	smpsReturn
 
 FunnyAngry_FM3:
 	dc.b nRst, $30, nRst, nRst, nRst
@@ -377,7 +377,7 @@ FunnyAngry_Call4:
 	dc.b nRst, nB0, nE1, nE1, nE1, nE1, nRst, nB0
 	dc.b nE1, nE1, nE1, nE1, nRst, nB0, nF1, $10
 	dc.b nF1, nF1
-	smpsReturn	
+	smpsReturn
 
 FunnyAngry_FM4:
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, $0C
@@ -392,14 +392,14 @@ FunnyAngry_FM4:
 	dc.b smpsNoAttack, $30, smpsNoAttack, $30, smpsNoAttack, $30, smpsNoAttack, $30
 	dc.b smpsNoAttack, $30, smpsNoAttack, $30, smpsNoAttack, $30, smpsNoAttack, $30
 	dc.b smpsNoAttack, $30, smpsNoAttack, $30, smpsNoAttack, $30
-	smpsModOff	
+	smpsModOff
 	smpsPanAnim	$00
 	smpsSetLFO	$0D, $4E
 	smpsModSet	$0C, $01, $07, $03
 	smpsSetvoice	$04
 	dc.b nG4, $60, smpsNoAttack, $54
 	smpsSetLFO	$00, $00
-	smpsModOff	
+	smpsModOff
 	smpsFMAlterVol	$05
 
 FunnyAngry_Jump5:
@@ -414,7 +414,7 @@ FunnyAngry_Jump5:
 	smpsFMAlterVol	$04
 	smpsModSet	$00, $03, $9F, $AF
 	dc.b smpsNoAttack, $48
-	smpsModOff	
+	smpsModOff
 	smpsFMAlterVol	$FC
 	dc.b nRst, $30, nRst, $3C
 	smpsFMAlterVol	$04
@@ -455,7 +455,7 @@ FunnyAngry_Jump5:
 	dc.b nD4, nB3, nA3
 	smpsFMAlterVol	$03
 	smpsAlterPitch	$0C
-	smpsModOff	
+	smpsModOff
 	smpsJump	FunnyAngry_Jump5
 	; Unused
 	dc.b $F2
@@ -465,13 +465,13 @@ FunnyAngry_Call5:
 	dc.b nB4, $06, nA4, nRst, nD5
 	smpsModSet	$20, $01, $DF, $FF
 	dc.b nB4, $24, nRst, $06
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $30, nRst, nRst, $0C, nB4, $18, nA4
 	dc.b $05, nRst, $07, nD4, $06, nE4, nD4, nE4
 	dc.b nF4, nE4, nD4, nB3, nD4, nB3, $0C
 	smpsModSet	$20, $01, $DF, $FF
 	dc.b nB4, $24
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $2A, nRst, $30, nG4, $06, nF4, nE4
 	dc.b nD4, nF4, nE4, nD4, nC4, nC4, nC5, nRst
 	dc.b nC5, nRst, nC5, nRst, nB4, nA4, nF4, nRst
@@ -480,7 +480,7 @@ FunnyAngry_Call5:
 	dc.b nF4, nE4
 	smpsModSet	$28, $01, $EF, $FF
 	dc.b nB5, $30
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, nRst, nRst, nCs5, $04, nRst, $02, nCs5
 	dc.b $04, nRst, $02, nCs5, $04, nRst, $02, nCs5
 	dc.b $04, nRst, $02
@@ -516,7 +516,7 @@ FunnyAngry_Call5:
 	smpsModSet	$1E, $01, $DF, $FF
 	smpsNoteFill	$00
 	dc.b nD5, $28
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $02, nE5, $18, nRst, $30, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, nRst, nRst, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, nRst
@@ -545,7 +545,7 @@ FunnyAngry_Call5:
 	dc.b $06, nB5, nB5, nB5, nRst, $0C, nB5, $06
 	dc.b nB5
 	smpsNoteFill	$00
-	smpsReturn	
+	smpsReturn
 
 FunnyAngry_FM5:
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, nRst, nRst
@@ -680,15 +680,15 @@ FunnyAngry_PSG1:
 FunnyAngry_Jump7:
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, nRst, nRst, nRst
-	smpsPSGvoice	 sTone_09
+	smpsPSGvoice	VolEnv_09
 	smpsCall	FunnyAngry_Call6
 	dc.b nRst, $18, nRst, $30, nRst, nRst, nRst, nRst
 	dc.b $12
-	smpsPSGvoice	 sTone_09
+	smpsPSGvoice	VolEnv_09
 	smpsCall	FunnyAngry_Call6
 	dc.b nRst, $06, nRst, $30, nRst, nRst, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, $2A
-	smpsPSGvoice	 sTone_09
+	smpsPSGvoice	VolEnv_09
 	dc.b nC5, $06, nB4, nC5, $0C, nD5, $06, nB4
 	dc.b nA4, nG4
 	smpsPSGAlterVol	$FF
@@ -705,13 +705,13 @@ FunnyAngry_Call6:
 	dc.b nB4, $06, nA4, nRst, nD5
 	smpsModSet	$1B, $02, $20, $FF
 	dc.b nB4, $24, nRst, $06
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $30, nRst, nRst, $0C, nB4, $18, nA4
 	dc.b $05, nRst, $07, nD4, $06, nE4, nD4, nE4
 	dc.b nF4, nE4, nD4, nB3, nD4, nB3, $0C
 	smpsModSet	$1E, $02, $20, $FF
 	dc.b nB4, $24
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $2A, nRst, $30, nG4, $06, nF4, nE4
 	dc.b nD4, nF4, nE4, nD4, nC4, nC4, nC5, nRst
 	dc.b nC5, nRst, nC5, nRst, nB4, nA4, nF4, nRst
@@ -720,7 +720,7 @@ FunnyAngry_Call6:
 	dc.b nF4, nE4
 	smpsModSet	$26, $02, $16, $FF
 	dc.b nB5, $30
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, nRst, nRst
 	smpsNoteFill	$06
 	dc.b nCs5, $06, nCs5, nCs5, nCs5
@@ -749,7 +749,7 @@ FunnyAngry_Call6:
 	smpsModSet	$1B, $02, $20, $FF
 	smpsNoteFill	$00
 	dc.b nD5, $28
-	smpsModOff	
+	smpsModOff
 	dc.b nRst, $02, nE5, $18, nRst, $30, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, nRst, nRst, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, nRst, nE5, smpsNoAttack, $18
@@ -775,11 +775,11 @@ FunnyAngry_Call6:
 	dc.b $06, nB5, nB5, nB5, nRst, $0C, nB5, $06
 	dc.b nB5
 	smpsNoteFill	$00
-	smpsReturn	
+	smpsReturn
 
 FunnyAngry_PSG2:
 	dc.b nRst, $30, nRst, nRst, $30, nRst
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	smpsNoteFill	$02
 
 FunnyAngry_Loop22:
@@ -854,7 +854,7 @@ FunnyAngry_Loop23:
 	dc.b nF4, nA4, nRst, $30, nB3, $06, nD4, nF4
 	dc.b nA4, nRst, $18, nB3, $06, nD4, nF4, nA4
 	dc.b nRst, $18, nB3, $06, nD4, nF4, nB3
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	smpsNoteFill	$02
 
 FunnyAngry_Loop24:
@@ -895,7 +895,7 @@ FunnyAngry_Loop25:
 	dc.b nA4, nA4, nE4, nE5, nRst, nCs5, nD5, nCs5
 	dc.b nA4
 	smpsLoop	$00, $08, FunnyAngry_Loop25
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	smpsNoteFill	$02
 
 FunnyAngry_Loop26:
@@ -942,7 +942,7 @@ FunnyAngry_Loop27:
 	dc.b nE5, nE5, nE5, nE5, nE5, nE5, nRst, $60
 	dc.b nRst, $12, nD5, $06, nCs5, nB4, nG4
 	smpsPSGAlterVol	$FF
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	smpsNoteFill	$02
 
 FunnyAngry_Loop28:
@@ -983,7 +983,7 @@ FunnyAngry_Loop28:
 	dc.b nF4, nA4, nRst, $30, nB3, $06, nD4, nF4
 	dc.b nA4, nRst, $18, nB3, $06, nD4, nF4, nA4
 	dc.b nRst, $18, nB3, $06, nD4, nF4, nB3
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	smpsNoteFill	$02
 
 FunnyAngry_Loop29:
@@ -1024,7 +1024,7 @@ FunnyAngry_Loop30:
 	dc.b nA4, nA4, nE4, nE5, nRst, nCs5, nD5, nCs5
 	dc.b nA4
 	smpsLoop	$00, $08, FunnyAngry_Loop30
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	smpsNoteFill	$02
 
 FunnyAngry_Loop31:
@@ -1070,7 +1070,7 @@ FunnyAngry_Loop32:
 	dc.b nE5, nE5, nE5, nE5, nE5, nE5, nE5, nE5
 	dc.b nE5, nE5, nE5, nE5, nE5, nE5, nRst, $60
 	smpsPSGAlterVol	$FF
-	smpsPSGvoice	 sTone_05
+	smpsPSGvoice	VolEnv_05
 	smpsNoteFill	$02
 
 FunnyAngry_Loop33:
@@ -1329,7 +1329,7 @@ FunnyAngry_Call1:
 	smpsPan	 panRight, $00
 	dc.b d92, $06, d92, $06
 	smpsPan	 panCentre, $00
-	smpsReturn	
+	smpsReturn
 
 FunnyAngry_Voices:
 	; Voice $00

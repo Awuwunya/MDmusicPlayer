@@ -285,6 +285,7 @@ rvar	= 0			; reset driver ID
 rvar	= rvar+4		; next driver
 	endr
     endm
+; ===========================================================================
 
 drvplay	macro
 rvar	= 0			; reset driver ID
@@ -305,6 +306,7 @@ DrvPlay_\outStr:
 rvar	= rvar+4		; next driver
 	endr
     endm
+; ===========================================================================
 
 drvload	macro
 rvar	= 0			; reset driver ID
@@ -325,6 +327,7 @@ DrvLoad_\outStr:
 rvar	= rvar+4		; next driver
 	endr
     endm
+; ===========================================================================
 
 drvupd	macro
 rvar	= 0			; reset driver ID
@@ -362,38 +365,41 @@ incmusbin	macro	driver, file, name, isZ80
 MusicFile_\outStr:
 	asc2.w $8000, \name
 	dc.w \driver
+MusicFileS_\outStr:
 	incbin "music/\file\.bin"
 	even
+	inform 0, "Music file 'music/\file\.bin'		size: $%h	address: $%h", filesize("music/\file\.bin"), offset(*)-filesize("music/\file\.bin")-1
 
 musnum		= musnum+4	; next music ID
     endm
-
+; ===========================================================================
 ; the following is for music that are in smps2asm format.
 incmusasm	macro	driver, file, name, isZ80
 	numToStr musnum, 4
 	if isZ80=1
 		if ((offset(*)&$7FFF)>$6000)
-		align $8000	; can not check if align is needed
+			align $8000	; can not check if align is needed
 		endif
 	endif
 MusicFile_\outStr:
 	asc2.w $8000, \name
 	dc.w \driver
 
+MusicFileS_\outStr:
 	opt ae-	; in asm format music, automatic evens will screw us over
 	include "music/\file\.asm"
 	opt ae+	; return automatic evens because yes
+	inform 0, "Music file 'music/\file\.asm'		size: $%h	address: $%h", *-MusicFileS_\outStr, offset(*)-(*-MusicFileS_\outStr)
 	even
 
 musnum		= musnum+4	; next music ID
     endm
-
+; ===========================================================================
 ; the following is for music that are in smps2asm format with the special music only mode.
 incmusasmonly	macro	file
 	opt ae-	; in asm format music, automatic evens will screw us over
 	include "music/\file\.asm"
     endm
-
 ; ===========================================================================
 ; following macros are all about including specific array's to music files.
 musfile	macro
@@ -411,7 +417,6 @@ selectdrv	macro id
 smpsdrv equs "\id"
 	s2e_\id		; call the macro
     endm
-
 ; ===========================================================================
 ; Z80 addresses
 Z80_RAM =			$A00000 ; start of Z80 RAM
@@ -487,3 +492,4 @@ pal60mod =	0	; Set to 1 if you want to enable 60hz PAL mode for all sound driver
 extremeDMA =	0	; set to 1 to unlock extreme ($4000 bytes!!!) DMA mode.
 			; You must acknowledge however, that most drivers can not cope with this and it will cause all kinds of crazy glitches.
 			; this is nonstandard and no driver is designed to be able to deal with this.
+; ===========================================================================

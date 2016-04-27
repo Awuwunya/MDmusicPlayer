@@ -21,16 +21,16 @@
 	* \PSGnum\ {
 		! > smpsHeaderPSG: /hw, /db, /db, /db, /db {
 			#4 {
-				=sTone_00 0
-				=sTone_01 1
-				=sTone_02 2
-				=sTone_03 3
-				=sTone_04 4
-				=sTone_05 5
-				=sTone_06 6
-				=sTone_07 7
-				=sTone_08 8
-				=sTone_09 9
+				=VolEnv_00 0
+				=VolEnv_01 1
+				=VolEnv_02 2
+				=VolEnv_03 3
+				=VolEnv_04 4
+				=VolEnv_05 5
+				=VolEnv_06 6
+				=VolEnv_07 7
+				=VolEnv_08 8
+				=VolEnv_09 9
 			}
 		}
 	}
@@ -299,15 +299,15 @@
 	!0xF4 > smpsModChange: /db;
 	!0xF5 > smpsPSGvoice: /db {
 		#0 {
-			=sTone_01 1
-			=sTone_02 2
-			=sTone_03 3
-			=sTone_04 4
-			=sTone_05 5
-			=sTone_06 6
-			=sTone_07 7
-			=sTone_08 8
-			=sTone_09 9
+			=VolEnv_01 1
+			=VolEnv_02 2
+			=VolEnv_03 3
+			=VolEnv_04 4
+			=VolEnv_05 5
+			=VolEnv_06 6
+			=VolEnv_07 7
+			=VolEnv_08 8
+			=VolEnv_09 9
 		}
 	}
 	~£_Jump#

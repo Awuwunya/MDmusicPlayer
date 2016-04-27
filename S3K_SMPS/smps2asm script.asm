@@ -28,45 +28,46 @@
 	* \PSGnum\ {
 		! > smpsHeaderPSG: /aw, /db, /db, /db, /db {
 			#4 {
-				=sTone_01 1
-				=sTone_02 2
-				=sTone_03 3
-				=sTone_04 4
-				=sTone_05 5
-				=sTone_06 6
-				=sTone_07 7
-				=sTone_08 8
-				=sTone_09 9
-				=sTone_0A 0x0A
-				=sTone_0B 0x0B
-				=sTone_0C 0x0C
-				=sTone_0D 0x0D
-				=sTone_0E 0x0E
-				=sTone_0F 0x0F
-				=sTone_10 0x10
-				=sTone_11 0x11
-				=sTone_12 0x12
-				=sTone_13 0x13
-				=sTone_14 0x14
-				=sTone_15 0x15
-				=sTone_16 0x16
-				=sTone_17 0x17
-				=sTone_18 0x18
-				=sTone_19 0x19
-				=sTone_1A 0x1A
-				=sTone_1B 0x1B
-				=sTone_1C 0x1C
-				=sTone_1D 0x1D
-				=sTone_1E 0x1E
-				=sTone_1F 0x1F
-				=sTone_20 0x20
-				=sTone_21 0x21
-				=sTone_22 0x22
-				=sTone_23 0x23
-				=sTone_24 0x24
-				=sTone_25 0x25
-				=sTone_26 0x26
-				=sTone_27 0x27
+				=VolEnv_00 0
+				=VolEnv_01 1
+				=VolEnv_02 2
+				=VolEnv_03 3
+				=VolEnv_04 4
+				=VolEnv_05 5
+				=VolEnv_06 6
+				=VolEnv_07 7
+				=VolEnv_08 8
+				=VolEnv_09 9
+				=VolEnv_0A 0x0A
+				=VolEnv_0B 0x0B
+				=VolEnv_0C 0x0C
+				=VolEnv_0D 0x0D
+				=VolEnv_0E 0x0E
+				=VolEnv_0F 0x0F
+				=VolEnv_10 0x10
+				=VolEnv_11 0x11
+				=VolEnv_12 0x12
+				=VolEnv_13 0x13
+				=VolEnv_14 0x14
+				=VolEnv_15 0x15
+				=VolEnv_16 0x16
+				=VolEnv_17 0x17
+				=VolEnv_18 0x18
+				=VolEnv_19 0x19
+				=VolEnv_1A 0x1A
+				=VolEnv_1B 0x1B
+				=VolEnv_1C 0x1C
+				=VolEnv_1D 0x1D
+				=VolEnv_1E 0x1E
+				=VolEnv_1F 0x1F
+				=VolEnv_20 0x20
+				=VolEnv_21 0x21
+				=VolEnv_22 0x22
+				=VolEnv_23 0x23
+				=VolEnv_24 0x24
+				=VolEnv_25 0x25
+				=VolEnv_26 0x26
+				=VolEnv_27 0x27
 			}
 		}
 	}
@@ -120,12 +121,12 @@
 
 ?DAC {
 	=nRst 0x80
-	=dSnareS3 0x81
+	=dSnare 0x81
 	=dHighTom 0x82
-	=dMidTomS3 0x83
-	=dLowTomS3 0x84
-	=dFloorTomS3 0x85
-	=dKickS3 0x86
+	=dMidTom 0x83
+	=dLowTom 0x84
+	=dFloorTom 0x85
+	=dKick 0x86
 	=dMuffledSnare 0x87
 	=dCrashCymbal 0x88
 	=dRideCymbal 0x89
@@ -134,7 +135,7 @@
 	=dHighMetalHit 0x8C
 	=dHigherMetalHit 0x8D
 	=dMidMetalHit 0x8E
-	=dClapS3 0x8F
+	=dClap 0x8F
 	=dElectricHighTom 0x90
 	=dElectricMidTom 0x91
 	=dElectricLowTom 0x92
@@ -143,9 +144,9 @@
 	=dMidpitchSnare 0x95
 	=dLooseSnare 0x96
 	=dLooserSnare 0x97
-	=dHiTimpaniS3 0x98
-	=dLowTimpaniS3 0x99
-	=dMidTimpaniS3 0x9A
+	=dHiTimpani 0x98
+	=dLowTimpani 0x99
+	=dMidTimpani 0x9A
 	=dQuickLooseSnare 0x9B
 	=dClick 0x9C
 	=dPowerKick 0x9D
@@ -178,7 +179,7 @@
 	=dHipHopHitKick2 0xB8
 	=dHipHopHitKick3 0xB9
 	=dReverseFadingWind 0xBA
-	=dScratchS3 0xBB
+	=dScratch 0xBB
 	=dLooseSnareNoise 0xBC
 	=dPowerKick2 0xBD
 	=dCrashingNoiseWoo 0xBE
@@ -188,8 +189,8 @@
 	=dLowPowerKickHit 0xC2
 	=dLowerPowerKickHit 0xC3
 	=dLowestPowerKickHit 0xC4
-	=dEchoedClapHit_S3 0xC5
-	=dLowerEchoedClapHit_S3 0xC6
+	=dEchoedClapHit2 0xC5
+	=dLowerEchoedClapHit2 0xC6
 }
 
 ?note {
@@ -231,12 +232,12 @@
 	=nBb2 0xA3
 	=nB2 0xA4
 	=nC3 0xA5
-	=nCs3 0xA6
+	=nC 0xA6
 	=nD3 0xA7
 	=nEb3 0xA8
 	=nE3 0xA9
 	=nF3 0xAA
-	=nFs3 0xAB
+	=nF 0xAB
 	=nG3 0xAC
 	=nAb3 0xAD
 	=nA3 0xAE
@@ -333,45 +334,46 @@
 	!0xF4 > smpsModChange: /db;
 	!0xF5 > smpsPSGvoice: /db {
 		#0 {
-			=sTone_01 1
-			=sTone_02 2
-			=sTone_03 3
-			=sTone_04 4
-			=sTone_05 5
-			=sTone_06 6
-			=sTone_07 7
-			=sTone_08 8
-			=sTone_09 9
-			=sTone_0A 0x0A
-			=sTone_0B 0x0B
-			=sTone_0C 0x0C
-			=sTone_0D 0x0D
-			=sTone_0E 0x0E
-			=sTone_0F 0x0F
-			=sTone_10 0x10
-			=sTone_11 0x11
-			=sTone_12 0x12
-			=sTone_13 0x13
-			=sTone_14 0x14
-			=sTone_15 0x15
-			=sTone_16 0x16
-			=sTone_17 0x17
-			=sTone_18 0x18
-			=sTone_19 0x19
-			=sTone_1A 0x1A
-			=sTone_1B 0x1B
-			=sTone_1C 0x1C
-			=sTone_1D 0x1D
-			=sTone_1E 0x1E
-			=sTone_1F 0x1F
-			=sTone_20 0x20
-			=sTone_21 0x21
-			=sTone_22 0x22
-			=sTone_23 0x23
-			=sTone_24 0x24
-			=sTone_25 0x25
-			=sTone_26 0x26
-			=sTone_27 0x27
+			=VolEnv_00 0
+			=VolEnv_01 1
+			=VolEnv_02 2
+			=VolEnv_03 3
+			=VolEnv_04 4
+			=VolEnv_05 5
+			=VolEnv_06 6
+			=VolEnv_07 7
+			=VolEnv_08 8
+			=VolEnv_09 9
+			=VolEnv_0A 0x0A
+			=VolEnv_0B 0x0B
+			=VolEnv_0C 0x0C
+			=VolEnv_0D 0x0D
+			=VolEnv_0E 0x0E
+			=VolEnv_0F 0x0F
+			=VolEnv_10 0x10
+			=VolEnv_11 0x11
+			=VolEnv_12 0x12
+			=VolEnv_13 0x13
+			=VolEnv_14 0x14
+			=VolEnv_15 0x15
+			=VolEnv_16 0x16
+			=VolEnv_17 0x17
+			=VolEnv_18 0x18
+			=VolEnv_19 0x19
+			=VolEnv_1A 0x1A
+			=VolEnv_1B 0x1B
+			=VolEnv_1C 0x1C
+			=VolEnv_1D 0x1D
+			=VolEnv_1E 0x1E
+			=VolEnv_1F 0x1F
+			=VolEnv_20 0x20
+			=VolEnv_21 0x21
+			=VolEnv_22 0x22
+			=VolEnv_23 0x23
+			=VolEnv_24 0x24
+			=VolEnv_25 0x25
+			=VolEnv_26 0x26
+			=VolEnv_27 0x27
 		}
 	}
 	~£_Jump#
