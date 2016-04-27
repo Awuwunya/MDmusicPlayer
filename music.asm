@@ -12,6 +12,7 @@
 	selectdrv S1_SMPS
 	incmusasm	S1_SMPS, musicEC, "Magician's hall", 0
 	incmusasm	S1_SMPS, slz, "Star Light Zone", 0
+	incmusasm	S1_SMPS, invisk, "S&K Invinciblity", 0
 	selectdrv MegaPCM
 	incmusasm	MegaPCM, ghz, "Green Hill Zone", 0
 	selectdrv DyHe_SMPS

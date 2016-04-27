@@ -30,18 +30,18 @@ IsPal:		dc.b 0	; NATSUMI: Is -1 if PAL mode is active.
 ; ---------------------------------------------------------------------------
 ; PSG instruments used in music
 ; ---------------------------------------------------------------------------
-PSG_Index:	dc.l PSG1, PSG2, PSG3
-		dc.l PSG4, PSG5, PSG6
-		dc.l PSG7, PSG8, PSG9
-PSG1:		incbin	psg\psg1.bin
-PSG2:		incbin	psg\psg2.bin
-PSG3:		incbin	psg\psg3.bin
-PSG4:		incbin	psg\psg4.bin
-PSG6:		incbin	psg\psg6.bin
-PSG5:		incbin	psg\psg5.bin
-PSG7:		incbin	psg\psg7.bin
-PSG8:		incbin	psg\psg8.bin
-PSG9:		incbin	psg\psg9.bin
+PSG_Index:	dc.l PSG0, PSG1, PSG2
+		dc.l PSG3, PSG4, PSG5
+		dc.l PSG6, PSG7, PSG8
+PSG0:		incbin	"VolEnv/00.bin"
+PSG1:		incbin	"VolEnv/01.bin"
+PSG2:		incbin	"VolEnv/02.bin"
+PSG3:		incbin	"VolEnv/03.bin"
+PSG4:		incbin	"VolEnv/04.bin"
+PSG5:		incbin	"VolEnv/05.bin"
+PSG6:		incbin	"VolEnv/06.bin"
+PSG7:		incbin	"VolEnv/07.bin"
+PSG8:		incbin	"VolEnv/08.bin"
 
 byte_71A94:	dc.b 7,	$72, $73, $26, $15, 8, $FF, 5
 ; ---------------------------------------------------------------------------

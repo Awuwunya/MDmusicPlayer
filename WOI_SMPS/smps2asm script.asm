@@ -57,7 +57,7 @@
 	=b3 0
 	=b4 0
 	%; Voice {$2!\num\}\r\n\t; {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}
-	>b 17
+	>b 25
 	! > smpsVcAlgorithm: /nb&0x7;
 	! > smpsVcFeedback: (/db&0x38)>>3;
 	=b1 /db
