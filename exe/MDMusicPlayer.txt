@@ -121,6 +121,9 @@ Contents:
     *exe/asm68k.exe - Used to assemble 68000 assembly code, including sound
       drivers and the player itself.
 
+    *exe/changelog.txt - Tells you which version we are on and what has
+      changed. You can also get links to past versions easily.
+
     *exe/font.bin - Raw uncompressed font used in the program. Thanks Bakayote!
 
     *exe/font.kos - Kosinski compressed font.

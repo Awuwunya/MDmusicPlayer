@@ -1,0 +1,48 @@
+================================================================================
+MDMusicPlayer changelog
+================================================================================
+* Legend
+    * Fix
+    + Added
+    - Removed
+    ~ Changed
+    . Other
+    s SMPS2ASM change (the next character is the legend rule)
+    > Download
+================================================================================
+
+* v0.0
+  . Initial release
+  > http://natsumi.noip.me/d/misc/MDMusicPlayer.0.0.7z
+================================================================================
+
+* v0.1
+  + Full support for voices
+  + Support for conversion of sound effects
+  + Fake DMA feature, allows to check sound quality degredation under different
+    loads
+  + Scripts for World of Illusion and Sonic the Hedgehog 2
+  + Sonic 1 port of invinciblity theme from Sonic & Knuckles
+  + Changelog
+  * Included both asm and bin format music, for future reference
+  * Changed "sTone" to "VolEnv"
+  - Penis
+  s+ Debug output as a commandline option
+  s+ Multiple scripts per folder. See smps2asm.txt for more info
+  s+ Go To, Equate Change and Comment functions
+  s* Voices which are not at the end of file would continue to be created til
+    end of file. This would eventually cause the ASM file to be messy and not
+    work correctly.
+  s* ReadWord function would read the first byte twice, and therefore break any
+    code that uses it.
+  s* Some miscellaneous crash issues
+  s* Script parser would not support multiple condition blocks. False condition
+    would get overwritten by another condition block, and then it would
+    incorrectly run instructions when it should not. Now this also uses a stack
+    and supports theoretically infinite condition blocks.
+  s* Lable formats can now use variables or operators
+  s* lable format would place ':' in wrong places or not at all with some setups
+    This has now been corrected to always put one at the end.
+  s* Various optimizations
+  > http://natsumi.noip.me/d/misc/MDMusicPlayer.0.1.7z
+================================================================================
