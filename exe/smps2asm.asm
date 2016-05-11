@@ -75,7 +75,7 @@ smpsHeaderVoiceNull macro
 	if songStart<>offset(*)
 		inform 2,"Missing smpsHeaderStartSong or smpsHeaderStartSongConvert"
 	endif
-	dc.w	$0000
+	dc.w $0000
     endm
 
 ; Header - Set up Voice Location
@@ -87,7 +87,7 @@ smpsHeaderVoice macro loc
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
-		dc.w	loc-songStart
+		dc.w loc-songStart
 	endif
     endm
 
@@ -100,19 +100,28 @@ smpsHeaderVoiceUVB macro
 	if smpsIsZ80=1
 		littleEndian smpsUniVoiceBank
 	else
-		dc.w	smpsUniVoiceBank-songStart
+		dc.w smpsUniVoiceBank-songStart
 	endif
     endm
 
 ; Header macros for music (not for SFX)
 ; Header - Set up Channel Usage
 smpsHeaderChan macro fm,psg
-	dc.b	\fm,\psg
+	dc.b \fm
+
+	if narg=2
+		dc.b \psg
+	endif
     endm
 
 ; Header - Set up Tempo
 smpsHeaderTempo macro div,mod
-	dc.b	\div, \mod
+	dc.b \div,\mod
+    endm
+
+; Header - Set up Tick
+smpsHeaderTick macro tick
+	dc.b \tick
     endm
 
 ; Header - Set up DAC Channel
@@ -120,17 +129,17 @@ smpsHeaderDAC macro loc,pitch,vol
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
-		dc.w	\loc-songStart
+		dc.w \loc-songStart
 	endif
 	if narg>=2
-		dc.b	\pitch
+		dc.b \pitch
 		if narg>=3
-			dc.b	\vol
+			dc.b \vol
 		else
-			dc.b	$00
+			dc.b $00
 		endif
 	else
-		dc.w	$00
+		dc.w $00
 	endif
     endm
 
@@ -139,9 +148,9 @@ smpsHeaderFM macro loc,pitch,vol
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
-		dc.w	loc-songStart
+		dc.w loc-songStart
 	endif
-	dc.b	\pitch,\vol
+	dc.b \pitch,\vol
     endm
 
 ; Header - Set up PSG Channel
@@ -149,31 +158,20 @@ smpsHeaderPSG macro loc,pitch,vol,mod,voice
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
-		dc.w	loc-songStart
+		dc.w loc-songStart
 	endif
 	dc.b	\pitch,\vol,\mod,\voice
     endm
 
-; Header macros for SFX (not for music)
-; Header - Set up Tempo
-smpsHeaderTempoSFX macro div
-	dc.b	div
-    endm
-
-; Header - Set up Channel Usage
-smpsHeaderChanSFX macro chan
-	dc.b	\chan
-    endm
-
-; Header - Set up FM Channel
-smpsHeaderSFXChannel macro chanid,loc,pitch,vol
-	dc.b	$80,\chanid
+; Header - Set up SFX Channel
+smpsHeaderSFX macro play, voice,loc,pitch,vol
+	dc.b \play,\voice
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
-		dc.w	loc-songStart
+		dc.w loc-songStart
 	endif
-	dc.b	\pitch, \vol
+	dc.b \pitch,\vol
     endm
 ; ---------------------------------------------------------------------------------------------
 ; Co-ord Flag Macros and Equates
