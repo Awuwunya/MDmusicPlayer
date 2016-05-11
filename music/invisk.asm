@@ -1,10 +1,10 @@
 ; NOTE: This port would be more accurate if I enabled custom volume envelopes.
-; however, because I restricted myself to stock ones, it sounds a bit different.
-; If you want to make it better, copy volume envelop 0A from S3K to Sonic 1.
+; However, because I restricted myself to stock ones, it sounds a bit different.
+; If you want to make it better, copy volume envelope 0A from S3K to Sonic 1.
 ; It is the file "S3K_SMPS\VolEnv\0A.bin", and must be copied to folder "S1_SMPS\VolEnv\".
-; You must then include it in next to "PSG9" in Sonic 1's 58k.asm and add to the array.
-; Since Sonic 1 has only 0x8 VolEnv's (Volume Envelopes), you must add blank entry or use entry 9.
-; then you must change each VolEnv_03 toVolEnv_09 or VolEnv_0A in this file!
+; You must then include it next to "PSG9" in Sonic 1's 68k.asm and add to the array.
+; Since Sonic 1 has only 8 VolEnv's (Volume Envelopes), you must add blank entry or use entry 9.
+; then you must change each VolEnv_03 to VolEnv_09 or VolEnv_0A in this file!
 InvinciblityK_Header:
 	smpsHeaderStartSong
 	smpsHeaderVoice	InvinciblityK_Voices

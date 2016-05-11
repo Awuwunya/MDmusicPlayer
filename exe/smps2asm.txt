@@ -29,6 +29,23 @@ Contents:
     parameters. You can put them right after the other parameters. Here is an
     example:
       "SMPS2ASM ICZ.bin S3K_SMPS IceCap1 0x86AA"
+
+    If you want to use another script inside a folder, you can append a dot, and
+    the unique name of the script. You can see this with scripts related to SFX.
+    For example with script "S1_SMPS/smps2asm script.SFX.asm", you would want to
+    append ".SFX" to the folder name, as follows:
+      "SMPS2ASM Jump.bin S1_SMPS.SFX Jump"
+
+  *1.4 - Special flags*
+    The commandline supports you adding special flags to use different special
+    functions with SMPS2ASM. Currently the following flags are supported:
+      * -d - Print debug information. This information provides an insight to
+        what the interpreter sees during the whole execution. This file is
+        stored as .asm.log file and is viewable by any text editor. This can be
+        used to debugging possible issues with scripts or finding out what goes
+        wrong with song conversion.
+
+    More flags may be added in the future
 ================================================================================
 
 *2 - Scripting & mnemonics*
@@ -52,6 +69,9 @@ Contents:
         to different possible notes.
 
       * coordination - Contains information about coordination flags.
+
+      * voices - Contains information for how to construct each voice data. The
+        entire script is attempted to parse at once, for every voice found.
 
   *2.2 - mnemonics*
     *2.2.1 - Function types*

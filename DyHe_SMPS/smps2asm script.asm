@@ -36,7 +36,7 @@
 	}
 }
 
-?Voices {
+?voices {
 	=num 0
 	=b1 0
 	=b2 0

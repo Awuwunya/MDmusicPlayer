@@ -36,7 +36,7 @@ Contents:
     * 4 - Ensure you use correct macro depending on the music format
       ('incmusasm' for ASM format, 'incmusbin' for binary format.), and make
       sure the correct sound driver is selected with the 'selectdrv' macro.
-    * 5 - Click on 'build.bat' on the root folder and launch 'player-bin' on
+    * 5 - Click on 'build.bat' on the root folder and launch 'player.bin' on
       your favourite emulator or on hardware!
 ================================================================================
 
@@ -121,7 +121,7 @@ Contents:
     *exe/asm68k.exe - Used to assemble 68000 assembly code, including sound
       drivers and the player itself.
 
-    *exe/font.bin - Raw uncompressed font used in the program.
+    *exe/font.bin - Raw uncompressed font used in the program. Thanks Bakayote!
 
     *exe/font.kos - Kosinski compressed font.
 
@@ -151,11 +151,11 @@ Contents:
 
 *5 - Credits*
   Of course, I couldn't do all of this myself. A few people helped me along the
-  way to make all of this possible.
+  way to make all of this possible!
     *ValleyBell - His SMPS research packs and direct help has helped me to
       understand SMPS format a lot more as well as implement all these sound
       driver to go with my tool. Huge thanks for him, and if it weren't for him
-      this may have not ever come to light
+      this may have not ever come to light.
 
     *Bakayote - He provided me the great font used in this tool. If it weren't
       for him I'd have to use the awful Sonic 1 menu font, and have to improvise
@@ -169,4 +169,4 @@ Contents:
 
     *Vladikcomper - I mention him simply because I use his MegaPCM DAC driver as
       a pre-installed sound driver. But why wouldn't I? Its easy to use and
-      fairly good for what it does!
+      very good for what it does!
