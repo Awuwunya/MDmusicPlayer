@@ -84,13 +84,13 @@
 
 ?DAC {
 	=nRst 0x80
-	=dMKick 0x81
-	=dMSnare 0x82
-	=dMTimpani 0x83
-	=dMHiTimpani 0x88
-	=dMMidTimpani 0x89
-	=dMMidLowTimpani 0x8A
-	=dMLowTimpani 0x8B
+	=dKick 0x81
+	=dSnare 0x82
+	=dTimpani 0x83
+	=dHiTimpani 0x88
+	=dMidTimpani 0x89
+	=dLowTimpani 0x8A
+	=dVLowTimpani 0x8B
 }
 
 ?note {
@@ -227,6 +227,7 @@
 	!0xF4 > smpsModOff:;
 	!0xF5 > smpsPSGvoice: /db {
 		#0 {
+			=VolEnv_00 1
 			=VolEnv_01 1
 			=VolEnv_02 2
 			=VolEnv_03 3

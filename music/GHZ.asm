@@ -476,21 +476,21 @@ GreenHill_Jump9:
 	smpsJump	GreenHill_Jump9
 
 GreenHill_DAC:
-	dc.b nRst, $08, dMKick, dMSnare, dMKick, dMKick, dMSnare, dMSnare
-	dc.b dMSnare
+	dc.b nRst, $08, dKick, dSnare, dKick, dKick, dSnare, dSnare
+	dc.b dSnare
 GreenHill_Loop1:
-	dc.b dMKick, $10, dMSnare, $08, dMKick, $10, $08, dMSnare
+	dc.b dKick, $10, dSnare, $08, dKick, $10, $08, dSnare
 	dc.b $10
 	smpsLoop	$00, $07, GreenHill_Loop1
-	dc.b dMKick, $10, dMSnare, $08, dMKick, $10, dMSnare, $08
+	dc.b dKick, $10, dSnare, $08, dKick, $10, dSnare, $08
 	dc.b $08, $08
 
 GreenHill_Loop2:
 GreenHill_Jump1:
-	dc.b dMKick, $10, dMSnare, $08, dMKick, $10, $08, dMSnare
+	dc.b dKick, $10, dSnare, $08, dKick, $10, $08, dSnare
 	dc.b $10
 	smpsLoop	$00, $07, GreenHill_Loop2
-	dc.b dMKick, $10, dMSnare, $08, dMKick, $10, dMSnare, $08
+	dc.b dKick, $10, dSnare, $08, dKick, $10, dSnare, $08
 	dc.b $08, $08
 	smpsLoop	$01, $02, GreenHill_Loop2
 	smpsJump	GreenHill_Jump1

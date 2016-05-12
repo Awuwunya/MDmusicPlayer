@@ -8,8 +8,8 @@ nMaxPSG	=	nA5
 	enum VolEnv_06+1, VolEnv_07,VolEnv_08,VolEnv_09
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
-	enum $81, dMKick,dMSnare,dTMimpani
-	enum $88, dMHiTimpani,dMMidTimpani,dMMidLowTimpani,dMLowTimpani
+	enum $81, dKick,dSnare,dTimpani
+	enum $88, dHiTimpani,dMidTimpani,dLowTimpani,dVLowTimpani
     endm
 
 s2e_MegaPCM_smpsPan	macro direction,amsfms

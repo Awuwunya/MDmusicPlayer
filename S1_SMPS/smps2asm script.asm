@@ -206,7 +206,9 @@
 	!0xE3 > smpsReturn:{
 		;
 	}
-	!0xE4 > smpsFade:;
+	!0xE4 > smpsFade: {
+		;
+	}
 	!0xE5 > smpsChanTempoDiv: /db;
 	!0xE6 > smpsFMAlterVol: /db;
 	=smpsNoAttack 0xE7
@@ -227,6 +229,7 @@
 	!0xF4 > smpsModOff:;
 	!0xF5 > smpsPSGvoice: /db {
 		#0 {
+			=VolEnv_00 1
 			=VolEnv_01 1
 			=VolEnv_02 2
 			=VolEnv_03 3
