@@ -1,5 +1,5 @@
 StarLight_Header:
-	sHeaderInit	
+	sHeaderInit
 	sHeaderPatch	StarLight_Patches
 	sHeaderCh	$06, $03
 	sHeaderTempo	$02, $06
@@ -32,7 +32,7 @@ StarLight_Call1:
 	dc.b nE6, $1E, nF6, $06, nE6, nD6, $12, nG5
 	dc.b $0C, nA5, nG6
 	sCall		StarLight_Call2
-	sRet	
+	sRet
 
 StarLight_Call2:
 	dc.b nE6, $2A, nE6, $03, nF6, nG6, $09, nA6
@@ -40,7 +40,7 @@ StarLight_Call2:
 	dc.b $06, nE6, nF6, $1E, nD6, $0C, nE6, nF6
 	dc.b $2A, nD6, $03, nE6, nF6, $09, nG6, nAb6
 	dc.b $06, nG6, $0C, nF6
-	sRet	
+	sRet
 
 StarLight_FM2:
 	sPatFM		$01
@@ -85,7 +85,7 @@ StarLight_Loop2:
 	dc.b $12, nRst, $06, nG3, $02, nRst, $01, nG3
 	dc.b $02, nRst, $01, nB3, $06, nRst, $03, nB3
 	dc.b nRst, $06, nB3, $12
-	sRet	
+	sRet
 
 StarLight_Call4:
 	dc.b nC4, $06, nRst, $03, nC4, nRst, $06, nC4
@@ -95,7 +95,7 @@ StarLight_Call4:
 	dc.b nRst, $01, nD4, $02, nRst, $01, nE4, $06
 	dc.b nRst, $03, nE4, nRst, $06, nE4, $12, nRst
 	dc.b $06
-	sRet	
+	sRet
 
 StarLight_FM3:
 	sPatFM		$02
@@ -111,11 +111,11 @@ StarLight_Jump4:
 	dc.b $0C, nRst, $06
 	sCall		StarLight_Call5
 	sCall		StarLight_Call6
-	sNoteStop	$08
+	sNoteTimeout	$08
 	dc.b nRst, $06, nE7, $09, $09, $09, nD7, $09
 	dc.b nC7, $06
 	sCall		StarLight_Call6
-	sNoteStop	$00
+	sNoteTimeout	$00
 	dc.b nRst, $0C, nA6, $24
 	sJump		StarLight_Jump4
 
@@ -129,22 +129,22 @@ StarLight_Call5:
 	dc.b nF6, $18, nRst, $06, nF6, nRst, $03, nF6
 	dc.b nRst, $06, nF6, $18, nRst, $06, nAb6, nRst
 	dc.b $03, nAb6, nRst, $06, nAb6, $18, nRst, $06
-	sRet	
+	sRet
 
 StarLight_Call6:
-	sNoteStop	$08
+	sNoteTimeout	$08
 	dc.b nRst, $06, nB6, $09, $09, $09, $09
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b $03, $03
-	sNoteStop	$08
+	sNoteTimeout	$08
 	dc.b nRst, $06, nC7, $09, $09, $09, $09
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b $03, $03
-	sNoteStop	$08
+	sNoteTimeout	$08
 	dc.b nRst, $06, nD7, $09, $09, $09, $09
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b $03, $03
-	sRet	
+	sRet
 
 StarLight_FM4:
 	sPatFM		$02
@@ -160,12 +160,12 @@ StarLight_Jump5:
 	dc.b $0C, nRst, $06
 	sCall		StarLight_Call7
 	sCall		StarLight_Call8
-	sNoteStop	$08
+	sNoteTimeout	$08
 	dc.b nRst, $06, nC7, $09, $09, $09, nB6, $09
 	dc.b nA6, $06
-	sNoteStop	$08
+	sNoteTimeout	$08
 	sCall		StarLight_Call8
-	sNoteStop	$00
+	sNoteTimeout	$00
 	dc.b nRst, $0C, nF6, $24
 	sJump		StarLight_Jump5
 
@@ -179,22 +179,22 @@ StarLight_Call7:
 	dc.b nD6, $18, nRst, $06, nD6, nRst, $03, nD6
 	dc.b nRst, $06, nD6, $18, nRst, $06, nF6, nRst
 	dc.b $03, nF6, nRst, $06, nF6, $18, nRst, $06
-	sRet	
+	sRet
 
 StarLight_Call8:
-	sNoteStop	$08
+	sNoteTimeout	$08
 	dc.b nRst, $06, nG6, $09, $09, $09, $09
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b $03, $03
-	sNoteStop	$08
+	sNoteTimeout	$08
 	dc.b nRst, $06, nA6, $09, $09, $09, $09
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b $03, $03
-	sNoteStop	$08
+	sNoteTimeout	$08
 	dc.b nRst, $06, nB6, $09, $09, $09, $09
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b $03, $03
-	sRet	
+	sRet
 
 StarLight_FM5:
 	sPatFM		$04
@@ -225,9 +225,9 @@ StarLight_Jump6:
 	dc.b nE6, $05, nF6, $06, nE6, nF6, nG6, nRst
 	dc.b nC6, nRst, $06
 	sCall		StarLight_Call9
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b nA5, $03, $03
-	sNoteStop	$00
+	sNoteTimeout	$00
 	sCall		StarLight_Call11
 	sPatFM		$03
 	saVolFM		$EF
@@ -238,7 +238,7 @@ StarLight_Jump6:
 	saDetune	$00
 	ssMod68k	$2C, $01, $04, $04
 	dc.b nC7, $23
-	sModOff	
+	sModOff
 	saVolFM		$14
 	sJump		StarLight_Jump6
 
@@ -259,7 +259,7 @@ StarLight_Call9:
 	dc.b nC6, $01, sHold
 	saDetune	$00
 	dc.b $05, nRst, $06
-	sRet	
+	sRet
 
 StarLight_Call11:
 	dc.b nC6, $06, nA5, nRst, $06
@@ -268,9 +268,9 @@ StarLight_Call10:
 	dc.b nG5, $01, sHold
 	saDetune	$00
 	dc.b $02, nA5, $03
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b nC6, $03, nC6, $06, nA5, $03, nC6, $03
-	sNoteStop	$00
+	sNoteTimeout	$00
 	dc.b nC6, nRst
 	saVolFM		$FC
 	saTranspose	$33
@@ -281,23 +281,23 @@ StarLight_Call10:
 	saVolFM		$07
 	dc.b nEb4
 	saVolFM		$07
-	sRet	
+	sRet
 	; Unused
 	dc.b $F6, $FF, $FE, $F6, $FF, $FE
 
 StarLight_PSG3:
 	sNoisePSG	$E7
-	sNoteStop	$02
+	sNoteTimeout	$02
 	dc.b nRst, $24
 
 StarLight_Jump7:
 	dc.b nA5, $03, $03
 	saVolPSG	$02
 	sVolEnvPSG	VolEnv_08
-	sNoteStop	$08
+	sNoteTimeout	$08
 	dc.b $06
 	sVolEnvPSG	VolEnv_04
-	sNoteStop	$03
+	sNoteTimeout	$03
 	saVolPSG	$FE
 	sJump		StarLight_Jump7
 

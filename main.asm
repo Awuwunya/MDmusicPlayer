@@ -50,7 +50,6 @@ SystemFont:
 	even				; made by Bakayote
 
 	include 'drivers.asm'		; include all sound driver data
-	include 'music.asm'		; include all music files
 	include 'chaninfo.asm'		; Draws information about channels during VBlank
 ; ===========================================================================
 EndOfRom:

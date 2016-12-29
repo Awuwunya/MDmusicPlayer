@@ -1,11 +1,13 @@
-s2e_DyHe_SMPS	macro
 smpsIsZ80 =	0
 nMaxPSG =	nA5
-smpsNoAttack =	$E7
+sHold =		$E7
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
-	enum $00, VolEnv_00,VolEnv_01,VolEnv_02,VolEnv_03,VolEnv_04,VolEnv_05,VolEnv_06
+	enum $00,	  VolEnv_00,VolEnv_01,VolEnv_02,VolEnv_03,VolEnv_04,VolEnv_05,VolEnv_06
 	enum VolEnv_06+1, VolEnv_07,VolEnv_08,VolEnv_09
+; ---------------------------------------------------------------------------------------------
+; PSG modulation envelope equates
+	enum $00, 	  ModEnv_00
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
 	enum $81, d81,d82,d83,d84,d85,d86,d87,d88,d89,d8A,d8B,d8C,d8D,d8E,d8F
@@ -13,168 +15,209 @@ smpsNoAttack =	$E7
 	enum $A0, dA0,dA1,dA2,dA3,dA4,dA5,dA6,dA7,dA8,dA9,dAA,dAB,dAC,dAD,dAE,dAF
 	enum $B0, dB0,dB1,dB2,dB3,dB4,dB5,dB6,dB7,dB8,dB9,dBA,dBB,dBC,dBD,dBE,dBF
 	enum $C0, dC0,dC1,dC2,dC3,dC4,dC5,dC6,dC7,dC8
+
+; E0xx - Panning, AMS, FMS (PANAFMS - PAFMS_PAN)
+sPan	macro dir,amsfms
+	if narg=2
+		dc.b $E0,\dir+\amsfms
+	else
+		dc.b $E0,\dir
+	endif
     endm
 
-s2e_DyHe_SMPS_smpsPan	macro direction,amsfms
-	dc.b $E0,direction+amsfms
+; E1xx - Set channel frequency displacement to xx (DETUNE)
+saDetune	macro val
+	dc.b $E1,\val
     endm
 
-s2e_DyHe_SMPS_smpsAlterNote	macro val
-	dc.b $E1,val
+; E2xx - Set communications byte to xx (SET_COMM)
+sComm		macro val
+	dc.b $E2,\val
     endm
 
-s2e_DyHe_SMPS_smpsSetComm	macro val
-	dc.b $E2,val
-    endm
-
-s2e_DyHe_SMPS_smpsStopFM	macro
+; E3 - Stop FM (TRK_END - TEND_MUTE)
+sMuteStopFM	macro
 	dc.b $E3
     endm
 
-s2e_DyHe_SMPS_smpsPanAnim	macro v1, v2, v3, v4, v5
+sPanAni		macro v1, v2, v3, v4, v5
 	dc.b $E4
 	if narg=1
-		dc.b v1
+		dc.b \v1
 	else
-		dc.b v1, v2, v3, v4, v5
+		dc.b \v1, \v2, \v3, \v4, \v5
 	endif
     endm
 
-s2e_DyHe_SMPS_smpsFMAlterVol	macro val1,val2
+; E5yyxx or E6xx - Add xx to volume. yy is broken/ignored (VOLUME - VOL_CC_FMP2 / VOL_CC_FM)
+saVolFM		macro val1,val2
 	if narg=2
-		dc.b $E5,val1,val2
+		dc.b $E5,\val1,\val2
 	else
-		dc.b $E6,val1
+		dc.b $E6,\val1
 	endif
     endm
 
-s2e_DyHe_SMPS_smpsNoteFill	macro val
-	dc.b $E8,val
+; E8xx - Stop note after xx ticks (NOTE_STOP - NSTOP_MULT)
+sNoteTimeOut	macro val
+	dc.b $E8,\val
     endm
 
-s2e_DyHe_SMPS_smpsSetLFO	macro val1, val2
-	dc.b $E9,val1,val2
+; E9xxyy - Set LFO speed to xx and amplitude vibrate to yy (SET_LFO - LFO_AMSEN)
+sSetLFO		macro val1, val2
+	dc.b $E9,\val1,\val2
     endm
 
-s2e_DyHe_SMPS_smpsSetTempo	macro val
-	dc.b $EA,val
+; EAxx - Set music tempo to xx (TEMPO - TEMPO_SET)
+ssTempo		macro val
+	dc.b $EA,\val
     endm
 
-s2e_DyHe_SMPS_smpsPlaySound	macro index
-	dc.b $EB,index
+; EBxx - Play sound xx (SND_CMD)
+sPlaySound	macro val
+	dc.b $EB,\val
     endm
 
-s2e_DyHe_SMPS_smpsPSGAlterVol	macro vol
-	dc.b	$EC,vol
+; ECxx - Add xx to PSG channel volume (VOLUME - VOL_NN_PSG)
+saVolPSG	macro val
+	dc.b $EC,\val
     endm
 
-s2e_DyHe_SMPS_smpsFMChnWrite	macro val1, val2
-	dc.b	$ED,val1,val2
+; EDxxyy - Write yy to YM reg xx (FM_COMMAND - FMW_CHN)
+sYMcmd		macro reg,val
+	dc.b $ED,\reg,\val
     endm
 
-s2e_DyHe_SMPS_smpsFMICommand	macro reg,val
-	dc.b $EE,reg,val
+; EExxyy - Write yy to YM port 1 reg xx (FM_COMMAND - FMW_FM1)
+sYM1cmd		macro reg,val
+	dc.b $EE,\reg,\val
     endm
 
-s2e_DyHe_SMPS_smpsSetvoice	macro val
-	dc.b $EF,val
+; EFxx - Set patch id of FM channel to xx (INSTRUMENT - INS_N_FM)
+sPatFM		macro val
+	dc.b $EF,\val
     endm
 
-s2e_DyHe_SMPS_smpsModSet	macro wait,speed,change,step
-	dc.b $F0,wait,speed,change,step
+; F0wwxxyyzz - Modulation
+;  ww: wait time
+;  xx: modulation speed
+;  yy: change per step
+;  zz: number of steps
+; (MOD_SETUP)
+ssMod68k	macro wait,speed,change,step
+	dc.b $F0,\wait,\speed,\change,\step
     endm
 
-s2e_DyHe_SMPS_smpsModChange2	macro fmmod,psgmod
-	dc.b $F1,fmmod,psgmod
+; F1xx[yy] - ?? (MOD_ENV - MENV_FMP)
+; F4xx[yy] - ?? (MOD_ENV - MENV_GEN)
+sModEnv		macro val1,val1
+	if narg=1
+		dc.b $F4,\val
+	else
+		dc.b $F1,\val1,\val2
+	endif
     endm
 
-s2e_DyHe_SMPS_smpsStop	macro
+; F2 - End of channel (TRK_END - TEND_STD)
+sStop		macro
 	dc.b $F2
     endm
 
-s2e_DyHe_SMPS_smpsPSGform	macro form
-	dc.b $F3,form
+; F3xx - PSG waveform to xx (PSG_NOISE - PNOIS_SET)
+sNoisePSG		macro val
+	dc.b $F3,\val
     endm
 
-s2e_DyHe_SMPS_smpsModChange	macro val
-	dc.b $F4,val
-    endm
-
-s2e_DyHe_SMPS_smpsPSGvoice	macro voice
+; F5xx - PSG volume envelope to xx (INSTRUMENT - INS_C_PSG)
+sVolEnvPSG	macro voice
 	dc.b $F5,voice
     endm
 
-s2e_DyHe_SMPS_smpsJump	macro loc
+; F6xxxx - Jump to xxxx (GOTO)
+sJump		macro loc
 	dc.b $F6
-	dc.w loc-offset(*)-1
+	dc.w \loc-offset(*)-1
     endm
 
-s2e_DyHe_SMPS_smpsLoop	macro index,loops,loc
-	dc.b $F7,index,loops
-	dc.w loc-offset(*)-1
+; F7xxyyzzzz - Loop back to zzzz yy times, xx being the loop index for loop recursion fixing (LOOP)
+sLoop		macro index,loops,loc
+	dc.b $F7,\index,\loops
+	dc.w \loc-offset(*)-1
     endm
 
-s2e_DyHe_SMPS_smpsCall	macro loc
+; F8xxxx - Call pattern at xxxx, saving return point (GOSUB)
+sCall		macro loc
 	dc.b $F8
-	dc.w loc-offset(*)-1
+	dc.w \loc-offset(*)-1
     endm
 
-s2e_DyHe_SMPS_smpsReturn	macro
+; F9 - Return (RETURN)
+sRet		macro
 	dc.b $F9
     endm
 
-s2e_DyHe_SMPS_smpsTempoDiv	macro val
-	dc.b $FA,val
+; FAxx - Set channel tick multiplier to xx (TICK_MULT - TMULT_CUR)
+ssTickMulCh	macro val
+	dc.b $FA,\val
     endm
 
-s2e_DyHe_SMPS_smpsAlterPitch	macro val
-	dc.b $FB,val
+; FBxx - Add xx to channel pitch (TRANSPOSE - TRNSP_ADD)
+saTranspose	macro val
+	dc.b $FB,\val
     endm
 
-s2e_DyHe_SMPS_smpsModOn	macro
+; FC - Turn on Modulation (MOD_SET - MODS_ON)
+sModOn		macro
 	dc.b $FC
     endm
 
-s2e_DyHe_SMPS_smpsModOff	macro
+; FD - Turn off Modulation (MOD_SET - MODS_OFF)
+sModOff		macro
 	dc.b $FD
     endm
 
-s2e_DyHe_SMPS_smpsFM3SpecialMode	macro ind1,ind2,ind3,ind4
-	dc.b $FE,ind1,ind2,ind3,ind4
+; FEwwxxyyzz - Enable special FM3 mode (broken?) (SPC_FM3)
+sSpecFM3	macro ind1,ind2,ind3,ind4
+	dc.b $FE,\ind1,\ind2,\ind3,\ind4
     endm
 
-s2e_DyHe_SMPS_smpsSSGEG	macro op1,op2,op3,op4
-	dc.b $FF,$00,op1,op3,op2,op4
+; FF00wwxxyyzz - Enable SSG-EG (SSG_EG - SEG_FULLATK)
+sSSGEG		macro op1,op2,op3,op4
+	dc.b $FF,$00,\op1,\op3,\op2,\op4
     endm
 
-s2e_DyHe_SMPS_smpsMusPause	macro val
-	dc.b $FF,$01,val
+; FF01xx - Pause music (MUS_PAUSE - MUSP_68K)
+sMusPause	macro val
+	dc.b $FF,$01,\val
     endm
 
-s2e_DyHe_SMPS_smpsSetTempoMod	macro mod
-	dc.b $FF,$02,mod
+; FF02xx - Set global tick multiplier to xx (TICK_MULT - TMULT_ALL)
+ssTickMul	macro tmul
+	dc.b $FF,$02,\tmul
     endm
 
-s2e_DyHe_SMPS_smpsFadeinOn	macro val1, val2
-	dc.b $FF,$03,val1,val2
+sFadeSPCTRS	macro val1, val2
+	dc.b $FF
+	if narg=0
+		dc.b $04,\val1,\val2
+	else
+		dc.b $03
+	endif
     endm
 
-s2e_DyHe_SMPS_smpsFadeinOff	macro
-	dc.b $FF,$04
-    endm
-
-s2e_DyHe_SMPS_smpsVoice	macro op1,op2,op3,op4
-	dc.b	(vcFeedback<<3)+vcAlgorithm
+sPatch		macro
+	dc.b	(spFe<<3)+spAl
 ;   0     1     2     3     4     5     6     7
 ;%1000,%1000,%1000,%1000,%1010,%1110,%1110,%1111
-vcTLMask4 set ((vcAlgorithm=7)<<7)
-vcTLMask3 set ((vcAlgorithm>=4)<<7)
-vcTLMask2 set ((vcAlgorithm>=5)<<7)
-vcTLMask1 set $80
-	dc.b	(vcDT4<<4)+vcCF4, (vcDT3<<4)+vcCF3, (vcDT2<<4)+vcCF2, (vcDT1<<4)+vcCF1
-	dc.b	(vcRS4<<6)+vcAR4, (vcRS3<<6)+vcAR3, (vcRS2<<6)+vcAR2, (vcRS1<<6)+vcAR1
-	dc.b	(vcAM4<<7)+vcD1R4,(vcAM3<<7)+vcD1R3,(vcAM2<<7)+vcD1R2,(vcAM1<<7)+vcD1R1
-	dc.b	vcD2R4,           vcD2R3,           vcD2R2,           vcD2R1
-	dc.b	(vcDL4<<4)+vcRR4, (vcDL3<<4)+vcRR3, (vcDL2<<4)+vcRR2, (vcDL1<<4)+vcRR1
-	dc.b	vcTL4|vcTLMask4,  vcTL3|vcTLMask3,  vcTL2|vcTLMask2,  vcTL1|vcTLMask1
+spTLMask4 set $80
+spTLMask2 set ((spAl>=5)<<7)
+spTLMask3 set ((spAl>=4)<<7)
+spTLMask1 set ((spAl=7)<<7)
+
+	dc.b (spDe1<<4)+spMu1, (spDe3<<4)+spMu3, (spDe2<<4)+spMu2, (spDe4<<4)+spMu4
+	dc.b (spRS1<<6)+spAR1, (spRS3<<6)+spAR3, (spRS2<<6)+spAR2, (spRS4<<6)+spAR4
+	dc.b (spAM1<<7)+spDR1, (spAM3<<7)+spDR3, (spAM2<<7)+spDR2, (spAM4<<7)+spDR4
+	dc.b spSR1,            spSR3,            spSR2,            spSR4
+	dc.b (spSL1<<4)+spRR1, (spSL3<<4)+spRR3, (spSL2<<4)+spRR2, (spSL4<<4)+spRR4
+	dc.b spTL1|spTLMask1,  spTL3|spTLMask3,  spTL2|spTLMask2,  spTL4|spTLMask4
     endm

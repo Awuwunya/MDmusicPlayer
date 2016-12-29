@@ -1,58 +1,11 @@
-; here is the list of included drivers.
-	musinit		; initialize variables
-; format:                driver   file      name
-; explanation
-; driver: the name of the sound driver to use
-; file: the filename of the music file to include. must not contain spaces
-; name: name to be displayed as information for this file. max 32 characters
-	selectdrv S3K_SMPS
-	incmusasm	S3K_SMPS, s3k_ssz, "Sky Sanctuary Zone", 1
-	incmusasm	S3K_SMPS, s3k_icz1, "Ice Cap Zone 1", 1
-	incmusasm	S3K_SMPS, s3k_dataselect, "Data Select", 1
-	selectdrv S1_SMPS
-	incmusasm	S1_SMPS, s1_woi_mag, "Magician's hall", 0
-	incmusasm	S1_SMPS, s1_slz, "Star Light Zone", 0
-	incmusasm	S1_SMPS, s1_invissk, "S&K Invinciblity", 0
-	incmusasm	S1_SMPS, s1_gng_lv4, "Ghouls'n Ghosts - Level 4", 0
-	selectdrv MegaPCM
-	incmusasm	MegaPCM, s1_ghz, "Green Hill Zone", 0
-;	selectdrv DyHe_SMPS
-;	incmusasm	DyHe_SMPS, Izayoi, "You're Izayoi", 0
-;	incmusasm	DyHe_SMPS, FunnyAngry, "Funny Angry", 0
-;	incmusbin	DyHe_SMPS, Hattari, "Hattari is Here", 0
-
-; ===========================================================================
-; the following will construct all the drivers with the information needed.
-; Do not touch this.
-; ===========================================================================
-MusicFileArrays:
-	musfile		; include pointers for all music file
-
-; ===========================================================================
-; special entry to display info about stopping music.
-MusicStop:
-		asc2.w $8000,"Stop music sfx"
-		dc.w -1; stop sfx token
-; ===========================================================================
-; write music name string to screen
-; input;
-; a5 = pointer to MusPlaying flag
-; ===========================================================================
-WriteMusicString:
-		moveq	#0,d4			; x-position
-		moveq	#27,d5			; y-position
-		jsr	SetupStringWrite.w	; set position to write to
-
-		moveq	#0,d5			; clear d5
-		moveq	#(32/2)-1,d4		; set repeat count
-.clr		move.l	d5,(a6)			; clear next 2 letters
-		dbf	d4,.clr			; keep clearing
-
-		move.w	(a5),d7			; get music ID
-		lea	MusicFileArrays,a0	; get music file array
-		move.l	(a0,d7.w),a0		; get the music string data to a0
-
-		moveq	#0,d4			; x-position
-		moveq	#27,d5			; y-position
-		jmp	WriteString1.w		; display it
-; ===========================================================================
+asm S3K_SMPS "S3K SSZ" "Sky Sanctuary Zone" z80
+asm S3K_SMPS "S3K ICZ1" "Ice Cap Zone 1" z80
+asm S3K_SMPS "S3K Data Select" "Data Select" z80
+bin S1_SMPS "S1 WOI Magicians Hall" "Magician's hall" 68k
+asm S1_SMPS "S1 SLZ" "Star Light Zone" 68k
+asm S1_SMPS "S1 Inviciblity SK" "S&K Invinciblity" 68k
+asm S1_SMPS "S1 GnG Level 4" "Ghouls'n Ghosts - Level 4" 68k
+asm MegaPCM "S1 GHZ" "Green Hill Zone" 68k
+asm DyHe_SMPS "DyHe Izayoi" "You're Izayoi" 68k
+asm DyHe_SMPS "DyHe Funny Angry" "Funny Angry" 68k
+asm DyHe_SMPS "DyHe Hattari" "Hattari is Here" 68k

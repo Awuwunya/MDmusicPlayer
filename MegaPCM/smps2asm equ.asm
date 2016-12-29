@@ -1,4 +1,3 @@
-s2e_MegaPCM	macro
 smpsIsZ80 =	0
 ; E7 - Do not attack of next note (HOLD)
 sHold =		$E7
@@ -13,13 +12,12 @@ nMaxPSG	=	nA5
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
 	enum $81, dKick,dSnare,dTimpani
-	enum $88, dHiTimpani,dMidTimpani,dLowTimpani,dVLowTimpani
-    endm
+	enum $88, dHiTimpani,dMidTimpani,dLowTimpani,dFloorTimpani
 ; ---------------------------------------------------------------------------------------------
 ; SMPS commands
 
 ; E0xx - Panning, AMS, FMS (PANAFMS - PAFMS_PAN)
-s2e_MegaPCM_sPan		macro dir,amsfms
+sPan		macro dir,amsfms
 	if narg=2
 		dc.b $E0,\dir+\amsfms
 	else
@@ -28,130 +26,135 @@ s2e_MegaPCM_sPan		macro dir,amsfms
     endm
 
 ; E1xx - Set channel frequency displacement to xx (DETUNE)
-s2e_MegaPCM_saDetune		macro val
+saDetune	macro val
 	dc.b $E1,\val
     endm
 
 ; E2xx - Set communications byte to xx (SET_COMM)
-s2e_MegaPCM_sComm		macro val
+sComm		macro val
 	dc.b $E2,\val
     endm
 
 ; E3 - Return (RETURN)
-s2e_MegaPCM_sRet		macro
+sRet		macro
 	dc.b $E3
     endm
 
 ; E4 - Fade in previous song (FADE_IN_SONG)
-s2e_MegaPCM_sFade		macro
+sFade		macro
 	dc.b $E4
     endm
 
 ; E5xx - Set channel tick multiplier to xx (TICK_MULT - TMULT_CUR)
-s2e_MegaPCM_ssTickMulCh		macro val
+ssTickMulCh	macro val
 	dc.b $E5,\val
     endm
 
 ; E6xx - Add xx to FM channel volume (VOLUME - VOL_NN_FM)
-s2e_MegaPCM_saVolFM		macro val
+saVolFM		macro val
 	dc.b $E6,\val
     endm
 
-; E8xx - ?? (NOTE_STOP - NSTOP_NORMAL)
-s2e_MegaPCM_sNoteStop		macro val
+; E8xx - Stop note after xx frames (NOTE_STOP - NSTOP_NORMAL)
+sNoteTimeOut	macro val
 	dc.b $E8,\val
     endm
 
 ; E9xx - Add xx to channel pitch (TRANSPOSE - TRNSP_ADD)
-s2e_MegaPCM_saTranspose		macro val
+saTranspose	macro val
 	dc.b $E9,\val
     endm
 
 ; EAxx - Set music tempo to xx (TEMPO - TEMPO_SET)
-s2e_MegaPCM_ssTempo		macro val
+ssTempo		macro val
 	dc.b $EA,\val
     endm
 
 ; EBxx - Set global tick multiplier to xx (TICK_MULT - TMULT_ALL)
-s2e_MegaPCM_ssTickMul		macro val
+ssTickMul	macro val
 	dc.b $EB,\val
     endm
 
 ; ECxx - Add xx to PSG channel volume (VOLUME - VOL_NN_PSG)
-s2e_MegaPCM_saVolPSG		macro val
+saVolPSG	macro val
 	dc.b $EC,\val
     endm
 
 ; ED - Clears pushing sound flag in S1
-s2e_MegaPCM_sClrPush		 macro
+sClrPush	 macro
 	dc.b $ED
     endm
 
 ; EE - Stops special SFX (S1 only) and restarts overridden music track
-s2e_MegaPCM_sStopSpecFM4	 macro
+sStopSpecFM4	 macro
 	dc.b $EE
     endm
 
 ; EFxx - Set patch id of FM channel to xx (INSTRUMENT - INS_N_FM)
-s2e_MegaPCM_sPatFM		macro val
+sPatFM		macro val
 	dc.b $EF,\val
     endm
 
-; F0wwxxyyzz - Modulation - ww: wait time - xx: modulation speed - yy: change per step - zz: number of steps (MOD_SETUP)
-s2e_MegaPCM_ssMod68k		macro wait,speed,change,step
+; F0wwxxyyzz - Modulation
+;  ww: wait time
+;  xx: modulation speed
+;  yy: change per step
+;  zz: number of steps
+; (MOD_SETUP)
+ssMod68k	macro wait,speed,change,step
 	dc.b $F0,\wait,\speed,\change,\step
     endm
 
 ; F1 - Turn on Modulation (MOD_SET - MODS_ON)
-s2e_MegaPCM_sModOn		macro
+sModOn		macro
 	dc.b $F1
     endm
 
 ; F2 - End of channel (TRK_END - TEND_STD)
-s2e_MegaPCM_sStop		macro
+sStop		macro
 	dc.b $F2
     endm
 
 ; F3xx - PSG waveform to xx (PSG_NOISE - PNOIS_SET)
-s2e_MegaPCM_sNoisePSG		macro val
+sNoisePSG	macro val
 	dc.b $F3,\val
     endm
 
 ; F4 - Turn off Modulation (MOD_SET - MODS_OFF)
-s2e_MegaPCM_sModOff		macro
+sModOff		macro
 	dc.b $F4
     endm
 
 ; F5xx - PSG volume envelope to xx (INSTRUMENT - INS_N_PSG)
-s2e_MegaPCM_sVolEnvPSG		macro val
+sVolEnvPSG	macro val
 	dc.b $F5,\val
     endm
 
 ; F6xxxx - Jump to xxxx (GOTO)
-s2e_MegaPCM_sJump		macro loc
+sJump		macro loc
 	dc.b $F6
 	dc.w \loc-offset(*)-1
     endm
 
 ; F7xxyyzzzz - Loop back to zzzz yy times, xx being the loop index for loop recursion fixing (LOOP)
-s2e_MegaPCM_sLoop		macro index,loops,loc
+sLoop		macro index,loops,loc
 	dc.b $F7,index,loops
 	dc.w loc-offset(*)-1
     endm
 
 ; F8xxxx - Call pattern at xxxx, saving return point (GOSUB)
-s2e_MegaPCM_sCall		macro loc
+sCall		macro loc
 	dc.b $F8
 	dc.w loc-offset(*)-1
     endm
 
-; F9 - Mutes channels(?) (SND_OFF)
-s2e_MegaPCM_sMute		macro
+; F9 - Mutes FM1 (SND_OFF)
+sMuteFM1	macro
 	dc.b $F9
     endm
 
 ; Construct the patch finally.
-s2e_MegaPCM_sPatch		macro
+sPatch		macro
 	dc.b	(spFe<<3)+spAl
 ;   0     1     2     3     4     5     6     7
 ;%1000,%1000,%1000,%1000,%1010,%1110,%1110,%1111

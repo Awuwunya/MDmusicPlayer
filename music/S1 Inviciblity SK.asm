@@ -31,9 +31,9 @@ InvinciblityK_Jump4:
 InvinciblityK_Jump2:
 	dc.b nA4, $0C, nFs4, $06, nE4, nA4, nFs4, nD4
 	dc.b nE4, sHold, nE4, $12, nD5, $0C
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b $06, $06, $06
-	sNoteStop	$00
+	sNoteTimeout	$00
 	dc.b nCs5, $0C, nA4, $06, nE4, nFs4, $02, nRst
 	dc.b $04, nA4, $0C, nB4, $06, sHold, nB4, $24
 	dc.b nRst, $0C
@@ -74,14 +74,14 @@ InvinciblityK_FM4:
 	dc.b nRst, $18
 
 InvinciblityK_Jump5:
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b nRst, $0C, nA5, $12, nA5, nRst, $0C, nB5
 	dc.b $12
-	sNoteStop	$00
+	sNoteTimeout	$00
 	dc.b nA5
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b nRst, $0C, nA5, $12, nA5, nG5, $06
-	sNoteStop	$00
+	sNoteTimeout	$00
 	dc.b nG5, $0C, nE5, $18, nRst, $06
 	sJump		InvinciblityK_Jump5
 	; Unused
@@ -93,14 +93,14 @@ InvinciblityK_FM5:
 	dc.b nRst, $18
 
 InvinciblityK_Jump6:
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b nRst, $0C, nE5, $12, nE5, nRst, $0C, nE5
 	dc.b $12
-	sNoteStop	$00
+	sNoteTimeout	$00
 	dc.b nD5
-	sNoteStop	$05
+	sNoteTimeout	$05
 	dc.b nRst, $0C, nE5, $12, nE5, nD5, $06
-	sNoteStop	$00
+	sNoteTimeout	$00
 	dc.b nD5, $0C, nB4, $18, nRst, $06
 	sJump		InvinciblityK_Jump6
 	; Unused

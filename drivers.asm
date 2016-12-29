@@ -1,14 +1,4 @@
-; here is the list of included drivers.
-	drvinit		; initialize variables
-; format:     directory   name  compression
-; explanation
-; directory: The directory driver files are in. Must not contain spaces.
-; name: ID to be referred by when including SMPS files.
-; compression: the compression of the sound driver. See macro.asm for further details.
-	incdrv	S1_SMPS, cmp_kos
-	incdrv	MegaPCM, cmp_kos
-	incdrv	S3K_SMPS, cmp_kos
-	incdrv	DyHe_SMPS, cmp_kos
+	include "drv.asm"
 
 ; ===========================================================================
 ; the following will construct all the drivers with the information needed.
@@ -255,4 +245,39 @@ DrvPlayCodes:
 
 DrvLoadCodes:
 	drvload
+; ===========================================================================
+	align $8000	; NOTE: I am may try to find a better solution later.
+			; til then, basically fuck you and deal with this padding
+MusicOff:
+	incbin "_temp/music"	; include output from music tool
+MusicFileArrays:
+	dc.l MusicStop
+	include "_temp/offs"	; and also the offsets, because we need em
+; ===========================================================================
+; special entry to display info about stopping music.
+MusicStop:
+		asc2.w $8000,"Stop music sfx"
+		dc.w -1; stop sfx token
+; ===========================================================================
+; write music name string to screen
+; input;
+; a5 = pointer to MusPlaying flag
+; ===========================================================================
+WriteMusicString:
+		moveq	#0,d4			; x-position
+		moveq	#27,d5			; y-position
+		jsr	SetupStringWrite.w	; set position to write to
+
+		moveq	#0,d5			; clear d5
+		moveq	#(32/2)-1,d4		; set repeat count
+.clr		move.l	d5,(a6)			; clear next 2 letters
+		dbf	d4,.clr			; keep clearing
+
+		move.w	(a5),d7			; get music ID
+		lea	MusicFileArrays,a0	; get music file array
+		move.l	(a0,d7.w),a0		; get the music string data to a0
+
+		moveq	#0,d4			; x-position
+		moveq	#27,d5			; y-position
+		jmp	WriteString1.w		; display it
 ; ===========================================================================

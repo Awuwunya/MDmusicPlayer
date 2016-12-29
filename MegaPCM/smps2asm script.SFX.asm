@@ -87,7 +87,7 @@
 	=dHiTimpani 0x88
 	=dMidTimpani 0x89
 	=dLowTimpani 0x8A
-	=dVLowTimpani 0x8B
+	=dFloorTimpani 0x8B
 }
 
 ?volenv {
@@ -226,9 +226,9 @@
 	!0xE5 > ssTickMulCh: /db;
 	!0xE6 > saVolFM\t: /db;
 	=sHold 0xE7
-	!0xE8 > sNoteStop: /db;
+	!0xE8 > sNoteTimeOut: /db;
 	!0xE9 > saTranspose: /db;
-	!0xEA > ssTempo: /db;
+	!0xEA > ssTempo\t: /db;
 	!0xEB > ssTickMul: /db;
 	!0xEC > saVolPSG: /db;
 	!0xED > sClrPush:;
@@ -237,7 +237,7 @@
 	}
 	!0xEF > sPatFM\t: /db;
 	!0xF0 > ssMod68k: /db, /db, /db, /db;
-	!0xF1 > sModOn\t:;
+	!0xF1 > sModOn:;
 	!0xF2 > sStop:{
 		;
 	}
@@ -256,5 +256,5 @@
 	!0xF7 > sLoop\t: /db, /db, /ow;
 	~£_Call#
 	!0xF8 > sCall\t: /ow;
-	!0xF9 > sMute:;
+	!0xF9 > sMuteFM1:;
 }

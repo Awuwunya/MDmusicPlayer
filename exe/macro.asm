@@ -224,13 +224,7 @@ cmp_nem		rs.b 4	; nemesis compressed driver image
 cmp_eni		rs.b 4	; enigma compressed driver image
 
 ; ===========================================================================
-; resets variables which are responsible for dealing with adding drivers.
-; the next macro includes the sound driver's into the mix and sets up
-; variables specific to it.
-drvinit	macro
-drvnum		= 0
-    endm
-
+    if ~def(incdrv)
 incdrv	macro	folder, comp
 \folder	=	drvnum		; equate driver name with it's ID
 Driver68k_Folder_\#drvnum	equs "\folder"; get the folder the driver is installed on
@@ -256,6 +250,7 @@ DriverZ80_End_\#drvnum:		; set ending point for the driver (uncompressed only)
 
 drvnum	=	drvnum+4	; next driver ID
     endm
+	endif
 
 ; ===========================================================================
 ; following macros are all about including specific array's to driver images

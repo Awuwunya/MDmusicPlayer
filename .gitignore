@@ -6,3 +6,5 @@ mega-usb.exe
 ASMfile equ.asm
 MDMusicPlayer.7z
 .build.log
+_temp/*
+_temp

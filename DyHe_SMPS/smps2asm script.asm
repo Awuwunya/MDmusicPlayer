@@ -3,83 +3,94 @@
 }
 
 ?header {
-	~£_Voices
-	! > smpsHeaderVoice: /hw;
+	! > sHeaderInit:;
+	~£_Patches
+	! > sHeaderPatch: /hw;
 	=FMnum /db
 	=PSGnum /nb
-	! > smpsHeaderChan: /lb, /db;
-	! > smpsHeaderTempo: /db, /db;
+	! > sHeaderCh: /lb, /db;
+	! > sHeaderTempo: /db, /db;
 	~£_DAC
-	! > smpsHeaderDAC: /hw;
+	! > sHeaderDAC: /hw;
 	$ /sw;
 	~£_FM#
 	* \FMnum\ - 1 {
-		! > smpsHeaderFM: /hw, /db, /db;
+		! > sHeaderFM: /hw, /db, /db;
 	}
 
 	~£_PSG#
 	* \PSGnum\ {
-		! > smpsHeaderPSG: /hw, /db, /db, /db, /db {
+		! > sHeaderPSG: /hw, /db, /db, /db, /db {
+			#3 {
+				?modenv;
+			}
 			#4 {
-				=VolEnv_00 0
-				=VolEnv_01 1
-				=VolEnv_02 2
-				=VolEnv_03 3
-				=VolEnv_04 4
-				=VolEnv_05 5
-				=VolEnv_06 6
-				=VolEnv_07 7
-				=VolEnv_08 8
-				=VolEnv_09 9
+				?volenv;
 			}
 		}
 	}
 }
 
-?voices {
+?patch {
 	=num 0
 	=b1 0
 	=b2 0
 	=b3 0
 	=b4 0
-	%; Voice {$2!\num\}\r\n\t; {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}
+	%; Patch {$2!\num\}\r\n\t; {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}
 	>b 25
-	! > smpsVcAlgorithm: /nb&0x7;
-	! > smpsVcFeedback: (/db&0x38)>>3;
+	! > spAlgorithm: /nb&0x7;
+	! > spFeedback: (/db&0x38)>>3;
 	=b1 /db
-	=b2 /db
 	=b3 /db
+	=b2 /db
 	=b4 /db
-	! > smpsVcDetune: (\b4\&0xF0)>>4, (\b3\&0xF0)>>4, (\b2\&0xF0)>>4, (\b1\&0xF0)>>4;
-	! > smpsVcCoarseFreq: \b4\&0xF, \b3\&0xF, \b2\&0xF, \b1\&0xF;
+	! > spDetune: (\b1\&0xF0)>>4, (\b2\&0xF0)>>4, (\b3\&0xF0)>>4, (\b4\&0xF0)>>4;
+	! > spMultiple: \b1\&0xF, \b2\&0xF, \b3\&0xF, \b4\&0xF;
 	=b1 /db
-	=b2 /db
 	=b3 /db
+	=b2 /db
 	=b4 /db
-	! > smpsVcRateScale: (\b4\&0xC0)>>6, (\b3\&0xC0)>>6, (\b2\&0xC0)>>6, (\b1\&0xC0)>>6;
-	! > smpsVcAttackRate: \b4\&0x1F, \b3\&0x1F, \b2\&0x1F, \b1\&0x1F;
+	! > spRateScale: (\b1\&0xC0)>>6, (\b2\&0xC0)>>6, (\b3\&0xC0)>>6, (\b4\&0xC0)>>6;
+	! > spAttackRt: \b1\&0x1F, \b2\&0x1F, \b3\&0x1F, \b4\&0x1F;
 	=b1 /db
-	=b2 /db
 	=b3 /db
+	=b2 /db
 	=b4 /db
-	! > smpsVcAmpMod: (\b4\&0x80)>>7, (\b3\&0x80)>>7, (\b2\&0x80)>>7, (\b1\&0x80)>>7;
-	! > smpsVcDecayRate1: \b4\&0x1F, \b3\&0x1F, \b2\&0x1F, \b1\&0x1F;
+	! > spAmpMod: (\b1\&0x80)>>7, (\b2\&0x80)>>7, (\b3\&0x80)>>7, (\b4\&0x80)>>7;
+	! > spDecayRt: \b1\&0x1F, \b2\&0x1F, \b3\&0x1F, \b4\&0x1F;
 	=b1 /db
-	=b2 /db
 	=b3 /db
+	=b2 /db
 	=b4 /db
-	! > smpsVcDecayRate2: \b4\, \b3\, \b2\, \b1\;
+	! > spSustainRt: \b1\, \b2\, \b3\, \b4\;
 	=b1 /db
-	=b2 /db
 	=b3 /db
+	=b2 /db
 	=b4 /db
-	! > smpsVcDecayLevel: (\b4\&0xF0)>>4, (\b3\&0xF0)>>4, (\b2\&0xF0)>>4, (\b1\&0xF0)>>4;
-	! > smpsVcReleaseRate: \b4\&0xF, \b3\&0xF, \b2\&0xF, \b1\&0xF;
+	! > spSustainLv: (\b1\&0xF0)>>4, (\b2\&0xF0)>>4, (\b3\&0xF0)>>4, (\b4\&0xF0)>>4;
+	! > spReleaseRt: \b1\&0xF, \b2\&0xF, \b3\&0xF, \b4\&0xF;
 	=b1 /db
-	=b2 /db
 	=b3 /db
-	! > smpsVcTotalLevel: /db&0x7F, \b3\&0x7F, \b2\&0x7F, \b1\&0x7F;
+	=b2 /db
+	! > spTotalLv: \b1\&0x7F, \b2\&0x7F, \b3\&0x7F, /db&0x7F;
 	=num \num\+1
+}
+
+?volenv {
+	=VolEnv_01 1
+	=VolEnv_02 2
+	=VolEnv_03 3
+	=VolEnv_04 4
+	=VolEnv_05 5
+	=VolEnv_06 6
+	=VolEnv_07 7
+	=VolEnv_08 8
+	=VolEnv_09 9
+}
+
+?modenv {
+	=ModEnv_00 0
 }
 
 ?DAC {
@@ -257,78 +268,70 @@
 	=nBb7 0xDF
 }
 
-?coordination {
-	!0xE0 > smpsPan: /db & 0xC0, /lb & 0x3F {
+?comm {
+	!0xE0 > sPan\t: /db & 0xC0, /lb & 0x3F {
 		#0 {
-			=panNone 0x00
-			=panRight 0x40
-			=panLeft 0x80
-			=panCentre 0xC0
+			=spNone 0x00
+			=spRight 0x40
+			=spLeft 0x80
+			=spCenter 0xC0
 		}
 	}
-	!0xE1 > smpsAlterNote: /db;
-	!0xE2 > smpsSetComm: /db;
-	!0xE3 > smpsStopFM:{
+	!0xE1 > saDetune: /db;
+	!0xE2 > sComm\t: /db;
+	!0xE3 > sMuteStopFM:{
 		;
 	}
 	¤ /nb == 0xE4 {
 		$ /sb
 		¤ /nb == 0 {
-			! > smpsPanAnim: /db;
+			! > sPanAni\t: /db;
 		} {
-			! > smpsPanAnim: /db, /db, /db, /db, /db;
+			! > %sPanAni\t: /db, /db, /db, /db, /db;
 		}
 	}
-	!0xE5 > smpsFMAlterVol: /db, /db;
-	!0xE6 > %smpsFMAlterVol: /db;
-	=smpsNoAttack 0xE7
-	!0xE8 > smpsNoteFill: /db;
-	!0xE9 > smpsSetLFO: /db, /db;
-	!0xEA > smpsSetTempo: /db;
-	!0xEB > smpsPlaySound: /db;
-	!0xEC > smpsPSGAlterVol: /db;
-	!0xED > smpsFMChnWrite: /db, /db;
-	!0xEE > smpsFMICommand: /db, /db;
-	!0xEF > smpsSetvoice: /db;
-	!0xF0 > smpsModSet: /db, /db, /db, /db;
-	!0xF1 > smpsModChange2: /db, /db;
-	!0xF2 > smpsStop:{
+	!0xE5 > saVolFM\t: /db, /db;
+	!0xE6 > %saVolFM\t: /db;
+	=sHold 0xE7
+	!0xE8 > sNoteTimeOut: /db;
+	!0xE9 > sSetLFO\t: /db, /db;
+	!0xEA > ssTempo\t: /db;
+	!0xEB > sPlaySound: /db;
+	!0xEC > saVolPSG: /db;
+	!0xED > sYMcmd\t: /db, /db;
+	!0xEE > sYM1cmd\t: /db, /db;
+	!0xEF > sPatFM\t: /db;
+	!0xF0 > ssMod68k: /db, /db, /db, /db;
+	!0xF1 > sModEnv\t: /db, /db;
+	!0xF2 > sStop:{
 		;
 	}
-	!0xF3 > smpsPSGform: /db;
-	!0xF4 > smpsModChange: /db;
-	!0xF5 > smpsPSGvoice: /db {
+	!0xF3 > sNoisePSG: /db;
+	!0xF4 > %sModEnv\t: /db;
+	!0xF5 > sVolEnvPSG: /db {
 		#0 {
-			=VolEnv_01 1
-			=VolEnv_02 2
-			=VolEnv_03 3
-			=VolEnv_04 4
-			=VolEnv_05 5
-			=VolEnv_06 6
-			=VolEnv_07 7
-			=VolEnv_08 8
-			=VolEnv_09 9
+			?volenv;
 		}
 	}
 	~£_Jump#
-	!0xF6 > smpsJump: /ow{
+	!0xF6 > sJump\t: /ow{
 		;
 	}
 	~£_Loop#
-	!0xF7 > smpsLoop: /db, /db, /ow;
+	!0xF7 > sLoop\t: /db, /db, /ow;
 	~£_Call#
-	!0xF8 > smpsCall: /ow;
-	!0xF9 > smpsReturn:{
+	!0xF8 > sCall\t: /ow;
+	!0xF9 > sRet:{
 		;
 	}
-	!0xFA > smpsTempoDiv: /db;
-	!0xFB > smpsAlterPitch: /db;
-	!0xFC > smpsModOn:;
-	!0xFD > smpsModOff:;
-	!0xFE > smpsFM3SpecialMode: /db, /db, /db, /db;
-	!0xFF, 0 > smpsSSGEG: /db, /db, /db, /db;
-	!0xFF, 1 > smpsMusPause: /db;
-	!0xFF, 2 > smpsSetTempoMod: /db;
-	!0xFF, 3 > smpsFadeinOn: /db, /db;
-	!0xFF, 4 > smpsFadeinOff:;
+	!0xFA > ssTickMulCh: /db;
+	!0xFB > saTranspose: /db;
+	!0xFC > sModOn:;
+	!0xFD > sModOff:;
+	!0xFE > sSpecFM3: /db, /db, /db, /db;
+	!0xFF, 0 > sSSGEG\t: /db, /db, /db, /db;
+	!0xFF, 1 > sMusPause: /db;
+	!0xFF, 2 > ssTickMul: /db;
+	!0xFF, 3 > sFadeSPCTRS: /db, /db;
+	!0xFF, 4 > %sFadeSPCTRS:;
 }

@@ -333,11 +333,11 @@
 	!0xE5 > saVolFM\t: /db, /db;
 	!0xE6 > %saVolFM\t: /db;
 	=sHold 0xE7
-	!0xE8 > sNoteStop: /db;
+	!0xE8 > sNoteTimeOut: /db;
 	!0xE9 > sSpDashRev:;
 	!0xEA > sPlayDAC: /db | 0x80;
-	~£_Jumpc#
-	!0xEB > sJumpCond: /db, /aw;
+	~£_Jumpe#
+	!0xEB > sLoopExit: /db, /aw;
 	!0xEC > saVolPSG: /db;
 	!0xED > ssTransposeS3K: /db;
 	!0xEE > sYM1cmd\t: /db, /db;
@@ -359,7 +359,7 @@
 		;
 	}
 	!0xF3 > sNoisePSG: /db;
-	!0xF4, 0x80 > smpsModOn:;
+	!0xF4, 0x80 > sModOn:;
 	!0xF4 > %sModEnv\t: /db {
 		#0 {
 			?modenv;
@@ -383,7 +383,7 @@
 	}
 	!0xFA > sModOff:;
 	!0xFB > saTranspose: /db;
-	~£_Loopc#
+	~£_Loopsfx#
 	!0xFC > sLoopSFX: /aw;
 	!0xFD > sRawFreq: /db;
 	!0xFE > sSpecFM3: /db, /db, /db, /db {
@@ -392,7 +392,7 @@
 	!0xFF, 0 > ssTempo\t: /db;
 	!0xFF, 1 > sPlaySound: /db;
 	!0xFF, 2 > sMusPause: /db;
-	!0xFF, 3 > sCopyMem: /db, /db {
+	!0xFF, 3 > sCopyMem: /dw, /db {
 		%; No song should ever use this command. It may good idea to remove it.
 	}
 	!0xFF, 4 > ssTickMul: /db;

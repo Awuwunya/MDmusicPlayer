@@ -335,11 +335,11 @@
 	!0xE5 > saVolFM\t: /db, /db;
 	!0xE6 > %saVolFM\t: /db;
 	=sHold 0xE7
-	!0xE8 > sNoteStop: /db;
+	!0xE8 > sNoteTimeOut: /db;
 	!0xE9 > sSpDashRev:;
 	!0xEA > sPlayDAC: /db | 0x80;
-	~£_Jumpc#
-	!0xEB > sJumpCond: /db, /aw;
+	~£_Jumpe#
+	!0xEB > sLoopExit: /db, /aw;
 	!0xEC > saVolPSG: /db;
 	!0xED > ssTransposeS3K: /db;
 	!0xEE > sYM1cmd\t: /db, /db;
@@ -385,7 +385,7 @@
 	}
 	!0xFA > sModOff:;
 	!0xFB > saTranspose: /db;
-	~£_Loopc#
+	~£_Loopsfx#
 	!0xFC > sLoopSFX: /aw;
 	!0xFD > sRawFreq: /db;
 	!0xFE > sSpecFM3: /db, /db, /db, /db {
