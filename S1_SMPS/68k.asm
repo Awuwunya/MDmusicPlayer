@@ -15,12 +15,13 @@
 
 	org $FFFF0000		; pretend we are in RAM
 	jmp	sub_71B4C(pc)		; start driver
+
 Go_SoundTypes:	dc.l SoundTypes		; XREF: Sound_Play
 Go_SoundD0:	dc.l MusicIndex		; XREF: Sound_D0toDF
 Go_MusicIndex:	dc.l MusicIndex		; XREF: Sound_81to9F
 Go_SoundIndex:	dc.l MusicIndex		; XREF: Sound_A0toCF
-off_719A0:	dc.l byte_71A94		; XREF: Sound_81to9F
-Go_PSGIndex:	dc.l PSG_Index		; XREF: sub_72926
+Go_SpdShoTempos:dc.l SpdShoTempos	; XREF: Sound_81to9F
+Go_VolEnvs:	dc.l VolEnvs		; XREF: sub_72926
 ; ---------------------------------------------------------------------------
 ; Music	Pointers
 ; ---------------------------------------------------------------------------
@@ -30,20 +31,23 @@ IsPal:		dc.b 0	; NATSUMI: Is -1 if PAL mode is active.
 ; ---------------------------------------------------------------------------
 ; PSG instruments used in music
 ; ---------------------------------------------------------------------------
-PSG_Index:	dc.l PSG0, PSG1, PSG2
-		dc.l PSG3, PSG4, PSG5
-		dc.l PSG6, PSG7, PSG8
-PSG0:		incbin	"VolEnv/00.bin"
-PSG1:		incbin	"VolEnv/01.bin"
-PSG2:		incbin	"VolEnv/02.bin"
-PSG3:		incbin	"VolEnv/03.bin"
-PSG4:		incbin	"VolEnv/04.bin"
-PSG5:		incbin	"VolEnv/05.bin"
-PSG6:		incbin	"VolEnv/06.bin"
-PSG7:		incbin	"VolEnv/07.bin"
-PSG8:		incbin	"VolEnv/08.bin"
+; NOTE: VolEnv_00 is hardcoded!
+VolEnvs:
+	dc.l VolEnv_01, VolEnv_02, VolEnv_03
+	dc.l VolEnv_04, VolEnv_05, VolEnv_06
+	dc.l VolEnv_07, VolEnv_08, VolEnv_09
 
-byte_71A94:	dc.b 7,	$72, $73, $26, $15, 8, $FF, 5
+VolEnv_01:	incbin	"VolEnv/01.bin"
+VolEnv_02:	incbin	"VolEnv/02.bin"
+VolEnv_03:	incbin	"VolEnv/03.bin"
+VolEnv_04:	incbin	"VolEnv/04.bin"
+VolEnv_05:	incbin	"VolEnv/05.bin"
+VolEnv_06:	incbin	"VolEnv/06.bin"
+VolEnv_07:	incbin	"VolEnv/07.bin"
+VolEnv_08:	incbin	"VolEnv/08.bin"
+VolEnv_09:	incbin	"VolEnv/09.bin"
+
+SpdShoTempos:	dc.b 7,	$72, $73, $26, $15, 8, $FF, 5
 ; ---------------------------------------------------------------------------
 ; Type of sound	being played ($90 = music; $70 = normal	sound effect)
 ; ---------------------------------------------------------------------------
@@ -686,7 +690,7 @@ loc_72024:
 
 loc_7202C:
 		jsr	sub_725CA(pc)
-		movea.l	(off_719A0).l,a4
+		movea.l	(Go_SpdShoTempos).l,a4
 		subi.b	#$81,d7
 		move.b	(a4,d7.w),$29(a6)
 		movea.l	(Go_MusicIndex).l,a4
@@ -1682,7 +1686,7 @@ loc_7292E:				; XREF: sub_72850
 		moveq	#0,d0
 		move.b	$B(a5),d0
 		beq.s	sub_7296A
-		movea.l	(Go_PSGIndex).l,a0
+		movea.l	(Go_VolEnvs).l,a0
 		subq.w	#1,d0
 		lsl.w	#2,d0
 		movea.l	(a0,d0.w),a0
@@ -2086,7 +2090,7 @@ sub_72CB4:				; XREF: sub_72504; sub_7267C; loc_72BA4
 		movea.l	$18(a6),a1
 		tst.b	$E(a6)
 		beq.s	loc_72CD8
-		movea.l	$20(a6),a1
+		movea.l	$20(a5),a1
 		tst.b	$E(a6)
 		bmi.s	loc_72CD8
 		movea.l	$20(a6),a1

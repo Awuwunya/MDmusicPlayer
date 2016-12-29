@@ -1,122 +1,143 @@
 ?dat {
 	=endian "little"
 	@offset 0 "Please specify offset of this song in Z80 bank"
+	=upb 0x17D8
 }
 
 ?header {
-	¤ /nw == 0x17D8 {
-		! > smpsHeaderVoiceUVB:;
+	! > sHeaderInit: {
+		%; Z80 offset is {$2!\offset\}
+	}
+	¤ /nw == \upb\ {
+		! > sHeaderPatchUniv:;
 		$ /sw;
 	} {
-		~£_Voices
-		! > smpsHeaderVoice: /aw;
+		~£_Patches
+		! > sHeaderPatch: /aw;
 	}
 
 	=FMnum /db
 	=PSGnum /nb
-	! > smpsHeaderChan: /lb, /db;
-	! > smpsHeaderTempo: /db, /db;
+	! > sHeaderCh: /lb, /db;
+	! > sHeaderTempo: /db, /db;
 	~£_DAC
-	! > smpsHeaderDAC: /aw;
+	! > sHeaderDAC: /aw;
 	$ /sw;
 	~£_FM#
 	* \FMnum\ - 1 {
-		! > smpsHeaderFM: /aw, /db, /db;
+		! > sHeaderFM: /aw, /db, /db;
 	}
 
 	~£_PSG#
 	* \PSGnum\ {
-		! > smpsHeaderPSG: /aw, /db, /db, /db, /db {
+		! > sHeaderPSG: /aw, /db, /db, /db, /db {
+			#3 {
+				?modenv;
+			}
 			#4 {
-				=VolEnv_00 0
-				=VolEnv_01 1
-				=VolEnv_02 2
-				=VolEnv_03 3
-				=VolEnv_04 4
-				=VolEnv_05 5
-				=VolEnv_06 6
-				=VolEnv_07 7
-				=VolEnv_08 8
-				=VolEnv_09 9
-				=VolEnv_0A 0x0A
-				=VolEnv_0B 0x0B
-				=VolEnv_0C 0x0C
-				=VolEnv_0D 0x0D
-				=VolEnv_0E 0x0E
-				=VolEnv_0F 0x0F
-				=VolEnv_10 0x10
-				=VolEnv_11 0x11
-				=VolEnv_12 0x12
-				=VolEnv_13 0x13
-				=VolEnv_14 0x14
-				=VolEnv_15 0x15
-				=VolEnv_16 0x16
-				=VolEnv_17 0x17
-				=VolEnv_18 0x18
-				=VolEnv_19 0x19
-				=VolEnv_1A 0x1A
-				=VolEnv_1B 0x1B
-				=VolEnv_1C 0x1C
-				=VolEnv_1D 0x1D
-				=VolEnv_1E 0x1E
-				=VolEnv_1F 0x1F
-				=VolEnv_20 0x20
-				=VolEnv_21 0x21
-				=VolEnv_22 0x22
-				=VolEnv_23 0x23
-				=VolEnv_24 0x24
-				=VolEnv_25 0x25
-				=VolEnv_26 0x26
-				=VolEnv_27 0x27
+				?volenv;
 			}
 		}
 	}
 }
 
-?voices {
+?patch {
 	=num 0
 	=b1 0
 	=b2 0
 	=b3 0
 	=b4 0
-	%; Voice {$2!\num\}\r\n\t; {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}
+	%; Patch {$2!\num\}\r\n\t; {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}\r\n\t; {$2!/db}, {$2!/db}, {$2!/db}, {$2!/db},\t{$2!/db}, {$2!/db}, {$2!/db}, {$2!/db}
 	>b 25
-	! > smpsVcAlgorithm: /nb&0x7;
-	! > smpsVcFeedback: (/db&0x38)>>3;
+	! > spAlgorithm: /nb&0x7;
+	! > spFeedback: (/db&0x38)>>3;
 	=b1 /db
-	=b2 /db
 	=b3 /db
+	=b2 /db
 	=b4 /db
-	! > smpsVcDetune: (\b4\&0xF0)>>4, (\b3\&0xF0)>>4, (\b2\&0xF0)>>4, (\b1\&0xF0)>>4;
-	! > smpsVcCoarseFreq: \b4\&0xF, \b3\&0xF, \b2\&0xF, \b1\&0xF;
+	! > spDetune: (\b1\&0xF0)>>4, (\b2\&0xF0)>>4, (\b3\&0xF0)>>4, (\b4\&0xF0)>>4;
+	! > spMultiple: \b1\&0xF, \b2\&0xF, \b3\&0xF, \b4\&0xF;
 	=b1 /db
-	=b2 /db
 	=b3 /db
+	=b2 /db
 	=b4 /db
-	! > smpsVcRateScale: (\b4\&0xC0)>>6, (\b3\&0xC0)>>6, (\b2\&0xC0)>>6, (\b1\&0xC0)>>6;
-	! > smpsVcAttackRate: \b4\&0x1F, \b3\&0x1F, \b2\&0x1F, \b1\&0x1F;
+	! > spRateScale: (\b1\&0xC0)>>6, (\b2\&0xC0)>>6, (\b3\&0xC0)>>6, (\b4\&0xC0)>>6;
+	! > spAttackRt: \b1\&0x1F, \b2\&0x1F, \b3\&0x1F, \b4\&0x1F;
 	=b1 /db
-	=b2 /db
 	=b3 /db
+	=b2 /db
 	=b4 /db
-	! > smpsVcAmpMod: (\b4\&0x80)>>7, (\b3\&0x80)>>7, (\b2\&0x80)>>7, (\b1\&0x80)>>7;
-	! > smpsVcDecayRate1: \b4\&0x1F, \b3\&0x1F, \b2\&0x1F, \b1\&0x1F;
+	! > spAmpMod: (\b1\&0x80)>>7, (\b2\&0x80)>>7, (\b3\&0x80)>>7, (\b4\&0x80)>>7;
+	! > spDecayRt: \b1\&0x1F, \b2\&0x1F, \b3\&0x1F, \b4\&0x1F;
 	=b1 /db
-	=b2 /db
 	=b3 /db
+	=b2 /db
 	=b4 /db
-	! > smpsVcDecayRate2: \b4\, \b3\, \b2\, \b1\;
+	! > spSustainRt: \b1\, \b2\, \b3\, \b4\;
 	=b1 /db
-	=b2 /db
 	=b3 /db
+	=b2 /db
 	=b4 /db
-	! > smpsVcDecayLevel: (\b4\&0xF0)>>4, (\b3\&0xF0)>>4, (\b2\&0xF0)>>4, (\b1\&0xF0)>>4;
-	! > smpsVcReleaseRate: \b4\&0xF, \b3\&0xF, \b2\&0xF, \b1\&0xF;
+	! > spSustainLv: (\b1\&0xF0)>>4, (\b2\&0xF0)>>4, (\b3\&0xF0)>>4, (\b4\&0xF0)>>4;
+	! > spReleaseRt: \b1\&0xF, \b2\&0xF, \b3\&0xF, \b4\&0xF;
 	=b1 /db
-	=b2 /db
 	=b3 /db
-	! > smpsVcTotalLevel: /db&0x7F, \b3\&0x7F, \b2\&0x7F, \b1\&0x7F;
+	=b2 /db
+	! > spTotalLv: \b1\&0x7F, \b2\&0x7F, \b3\&0x7F, /db&0x7F;
 	=num \num\+1
+}
+
+?volenv {
+	=VolEnv_00 0
+	=VolEnv_01 1
+	=VolEnv_02 2
+	=VolEnv_03 3
+	=VolEnv_04 4
+	=VolEnv_05 5
+	=VolEnv_06 6
+	=VolEnv_07 7
+	=VolEnv_08 8
+	=VolEnv_09 9
+	=VolEnv_0A 0x0A
+	=VolEnv_0B 0x0B
+	=VolEnv_0C 0x0C
+	=VolEnv_0D 0x0D
+	=VolEnv_0E 0x0E
+	=VolEnv_0F 0x0F
+	=VolEnv_10 0x10
+	=VolEnv_11 0x11
+	=VolEnv_12 0x12
+	=VolEnv_13 0x13
+	=VolEnv_14 0x14
+	=VolEnv_15 0x15
+	=VolEnv_16 0x16
+	=VolEnv_17 0x17
+	=VolEnv_18 0x18
+	=VolEnv_19 0x19
+	=VolEnv_1A 0x1A
+	=VolEnv_1B 0x1B
+	=VolEnv_1C 0x1C
+	=VolEnv_1D 0x1D
+	=VolEnv_1E 0x1E
+	=VolEnv_1F 0x1F
+	=VolEnv_20 0x20
+	=VolEnv_21 0x21
+	=VolEnv_22 0x22
+	=VolEnv_23 0x23
+	=VolEnv_24 0x24
+	=VolEnv_25 0x25
+	=VolEnv_26 0x26
+}
+
+?modenv {
+	=ModEnv_00 0
+	=ModEnv_01 1
+	=ModEnv_02 2
+	=ModEnv_03 3
+	=ModEnv_04 4
+	=ModEnv_05 5
+	=ModEnv_06 6
+	=ModEnv_07 7
 }
 
 ?DAC {
@@ -232,12 +253,12 @@
 	=nBb2 0xA3
 	=nB2 0xA4
 	=nC3 0xA5
-	=nC 0xA6
+	=nCs3 0xA6
 	=nD3 0xA7
 	=nEb3 0xA8
 	=nE3 0xA9
 	=nF3 0xAA
-	=nF 0xAB
+	=nFs3 0xAB
 	=nG3 0xAC
 	=nAb3 0xAD
 	=nA3 0xAE
@@ -292,115 +313,90 @@
 	=nBb7 0xDF
 }
 
-?coordination {
-	!0xE0 > smpsPan: /db & 0xC0, /lb & 0x3F {
+?comm {
+	!0xE0 > sPan\t: /db & 0xC0, /lb & 0x3F {
 		#0 {
-			=panNone 0x00
-			=panRight 0x40
-			=panLeft 0x80
-			=panCentre 0xC0
+			=spNone 0x00
+			=spRight 0x40
+			=spLeft 0x80
+			=spCenter 0xC0
 		}
 	}
-	!0xE1 > smpsAlterNote: /db;
-	!0xE2 > smpsNop: /db;
-	!0xE3 > smpsStopFM:;
-	!0xE4 > smpsSetVol: /db;
-	!0xE5 > smpsFMAlterVol: /db, /db;
-	!0xE6 > %smpsFMAlterVol: /db;
-	=smpsNoAttack 0xE7
-	!0xE8 > smpsNoteFill: /db;
-	!0xE9 > smpsSpindashRev:;
-	!0xEA > smpsPlayDACSample: /db | 0x80;
+	!0xE1 > saDetune: /db;
+	!0xE2 > sFade\t: /db {
+		;
+	}
+	!0xE3 > sStopFM: {
+		;
+	}
+	!0xE4 > ssVol\t: -(/db | 0x80);
+	!0xE5 > saVolFM\t: /db, /db;
+	!0xE6 > %saVolFM\t: /db;
+	=sHold 0xE7
+	!0xE8 > sNoteStop: /db;
+	!0xE9 > sSpDashRev:;
+	!0xEA > sPlayDAC: /db | 0x80;
 	~£_Jumpc#
-	!0xEB > smpsConditionalJump: /db, /aw;
-	!0xEC > smpsPSGAlterVol: /db;
-	!0xED > smpsSetNote: /db;
-	!0xEE > smpsFMICommand: /db, /db;
+	!0xEB > sJumpCond: /db, /aw;
+	!0xEC > saVolPSG: /db;
+	!0xED > ssTransposeS3K: /db;
+	!0xEE > sYM1cmd\t: /db, /db;
 	¤ /nb == 0xEF {
 		$ /sb
 		¤ (/nb & 0x80) == 0 {
-			! > smpsSetvoice: /db & 0x7F;
+			! > sPatFM\t: /db & 0x7F;
 		} {
-			! > smpsSetvoice: /db & 0x7F, /db - 0x81;
+			! > sPatFM\t: /db & 0x7F, /db - 0x81;
 		}
 	}
-	!0xF0 > smpsModSet: /db, /db, /db, /db;
-	!0xF1 > smpsModChange2: /db, /db;
-	!0xF2 > smpsStop:{
+	!0xF0 > ssModZ80: /db, /db, /db, /db;
+	!0xF1 > sModEnv\t: /db, /db {
+		#0 {
+			?modenv;
+		}
+	}
+	!0xF2 > sStop:{
 		;
 	}
-	!0xF3 > smpsPSGform: /db;
+	!0xF3 > sNoisePSG: /db;
 	!0xF4, 0x80 > smpsModOn:;
-	!0xF4 > smpsModChange: /db;
-	!0xF5 > smpsPSGvoice: /db {
+	!0xF4 > %sModEnv\t: /db {
 		#0 {
-			=VolEnv_00 0
-			=VolEnv_01 1
-			=VolEnv_02 2
-			=VolEnv_03 3
-			=VolEnv_04 4
-			=VolEnv_05 5
-			=VolEnv_06 6
-			=VolEnv_07 7
-			=VolEnv_08 8
-			=VolEnv_09 9
-			=VolEnv_0A 0x0A
-			=VolEnv_0B 0x0B
-			=VolEnv_0C 0x0C
-			=VolEnv_0D 0x0D
-			=VolEnv_0E 0x0E
-			=VolEnv_0F 0x0F
-			=VolEnv_10 0x10
-			=VolEnv_11 0x11
-			=VolEnv_12 0x12
-			=VolEnv_13 0x13
-			=VolEnv_14 0x14
-			=VolEnv_15 0x15
-			=VolEnv_16 0x16
-			=VolEnv_17 0x17
-			=VolEnv_18 0x18
-			=VolEnv_19 0x19
-			=VolEnv_1A 0x1A
-			=VolEnv_1B 0x1B
-			=VolEnv_1C 0x1C
-			=VolEnv_1D 0x1D
-			=VolEnv_1E 0x1E
-			=VolEnv_1F 0x1F
-			=VolEnv_20 0x20
-			=VolEnv_21 0x21
-			=VolEnv_22 0x22
-			=VolEnv_23 0x23
-			=VolEnv_24 0x24
-			=VolEnv_25 0x25
-			=VolEnv_26 0x26
-			=VolEnv_27 0x27
+			?modenv;
+		}
+	}
+	!0xF5 > sVolEnvPSG: /db {
+		#0 {
+			?volenv;
 		}
 	}
 	~£_Jump#
-	!0xF6 > smpsJump: /aw{
+	!0xF6 > sJump\t: /aw {
 		;
 	}
 	~£_Loop#
-	!0xF7 > smpsLoop: /db, /db, /aw;
+	!0xF7 > sLoop\t: /db, /db, /aw;
 	~£_Call#
-	!0xF8 > smpsCall: /aw;
-	!0xF9 > smpsReturn:{
+	!0xF8 > sCall\t: /aw;
+	!0xF9 > sRet: {
 		;
 	}
-	!0xFA > smpsModOff:;
-	!0xFB > smpsAlterPitch: /db;
+	!0xFA > sModOff:;
+	!0xFB > saTranspose: /db;
 	~£_Loopc#
-	!0xFC > smpsContinuousLoop: /aw;
-	!0xFD > smpsAlternateSMPS: /db;
-	!0xFE > smpsFM3SpecialMode: /db, /db, /db, /db;
-	!0xFF, 0 > smpsSetTempoMod: /db;
-	!0xFF, 1 > smpsPlaySound: /db;
-	!0xFF, 2 > smpsHaltMusic: /db;
-	!0xFF, 3 > smpsCopyData: /db, /db {
-		=comment "No song should ever use this coordination flag. It may good idea to remove it."
+	!0xFC > sLoopSFX: /aw;
+	!0xFD > sRawFreq: /db;
+	!0xFE > sSpecFM3: /db, /db, /db, /db {
+		%; Broken?
 	}
-	!0xFF, 4 > smpsSetTempoDiv: /db;
-	!0xFF, 5 > smpsSSGEG: /db, /db, /db, /db;
-	!0xFF, 6 > smpsFMVolEnv: /db, /db;
-	!0xFF, 7 > smpsResetSpindashRev:;
+	!0xFF, 0 > ssTempo\t: /db;
+	!0xFF, 1 > sPlaySound: /db;
+	!0xFF, 2 > sMusPause: /db;
+	!0xFF, 3 > sCopyMem: /db, /db {
+		%; No song should ever use this command. It may good idea to remove it.
+	}
+	!0xFF, 4 > ssTickMul: /db;
+	!0xFF, 5 > sSSGEG: /db, /db, /db, /db;
+	!0xFF, 6 > sVolEnvFM: /db, /db;
+	!0xFF, 7 > sSpDashReset:;
 }

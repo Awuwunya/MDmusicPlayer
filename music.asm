@@ -6,19 +6,20 @@
 ; file: the filename of the music file to include. must not contain spaces
 ; name: name to be displayed as information for this file. max 32 characters
 	selectdrv S3K_SMPS
-	incmusasm	S3K_SMPS, ssz, "Sky Sanctuary Zone", 1
-	incmusasm	S3K_SMPS, icz1, "Ice Cap Zone 1", 1
-	incmusasm	S3K_SMPS, datasel, "Data Select", 1
+	incmusasm	S3K_SMPS, s3k_ssz, "Sky Sanctuary Zone", 1
+	incmusasm	S3K_SMPS, s3k_icz1, "Ice Cap Zone 1", 1
+	incmusasm	S3K_SMPS, s3k_dataselect, "Data Select", 1
 	selectdrv S1_SMPS
-	incmusasm	S1_SMPS, musicEC, "Magician's hall", 0
-	incmusasm	S1_SMPS, slz, "Star Light Zone", 0
-	incmusasm	S1_SMPS, invisk, "S&K Invinciblity", 0
+	incmusasm	S1_SMPS, s1_woi_mag, "Magician's hall", 0
+	incmusasm	S1_SMPS, s1_slz, "Star Light Zone", 0
+	incmusasm	S1_SMPS, s1_invissk, "S&K Invinciblity", 0
+	incmusasm	S1_SMPS, s1_gng_lv4, "Ghouls'n Ghosts - Level 4", 0
 	selectdrv MegaPCM
-	incmusasm	MegaPCM, ghz, "Green Hill Zone", 0
-	selectdrv DyHe_SMPS
-	incmusasm	DyHe_SMPS, Izayoi, "You're Izayoi", 0
-	incmusasm	DyHe_SMPS, FunnyAngry, "Funny Angry", 0
-	incmusbin	DyHe_SMPS, Hattari, "Hattari is Here", 0
+	incmusasm	MegaPCM, s1_ghz, "Green Hill Zone", 0
+;	selectdrv DyHe_SMPS
+;	incmusasm	DyHe_SMPS, Izayoi, "You're Izayoi", 0
+;	incmusasm	DyHe_SMPS, FunnyAngry, "Funny Angry", 0
+;	incmusbin	DyHe_SMPS, Hattari, "Hattari is Here", 0
 
 ; ===========================================================================
 ; the following will construct all the drivers with the information needed.

@@ -1,6 +1,6 @@
 ; ===============================================
-; Created by Flamewing, based on S1SMPS2ASM version 1.1 by Marc Gordon (AKA Cinossu)
-; converted to work on ASM68K by Natsumi
+; Based on Flamewing's SMPS2ASM, and S1SMPS2ASM by Marc (AKA Cinossu)
+; Reworked and improved by Natsumi
 ; ===============================================
 
 ; this macro is created to emulate enum in AS
@@ -67,46 +67,39 @@ cFM5				EQU $05
 cFM6				EQU $06	; Only in S3/S&K/S3D, overrides DAC
 ; ---------------------------------------------------------------------------------------------
 ; Header Macros
-smpsHeaderStartSong macro
-songStart =	offset(*)
+sHeaderInit	macro
+sPointZero =	offset(*)
     endm
 
-smpsHeaderVoiceNull macro
-	if songStart<>offset(*)
-		inform 2,"Missing smpsHeaderStartSong or smpsHeaderStartSongConvert"
-	endif
-	dc.w $0000
-    endm
-
-; Header - Set up Voice Location
+; Header - Set up Patches Location
 ; Common to music and SFX
-smpsHeaderVoice macro loc
-	if songStart<>offset(*)
+sHeaderPatch	macro loc
+	if sPointZero<>offset(*)
 		inform 2,"Missing smpsHeaderStartSong or smpsHeaderStartSongConvert"
 	endif
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
-		dc.w loc-songStart
+		dc.w loc-sPointZero
 	endif
     endm
 
-; Header - Set up Voice Location as S3's Universal Voice Bank
+; Header - Set up Patches Location as an Universal Voice Bank (S3/S&K)
 ; Common to music and SFX
-smpsHeaderVoiceUVB macro
-	if songStart<>offset(*)
+sHeaderPatchUniv macro
+	if sPointZero<>offset(*)
 		inform 2,"Missing smpsHeaderStartSong or smpsHeaderStartSongConvert"
 	endif
 	if smpsIsZ80=1
 		littleEndian smpsUniVoiceBank
 	else
-		dc.w smpsUniVoiceBank-songStart
+		dc.w smpsUniVoiceBank-sPointZero
 	endif
     endm
 
-; Header macros for music (not for SFX)
+; Header macros
 ; Header - Set up Channel Usage
-smpsHeaderChan macro fm,psg
+sHeaderCh	macro fm,psg
 	dc.b \fm
 
 	if narg=2
@@ -114,22 +107,22 @@ smpsHeaderChan macro fm,psg
 	endif
     endm
 
-; Header - Set up Tempo
-smpsHeaderTempo macro div,mod
-	dc.b \div,\mod
+; Header - Set up Tempo and Tick Multiplier
+sHeaderTempo	macro tmul,tempo
+	dc.b \tmul,\tempo
     endm
 
-; Header - Set up Tick
-smpsHeaderTick macro tick
-	dc.b \tick
+; Header - Set up Tick Multiplier
+sHeaderTick	macro tmul
+	dc.b \tmul
     endm
 
 ; Header - Set up DAC Channel
-smpsHeaderDAC macro loc,pitch,vol
+sHeaderDAC	macro loc,pitch,vol
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
-		dc.w \loc-songStart
+		dc.w \loc-sPointZero
 	endif
 	if narg>=2
 		dc.b \pitch
@@ -144,189 +137,156 @@ smpsHeaderDAC macro loc,pitch,vol
     endm
 
 ; Header - Set up FM Channel
-smpsHeaderFM macro loc,pitch,vol
+sHeaderFM	macro loc,pitch,vol
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
-		dc.w loc-songStart
+		dc.w loc-sPointZero
 	endif
 	dc.b \pitch,\vol
     endm
 
 ; Header - Set up PSG Channel
-smpsHeaderPSG macro loc,pitch,vol,mod,voice
+sHeaderPSG	macro loc,pitch,vol,modenv,volenv
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
-		dc.w loc-songStart
+		dc.w \loc-sPointZero
 	endif
-	dc.b	\pitch,\vol,\mod,\voice
+	dc.b	\pitch,\vol,\modenv,\volenv
     endm
 
 ; Header - Set up SFX Channel
-smpsHeaderSFX macro play, voice,loc,pitch,vol
-	dc.b \play,\voice
+smpsHeaderSFX	macro play,patch,loc,pitch,vol
+	dc.b \play,\patch
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
-		dc.w loc-songStart
+		dc.w \loc-sPointZero
 	endif
 	dc.b \pitch,\vol
     endm
 ; ---------------------------------------------------------------------------------------------
-; Co-ord Flag Macros and Equates
-; E0xx - Panning, AMS, FMS
-panNone set $00
-panRight set $40
-panLeft set $80
-panCentre set $C0
-panCenter set $C0 ; silly Americans :U
-smpsPan macro direction,amsfms
-	s2e_\smpsdrv\_smpsPan \_
+; Command Flag Macros and Equates. Based on the original s1smps2asm, and Flamewing's smps2asm
+spNone set $00
+spRight set $40
+spLeft set $80
+spCentre set $C0
+spCenter set $C0
+sPan		macro dir,amsfms
+	s2e_\smpsdrv\_sPan \_
     endm
 
-; E1xx - Set channel frequency displacement to xx
-smpsAlterNote macro val
-	s2e_\smpsdrv\_smpsAlterNote \_
+saDetune	macro val
+	s2e_\smpsdrv\_saDetune \_
     endm
 
-; E2xx - Useless
-smpsNop macro val
-	s2e_\smpsdrv\_smpsNop \_
+sComm		macro val
+	s2e_\smpsdrv\_sComm \_
     endm
 
-
-smpsSetComm macro val
-	s2e_\smpsdrv\_smpsSetComm \_
+smpsPanAnim	macro v1, v2, v3, v4, v5
+	s2e_\smpsdrv\_smpsPanAnim \_
     endm
 
-smpsPanAnim macro v1, v2, v3, v4, v5
-	s2e_\smpsdrv\_smpsSetComm \_
+sRet		macro
+	s2e_\smpsdrv\_sRet \_
     endm
 
-; Return (used after smpsCall)
-smpsReturn macro
-	s2e_\smpsdrv\_smpsReturn \_
+sFade		macro val
+	s2e_\smpsdrv\_sFade \_
     endm
 
-; Fade in previous song (ie. 1-Up)
-smpsFade macro val
-	s2e_\smpsdrv\_smpsFade \_
+ssTickMulCh	macro val
+	s2e_\smpsdrv\_ssTickMulCh \_
     endm
 
-smpsTempo macro val
-	s2e_\smpsdrv\_smpsChanTempoDiv \_
-    endm
-
-smpsTempo macro val
-	s2e_\smpsdrv\_smpsChanTempoDiv \_
-    endm
-
-smpsSetLFO macro val1, val2
+smpsSetLFO	macro val1, val2
 	s2e_\smpsdrv\_smpsSetLFO  \_
     endm
 
-; E6xx - Alter Volume by xx
-smpsAlterVol macro val
-	s2e_\smpsdrv\_smpsAlterVol \_
+saVolFM		macro val
+	s2e_\smpsdrv\_saVolFM \_
     endm
 
-; E7 - Prevent attack of next note
-; defined by "smps2asm equ.asm" by the sound driver
-
-; E8xx - Set note fill to xx
-smpsNoteFill macro val
-	s2e_\smpsdrv\_smpsNoteFill \_
+sNoteStop	macro val
+	s2e_\smpsdrv\_sNoteStop \_
     endm
 
-; Add xx to channel pitch
-smpsAlterPitch macro val
-	s2e_\smpsdrv\_smpsAlterPitch \_
+saTranspose	macro val
+	s2e_\smpsdrv\_saTranspose \_
     endm
 
-; Set music tempo modifier to xx
-smpsSetTempoMod macro mod
-	s2e_\smpsdrv\_smpsSetTempoMod \_
+ssTempo		macro mod
+	s2e_\smpsdrv\_ssTempo \_
     endm
 
-; Set music tempo divider to xx
-smpsSetTempoDiv macro val
-	s2e_\smpsdrv\_smpsSetTempoDiv \_
+ssTickMul	macro val
+	s2e_\smpsdrv\_ssTickMul \_
     endm
 
-; ECxx - Set Volume to xx
-smpsSetVol macro val
+saVolPSG	macro val
+	s2e_\smpsdrv\_saVolPSG \_
+    endm
+
+smpsSetVol	macro vol
 	s2e_\smpsdrv\_smpsSetVol \_
     endm
 
-; Works on all drivers
-smpsPSGAlterVol macro vol
-	s2e_\smpsdrv\_smpsPSGAlterVol \_
+sClrPush	macro
+	s2e_\smpsdrv\_sClrPush \_
     endm
 
-; Clears pushing sound flag in S1
-smpsClearPush macro
-	s2e_\smpsdrv\_smpsClearPush \_
+sStopSpecFM4	macro
+	s2e_\smpsdrv\_sStopSpecFM4 \_
     endm
 
-; Stops special SFX (S1 only) and restarts overridden music track
-smpsStopSpecial macro
-	s2e_\smpsdrv\_smpsStopSpecial \_
+sPatFM		macro pat
+	s2e_\smpsdrv\_sPatFM \_
     endm
 
-; EFxx[yy] - Set Voice of FM channel to xx; xx < 0 means yy present
-smpsSetvoice macro voice
-	s2e_\smpsdrv\_smpsSetvoice \_
+ssMod68k	macro wait,speed,change,step
+	s2e_\smpsdrv\_ssMod68k \_
     endm
 
-; F0wwxxyyzz - Modulation - ww: wait time - xx: modulation speed - yy: change per step - zz: number of steps
-smpsModSet macro wait,speed,change,step
-	s2e_\smpsdrv\_smpsModSet \_
+ssModZ80	macro wait,speed,change,step
+	s2e_\smpsdrv\_ssModZ80 \_
     endm
 
-; Turn on Modulation
-smpsModOn macro
-	s2e_\smpsdrv\_smpsModOn \_
+sModOn macro
+	s2e_\smpsdrv\_sModOn \_
     endm
 
-; F2 - End of channel
-smpsStop macro
-	s2e_\smpsdrv\_smpsStop \_
+sStop macro
+	s2e_\smpsdrv\_sStop \_
     endm
 
-; F3xx - PSG waveform to xx
-smpsPSGform macro form
-	s2e_\smpsdrv\_smpsPSGform \_
+sNoisePSG macro form
+	s2e_\smpsdrv\_sNoisePSG \_
     endm
 
-; Turn off Modulation
-smpsModOff macro
-	s2e_\smpsdrv\_smpsModOff \_
+sModOff macro
+	s2e_\smpsdrv\_sModOff \_
     endm
 
-; F5xx - PSG voice to xx
-smpsPSGvoice macro voice
-	s2e_\smpsdrv\_smpsPSGvoice \_
+sVolEnvPSG macro volenv
+	s2e_\smpsdrv\_sVolEnvPSG \_
     endm
 
-; F6xxxx - Jump to xxxx
-smpsJump macro loc
-	s2e_\smpsdrv\_smpsJump \_
+sJump macro loc
+	s2e_\smpsdrv\_sJump \_
     endm
 
-; F7xxyyzzzz - Loop back to zzzz yy times, xx being the loop index for loop recursion fixing
-smpsLoop macro index,loops,loc
-	s2e_\smpsdrv\_smpsLoop \_
+sLoop macro index,loops,loc
+	s2e_\smpsdrv\_sLoop \_
     endm
 
-; F8xxxx - Call pattern at xxxx, saving return point
-smpsCall macro loc
-	s2e_\smpsdrv\_smpsCall \_
+sCall macro loc
+	s2e_\smpsdrv\_sCall \_
     endm
-; ---------------------------------------------------------------------------------------------
-; Alter Volume
-smpsFMAlterVol macro val1,val2
-	s2e_\smpsdrv\_smpsFMAlterVol \_
+
+sMute macro
+	s2e_\smpsdrv\_sMute \_
     endm
 
 ; S3/S&K/S3D-only coordination flags
@@ -407,104 +367,97 @@ smpsFMFlutter macro tone,mask
 smpsResetSpindashRev macro
 	s2e_\smpsdrv\_smpsResetSpindashRev \_
     endm
-
-; ---------------------------------------------------------------------------------------------
-; S1/S2 only coordination flag
-; Sets D1L to maximum volume (minimum attenuation) and RR to maximum for operators 3 and 4 of FM1
-smpsWeirdD1LRR macro
-	s2e_\smpsdrv\_smpsWeirdD1LRR \_
-    endm
 ; ---------------------------------------------------------------------------------------------
 ; Macros for FM instruments
-; Voices - Feedback
-smpsVcFeedback macro val
-vcFeedback set val
+; Patches - Feedback
+spFeedback macro val
+spFe	= val
     endm
 
-; Voices - Algorithm
-smpsVcAlgorithm macro val
-vcAlgorithm set val
+; Patches - Algorithm
+spAlgorithm macro val
+spAl	= val
     endm
 
-; Voices - Detune
-smpsVcDetune macro op1,op2,op3,op4
-vcDT1 set op1
-vcDT2 set op2
-vcDT3 set op3
-vcDT4 set op4
+; Patches - Detune
+spDetune macro op1,op2,op3,op4
+spDe1	= op1
+spDe2	= op2
+spDe3	= op3
+spDe4	= op4
     endm
 
-; Voices - Coarse-Frequency
-smpsVcCoarseFreq macro op1,op2,op3,op4
-vcCF1 set op1
-vcCF2 set op2
-vcCF3 set op3
-vcCF4 set op4
+; Patches - Multiple
+spMultiple macro op1,op2,op3,op4
+spMu1	= op1
+spMu2	= op2
+spMu3	= op3
+spMu4	= op4
     endm
 
-; Voices - Rate Scale
-smpsVcRateScale macro op1,op2,op3,op4
-vcRS1 set op1
-vcRS2 set op2
-vcRS3 set op3
-vcRS4 set op4
+; Patches - Rate Scale
+spRateScale macro op1,op2,op3,op4
+spRS1	= op1
+spRS2	= op2
+spRS3	= op3
+spRS4	= op4
     endm
 
-; Voices - Attack Rate
-smpsVcAttackRate macro op1,op2,op3,op4
-vcAR1 set op1
-vcAR2 set op2
-vcAR3 set op3
-vcAR4 set op4
+; Patches - Attack Rate
+spAttackRt macro op1,op2,op3,op4
+spAR1	= op1
+spAR2	= op2
+spAR3	= op3
+spAR4	= op4
     endm
 
-; Voices - Amplitude Modulation
-smpsVcAmpMod macro op1,op2,op3,op4
-vcAM1 set op1
-vcAM2 set op2
-vcAM3 set op3
-vcAM4 set op4
+; Patches - Amplitude Modulation
+spAmpMod macro op1,op2,op3,op4
+spAM1	= op1
+spAM2	= op2
+spAM3	= op3
+spAM4	= op4
     endm
 
-; Voices - First Decay Rate
-smpsVcDecayRate1 macro op1,op2,op3,op4
-vcD1R1 set op1
-vcD1R2 set op2
-vcD1R3 set op3
-vcD1R4 set op4
+; Patches - Decay Rate
+spDecayRt macro op1,op2,op3,op4
+spDR1	= op1
+spDR2	= op2
+spDR3	= op3
+spDR4	= op4
     endm
 
-; Voices - Second Decay Rate
-smpsVcDecayRate2 macro op1,op2,op3,op4
-vcD2R1 set op1
-vcD2R2 set op2
-vcD2R3 set op3
-vcD2R4 set op4
+; Patches - Sustain Rate
+spSustainRt macro op1,op2,op3,op4
+spSR1	= op1
+spSR2	= op2
+spSR3	= op3
+spSR4	= op4
     endm
 
-; Voices - Decay Level
-smpsVcDecayLevel macro op1,op2,op3,op4
-vcDL1 set op1
-vcDL2 set op2
-vcDL3 set op3
-vcDL4 set op4
+; Patches - Sustain Level
+spSustainLv macro op1,op2,op3,op4
+spSL1	= op1
+spSL2	= op2
+spSL3	= op3
+spSL4	= op4
     endm
 
-; Voices - Release Rate
-smpsVcReleaseRate macro op1,op2,op3,op4
-vcRR1 set op1
-vcRR2 set op2
-vcRR3 set op3
-vcRR4 set op4
+; Patches - Release Rate
+spReleaseRt macro op1,op2,op3,op4
+spRR1	= op1
+spRR2	= op2
+spRR3	= op3
+spRR4	= op4
     endm
 
-; Voices - Total Level
-smpsVcTotalLevel macro op1,op2,op3,op4
-vcTL1 set op1
-vcTL2 set op2
-vcTL3 set op3
-vcTL4 set op4
+; Patches - Total Level
+spTotalLv macro op1,op2,op3,op4
+spTL1	= op1
+spTL2	= op2
+spTL3	= op3
+spTL4	= op4
 
-	s2e_\smpsdrv\_smpsVoice
+	s2e_\smpsdrv\_sPatch
     endm
 

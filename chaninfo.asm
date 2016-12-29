@@ -4,6 +4,7 @@ DrawChaninfo:
 		jsr	DrawChannels(pc)		; draw active channels
 		jsr	UpdateDACProperties(pc)		; updates DAC info
 		jsr	UpdateChanProperties(pc)	; update FM and PSG properties
+		jsr	UpdateDrvProperties(pc)		; update sound druver properties
 		move	#$2300,sr			; enable interruptions
 		rts
 
@@ -14,7 +15,7 @@ UpdateDACProperties:
 
 		lea	DACnumber.w,a0		; get DAC data to a0
 		moveq	#5,d4
-		moveq	#12,d5
+		moveq	#13,d5
 		move.b	(a0)+,d3		; get DAC number
 		jsr	WriteNumberByte1.w
 
@@ -24,7 +25,7 @@ UpdateDACProperties:
 
 .noDAC		moveq	#0,d7
 		moveq	#5,d4
-		moveq	#12,d5
+		moveq	#13,d5
 		jsr	SetupStringWrite.w	; setup string write
 		move.l	d7,(a6)
 		move.l	d7,(a6)
@@ -34,11 +35,11 @@ UpdateDACProperties:
 ; ===========================================================================
 UpdateChanProperties:
 		lea	ChannelPositions(pc),a0	; get the position of channel data
-		movem.l (a0)+,d7/a4-a6		; get aaaaalll the shit from the table
+		movem.l (a0)+,d7/a4-a5		; get aaaaalll the shit from the table
 		move.w	ActiveChn.w,d5		; get active channels
 		moveq	#9-1,d0			; get the number of channels
 
-.chanloop	moveq	#4-1,d1			; get number of elements
+.chanloop	moveq	#5-1,d1			; get number of elements
 		move.l	(a0)+,(a5)		; get VRAM pointer from table
 		btst	d0,d5			; check if the channel is active
 		bne.s	.loop			; if is, branch
@@ -48,7 +49,8 @@ UpdateChanProperties:
 		move.l	d7,(a6)			; clear 2 words
 		move.l	d7,(a6)			; clear 2 words
 		move.l	d7,(a6)			; clear 2 words
-		move.w	d7,(a6)			; clear 1 word
+		move.l	d7,(a6)			; clear 2 words
+		move.l	d7,(a6)			; clear 2 words
 		dbf	d0,.chanloop		; loop for all channels
 		rts
 
@@ -59,11 +61,57 @@ UpdateChanProperties:
 		dbf	d1,.loop		; loop until done
 		dbf	d0,.chanloop		; loop for all channels
 		rts
+; ===========================================================================
+
+UpdateDrvProperties:
+		lea	DriverPropertyData(pc),a0; get data array
+		movem.w	(a0)+,d7		; get loads of data
+
+.loop		move.l	(a0)+,(a5)		; set VDP command
+		jsr	WriteString3.w		; write the string to screen
+		movem.w	(a0)+,d0/d5/a4		; get next 3 words
+
+.infoloop	move.l	(a0)+,(a5)		; set VDP command
+		jsr	UDP_Byte(pc,d0.w)	; jump to appropriate code
+		dbf	d5,.infoloop		; loop til done
+		dbf	d7,.loop		; loop for all
+		rts
+
+UDP_Nibble:	; nibble
+		move.b	(a4)+,d3		; get data to write
+		jmp	WriteNumberNibble2.w	; write it down
+
+UDP_Byte:	; byte
+		move.b	(a4)+,d3		; get data to write
+		jmp	WriteNumberByte2.w	; write it down
+
+UDP_Word:	; word
+		move.w	(a4)+,d3		; get data to write
+		jmp	WriteNumberWord2.w	; write it down
+
+UDP_Addr:	; address
+		move.l	(a4)+,d3		; get data to write
+		jmp	WriteNumberAddr2.w	; write it down
+
+UDP_Long:	; longword
+		move.l	(a4)+,d3		; get data to write
+		jmp	WriteNumberLong2.w	; write it down
 
 ; ===========================================================================
+DriverPropertyData:
+		dc.w 0			; d7
+	vdpComm dc.l,(2*$40)+$C000,VRAM,WRITE
+	asc2.w 0,"TEMPO $00  TICK MUL $00"
+
+		dc.w 0, 1, Tempo	; a0/d5/a4
+	vdpComm dc.l,(2*$40)+$C00E,VRAM,WRITE
+	vdpComm dc.l,(2*$40)+$C02A,VRAM,WRITE
+; ===========================================================================
+
 ChannelPositions:
 		dc.l 0		; d7
-		dc.l PSG3vol, VDP_control_port, VDP_data_port ; a4-a6
+		dc.l PSG3tmul, VDP_control_port ; a4-a5
+	vdpComm dc.l,(12*$40)+$C00A,VRAM,WRITE
 	vdpComm dc.l,(11*$40)+$C00A,VRAM,WRITE
 	vdpComm dc.l,(10*$40)+$C00A,VRAM,WRITE
 	vdpComm dc.l,(9*$40)+$C00A,VRAM,WRITE
@@ -72,7 +120,6 @@ ChannelPositions:
 	vdpComm dc.l,(6*$40)+$C00A,VRAM,WRITE
 	vdpComm dc.l,(5*$40)+$C00A,VRAM,WRITE
 	vdpComm dc.l,(4*$40)+$C00A,VRAM,WRITE
-	vdpComm dc.l,(3*$40)+$C00A,VRAM,WRITE
 ; ===========================================================================
 ; draws the ASCII of what channels are active
 ; ===========================================================================
@@ -80,35 +127,35 @@ DrawChannelData:
 		dc.l 10-1, 0	; d0-d1
 		dc.l VDP_data_port, VDP_control_port, ActiveChnLast	; a1-a3
 
+	vdpComm dc.l,(13*$40)+$C000,VRAM,WRITE
+	asc.w 0," DAC"
+
 	vdpComm dc.l,(12*$40)+$C000,VRAM,WRITE
-	asc 0," DAC"
+	asc.w 0,"PSG3"
 
 	vdpComm dc.l,(11*$40)+$C000,VRAM,WRITE
-	asc 0,"PSG3"
+	asc.w 0,"PSG2"
 
 	vdpComm dc.l,(10*$40)+$C000,VRAM,WRITE
-	asc 0,"PSG2"
+	asc.w 0,"PSG1"
 
 	vdpComm dc.l,(9*$40)+$C000,VRAM,WRITE
-	asc 0,"PSG1"
+	asc.w 0," FM6"
 
 	vdpComm dc.l,(8*$40)+$C000,VRAM,WRITE
-	asc 0," FM6"
+	asc.w 0," FM5"
 
 	vdpComm dc.l,(7*$40)+$C000,VRAM,WRITE
-	asc 0," FM5"
+	asc.w 0," FM4"
 
 	vdpComm dc.l,(6*$40)+$C000,VRAM,WRITE
-	asc 0," FM4"
+	asc.w 0," FM3"
 
 	vdpComm dc.l,(5*$40)+$C000,VRAM,WRITE
-	asc 0," FM3"
+	asc.w 0," FM2"
 
 	vdpComm dc.l,(4*$40)+$C000,VRAM,WRITE
-	asc 0," FM2"
-
-	vdpComm dc.l,(3*$40)+$C000,VRAM,WRITE
-	asc 0," FM1"
+	asc.w 0," FM1"
 ; ===========================================================================
 
 DrawChannels:
@@ -142,9 +189,9 @@ DriverUpdate:
 		bmi.s	.nope			; special case: load stop sfx driver
 
 		move.l	DrvUpdateCodes(pc,d0.w),a1; get the right entry to a1
-	stopZ80				; request z80 bus
+	stopZ80					; request z80 bus
 		jsr	(a1)			; run driver update code
-	startZ80			; return z80 bus
+	startZ80				; return z80 bus
 .nope		rts
 
 ; ===========================================================================

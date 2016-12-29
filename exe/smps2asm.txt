@@ -57,9 +57,9 @@ Contents:
     location is ran first). Scripts are split into a few subscripts;
       * dat - Contains some basic pointers and functions for the entire file.
 
-      * header - Contains instructions for how to construct a header. The
+      * header - Contains instructions for how to construct the header. The
         entire header script is attempted to parse at once, over other times
-        when the script is only parse by matching. You can still limit the
+        when the script is only parsed by matching. You can still limit the
         matching in same way however.
 
       * DAC - Is used when attempting to parse DAC code. Contains pointers to
@@ -68,12 +68,12 @@ Contents:
       * note - Is used when attempting to parse FM or PSG code. Contains pointers
         to different possible notes.
 
-      * coordination - Contains information about coordination flags.
+      * comm - Contains information about command flags.
 
-      * voices - Contains information for how to construct each voice data. The
-        entire script is attempted to parse at once, for every voice found.
+      * patches - Contains information for how to construct each patch data.
+        The entire script is attempted to parse at once, for every patch found.
 
-  *2.2 - mnemonics*
+  *2.2 - Mnemonics*
     *2.2.1 - Function types*
       The very basic type of scripting, Function types, serves to tell to the
       program what type of function we want to execute. This is the whole
@@ -100,7 +100,9 @@ Contents:
         * Subscript - This function is much like 'Script block start', but it is
           its own function, over than extension of an existing function. Mostly
           used to make a subscript of a specified type, which the interpreter
-          will use to define output file. The symbol for this operation is '?'
+          will use to define output file. You can also import a subscript into
+          another subscript or script block. The max depth of importing is 3.
+          The symbol for this operation is '?'
 
         * Argument modifier - This adds the functionality to modify an argument
           of a macro. It can be defined it to one argument only, and will change
@@ -137,8 +139,9 @@ Contents:
 
         * Comment - Is used to set a note in the asm file. Can also be used to
           set custom operations when necessary. You can use operators inside
-          comments and they are set on a new line. The symbol for this
-          operation is '%'
+          comments and they are set on a new line. If placed inside a macro,
+          the comment will be appended after the macro itself. The symbol for
+          this operation is '%'
 
         * Go to - This operator is used to go to file position, or advance
           specified amount of bytes forward or backward. Useful for writing
@@ -286,6 +289,12 @@ Contents:
           hold other functions, especially for system subscripts (for example
           coordination, header, note).
 
+        *2.3.9.1 - Subscript importing*
+          ?<lable>;
+          ?header;
+            <lable> is used to identify the subscript to import. This is used
+            to import functions or equates from another subscript.
+
       *2.3.10 - Comment*
         %<note>
         %; This is a comment!
@@ -324,8 +333,6 @@ Contents:
     fully, and usually consist only of operations that always happen. While in
     header, equates are not treated as data, and data at offsets are not
     followed to. Other than that header is treated like any normal code section.
-    Headers are hardcoded to have the song name lable and 'tsmpsHeaderStartSong'
-    macro during file outputting phase.
 
   *3.3 - Main data parsing*
     Main data is parsed by jumping into the offsets of lables found during
@@ -347,12 +354,11 @@ Contents:
     data, increment byte offset, and do the loop again, until it reaches a stop
     or end of the file.
 
-  *3.4 - Parsing voices*
-    Currently, parsing voices is yet at a very early stage. Voices are just
-    split into 25-byte dc.b statements. In future, this will be improved and
-    parsed using macro's. If you want to contribute to this, please post a
-    script with the respective macros on how the parsing would work. The voices
-    would be parse like the header; sequentially, for each 25 bytes.
+  *3.4 - Parsing patches*
+    Patch parsing is also a special case, much like header. Instead however,
+    each 25 (as per SMPS standard, size can be changed to fit other standsrds)
+    bytes, the patch script is executed, until another lable or end of file is
+    met. Here, every operation is executed sequentially.
 
   *3.5 - Outputting to file*
     After the input file is fully parsed, the data will be written line by line

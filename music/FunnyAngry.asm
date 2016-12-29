@@ -1790,3 +1790,4 @@ FunnyAngry_Voices:
 	smpsVcDecayLevel	$01, $02, $02, $02
 	smpsVcReleaseRate	$08, $0B, $0B, $0B
 	smpsVcTotalLevel	$00, $00, $00, $19
+

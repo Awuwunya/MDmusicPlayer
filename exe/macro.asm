@@ -19,20 +19,6 @@ align macro
 	endm
 
 ; ===========================================================================
-; general purpose macro to turn a variable into string, for example
-; to add after lable name.
-numToStr	macro	var, nibbles
-numc	= \var			; create temporary variable
-outStr	equs ""			; this is our final output variables
-	rept	\nibbles	; repeat for each required nibble
-num	=	numc&$F		; get the nibble number
-str	substr	num+1, num+1, "0123456789ABCDEF"; now transform it to string
-outStr	equs "\str\\outStr"	; add it to out string
-numc	= numc>>4		; finally shift the nibble out
-	endr
-    endm
-
-; ===========================================================================
 vdpComm		macro ins,addr,type,rwd,end,end2
 	if narg=5
 		\ins #(((\type&\rwd)&3)<<30)|((\addr&$3FFF)<<16)|(((\type&\rwd)&$FC)<<2)|((\addr&$C000)>>14), \end
@@ -63,8 +49,7 @@ dma68kToVDP macro source,dest,length,type
 		move.l	#(($9400|((((length)>>1)&$FF00)>>8))<<16)|($9300|(((length)>>1)&$FF)),(a5)
 		move.l	#(($9600|((((source)>>1)&$FF00)>>8))<<16)|($9500|(((source)>>1)&$FF)),(a5)
 		move.w	#$9700|(((((source)>>1)&$FF0000)>>16)&$7F),(a5)
-	vdpComm	move.w,\dest,\type,DMA,>>16)&$FFFF,(a5)
-	vdpComm	move.w,\dest,\type,DMA,)&$FFFF,(a5)
+	vdpComm	move.l,\dest,\type,DMA,(a5)
     endm
 
 ; ===========================================================================
@@ -248,25 +233,24 @@ drvnum		= 0
 
 incdrv	macro	folder, comp
 \folder	=	drvnum		; equate driver name with it's ID
-	numToStr drvnum, 4
-Driver68k_Folder_\outStr	equs "\folder"; get the folder the driver is installed on
+Driver68k_Folder_\#drvnum	equs "\folder"; get the folder the driver is installed on
 
-Driver68k_\outStr:
+Driver68k_\#drvnum:
 	dc.w \comp		; set compression mode
 	if \comp=cmp_unc	; set size of the driver if uncompressed
-		dc.w ((DriverZ80_\outStr-DriverZ80_End_\outStr-4)/4)-1
+		dc.w ((DriverZ80_\#drvnum-DriverZ80_End_\#drvnum-4)/4)-1
 	else			; if not uncompressed, set a pointer to z80 driver
-		dc.l DriverZ80_\outStr
+		dc.l DriverZ80_\#drvnum
 	endif
 	incbin	"\folder\/drv.68k"; include the actual driver code
-Driver68k_End_\outStr:		; set ending point for the driver (uncompressed only)
+Driver68k_End_\#drvnum:		; set ending point for the driver (uncompressed only)
 
-DriverZ80_\outStr:
+DriverZ80_\#drvnum:
 	if \comp=cmp_unc	; set size of the driver if uncompressed
-		dc.w ((DriverZ80_\outStr-DriverZ80_End_\outStr-4)/4)-1
+		dc.w ((DriverZ80_\#drvnum-DriverZ80_End_\#drvnum-4)/4)-1
 	endif
 	incbin	"\folder\/drv.z80"; include the actual driver code
-DriverZ80_End_\outStr:		; set ending point for the driver (uncompressed only)
+DriverZ80_End_\#drvnum:		; set ending point for the driver (uncompressed only)
 
 	include	"\folder\/smps2asm equ.asm"; include smps2asm macros
 
@@ -279,8 +263,7 @@ drvnum	=	drvnum+4	; next driver ID
 drvimg	macro
 rvar	= 0			; reset driver ID
 	rept	drvnum/4	; do for all installed drivers
-		numToStr rvar, 4
-		dc.l Driver68k_\outStr; set pointer to driver data
+		dc.l Driver68k_\#rvar; set pointer to driver data
 
 rvar	= rvar+4		; next driver
 	endr
@@ -290,17 +273,15 @@ rvar	= rvar+4		; next driver
 drvplay	macro
 rvar	= 0			; reset driver ID
 	rept	drvnum/4	; do for all installed drivers
-		numToStr rvar, 4
-		dc.l DrvPlay_\outStr; set pointer to driver data
+		dc.l DrvPlay_\#rvar; set pointer to driver data
 
 rvar	= rvar+4		; next driver
 	endr
 
 rvar	= 0			; reset driver ID
 	rept	drvnum/4	; do for all installed drivers
-		numToStr rvar, 4
-dir		equs Driver68k_Folder_\outStr
-DrvPlay_\outStr:
+dir		equs Driver68k_Folder_\#rvar
+DrvPlay_\#rvar:
 	include	"\dir\/play.asm"
 
 rvar	= rvar+4		; next driver
@@ -311,17 +292,15 @@ rvar	= rvar+4		; next driver
 drvload	macro
 rvar	= 0			; reset driver ID
 	rept	drvnum/4	; do for all installed drivers
-		numToStr rvar, 4
-		dc.l DrvLoad_\outStr; set pointer to driver data
+		dc.l DrvLoad_\#rvar; set pointer to driver data
 
 rvar	= rvar+4		; next driver
 	endr
 
 rvar	= 0			; reset driver ID
 	rept	drvnum/4	; do for all installed drivers
-		numToStr rvar, 4
-dir		equs Driver68k_Folder_\outStr
-DrvLoad_\outStr:
+dir		equs Driver68k_Folder_\#rvar
+DrvLoad_\#rvar:
 	include	"\dir\/load.asm"
 
 rvar	= rvar+4		; next driver
@@ -332,17 +311,15 @@ rvar	= rvar+4		; next driver
 drvupd	macro
 rvar	= 0			; reset driver ID
 	rept	drvnum/4	; do for all installed drivers
-		numToStr rvar, 4
-		dc.l DrvUpdate_\outStr; set pointer to driver data
+		dc.l DrvUpdate_\#rvar; set pointer to driver data
 
 rvar	= rvar+4		; next driver
 	endr
 
 rvar	= 0			; reset driver ID
 	rept	drvnum/4	; do for all installed drivers
-		numToStr rvar, 4
-dir		equs Driver68k_Folder_\outStr
-DrvUpdate_\outStr:
+dir		equs Driver68k_Folder_\#rvar
+DrvUpdate_\#rvar:
 	include	"\dir\/update.asm"
 
 rvar	= rvar+4		; next driver
@@ -356,16 +333,15 @@ musnum		= 0
     endm
 
 incmusbin	macro	driver, file, name, isZ80
-	numToStr musnum, 4
 	if isZ80=1
 		if ((offset(*)+filesize("music/\file\.bin"))&$FF8000)>(offset(*)&$FF8000)
 			align $8000
 		endif
 	endif
-MusicFile_\outStr:
+MusicFile_\#musnum:
 	asc2.w $8000, \name
 	dc.w \driver
-MusicFileS_\outStr:
+MusicFileS_\#musnum:
 	incbin "music/\file\.bin"
 	even
 	inform 0, "Music file 'music/\file\.bin'		size: $%h	address: $%h", filesize("music/\file\.bin"), offset(*)-filesize("music/\file\.bin")-1
@@ -375,21 +351,20 @@ musnum		= musnum+4	; next music ID
 ; ===========================================================================
 ; the following is for music that are in smps2asm format.
 incmusasm	macro	driver, file, name, isZ80
-	numToStr musnum, 4
 	if isZ80=1
 		if ((offset(*)&$7FFF)>$6000)
 			align $8000	; can not check if align is needed
 		endif
 	endif
-MusicFile_\outStr:
+MusicFile_\#musnum:
 	asc2.w $8000, \name
 	dc.w \driver
 
-MusicFileS_\outStr:
+MusicFileS_\#musnum:
 	opt ae-	; in asm format music, automatic evens will screw us over
 	include "music/\file\.asm"
 	opt ae+	; return automatic evens because yes
-	inform 0, "Music file 'music/\file\.asm'		size: $%h	address: $%h", *-MusicFileS_\outStr, offset(*)-(*-MusicFileS_\outStr)
+	inform 0, "Music file 'music/\file\.asm'		size: $%h	address: $%h", *-MusicFileS_\#musnum, offset(*)-(*-MusicFileS_\#musnum)
 	even
 
 musnum		= musnum+4	; next music ID
@@ -406,8 +381,7 @@ musfile	macro
 		dc.l MusicStop	; information for stop sfx (id 0)
 rvar	= 0			; reset driver ID
 	rept	musnum/4	; do for all installed drivers
-		numToStr rvar, 4
-		dc.l MusicFile_\outStr; set pointer to driver data
+		dc.l MusicFile_\#rvar; set pointer to driver data
 
 rvar	= rvar+4		; next driver
 	endr
@@ -478,11 +452,14 @@ Ctrl2Held	rs.b 1		; controller 2 held buttons
 Ctrl2Press	rs.b 1		; controller 2 pressed buttons
 Ctrl0Held	rs.b 1		; controller 0 held buttons
 Ctrl0Press	rs.b 1		; controller 0 pressed buttons
+Tempo		rs.b 1		; tempo of the driver
+TickMul		rs.b 1		; tick multiplier of the driver
 DACnumber	rs.b 1		; the DAC ID we are playing currently
 DACtime		rs.b 1		; timer for the currently playing DAC
 		rs.w 0		; make sure these addresses are even
-PSG3vol		rs.b 1		; PSG3 volume
+PSG3tmul	rs.b 1		; PSG3 tick multiplier
 PSG3inst	rs.b 1		; PSG3 instrument
+PSG3vol		rs.b 1		; PSG3 volume
 PSG3note	rs.b 1		; PSG3 note
 PSG3time	rs.b 1		; PSG3 timer
 		rs.b 4*8	; do the same for the rest of the channels

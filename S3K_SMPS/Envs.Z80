@@ -1,7 +1,7 @@
 ModEnvPointers:	dw ModEnv_00, ModEnv_01, ModEnv_02, ModEnv_03
 		dw ModEnv_04, ModEnv_05, ModEnv_06, ModEnv_07
 
-ModEnv_01:	db    0
+ModEnv_01:	incbin "ModEnv/01.bin"
 ModEnv_00:	incbin "ModEnv/00.bin"
 ModEnv_02:	incbin "ModEnv/02.bin"
 ModEnv_03:	incbin "ModEnv/03.bin"
