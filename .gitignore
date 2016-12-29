@@ -1,9 +1,8 @@
-*.class
-!*.dll
+*.dll
 !*.exe
-player.bin
-S1 drv/s1.bin
+player.md
 *.lst
 mega-usb.exe
 ASMfile equ.asm
 MDMusicPlayer.7z
+.build_log
