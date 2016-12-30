@@ -33,11 +33,13 @@ Contents:
       SMPS2ASM.
     * 3 - Open music.asm on the root folder, and create a new music entry for
       the file.
-    * 4 - Ensure you use correct macro depending on the music format
-      ('incmusasm' for ASM format, 'incmusbin' for binary format.), and make
-      sure the correct sound driver is selected with the 'selectdrv' macro.
-    * 5 - Click on 'build.bat' on the root folder and launch 'player.bin' on
+    * 4 - Ensure you fill in the details correctly (driver id, music format
+      and driver type)
+    * 5 - Click on 'build.bat' on the root folder and launch 'player.md' on
       your favourite emulator or on hardware!
+    * 6 - If music files that are on z80 sound driver do not work, try to add
+      'bank' on a separate line before this music file. Chances are it was too
+      large to fit in the earlier bank!
 ================================================================================
 
 *3 - Sound driver*
@@ -98,9 +100,12 @@ Contents:
       application. Contains Kosinski, Comper, Nemesis and Enigma compression
       routines.
 
-    *drivers.asm - Contains the installed sound drivers, code for loading them,
-      as well as code to initialize decompression, handling of 'load.asm',
-      'play.asm', and stopping sound when stop sfx is played.
+    *drivers.asm - Contains code for loading sound drivers, includsion of
+      pre-generated music files, code to initialize decompression, handling
+      of 'load.asm', 'play.asm', and stopping sound when stop sfx is played.
+
+    *drv.asm - Contains the installed sound drivers, and special macro used
+      when pre-generating music files.
 
     *init.asm - Contains code for initializing Sega Mega Drive, and the player
       itself.
@@ -143,13 +148,23 @@ Contents:
       current sound driver to resolve. See 'smps2asm equ.asm' in sound driver
       folders.
 
-    *smps2asm.exe - main SMPS2ASM/Nat executable, used to translate binary music
-      files into ASM format.
+    *exe/smps2asm.exe - Main SMPS2ASM/Nat executable, used to translate binary
+      music files into ASM format.
 
-    *smps2asm.txt - Document describing SMPS2ASM/Nat in detail.
+    *exe/smps2asm.txt - Document describing SMPS2ASM/Nat in detail.
 
-    *vasmZ80.exe - Z80 assembler used by Z80 sound drivers and Z80 DAC drivers
-      to assemble the source code.
+    *exe/vasmZ80.exe - Z80 assembler used by Z80 sound drivers and Z80 DAC
+      drivers to assemble the source code.
+
+    *_temp/.68k - File used for assembling a single music file.
+
+    *_temp/.bin - Output of a single music file assembly.
+
+    *_temp/.lst - Listings file for a single music file assembly.
+
+    *_temp/music - All pre-generated music files.
+
+    *_temp/offs - Pointers for pre-generated music files.
 ================================================================================
 
 *5 - Credits*
@@ -158,7 +173,8 @@ Contents:
     *ValleyBell - His SMPS research packs and direct help has helped me to
       understand SMPS format a lot more as well as implement all these sound
       driver to go with my tool. Huge thanks for him, and if it weren't for him
-      this may have not ever come to light.
+      this may have not ever come to light. He also helped me revise the
+      SMPS ASM format.s
 
     *Bakayote - He provided me the great font used in this tool. If it weren't
       for him I'd have to use the awful Sonic 1 menu font, and have to improvise
