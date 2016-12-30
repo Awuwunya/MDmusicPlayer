@@ -15,6 +15,8 @@ sHold =		$E7
 	enum $A0, dA0,dA1,dA2,dA3,dA4,dA5,dA6,dA7,dA8,dA9,dAA,dAB,dAC,dAD,dAE,dAF
 	enum $B0, dB0,dB1,dB2,dB3,dB4,dB5,dB6,dB7,dB8,dB9,dBA,dBB,dBC,dBD,dBE,dBF
 	enum $C0, dC0,dC1,dC2,dC3,dC4,dC5,dC6,dC7,dC8
+; ---------------------------------------------------------------------------------------------
+; SMPS commands
 
 ; E0xx - Panning, AMS, FMS (PANAFMS - PAFMS_PAN)
 sPan	macro dir,amsfms
@@ -64,7 +66,7 @@ sNoteTimeOut	macro val
     endm
 
 ; E9xxyy - Set LFO speed to xx and amplitude vibrate to yy (SET_LFO - LFO_AMSEN)
-sSetLFO		macro val1, val2
+ssLFO		macro val1, val2
 	dc.b $E9,\val1,\val2
     endm
 

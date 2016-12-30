@@ -294,7 +294,7 @@
 	!0xE6 > %saVolFM\t: /db;
 	=sHold 0xE7
 	!0xE8 > sNoteTimeOut: /db;
-	!0xE9 > sSetLFO\t: /db, /db;
+	!0xE9 > ssLFO\t: /db, /db;
 	!0xEA > ssTempo\t: /db;
 	!0xEB > sPlaySound: /db;
 	!0xEC > saVolPSG: /db;

@@ -1,5 +1,5 @@
 IceCap_Header:
-	sHeaderInit		; "Z80 offset is $86AA"
+	sHeaderInit	; Z80 offset is $86AA
 	sHeaderPatch	IceCap_Patches
 	sHeaderCh	$06, $03
 	sHeaderTempo	$01, $14
@@ -272,14 +272,14 @@ IceCap_PSG1:
 IceCap_Jump7:
 	sVolEnvPSG	VolEnv_02
 	saTranspose	$18
-	sNoteTimeout	$09
+	sNoteTimeOut	$09
 
 IceCap_Loop25:
 	dc.b nG4, $0C, nG4, nG4, $06, $0C, nG4, nG4
 	dc.b $2A
 	sLoop		$01, $10, IceCap_Loop25
 	saTranspose	$E8
-	sNoteTimeout	$00
+	sNoteTimeOut	$00
 	sVolEnvPSG	VolEnv_16
 
 IceCap_Loop26:
@@ -289,7 +289,7 @@ IceCap_Loop26:
 	sLoop		$01, $02, IceCap_Loop26
 	sVolEnvPSG	VolEnv_02
 	saTranspose	$18
-	sNoteTimeout	$09
+	sNoteTimeOut	$09
 
 IceCap_Loop27:
 	dc.b nG4, $0C, nG4, nG4, $06, $0C, nG4, nG4
@@ -297,7 +297,7 @@ IceCap_Loop27:
 	sLoop		$01, $07, IceCap_Loop27
 	dc.b nRst, $30, nRst
 	saTranspose	$E8
-	sNoteTimeout	$00
+	sNoteTimeOut	$00
 	sVolEnvPSG	VolEnv_16
 
 IceCap_Loop28:
@@ -313,7 +313,7 @@ IceCap_PSG2:
 IceCap_Jump8:
 	sVolEnvPSG	VolEnv_01
 	saTranspose	$18
-	sNoteTimeout	$09
+	sNoteTimeOut	$09
 	ssModZ80	$00, $01, $01, $02
 
 IceCap_Loop29:
@@ -321,7 +321,7 @@ IceCap_Loop29:
 	dc.b $2A
 	sLoop		$01, $10, IceCap_Loop29
 	saTranspose	$E8
-	sNoteTimeout	$00
+	sNoteTimeOut	$00
 	sVolEnvPSG	VolEnv_16
 	saVolPSG	$02
 	dc.b nRst, $18
@@ -336,7 +336,7 @@ IceCap_Loop29:
 	sVolEnvPSG	VolEnv_01
 	saTranspose	$18
 	ssModZ80	$00, $01, $01, $02
-	sNoteTimeout	$09
+	sNoteTimeOut	$09
 
 IceCap_Loop30:
 	dc.b nG4, $0C, nG4, nG4, $06, $0C, nG4, nG4
@@ -344,7 +344,7 @@ IceCap_Loop30:
 	sLoop		$01, $07, IceCap_Loop30
 	dc.b nRst, $30, nRst
 	saTranspose	$E8
-	sNoteTimeout	$00
+	sNoteTimeOut	$00
 	sVolEnvPSG	VolEnv_16
 	saVolPSG	$02
 	dc.b nRst, $18

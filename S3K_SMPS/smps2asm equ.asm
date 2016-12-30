@@ -37,6 +37,8 @@ nMaxPSG2 =		nB6
 	enum dPowerKick2+1, dCrashingNoiseWoo,dQuickHit,dKickHey,dPowerKickHit
 	enum dPowerKickHit+1, dLowPowerKickHit,dLowerPowerKickHit,dLowestPowerKickHit
 	enum dLowestPowerKickHit+1, dEchoedClapHit2,dLowerEchoedClapHit2
+; ---------------------------------------------------------------------------------------------
+; SMPS commands
 
 ; E0xx - Panning, AMS, FMS (PANAFMS - PAFMS_PAN)
 sPan		macro dir,amsfms
@@ -91,9 +93,9 @@ sSpDashRev	macro
 	dc.b $E9
     endm
 
-; EAxx - Play sample xx (bit7 clear) (SPINDASH_REV - SDREV_INC)
+; EAxx - Play sample xx (bit7 clear) (PLAY_DAC)
 sPlayDAC	macro sample
-	dc.b $EA,(sample&$7F)
+	dc.b $EA,(\sample&$7F)
     endm
 
 ; EBxxyyyy - Jump to zzzz, if loop index xx is 1 (last iteration of loop) (LOOP_EXIT)
@@ -137,8 +139,8 @@ ssModZ80	macro wait,speed,change,step
 	dc.b $F0,\wait,\speed,\change,\step
     endm
 
-; F1xx[yy] - ?? (MOD_ENV - MENV_FMP)
-; F4xx[yy] - ?? (MOD_ENV - MENV_GEN)
+; F1xxyy - ?? (MOD_ENV - MENV_FMP)
+; F4xx - ?? (MOD_ENV - MENV_GEN)
 sModEnv		macro val1,val1
 	if narg=1
 		dc.b $F4,\val

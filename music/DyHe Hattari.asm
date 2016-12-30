@@ -1,5 +1,5 @@
 Hattari_Header:
-	sHeaderInit	
+	sHeaderInit
 	sHeaderPatch	Hattari_Patches
 	sHeaderCh	$07, $03
 	sHeaderTempo	$01, $29
@@ -133,7 +133,7 @@ Hattari_Jump2:
 	dc.b sHold, nE4
 	saVolFM		$02
 	dc.b sHold, nEb4
-	sModOff		
+	sModOff
 	saVolFM		$FB
 	sCall		Hattari_Call1
 	sNoteTimeOut	$04
@@ -236,7 +236,7 @@ Hattari_Call1:
 	dc.b nG3, $06, nG4
 	saVolFM		$01
 	sPatFM		$06
-	sRet		
+	sRet
 
 Hattari_FM2:
 	dc.b nRst, $30, nRst, nRst, $24
@@ -297,7 +297,7 @@ Hattari_FM2:
 	sNoteTimeOut	$00
 	sPatFM		$07
 	dc.b nFs5, $06, sHold, $18
-	sStop		
+	sStop
 
 Hattari_FM3:
 	dc.b nRst, $30, nRst, nRst, $24
@@ -315,19 +315,19 @@ Hattari_Jump3:
 	dc.b $F2
 
 Hattari_FM4:
-	sStop		
+	sStop
 
 Hattari_FM5:
-	sStop		
+	sStop
 
 Hattari_FM6:
-	sStop		
+	sStop
 
 Hattari_PSG1:
-	sStop		
+	sStop
 
 Hattari_PSG2:
-	sStop		
+	sStop
 
 Hattari_Patches:
 	; Patch $00
