@@ -86,13 +86,15 @@ MDMusicPlayer changelog
   + Events are fired when DMA is enabled or disabled
   + GEMS debug menu
   * Simplified the functions to update screen with new data
-  * Changed Hattari is Here to Ballad for You
+  * Changed out Hattari is Here to Ballad for You
   * Changed sound driver type of all Sonic 1 sound driver music to MegaPCM
   * Changed directory "exe" to "bin"
-  * Put all code files into a new "code" directory
+  * Put most code files into a new "code" directory
   * Put all SMPS drivers into a new "SMPS" directory
+  * Put all GEMS drivers into a new "GEMS" directory
+  * Some sound drivers have been given better names
   - Sonic 1 sound driver
   - Start Light Zone track
-  * Some sound drivers have been given more descriptive names
   m* MusicTool now supports the new directory order
   m* Now supports GEMS separately
+  s* Supports new folder structure
