@@ -4,6 +4,6 @@ set /p drv=Enter driver name:%=%
 del "%fl%.bin"
 echo drv EQUS "%drv%" > "ASMfile equ.asm"
 echo fl EQUS "%fl%" >> "ASMfile equ.asm"
-exe\asm68k /p /m ASMfile.asm, %fl%.bin, , .lst
+bin\asm68k /p /m ASMfile.asm, %fl%.bin, , .lst
 if exist "%fl%.bin" GOTO:eof
 pause

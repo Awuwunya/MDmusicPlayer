@@ -1,0 +1,98 @@
+================================================================================
+MDMusicPlayer changelog
+================================================================================
+* Legend
+    * Fix
+    + Added
+    - Removed
+    ~ Changed
+    . Other
+    s SMPS2ASM change (the next character is the legend rule)
+    g GEMS2ASM change (the next character is the legend rule)
+    m MusicTool change (the next character is the legend rule)
+    > Download
+================================================================================
+
+* v0.0
+  . Initial release
+  > http://natsumi.noip.me/d/misc/MDMusicPlayer.0.0.7z
+================================================================================
+
+* v0.1
+  + Full support for voices
+  + Support for conversion of sound effects
+  + Fake DMA feature, allows to check sound quality degredation under different
+    loads
+  + Scripts for World of Illusion and Sonic the Hedgehog 2
+  + Sonic 1 port of invinciblity theme from Sonic & Knuckles
+  + Changelog
+  * Included both asm and bin format music, for future reference
+  * Changed "sTone" to "VolEnv"
+  - Penis
+  s+ Debug output as a commandline option
+  s+ Multiple scripts per folder. See smps2asm.txt for more info
+  s+ Go To, Equate Change and Comment functions
+  s* Voices which are not at the end of file would continue to be created til
+    end of file. This would eventually cause the ASM file to be messy and not
+    work correctly.
+  s* ReadWord function would read the first byte twice, and therefore break any
+    code that uses it.
+  s* Some miscellaneous crash issues
+  s* Script parser would not support multiple condition blocks. False condition
+    would get overwritten by another condition block, and then it would
+    incorrectly run instructions when it should not. Now this also uses a stack
+    and supports theoretically infinite condition blocks.
+  s* Lable formats can now use variables or operators
+  s* lable format would place ':' in wrong places or not at all with some setups
+    This has now been corrected to always put one at the end.
+  s* Various optimizations
+  > http://natsumi.noip.me/d/misc/MDMusicPlayer.0.1.7z
+================================================================================
+
+* v0.2
+  + Revised the SMPS2ASM format and definitions (to be more accurate and
+    simpler)
+  + Added an external tool to assemble all music data.
+  + Because of MusicTool, we have also now ditched the s2e_[driver]_ suffix from
+    macro names!
+  + Now channels show the tempo in addition to other fields
+  * smps2asm.txt and mdmusicplayer.txt updated to have actually up-to-date
+     information
+  * Sound drivers are defined in separate file now, to allow MusicTool to work
+  * Fixed Sonic 1 volume envelopes; VolEnv_00 is hardcoded!
+  * Reconverted all files to match the new format
+  * Updated all smps2asm scripts and definition files to match the new format
+  * Filenames can now have spaces and other special symbols that was not
+    possible earlier
+  s+ Wrote a completely new UI for defining conversion parameters
+  s+ You can decide if the program pauses or produces debug output from the UI
+  s+ Replaced =comment with the builtin comment feature for macros
+  s+ Added subscript importing
+  s* Argument equates are now parsed to exist like normal Equates, and can be
+    referenced later in the program
+  s* Program warns if required subscripts are found, rather than just crashing
+  s* Improved error reporting for Dictionary invocation
+  s- Removed smpsHeaderStartSong hack, now each script can define it by
+    themselves!
+  > http://natsumi.noip.me/d/misc/MDMusicPlayer.0.2.7z
+================================================================================
+
+* v0.3
+  + GEMS sound driver support
+  + GEMS2ASM to convert GEMS music to ASM format similar to SMPS2ASM
+  + Aladdin sound driver
+  + Sonic Spinball sound driver
+  + Vectorman sound driver
+  + Events are fired when DMA is enabled or disabled
+  + GEMS debug menu
+  * Simplified the functions to update screen with new data
+  * Changed Hattari is Here to Ballad for You
+  * Changed sound driver type of all Sonic 1 sound driver music to MegaPCM
+  * Changed directory "exe" to "bin"
+  * Put all code files into a new "code" directory
+  * Put all SMPS drivers into a new "SMPS" directory
+  - Sonic 1 sound driver
+  - Start Light Zone track
+  * Some sound drivers have been given more descriptive names
+  m* MusicTool now supports the new directory order
+  m* Now supports GEMS separately

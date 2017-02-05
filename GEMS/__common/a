@@ -1,0 +1,16 @@
+gemsinit = $ffff0134
+gemsstartsong = $ffff0174
+gemsstopsong = $ffff018a
+gemsstopall = $ffff01b6
+gemsdmastart = $ffff0002
+gemsdmaend = $ffff0040
+gemssettempo = $ffff0192
+gemsmute = $ffff024e
+gemsstorembox = $ffff0274
+gemsreadmbox = $ffff027e
+gemspauseall = $ffff019a
+gemsresumeall = $ffff01a8
+gemsretrigenv = $ffff023e
+gemsprogchange = $ffff01dc
+gemsnatvol = $ffff02aa
+gemsnatmastervol = $ffff01d4
