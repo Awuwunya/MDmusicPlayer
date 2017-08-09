@@ -1,25 +1,21 @@
-smpsIsZ80 =	0
-nMaxPSG =	nA5
-sHold =		$E7
+smpsIsZ80 =		0
+; E7 - Do not attack of next note (HOLD)
+sHold =			$E7
+nMaxPSG	=	nA5
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
-	enum $00,	  VolEnv_00,VolEnv_01,VolEnv_02,VolEnv_03,VolEnv_04,VolEnv_05,VolEnv_06
-	enum VolEnv_06+1, VolEnv_07,VolEnv_08,VolEnv_09
+	enum $00,	  VolEnv_00
 ; ---------------------------------------------------------------------------------------------
 ; PSG modulation envelope equates
-	enum $00, 	  ModEnv_00
+	enum $00,	  ModEnv_00
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
-	enum $81, d81,d82,d83,d84,d85,d86,d87,d88,d89,d8A,d8B,d8C,d8D,d8E,d8F
-	enum $90, d90,d91,d92,d93,d94,d95,d96,d97,d98,d99,d9A,d9B,d9C,d9D,d9E,d9F
-	enum $A0, dA0,dA1,dA2,dA3,dA4,dA5,dA6,dA7,dA8,dA9,dAA,dAB,dAC,dAD,dAE,dAF
-	enum $B0, dB0,dB1,dB2,dB3,dB4,dB5,dB6,dB7,dB8,dB9,dBA,dBB,dBC,dBD,dBE,dBF
-	enum $C0, dC0,dC1,dC2,dC3,dC4,dC5,dC6,dC7,dC8
+	enum $81, dSnare
 ; ---------------------------------------------------------------------------------------------
 ; SMPS commands
 
 ; E0xx - Panning, AMS, FMS (PANAFMS - PAFMS_PAN)
-sPan	macro dir,amsfms
+sPan		macro dir,amsfms
 	if narg=2
 		dc.b $E0,\dir+\amsfms
 	else
@@ -32,9 +28,14 @@ saDetune	macro val
 	dc.b $E1,\val
     endm
 
-; E2xx - Set communications byte to xx (SET_COMM)
+; E2[xx] - Set communcations variable (SET_COMM)
 sComm		macro val
-	dc.b $E2,\val
+	dc.b $E2
+	if narg=1
+		dc.b \val
+	else
+		dc.b $FF
+	endif
     endm
 
 ; E3 - Stop FM (TRK_END - TEND_MUTE)
@@ -60,7 +61,7 @@ saVolFM		macro val1,val2
 	endif
     endm
 
-; E8xx - Stop note after xx ticks (NOTE_STOP - NSTOP_MULT)
+; E8xx - Stop note after xx frames (NOTE_STOP - NSTOP_MULT)
 sNoteTimeOut	macro val
 	dc.b $E8,\val
     endm
@@ -130,6 +131,11 @@ sNoisePSG		macro val
 	dc.b $F3,\val
     endm
 
+; F480 - Turn on Modulation (MOD_SET - MODS_ON)
+sModOn		macro
+	dc.b $F4,$80
+    endm
+
 ; F5xx - PSG volume envelope to xx (INSTRUMENT - INS_C_PSG)
 sVolEnvPSG	macro voice
 	dc.b $F5,voice
@@ -138,19 +144,19 @@ sVolEnvPSG	macro voice
 ; F6xxxx - Jump to xxxx (GOTO)
 sJump		macro loc
 	dc.b $F6
-	dc.w \loc-offset(*)-1
+	dc.w loc-offset(*)
     endm
 
 ; F7xxyyzzzz - Loop back to zzzz yy times, xx being the loop index for loop recursion fixing (LOOP)
 sLoop		macro index,loops,loc
 	dc.b $F7,\index,\loops
-	dc.w \loc-offset(*)-1
+	dc.w loc-offset(*)
     endm
 
 ; F8xxxx - Call pattern at xxxx, saving return point (GOSUB)
 sCall		macro loc
 	dc.b $F8
-	dc.w \loc-offset(*)-1
+	dc.w loc-offset(*)
     endm
 
 ; F9 - Return (RETURN)
@@ -198,13 +204,38 @@ ssTickMul	macro tmul
 	dc.b $FF,$02,\tmul
     endm
 
-sFadeSPCTRS	macro val1, val2
+sFadeSPC	macro val1, val2
 	dc.b $FF
 	if narg=0
 		dc.b $04,\val1,\val2
 	else
 		dc.b $03
 	endif
+    endm
+
+sFM4freq	macro val
+	dc.b $FF,$05,\bal
+    endm
+
+; FF06xx - Start note after xx frames (NOTE_STOP_REV - NSREV_RST)
+sNoteTimeIn	macro val
+	dc.b $FF,$06,\bal
+    endm
+
+; FF07xxxx - Jump to xxxx if F041 is nonzero (COND_JUMP - CJMP_NZ)
+sCondJmp	macro loc
+	dc.b $FF,$07
+	dc.w loc-offset(*)
+    endm
+
+; FF08xx - Set tempo only in PAL region
+ssPalTempo	macro tempo
+	dc.b $FF,$08,\tempo
+    endm
+
+; FF08xx - Set note duration only in PAL region
+ssPalNoteDur	macro dur
+	dc.b $FF,$09,\dur
     endm
 
 sPatch		macro

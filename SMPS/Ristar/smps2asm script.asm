@@ -1,38 +1,30 @@
 ?dat {
-	=endian "little"
-	@offset 0 "Please specify offset of this song in Z80 bank"
-	=upb 0x17D8
+	=endian "big"
 }
 
 ?header {
 	~£_Header
 	^ .of
-	! > sHeaderInit: {
-		%; Z80 offset is {$2!\offset\}
-	}
-	¤ .nw == \upb\ {
-		! > sHeaderPatchUniv:;
-		$ .sw;
-	} {
-		~£_Patches
-		! > sHeaderPatch: .aw;
-	}
-
+	! > sHeaderInit:;
+	~£_Patches
+	! > sHeaderPatch: .hw;
 	=FMnum .db
 	=PSGnum .nb
 	! > sHeaderCh: .lb, .db;
 	! > sHeaderTempo: .db, .db;
-	~£_DAC
-	! > sHeaderDAC: .aw;
+	~£_DAC#
+	! > sHeaderDAC: .hw;
+	$ .sw;
+	! > %sHeaderDAC: .hw;
 	$ .sw;
 	~£_FM#
-	* \FMnum\ - 1 {
-		! > sHeaderFM: .aw, .db, .db;
+	* \FMnum\ - 2 {
+		! > sHeaderFM: .hw, .db, .db;
 	}
 
 	~£_PSG#
 	* \PSGnum\ {
-		! > sHeaderPSG: .aw, .db, .db, .db, .db {
+		! > sHeaderPSG: .hw, .db, .db, .db, .db {
 			#4 {
 				?volenv;
 			}
@@ -86,6 +78,13 @@
 		! > spTotalLv: \b1\&0x7F, \b2\&0x7F, \b3\&0x7F, .db&0x7F;
 		=num \num\+1
 	}
+
+	¤ (.an-.pc)==1 {
+		¤ .nb==0 {
+			! > even:;
+			$ .sb;
+		}
+	}
 }
 
 ?volenv {
@@ -119,15 +118,6 @@
 	=VolEnv_1B 0x1B
 	=VolEnv_1C 0x1C
 	=VolEnv_1D 0x1D
-	=VolEnv_1E 0x1E
-	=VolEnv_1F 0x1F
-	=VolEnv_20 0x20
-	=VolEnv_21 0x21
-	=VolEnv_22 0x22
-	=VolEnv_23 0x23
-	=VolEnv_24 0x24
-	=VolEnv_25 0x25
-	=VolEnv_26 0x26
 }
 
 ?modenv {
@@ -143,76 +133,71 @@
 
 ?DAC {
 	=nRst 0x80
-	=dSnare 0x81
-	=dHighTom 0x82
-	=dMidTom 0x83
-	=dLowTom 0x84
-	=dFloorTom 0x85
-	=dKick 0x86
-	=dMuffledSnare 0x87
-	=dCrashCymbal 0x88
-	=dRideCymbal 0x89
-	=dLowMetalHit 0x8A
-	=dMetalHit 0x8B
-	=dHighMetalHit 0x8C
-	=dHigherMetalHit 0x8D
-	=dMidMetalHit 0x8E
-	=dClap 0x8F
-	=dElectricHighTom 0x90
-	=dElectricMidTom 0x91
-	=dElectricLowTom 0x92
-	=dElectricFloorTom 0x93
-	=dTightSnare 0x94
-	=dMidpitchSnare 0x95
-	=dLooseSnare 0x96
-	=dLooserSnare 0x97
-	=dHiTimpani 0x98
-	=dLowTimpani 0x99
-	=dMidTimpani 0x9A
-	=dQuickLooseSnare 0x9B
-	=dClick 0x9C
-	=dPowerKick 0x9D
-	=dQuickGlassCrash 0x9E
-	=dGlassCrashSnare 0x9F
-	=dGlassCrash 0xA0
-	=dGlassCrashKick 0xA1
-	=dQuietGlassCrash 0xA2
-	=dOddSnareKick 0xA3
-	=dKickExtraBass 0xA4
-	=dComeOn 0xA5
-	=dDanceSnare 0xA6
-	=dLooseKick 0xA7
-	=dModLooseKick 0xA8
-	=dWoo 0xA9
-	=dGo 0xAA
-	=dSnareGo 0xAB
-	=dPowerTom 0xAC
-	=dHiWoodBlock 0xAD
-	=dLowWoodBlock 0xAE
-	=dHiHitDrum 0xAF
-	=dLowHitDrum 0xB0
-	=dMetalCrashHit 0xB1
-	=dEchoedClapHit 0xB2
-	=dLowerEchoedClapHit 0xB3
-	=dHipHopHitKick 0xB4
-	=dHipHopHitPowerKick 0xB5
-	=dBassHey 0xB6
-	=dDanceStyleKick 0xB7
-	=dHipHopHitKick2 0xB8
-	=dHipHopHitKick3 0xB9
-	=dReverseFadingWind 0xBA
-	=dScratch 0xBB
-	=dLooseSnareNoise 0xBC
-	=dPowerKick2 0xBD
-	=dCrashingNoiseWoo 0xBE
-	=dQuickHit 0xBF
-	=dKickHey 0xC0
-	=dPowerKickHit 0xC1
-	=dLowPowerKickHit 0xC2
-	=dLowerPowerKickHit 0xC3
-	=dLowestPowerKickHit 0xC4
-	=dEchoedClapHit2 0xC5
-	=dLowerEchoedClapHit2 0xC6
+	=d81 0x81
+	=d82 0x82
+	=d83 0x83
+	=d84 0x84
+	=d85 0x85
+	=d86 0x86
+	=d87 0x87
+	=d88 0x88
+	=d89 0x89
+	=d8A 0x8A
+	=d8B 0x8B
+	=d8C 0x8C
+	=d8D 0x8D
+	=d8E 0x8E
+	=d8F 0x8F
+	=d90 0x90
+	=d91 0x91
+	=d92 0x92
+	=d93 0x93
+	=d94 0x94
+	=d95 0x95
+	=d96 0x96
+	=d97 0x97
+	=d98 0x98
+	=d99 0x99
+	=d9A 0x9A
+	=d9B 0x9B
+	=d9C 0x9C
+	=d9D 0x9D
+	=d9E 0x9E
+	=d9F 0x9F
+	=dA0 0xA0
+	=dA1 0xA1
+	=dA2 0xA2
+	=dA3 0xA3
+	=dA4 0xA4
+	=dA5 0xA5
+	=dA6 0xA6
+	=dA7 0xA7
+	=dA8 0xA8
+	=dA9 0xA9
+	=dAA 0xAA
+	=dAB 0xAB
+	=dAC 0xAC
+	=dAD 0xAD
+	=dAE 0xAE
+	=dAF 0xAF
+	=dB0 0xB0
+	=dB1 0xB1
+	=dB2 0xB2
+	=dB3 0xB3
+	=dB4 0xB4
+	=dB5 0xB5
+	=dB6 0xB6
+	=dB7 0xB7
+	=dB8 0xB8
+	=dB9 0xB9
+	=dBA 0xBA
+	=dBB 0xBB
+	=dBC 0xBC
+	=dBD 0xBD
+	=dBE 0xBE
+	=dBF 0xBF
+	=dC0 0xC0
+	=dC1 0xC1
 }
 
 ?note {
@@ -324,33 +309,37 @@
 		}
 	}
 	!0xE1 > saDetune: .db;
-	!0xE2 > sFade\t: .db;
+	!0xE2 > sComm\t: .db {
+		;
+	}
 	!0xE3 > sStopFM: {
 		;
 	}
-	!0xE4 > ssVol\t: 0x100-(.db | 0x80);
+	¤ .nb == 0xE4 {
+		$ .sb
+		¤ .nb == 0 {
+			! > sPanAni\t: .db;
+		} {
+			! > %sPanAni\t: .db, .db, .db, .db, .db;
+		}
+	}
 	!0xE5 > saVolFM\t: .db, .db;
 	!0xE6 > %saVolFM\t: .db;
 	=sHold 0xE7
 	!0xE8 > sNoteTimeOut: .db;
-	!0xE9 > sSpDashRev:;
-	!0xEA > sPlayDAC: .db | 0x80;
-	~£_Jumpe#
-	!0xEB > sLoopExit: .db, .aw;
+	!0xE9 > ssLFO\t: .db, .db;
+	!0xEA > ssTempo\t: .db;
+	!0xEB > sPlaySound: .db;
 	!0xEC > saVolPSG: .db;
-	!0xED > ssTransposeS3K: .db;
+	!0xED > sYMcmd\t: .db, .db;
 	!0xEE > sYM1cmd\t: .db, .db;
-	!0xF0 > ssModZ80: .db, .db, .db, .db;
-	!0xF1 > sModEnv\t: .db, .db {
-		#0 {
-			?modenv;
-		}
-	}
+	!0xEF > sPatFM\t: .db;
+	!0xF0 > ssMod68k: .db, .db, .db, .db;
+	!0xF1 > sModEnv\t: .db, .db;
 	!0xF2 > sStop:{
 		;
 	}
 	!0xF3 > sNoisePSG: .db;
-	!0xF4, 0x80 > sModOn:;
 	!0xF4 > %sModEnv\t: .db {
 		#0 {
 			?modenv;
@@ -362,40 +351,30 @@
 		}
 	}
 	~£_Jump#
-	!0xF6 > sJump\t: .aw {
+	!0xF6 > sJump\t: .rw {
 		;
 	}
 	~£_Loop#
-	!0xF7 > sLoop\t: .db, .db, .aw;
+	!0xF7 > sLoop\t: .db, .db, .rw;
 	~£_Call#
-	!0xF8 > sCall\t: .aw;
+	!0xF8 > sCall\t: .rw;
 	!0xF9 > sRet: {
 		;
 	}
-	!0xFA > sModOff:;
+	!0xFA > ssTickMulCh: .db;
 	!0xFB > saTranspose: .db;
-	~£_Loopsfx#
-	!0xFC > sLoopSFX: .aw;
-	!0xFD > sRawFreq: .db;
-	!0xFE > sSpecFM3: .db, .db, .db, .db {
-		%; Broken?
-	}
-	!0xFF, 0 > ssTempo\t: .db;
-	!0xFF, 1 > sPlaySound: .db;
-	!0xFF, 2 > sMusPause: .db;
-	!0xFF, 3 > sCopyMem: .dw, .db {
-		%; No song should ever use this command. It may good idea to remove it.
-	}
-	!0xFF, 4 > ssTickMul: .db;
-	!0xFF, 5 > sSSGEG: .db, .db, .db, .db;
-	!0xFF, 6 > sVolEnvFM: .db, .db;
-	!0xFF, 7 > sSpDashReset:;
-	¤ .nb == 0xEF {
-		$ .sb
-		¤ (.nb & 0x80) == 0 {
-			! > sPatFM\t: .db & 0x7F;
-		} {
-			! > sPatFM\t: .db & 0x7F, .db - 0x81;
-		}
-	}
+	!0xFC > sModOn:;
+	!0xFD > sModOff:;
+	!0xFE > sSpecFM3: .db, .db, .db, .db;
+	!0xFF, 0 > sSSGEG\t: .db, .db, .db, .db;
+	!0xFF, 1 > sMusPause: .db;
+	!0xFF, 2 > ssTickMul: .db;
+	!0xFF, 3 > sFadeSPC: .db, .db;
+	!0xFF, 4 > %sFadeSPC:;
+	!0xFF, 5 > sFM4freq: .db;
+	!0xFF, 6 > sNoteTimeIn: .db;
+	~£_Cond#
+	!0xFF, 7 > sCondJmp: .rw;
+	!0xFF, 8 > ssPalTempo: .db;
+	!0xFF, 9 > ssPalNoteDur: .db;
 }

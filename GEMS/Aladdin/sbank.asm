@@ -3053,7 +3053,8 @@
 	gPitBend	$0000
 	dc.b $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .16_01	dc.b $C0
 	gsVolume	$07
@@ -3106,7 +3107,8 @@
 	dc.b $D3, nB4, $9C, $C0, nE4, nB4, $C2, $ED
 	dc.b nAb4, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .16_02	dc.b $C0
 	gsVolume	$07
@@ -3196,7 +3198,8 @@
 	dc.b $C0, nB2, $C3, nE3, $81, $87, $C0, nBb2
 	dc.b $C1, $C8, nEb3, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .16_03	dc.b $C0
 	gsVolume	$07
@@ -3334,7 +3337,8 @@
 	gPitBend	$0000
 	dc.b $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .16_04	dc.b $C0
 	gsVolume	$07
@@ -3431,7 +3435,8 @@
 	dc.b $C7, nEb4, $8C, $CC, nEb3, $84, $C5, nEb3
 	dc.b $8B, $CC, nE3, nF3, nG3, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .16_05	dc.b $C0
 	gsVolume	$0A
@@ -3642,7 +3647,8 @@
 	dc.b nE3, $8B, $CC, nE3, $82, $C7, nD3, $84
 	dc.b $C5, nE3, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .17_00	dc.b $CC
 	gsVolumeAll	$07
@@ -5059,7 +5065,8 @@
 	dc.b nB5, nCs6, nEb6, nE6, nEb6, nD6, nEb6, nE6
 	dc.b nF6, nG6, $C3, $C0, nAb6, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .1E_01	gLoopStart
 	dc.b $C0
@@ -5081,7 +5088,8 @@
 	dc.b nAb4, nG4, nE4, nEb4, nF4, nG4, nAb4, nBb4
 	dc.b nE5, nEb5, nCs5, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .1E_02	gLoopStart
 	dc.b $C0
@@ -5111,7 +5119,8 @@
 	dc.b nE4, nF4, nFs4, nG4, nFs4, nF4, nE4, nEb4
 	dc.b nCs4, nB3, $C9, $C3, nBb3, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .1E_03	gLoopStart
 	dc.b $C0
@@ -5187,7 +5196,8 @@
 	dc.b $C3, nB4, $81, $99, $C0, nBb5, $C1, $DA
 	dc.b nEb5, $82, $C3, nEb5, nEb5, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .1E_04	gLoopStart
 	dc.b $C0
@@ -5216,7 +5226,8 @@
 	dc.b nCs6, $C6, nAb5, $C0, nB5, $C6, nE5, $C0
 	dc.b nBb5, $D2, $C6, nEb5, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .1E_05	gLoopStart
 	dc.b $C0
@@ -5261,7 +5272,8 @@
 	dc.b $C1, nEb5, $82, $C2, nF5, $81, $C1, nG5
 	dc.b $82, $C2, nBb5, $D2, $D8, nEb6, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .1E_06	gLoopStart
 	dc.b $C0
@@ -5319,7 +5331,8 @@
 	dc.b $81, $99, $C1, $DA, nG3, $82, $C0, nG3
 	dc.b $C3, nBb3, $C0, nG3, $C3, nBb3, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .1E_07	gLoopStart
 	dc.b $C0
@@ -5357,7 +5370,8 @@
 	dc.b nAb2, nAb2, nAb2, nAb2, nAb2, nAb2, nAb2, nEb2
 	dc.b nEb2, nEb2, nEb2, nEb2, nEb2, nEb2, nEb2, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .1F_00	dc.b $C0
 	gsPrio		$7D
@@ -6085,7 +6099,8 @@
 	dc.b $C7, nB3, $84, $C5, nBb3, $87, $C7, nAb3
 	dc.b $84, $C5, nBb3, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .26_01	dc.b $C0
 	gsPrio		$0C
@@ -6110,7 +6125,8 @@
 	dc.b nBb5, $84, $C5, nAb5, $87, $C7, nBb5, $84
 	dc.b $E5, $E5, nB5, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .26_02	dc.b $C0
 	gsPrio		$0B
@@ -6131,7 +6147,8 @@
 	dc.b $DD, nEb5, $93, $D3, nG5, $84, $E5, $E5
 	dc.b nAb5, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .26_03	dc.b $C0
 	gsPrio		$0E
@@ -6163,7 +6180,8 @@
 	dc.b nBb4, nG4, nAb4, nE4, nG4, $8B, $C6, $FC
 	dc.b nEb4, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .26_04	dc.b $C0
 	gsPrio		$10
@@ -6226,7 +6244,8 @@
 	dc.b $87, $C7, nEb2, $84, $C5, nCs2, $87, $C7
 	dc.b nB1, $84, $DF, $E5, nAb1, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .26_05	dc.b $C0
 	gsPrio		$19
@@ -6301,7 +6320,8 @@
 	dc.b nBb2, $88, $CC, nEb3, nEb3, $93, $D3, nBb2
 	dc.b $84, $C5, nEb3, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .26_06	dc.b $C0
 	gsPrio		$11
@@ -6332,7 +6352,8 @@
 	dc.b nG5, nBb5, nCs6, $9D, $DE, nB5, $85, $C6
 	dc.b nEb6, nFs6, $CA, $E6, nE6, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .26_07	dc.b $C0
 	gsPrio		$10
@@ -6410,7 +6431,8 @@
 	dc.b $C7, nAb5, $84, $C0, nBb5, nEb6, $C5, nG5
 	dc.b $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .26_08	dc.b $C0
 	gsPrio		$00
@@ -6557,7 +6579,8 @@
 	dc.b $81, nFs2, $CC, nFs2, nFs2, $93, $D3, nAb2
 	dc.b $81, $C5, nFs2, $C0
 	gLoopEnd
-	gStop
+	; Unused
+	dc.b $60
 
 .27_00	dc.b $C0
 	gsPrio		$64

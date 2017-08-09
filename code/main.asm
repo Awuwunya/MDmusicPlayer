@@ -36,6 +36,7 @@ Console:	dc.b 'SEGA MEGA DRIVE ' ; Hardware system ID
 		dc.b 'JUE '
 		dc.b 'OWN MODIFICATIONS. PLEASE CREDIT WHEN USED'
 ; ===========================================================================
+	even
 SystemPalette:
 	incbin  'code/main.pal'		; system main palette
 	even

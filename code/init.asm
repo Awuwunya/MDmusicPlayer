@@ -116,9 +116,9 @@ ResetProgram:
 
 .loop		move.l	d0,-(a0)		; clear next word of RAM
 		dbf	d1,.loop		; clear entire RAM
-		move.w	#Stack,sp		; reset stack ptr
 
 GameProgram:
+		move.w	#Stack,sp		; reset stack ptr
 		lea	VScrollRAM.w,a0		; get vertical scroll RAM
 		moveq	#(80/4)-1,d0		; amount of segments to write to
 		moveq	#8*4,d1			; set Vscroll amount
@@ -134,8 +134,8 @@ GameProgram:
 		dbf	d0,.load2		; loop until done
 		move.w	#$4E75,Driver68K	; put RTS in 68k RAM
 		move.b	#-1,LoadedDriver.w	; no sound driver loaded
-		move.w	#$100,Z80_reset		; reset the Z80
-
+		move.b	#TYPE_NULL,DriverType.w	;
+	;	move.w	#$100,Z80_reset		; reset the Z80
 
 		; fill Plane A+B with 0
 		dmaFillVRAM 0,$4000,$C000,0
@@ -148,7 +148,7 @@ GameProgram:
 		lea	VDP_control_port,a6
 .waitFillDone	move.w	(a6),d1
 		btst	#1,d1
-	;	bne.s	.waitFillDone
+		bne.s	.waitFillDone
 		move.w	#$8F02,(a6) 		; VRAM pointer increment: $0002
 
 	dma68kToVDP $FF0000,$20,$BC0,VRAM		; DMA font art

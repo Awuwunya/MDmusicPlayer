@@ -98,3 +98,10 @@ MDMusicPlayer changelog
   m* MusicTool now supports the new directory order
   m* Now supports GEMS separately
   s* Supports new folder structure
+  > http://natsumi.noip.me/d/misc/MDMusicPlayer.0.3.7z
+================================================================================
+
+* v0.4
+  s+ New operators, to allow for more complex disassembly process.
+  s- Remove the hacky method of resolving patches in favour of using the new
+    operators.

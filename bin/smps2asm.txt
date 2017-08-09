@@ -149,36 +149,43 @@ Contents:
           ("a"), backwards jump ("b"), or forwards jump ("f") right after the
           operation symbol. The symbol for this operation is '>'
 
+        * Arbitary Lable - This operator is used to create a lable at specific
+          position inside the file. It is useful for creating arbitary lables
+          and letting the interpreter know where specific type of data is at.
+          You may control the lable name with a lable format. The symbol for
+          this operation is '^'
+
     *2.2.2 - Operators*
       There are some special operators that allow to better interact with
       equates or bytes of the input file. The operator to interact with an
       equate goes as follows: '\<str>\' where str is the name of the equate.
       Other operators start with '/' and have 2-letter code;
-        * db - Data Byte; Reads a byte from the ROM on current cursor position,
+        * db - Data Byte; Reads a byte from the file on current cursor position,
           and then increments the cursor position by 1.
 
-        * lb - Last Byte; Reads a byte from the ROM on current cursor position
+        * lb - Last Byte; Reads a byte from the file on current cursor position
           minus 1.
 
-        * nb - Next Byte; Reads a byte from the ROM on current cursor position.
+        * nb - Next Byte; Reads a byte from the file on current cursor
+          position.
 
-        * sb - Skip Byte; Increments the cursor position by 1, but does not read
-          a byte.
+        * sb - Skip Byte; Increments the cursor position by 1, but does not
+          read a byte.
 
-        * dw - Data Word; Reads a word from the ROM on current cursor position,
-          and then increments the cursor position by 2.
+        * dw - Data Word; Reads a word from the file on current cursor
+          position, and then increments the cursor position by 2.
 
         * lw - Last Word; Reads a word from the ROM on current cursor position
           minus 2.
 
         * nw - Next Word; Reads a word from the ROM on current cursor position.
 
-        * sw - Skip Word; Increments the cursor position by 2, but does not read
-          a word.
+        * sw - Skip Word; Increments the cursor position by 2, but does not
+          read a word.
 
-        * aw - Absolute Word; Reads a word from the ROM on current cursor
-          position, treats it as an absolute pointer (usually to Z80 bank). Then
-          the data at destination position will be interpreted.
+        * aw - Absolute Word; Reads a word from the file on current cursor
+          position, treats it as an absolute pointer (usually to Z80 bank).
+          Then the data at destination position will be interpreted.
 
         * ow - Offset Word; Reads a word from the ROM on current cursor
           position, treats it as an offset pointer on the cursor position. Then
@@ -196,8 +203,23 @@ Contents:
 
         * nl - Next Long; Reads a long from the ROM on current cursor position.
 
-        * sl - Skip Long; Increments the cursor position by 4, but does not read
-          a long.
+        * sl - Skip Long; Increments the cursor position by 4, but does not
+          read  a long.
+
+        * pc - PC: Gets the current cursor position as a word.
+
+        * of - Offset: The origin offset of the file will be returned.
+
+        * sz - Size: Returns the size of the file. To get the offset after last
+          byte in the file, add of to value returned by sz.
+
+        * an - Absolute Lable Next: Gets the next lable from the current cursor
+          position. If no lable was found, the offset of the last byte after
+          end of file is returned. It is equivalent of doing of+sz.
+
+        * al - Absolute Lable Last: Gets the last lable from the current cursor
+          position. If no lable was found, the offset of the file will be
+          returned.
 
   *2.3 - Function format*
     *2.3.0 - Format*
@@ -309,6 +331,14 @@ Contents:
           <type> is the type of the operation. 'a' is absolute address´, 'f' is
           forward via offset addition, 'b' is backward via offset substraction.
           <off> is the offset, evaluated once the interpreter finds the Go to.
+
+      *2.3.11 - Arbitary Lable*
+        ^ <offset>
+        ^ .pc
+        ^ .sz-10
+          <offset> is the calculated offset of the offset where the lable will
+          go at. This can contain any arbitary operators, except any that
+          create lables themselves.
 ================================================================================
 
 *3 - Inner functionality*

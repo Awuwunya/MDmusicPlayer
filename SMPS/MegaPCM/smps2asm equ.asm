@@ -138,14 +138,14 @@ sJump		macro loc
 
 ; F7xxyyzzzz - Loop back to zzzz yy times, xx being the loop index for loop recursion fixing (LOOP)
 sLoop		macro index,loops,loc
-	dc.b $F7,index,loops
-	dc.w loc-offset(*)-1
+	dc.b $F7,\index,\loops
+	dc.w \loc-offset(*)-1
     endm
 
 ; F8xxxx - Call pattern at xxxx, saving return point (GOSUB)
 sCall		macro loc
 	dc.b $F8
-	dc.w loc-offset(*)-1
+	dc.w \loc-offset(*)-1
     endm
 
 ; F9 - Mutes FM1 (SND_OFF)

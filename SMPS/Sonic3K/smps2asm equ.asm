@@ -70,7 +70,7 @@ sMuteStopFM	macro
     endm
 
 ; E4 - S3K's special set volume absolute (VOLUME - VOL_ABS_S3K)
-smpsSetVol	macro val
+ssVol		macro val
 	dc.b $E4,-(\val)&$7F
     endm
 
@@ -141,9 +141,9 @@ ssModZ80	macro wait,speed,change,step
 
 ; F1xxyy - ?? (MOD_ENV - MENV_FMP)
 ; F4xx - ?? (MOD_ENV - MENV_GEN)
-sModEnv		macro val1,val1
+sModEnv		macro val1,val2
 	if narg=1
-		dc.b $F4,\val
+		dc.b $F4,\val1
 	else
 		dc.b $F1,\val1,\val2
 	endif

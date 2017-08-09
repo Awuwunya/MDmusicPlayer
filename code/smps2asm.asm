@@ -55,12 +55,14 @@ smpsPitch09hi	equ $6C
 smpsPitch10hi	equ $78
 ; ---------------------------------------------------------------------------------------------
 ; Note Equates
-	enum $80+0, nRst,nC0,nCs0,nD0,nEb0,nE0,nF0,nFs0,nG0,nAb0,nA0,nBb0,nB0,nC1,nCs1,nD1
-	enum nD1+1, nEb1,nE1,nF1,nFs1,nG1,nAb1,nA1,nBb1,nB1,nC2,nCs2,nD2,nEb2,nE2,nF2,nFs2
-	enum nFs2+1, nG2,nAb2,nA2,nBb2,nB2,nC3,nCs3,nD3,nEb3,nE3,nF3,nFs3,nG3,nAb3,nA3,nBb3
-	enum nBb3+1, nB3,nC4,nCs4,nD4,nEb4,nE4,nF4,nFs4,nG4,nAb4,nA4,nBb4,nB4,nC5,nCs5,nD5
-	enum nD5+1, nEb5,nE5,nF5,nFs5,nG5,nAb5,nA5,nBb5,nB5,nC6,nCs6,nD6,nEb6,nE6,nF6,nFs6
-	enum nFs6+1, nG6,nAb6,nA6,nBb6,nB6,nC7,nCs7,nD7,nEb7,nE7,nF7,nFs7,nG7,nAb7,nA7,nBb7
+	enum $80,  nRst,nC0,nCs0,nD0,nEb0,nE0,nF0,nFs0,nG0,nAb0,nA0,nBb0,nB0
+	enum nB0+1,	nC1,nCs1,nD1,nEb1,nE1,nF1,nFs1,nG1,nAb1,nA1,nBb1,nB1
+	enum nB1+1,	nC2,nCs2,nD2,nEb2,nE2,nF2,nFs2,nG2,nAb2,nA2,nBb2,nB2
+	enum nB2+1,	nC3,nCs3,nD3,nEb3,nE3,nF3,nFs3,nG3,nAb3,nA3,nBb3,nB3
+	enum nB3+1,	nC4,nCs4,nD4,nEb4,nE4,nF4,nFs4,nG4,nAb4,nA4,nBb4,nB4
+	enum nB4+1,	nC5,nCs5,nD5,nEb5,nE5,nF5,nFs5,nG5,nAb5,nA5,nBb5,nB5
+	enum nB5+1,	nC6,nCs6,nD6,nEb6,nE6,nF6,nFs6,nG6,nAb6,nA6,nBb6,nB6
+	enum nB6+1,	nC7,nCs7,nD7,nEb7,nE7,nF7,nFs7,nG7,nAb7,nA7,nBb7
 ; ---------------------------------------------------------------------------------------------
 ; Channel IDs for SFX
 cPSG1				EQU $80
@@ -153,17 +155,17 @@ sHeaderFM	macro loc,pitch,vol
     endm
 
 ; Header - Set up PSG Channel
-sHeaderPSG	macro loc,pitch,vol,modenv,volenv
+sHeaderPSG	macro loc,pitch,vol,null,volenv
 	if smpsIsZ80=1
 		Z80PtrROM \loc
 	else
 		dc.w \loc-sPointZero
 	endif
-	dc.b	\pitch,\vol,\modenv,\volenv
+	dc.b	\pitch,\vol,\null,\volenv
     endm
 
 ; Header - Set up SFX Channel
-smpsHeaderSFX	macro play,patch,loc,pitch,vol
+sHeaderSFX	macro play,patch,loc,pitch,vol
 	dc.b \play,\patch
 	if smpsIsZ80=1
 		Z80PtrROM \loc
