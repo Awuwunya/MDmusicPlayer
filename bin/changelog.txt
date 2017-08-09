@@ -102,6 +102,27 @@ MDMusicPlayer changelog
 ================================================================================
 
 * v0.4
-  s+ New operators, to allow for more complex disassembly process.
+  + Ristar SMPS2ASM scripts
+  + Megaman The Wily Wars SMPS2ASM scripts
+  * Migrate to new SMPS2ASM format
+  * Add few voice-only scripts
+  * Voices -> Patches
+  * Fixed a bug that would cause MDMusicPlayer to not properly function on
+    hardware
+  s+ You can now create labels at any address you desire
+  s+ New operator that allows you to get the current "program counter" (Offset
+    of the song + current offset inside of the song file) ("pc")
+  s+ Operator that returns the offset of the file ("of")
+  s+ Operator that returns the size of the entire file ("sz")
+  s+ Operator that allows SMPS2ASM find the next already defined lable, that is
+    after the current "program counter" ("an")
+  s+ Operator that allows SMPS2ASM find the previous already defined lable, that
+    is before the current "program counter" ("al")
+  s* Operators for Ristar-specific offsets
+  s* Reversed label parsing, so that patches may be evaluated last
+  s* Now . (dot) is used as operator symbol, over / which was used before.
+  s* Fixed some cases where strings with decimal points failed to be parsed as
+    longs.
   s- Remove the hacky method of resolving patches in favour of using the new
     operators.
+  s- sHeaderInit is no longer hardcoded

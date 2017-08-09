@@ -204,7 +204,7 @@ Contents:
         * nl - Next Long; Reads a long from the ROM on current cursor position.
 
         * sl - Skip Long; Increments the cursor position by 4, but does not
-          read  a long.
+          read a long.
 
         * pc - PC: Gets the current cursor position as a word.
 
