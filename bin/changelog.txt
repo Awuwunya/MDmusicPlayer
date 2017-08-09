@@ -15,7 +15,7 @@ MDMusicPlayer changelog
 
 * v0.0
   . Initial release
-  > http://natsumi.noip.me/d/misc/MDMusicPlayer.0.0.7z
+  > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.0.0.7z
 ================================================================================
 
 * v0.1
@@ -46,7 +46,7 @@ MDMusicPlayer changelog
   s* lable format would place ':' in wrong places or not at all with some setups
     This has now been corrected to always put one at the end.
   s* Various optimizations
-  > http://natsumi.noip.me/d/misc/MDMusicPlayer.0.1.7z
+  > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.0.1.7z
 ================================================================================
 
 * v0.2
@@ -74,7 +74,7 @@ MDMusicPlayer changelog
   s* Improved error reporting for Dictionary invocation
   s- Removed smpsHeaderStartSong hack, now each script can define it by
     themselves!
-  > http://natsumi.noip.me/d/misc/MDMusicPlayer.0.2.7z
+  > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.0.2.7z
 ================================================================================
 
 * v0.3
@@ -98,7 +98,7 @@ MDMusicPlayer changelog
   m* MusicTool now supports the new directory order
   m* Now supports GEMS separately
   s* Supports new folder structure
-  > http://natsumi.noip.me/d/misc/MDMusicPlayer.0.3.7z
+  > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.0.3.7z
 ================================================================================
 
 * v0.4
@@ -126,3 +126,4 @@ MDMusicPlayer changelog
   s- Remove the hacky method of resolving patches in favour of using the new
     operators.
   s- sHeaderInit is no longer hardcoded
+  > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.0.4.7z
