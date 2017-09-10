@@ -8,7 +8,7 @@ exit
 ..\bin\FW_KENSC\koscmp.exe drv.unc drv.68k
 del drv.unc
 
-..\..\bin\vasmz80 -Fbin -maxerrors=25 -nocase -L z80.lst -o drv.unc z80.asm
+..\..\bin\asm68k /p z80.asm, drv.unc, , z80.lst
 if exist drv.unc GOTO compress2
 pause
 exit

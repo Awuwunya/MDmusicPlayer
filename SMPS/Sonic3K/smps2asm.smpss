@@ -361,7 +361,7 @@
 	}
 	!0xF3 > sNoisePSG: .db;
 	!0xF4, 0x80 > sModOn:;
-	!0xF4 > sModEnv: .db {
+	!0xF4 > sModEnv: .lb {
 		:0 {
 			?modenv;
 		}

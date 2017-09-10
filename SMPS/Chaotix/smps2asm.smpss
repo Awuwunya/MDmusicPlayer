@@ -1,27 +1,28 @@
-### DYNAMITE HEADDY SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/08
-=endian "big"
-=offset 0
+### Sonic3K SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
+=endian "little"
+@offset 0 "Please specify offset of this song in Z80 bank"
+=upb 0x17D8
 / >header
 
 ?header {
 	! > sHeaderInit: {
 		~£_Header .of
+		%; Z80 offset is {$4!\offset\}
 	}
-
-	! > sHeaderPatch: .dw {
-		~£_Patches :0
+	¤ .nw == \upb\ {
+		! > sHeaderPatchUniv:;
+		$ .sw
+	} {
+		! > sHeaderPatch: .dw {
+			~£_Patches :0
+		}
 	}
 
 	=FMnum .db
 	=PSGnum .nb
 	! > sHeaderCh: .lb, .db;
 	! > sHeaderTempo: .db, .db;
-	! > sHeaderDAC: .dw {
-		~£_DAC :0
-	}
-
-	$ .sw
-	* \FMnum\ - 1 {
+	* \FMnum\ {
 		! > sHeaderFM: .dw, .db, .db {
 			~£_FM? :0
 		}
@@ -36,9 +37,16 @@
 		}
 	}
 
+	* 4 {
+		! > sHeaderPWM: .dw, .db, .db {
+			~£_PWM? :0
+		}
+	}
+
 	/£_FM? ?note ?comm
 	/£_PSG? ?note ?comm
 	/£_DAC ?DAC ?comm
+	/£_PWM? ?PWM ?comm
 	/£_Patches >patch
 }
 
@@ -88,13 +96,6 @@
 		! > spTotalLv: \b1\&0x7F, \b2\&0x7F, \b3\&0x7F, .db&0x7F;
 		=num \num\+1
 	}
-
-	¤ (.an-.pc)==1 {
-		¤ .nb==0 {
-			! > even:;
-			$ .sb;
-		}
-	}
 }
 
 ?volenv {
@@ -108,82 +109,75 @@
 	=VolEnv_07 7
 	=VolEnv_08 8
 	=VolEnv_09 9
+	=VolEnv_0A 0x0A
+	=VolEnv_0B 0x0B
+	=VolEnv_0C 0x0C
+	=VolEnv_0D 0x0D
+	=VolEnv_0E 0x0E
+	=VolEnv_0F 0x0F
+	=VolEnv_10 0x10
+	=VolEnv_11 0x11
+	=VolEnv_12 0x12
+	=VolEnv_13 0x13
+	=VolEnv_14 0x14
+	=VolEnv_15 0x15
+	=VolEnv_16 0x16
+	=VolEnv_17 0x17
+	=VolEnv_18 0x18
+	=VolEnv_19 0x19
+	=VolEnv_1A 0x1A
+	=VolEnv_1B 0x1B
+	=VolEnv_1C 0x1C
+	=VolEnv_1D 0x1D
+	=VolEnv_1E 0x1E
+	=VolEnv_1F 0x1F
+	=VolEnv_20 0x20
+	=VolEnv_21 0x21
+	=VolEnv_22 0x22
+	=VolEnv_23 0x23
+	=VolEnv_24 0x24
+	=VolEnv_25 0x25
+	=VolEnv_26 0x26
+}
+
+?modenv {
+	=ModEnv_00 0
+	=ModEnv_01 1
+	=ModEnv_02 2
+	=ModEnv_03 3
+	=ModEnv_04 4
+	=ModEnv_05 5
+	=ModEnv_06 6
+	=ModEnv_07 7
 }
 
 ?DAC {
 	=nRst 0x80
-	=d81 0x81
-	=d82 0x82
-	=d83 0x83
-	=d84 0x84
-	=d85 0x85
-	=d86 0x86
-	=d87 0x87
-	=d88 0x88
-	=d89 0x89
-	=d8A 0x8A
-	=d8B 0x8B
-	=d8C 0x8C
-	=d8D 0x8D
-	=d8E 0x8E
-	=d8F 0x8F
-	=d90 0x90
-	=d91 0x91
-	=d92 0x92
-	=d93 0x93
-	=d94 0x94
-	=d95 0x95
-	=d96 0x96
-	=d97 0x97
-	=d98 0x98
-	=d99 0x99
-	=d9A 0x9A
-	=d9B 0x9B
-	=d9C 0x9C
-	=d9D 0x9D
-	=d9E 0x9E
-	=d9F 0x9F
-	=dA0 0xA0
-	=dA1 0xA1
-	=dA2 0xA2
-	=dA3 0xA3
-	=dA4 0xA4
-	=dA5 0xA5
-	=dA6 0xA6
-	=dA7 0xA7
-	=dA8 0xA8
-	=dA9 0xA9
-	=dAA 0xAA
-	=dAB 0xAB
-	=dAC 0xAC
-	=dAD 0xAD
-	=dAE 0xAE
-	=dAF 0xAF
-	=dB0 0xB0
-	=dB1 0xB1
-	=dB2 0xB2
-	=dB3 0xB3
-	=dB4 0xB4
-	=dB5 0xB5
-	=dB6 0xB6
-	=dB7 0xB7
-	=dB8 0xB8
-	=dB9 0xB9
-	=dBA 0xBA
-	=dBB 0xBB
-	=dBC 0xBC
-	=dBD 0xBD
-	=dBE 0xBE
-	=dBF 0xBF
-	=dC0 0xC0
-	=dC1 0xC1
-	=dC2 0xC2
-	=dC3 0xC3
-	=dC4 0xC4
-	=dC5 0xC5
-	=dC6 0xC6
-	=dC7 0xC7
-	=dC8 0xC8
+}
+
+?PWM {
+	=nRst 0x80
+	=p81 0x81
+	=p82 0x82
+	=p83 0x83
+	=p84 0x84
+	=p85 0x85
+	=p86 0x86
+	=p87 0x87
+	=p88 0x88
+	=p89 0x89
+	=p8A 0x8A
+	=p8B 0x8B
+	=p8C 0x8C
+	=p8D 0x8D
+	=p8E 0x8E
+	=p8F 0x8F
+	=p90 0x90
+	=p91 0x91
+	=p92 0x92
+	=p93 0x93
+	=p94 0x94
+	=p95 0x95
 }
 
 ?note {
@@ -296,7 +290,7 @@
 	}
 	!0xE1 > saDetune: .db;
 	!0xE2 > sComm: .db;
-	!0xE3 > sMuteStopFM:{
+	!0xE3 > sStopFM: {
 		;
 	}
 	!0xE4, 0 > sPanAni:;
@@ -306,45 +300,61 @@
 	=sHold 0xE7
 	!0xE8 > sNoteTimeOut: .db;
 	!0xE9 > ssLFO: .db, .db;
-	!0xEA > ssTempo: .db;
-	!0xEB > sPlaySound: .db;
+	!0xEA > sPlayDAC: .db | 0x80;
+	!0xEB > sLoopExit: .db, .dw {
+		~£_Jumpe? :1
+	}
 	!0xEC > saVolPSG: .db;
 	!0xED > sYMcmd: .db, .db;
 	!0xEE > sYM1cmd: .db, .db;
 	!0xEF > sPatFM: .db;
-	!0xF0 > ssMod68k: .db, .db, .db, .db;
-	!0xF1 > sModEnv: .db, .db;
+	!0xF0 > ssModZ80: .db, .db, .db, .db;
+	!0xF1 > sModEnv: .db, .db {
+		:0 {
+			?modenv;
+		}
+	}
 	!0xF2 > sStop:{
 		;
 	}
 	!0xF3 > sNoisePSG: .db;
-	!0xF4 > sModEnv: .db;
+	!0xF4 > sModEnv: .db {
+		:0 {
+			?modenv;
+		}
+	}
 	!0xF5 > sVolEnvPSG: .db {
 		:0 {
 			?volenv;
 		}
 	}
-	!0xF6 > sJump: .ow {
+	!0xF6 > sJump: .dw {
 		~£_Jump? :0
 		;
 	}
-	!0xF7 > sLoop: .db, .db, .ow {
+	!0xF7 > sLoop: .db, .db, .dw {
 		~£_Loop? :2
 	}
-	!0xF8 > sCall: .ow {
+	!0xF8 > sCall: .dw {
 		~£_Call? :0
 	}
-	!0xF9 > sRet:{
+	!0xF9 > sRet: {
 		;
 	}
 	!0xFA > ssTickMulCh: .db;
 	!0xFB > saTranspose: .db;
-	!0xFC > sModOn:;
-	!0xFD > sModOff:;
-	!0xFE > sSpecFM3: .db, .db, .db, .db;
-	!0xFF, 0 > sSSGEG: .db, .db, .db, .db;
-	!0xFF, 1 > sMusPause: .db;
-	!0xFF, 2 > ssTickMul: .db;
-	!0xFF, 3 > sFadeSPCTRS: .db, .db;
-	!0xFF, 4 > sFadeSPCTRS:;
+	!0xFC > sPitchSlide: .db;
+	!0xFD > sRawFreq: .db;
+	!0xFE > sSpecFM3: .db, .db, .db, .db {
+		%; Broken?
+	}
+	!0xFF, 0 > ssTempo: .db;
+	!0xFF, 1 > sPlaySound: .db;
+	!0xFF, 2 > sMusPause: .db;
+	!0xFF, 3 > sCopyMem: .dw, .db {
+		%; No song should ever use this command. It may good idea to remove it.
+	}
+	!0xFF, 4 > ssTickMul: .db;
+	!0xFF, 5 > sSSGEG: .db, .db, .db, .db;
+	!0xFF, 6 > sVolEnvFM: .db, .db;
 }
