@@ -1,5 +1,5 @@
 DataSelect_Header:
-	sHeaderInit	; Z80 offset is $F027
+	sHeaderInit						; Z80 offset is $F027
 	sHeaderPatchUniv	
 	sHeaderCh	$06, $03
 	sHeaderTempo	$01, $40
@@ -9,69 +9,69 @@ DataSelect_Header:
 	sHeaderFM	DataSelect_FM3, $0C, $19
 	sHeaderFM	DataSelect_FM4, $0C, $19
 	sHeaderFM	DataSelect_FM5, $0C, $19
-	sHeaderPSG	DataSelect_PSG1, $00, $06, ModEnv_00, VolEnv_0C
-	sHeaderPSG	DataSelect_PSG2, $00, $06, ModEnv_00, VolEnv_0C
-	sHeaderPSG	DataSelect_PSG3, $00, $04, ModEnv_00, VolEnv_0C
-	; Unused
-	dc.b $F2, $F2
+	sHeaderPSG	DataSelect_PSG1, $00, $06, $00, VolEnv_0C
+	sHeaderPSG	DataSelect_PSG2, $00, $06, $00, VolEnv_0C
+	sHeaderPSG	DataSelect_PSG3, $00, $04, $00, VolEnv_0C
+	dc.b $F2, $F2	; Unused
 
-DataSelect_Call1:
-	; Unused
-	dc.b $86, $12, $86, $06, $86, $90, $0C, $86
-	dc.b $06, $86, $12, $86, $06, $86, $91, $92
-	dc.b $0C, $F9
+DataSelect_Call6:
+	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
+	dc.b $06, dKick, $12, dKick, $06, dKick, dElectricMidTom, dElectricLowTom
+	dc.b $0C
+	sRet		
+
 DataSelect_DAC:
 	dc.b nRst, $2A
-DataSelect_Loop1:
-DataSelect_Jump1:
-	sCall		DataSelect_Call1
-	sLoop		$01, $03, DataSelect_Loop1
+
+DataSelect_Loop6:
+	sCall		DataSelect_Call6
+	sLoop		$01, $03, DataSelect_Loop6
 	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
 	dc.b $06, dKick, $02, dHigherMetalHit, $03, dHigherMetalHit, $01, dHigherMetalHit
 	dc.b $0C, dHigherMetalHit, $06, dHigherMetalHit, $08, dHigherMetalHit, dMidMetalHit
 
-DataSelect_Loop2:
-	sCall		DataSelect_Call1
-	sLoop		$01, $03, DataSelect_Loop2
+DataSelect_Loop7:
+	sCall		DataSelect_Call6
+	sLoop		$01, $03, DataSelect_Loop7
 	dc.b dElectricLowTom, $06, dElectricLowTom, dElectricLowTom, $12, dElectricLowTom, $06, dElectricLowTom
 	dc.b dElectricLowTom, $1E, dElectricMidTom, $18
 
-DataSelect_Loop3:
-	sCall		DataSelect_Call1
-	sLoop		$01, $07, DataSelect_Loop3
+DataSelect_Loop8:
+	sCall		DataSelect_Call6
+	sLoop		$01, $07, DataSelect_Loop8
 	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
 	dc.b $06, dKick, dHigherMetalHit, $0C, dHigherMetalHit, $06, dHigherMetalHit, $0C
 	dc.b dElectricLowTom
 
-DataSelect_Loop4:
-	sCall		DataSelect_Call1
-	sLoop		$01, $02, DataSelect_Loop4
+DataSelect_Loop9:
+	sCall		DataSelect_Call6
+	sLoop		$01, $02, DataSelect_Loop9
 	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
 	dc.b $06, dKick, $12, dKick, $06, dKick, dElectricMidTom, dElectricLowTom
 	dc.b $0C, dElectricLowTom, $06, dElectricLowTom, dElectricLowTom, $12, dElectricLowTom, $06
 	dc.b dElectricLowTom, dElectricLowTom, $1E, dElectricMidTom, $18
 
-DataSelect_Loop5:
-	sCall		DataSelect_Call1
-	sLoop		$01, $03, DataSelect_Loop5
+DataSelect_Loop10:
+	sCall		DataSelect_Call6
+	sLoop		$01, $03, DataSelect_Loop10
 	dc.b dElectricLowTom, $06, dKick, $0C, dElectricLowTom, $06, dKick, dElectricLowTom
 	dc.b dElectricLowTom, dElectricMidTom, $0C, dKick, $12, dKick, $06, dKick
 	dc.b dElectricHighTom, $0C
 
-DataSelect_Loop6:
-	sCall		DataSelect_Call1
-	sLoop		$01, $02, DataSelect_Loop6
+DataSelect_Loop11:
+	sCall		DataSelect_Call6
+	sLoop		$01, $02, DataSelect_Loop11
 	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
 	dc.b $06, dKick, $12, dKick, $06, dKick, dElectricMidTom, dElectricLowTom
 	dc.b $0C, dElectricLowTom, dKick, $06, dElectricLowTom, $0C, dKick, $06
 	dc.b dElectricLowTom, nRst, $36
-	sJump		DataSelect_Jump1
-	; Unused
-	dc.b $F2
+	sJump		DataSelect_Loop6
+	dc.b $F2	; Unused
 
 DataSelect_FM1:
 	dc.b nRst, $2A
-DataSelect_Jump2:
+
+DataSelect_Jump1:
 	sPatFM		$00
 	dc.b nC1, $12, nG1, nC2, $0C, nF1, $12, nC2
 	dc.b nF2, $0C, nBb0, $12, nF1, nBb1, $0C, nG0
@@ -108,9 +108,8 @@ DataSelect_Jump2:
 	dc.b nC2, nF2, $0C, nG1, $18, nFs1, nF1, $12
 	dc.b nC2, nF2, $0C, nF1, $12, nC2, nF2, $0C
 	dc.b nBb0, $12, nC1, nD1, $0C, nRst, $30
-	sJump		DataSelect_Jump2
-	; Unused
-	dc.b $F2
+	sJump		DataSelect_Jump1
+	dc.b $F2	; Unused
 
 DataSelect_FM2:
 	sPatFM		$12
@@ -119,7 +118,7 @@ DataSelect_FM2:
 	sPan		spCenter, $00
 	dc.b nBb3, $0C, nBb3, $06, nBb3, $08, nA3, nBb3
 
-DataSelect_Jump3:
+DataSelect_Jump2:
 	dc.b nA3, $03, nBb3, nA3, $0C, nG3, $26, nA3
 	dc.b $08, nBb3, nC4, nA3, nG3, nG3, $03, nA3
 	dc.b nG3, $0C, nF3, $21, nCs3, $03, nD3, $0C
@@ -222,9 +221,8 @@ DataSelect_Jump3:
 	ssModZ80	$03, $01, $FC, $05
 	sPan		spCenter, $00
 	dc.b nBb3, $0C, nBb3, $06, nBb3, $08, nA3, nBb3
-	sJump		DataSelect_Jump3
-	; Unused
-	dc.b $F2
+	sJump		DataSelect_Jump2
+	dc.b $F2	; Unused
 
 DataSelect_FM3:
 	sPatFM		$12
@@ -233,7 +231,7 @@ DataSelect_FM3:
 	sPan		spCenter, $00
 	dc.b nBb2, $0C, nBb2, $06, nBb2, $08, nA2, nBb2
 
-DataSelect_Jump4:
+DataSelect_Jump3:
 	sPatFM		$12
 	saDetune	$FD
 	ssModZ80	$03, $01, $04, $05
@@ -343,9 +341,8 @@ DataSelect_Jump4:
 	sPan		spCenter, $00
 	dc.b nBb2, $08, nRst, $04, nBb2, $06, nBb2, $08
 	dc.b nA2, nBb2
-	sJump		DataSelect_Jump4
-	; Unused
-	dc.b $F2
+	sJump		DataSelect_Jump3
+	dc.b $F2	; Unused
 
 DataSelect_FM4:
 	dc.b nRst, $2A
@@ -354,7 +351,7 @@ DataSelect_FM4:
 	ssModZ80	$0F, $01, $FA, $05
 	sPan		spLeft, $00
 
-DataSelect_Jump5:
+DataSelect_Jump4:
 	dc.b nEb3, $06, nRst, nBb3, nG3, nRst, nD4, nRst
 	dc.b nEb3, nRst, nA3, nRst, nG3, nRst, nD4, nEb3
 	dc.b nRst, nD3, nRst, nA3, nF3, nRst, nC4, nRst
@@ -476,13 +473,13 @@ DataSelect_Jump5:
 	sPan		spLeft, $00
 	dc.b nD3, $06, nRst, $0C, nEb3, $06, nRst, $0C
 	dc.b nF3, $06, nRst, $36
-	sJump		DataSelect_Jump5
-	; Unused
-	dc.b $F2
+	sJump		DataSelect_Jump4
+	dc.b $F2	; Unused
 
 DataSelect_FM5:
 	dc.b nRst, $2A
-DataSelect_Jump6:
+
+DataSelect_Jump5:
 	sPatFM		$0B
 	saDetune	$FC
 	ssModZ80	$0F, $01, $06, $05
@@ -608,22 +605,21 @@ DataSelect_Jump6:
 	sPan		spRight, $00
 	dc.b nBb2, $06, nRst, $0C, nC3, $06, nRst, $0C
 	dc.b nD3, $06, nRst, $36
-	sJump		DataSelect_Jump6
-	; Unused
-	dc.b $F2
+	sJump		DataSelect_Jump5
+	dc.b $F2	; Unused
 
 DataSelect_PSG1:
 	sVolEnvPSG	VolEnv_04
 	saDetune	$00
 	dc.b nRst, $2A
 
-DataSelect_Jump7:
+DataSelect_Jump6:
 	sVolEnvPSG	VolEnv_04
-	sCall		DataSelect_Call2
+	sCall		DataSelect_Call1
 	dc.b nD3, nRst, $0C, nEb3, $06, nRst, $0C, nF3
 	dc.b $06, nRst, $0C, nG4, $06, nG5, nG4, nRst
 	dc.b $18
-	sCall		DataSelect_Call2
+	sCall		DataSelect_Call1
 	dc.b nF3, nF3, nF3, nRst, $0C, nF3, $06, nF3
 	dc.b nF3, nRst, $3C, nEb3, $03, nRst, $0F, nEb3
 	dc.b $03, nRst, $0F, nD3, $0C, nRst, $06, nD3
@@ -643,16 +639,16 @@ DataSelect_Jump7:
 	dc.b nF3, $03, nRst, $0F, nE3, $0C, nRst, $06
 	dc.b nE3, $03, nRst, $0F, nE3, $0C, nF3, nRst
 	dc.b $06, nF3, $0C, nRst, $06, nF3, nRst, $36
+	sCall		DataSelect_Call1
 	sCall		DataSelect_Call2
-	sCall		DataSelect_Call3
 	dc.b nF4, $02, nRst, $04, nF5, $06, nF4, $02
 	dc.b nRst, $0A, nF4, $06, nF5, $06, nF4, $02
 	dc.b nRst, $0A, nF4, $06, nF5, $06, nF4, $02
 	dc.b nRst, $0A
-	sCall		DataSelect_Call4
-	sJump		DataSelect_Jump7
+	sCall		DataSelect_Call3
+	sJump		DataSelect_Jump6
 
-DataSelect_Call2:
+DataSelect_Call1:
 	dc.b nEb3, $06, nRst, nBb3, nG3, nRst, nD4, nRst
 	dc.b nEb3, nRst, nA3, nRst, nG3, nRst, nD4, nEb3
 	dc.b nRst, nD3, nRst, nA3, nF3, nRst, nC4, nRst
@@ -660,14 +656,14 @@ DataSelect_Call2:
 	dc.b nRst, nEb3, nRst, nBb3, nG3, nRst, nD4, nRst
 	dc.b nEb3, nRst, nA3, nRst, nG3, nRst, nD4, nEb3
 	dc.b nRst
-	sRet	
+	sRet		
 
-DataSelect_Call3:
+DataSelect_Call2:
 	dc.b nF3, $06, nF3, nF3, nRst, $0C, nF3, $06
 	dc.b nF3, nF3, nRst, $36
-	sRet	
+	sRet		
 
-DataSelect_Call4:
+DataSelect_Call3:
 	dc.b nF4, $06, nF5, nF4, $0C, nF4, $06, nF5
 	dc.b nF4, $0C, nF4, $06, nF5, nF4, $0C, nF4
 	dc.b $06, nF5, nF4, $0C, nF4, $06, nF5, nF4
@@ -685,22 +681,21 @@ DataSelect_Call4:
 	dc.b nF5, nF4, $0C, nF4, $06, nF5, nF4, $0C
 	dc.b nF4, $06, nF5, nF4, $0C, nF4, $06, nF5
 	dc.b nF4, $0C, nF4, $06, nF5, nF4, $36
-	sRet	
-	; Unused
-	dc.b $F2
+	sRet		
+	dc.b $F2	; Unused
 
 DataSelect_PSG2:
 	sVolEnvPSG	VolEnv_04
 	saDetune	$FF
 	dc.b nRst, $2A
 
-DataSelect_Jump8:
+DataSelect_Jump7:
 	sVolEnvPSG	VolEnv_04
-	sCall		DataSelect_Call2
+	sCall		DataSelect_Call1
 	dc.b nBb3, nRst, $0C, nC4, $06, nRst, $0C, nD4
 	dc.b $06, nRst, $0C, nG5, $06, nG6, nG5, nRst
 	dc.b $18
-	sCall		DataSelect_Call2
+	sCall		DataSelect_Call1
 	dc.b nD4, nD4, nD4, nRst, $0C, nD4, $06, nD4
 	dc.b nD4, nRst, $3C, nAb2, $03, nRst, $0F, nAb2
 	dc.b $03, nRst, $0F, nAb2, $0C, nRst, $06, nAb2
@@ -720,24 +715,23 @@ DataSelect_Jump8:
 	dc.b nBb2, $03, nRst, $0F, nBb2, $0C, nRst, $06
 	dc.b nBb2, $03, nRst, $0F, nBb2, $0C, nA2, nRst
 	dc.b $06, nA2, $0C, nRst, $06, nA2, nRst, $36
+	sCall		DataSelect_Call1
 	sCall		DataSelect_Call2
-	sCall		DataSelect_Call3
 	dc.b nF4, $06, nF5, nF4, $0C, nF4, $06, nF5
 	dc.b nF4, $0C, nF4, $06, nF5, nF4, $0C
-	sCall		DataSelect_Call4
-	sJump		DataSelect_Jump8
-	; Unused
-	dc.b $F2
+	sCall		DataSelect_Call3
+	sJump		DataSelect_Jump7
+	dc.b $F2	; Unused
 
 DataSelect_PSG3:
 	sVolEnvPSG	VolEnv_02
 	sNoisePSG	$E7
 	dc.b nRst, $2A
 
-DataSelect_Jump9:
-	sCall		DataSelect_Call5
-	sCall		DataSelect_Call5
-	sCall		DataSelect_Call5
+DataSelect_Jump8:
+	sCall		DataSelect_Call4
+	sCall		DataSelect_Call4
+	sCall		DataSelect_Call4
 	saVolFM		$FD, $D3
 	dc.b $06
 	saVolFM		$03, $D3
@@ -747,36 +741,36 @@ DataSelect_Jump9:
 	dc.b $0C, nBb6, $06, nBb6, $08, nBb6, nBb6, $02
 	saVolFM		$03, $80
 	dc.b $06
-	sCall		DataSelect_Call5
-	sCall		DataSelect_Call5
+	sCall		DataSelect_Call4
+	sCall		DataSelect_Call4
 	saVolFM		$FD, $D3
 	dc.b $06
 	saVolFM		$03, $D3
 	dc.b $03, nBb6
 
-DataSelect_Loop8:
+DataSelect_Loop2:
 	dc.b nBb6, $06
-	sLoop		$00, $0D, DataSelect_Loop8
+	sLoop		$00, $0D, DataSelect_Loop2
 	dc.b nBb6, $32, nBb6, $34
-	sCall		DataSelect_Call6
-	sCall		DataSelect_Call6
-	sCall		DataSelect_Call6
-	sCall		DataSelect_Call6
-	sCall		DataSelect_Call6
-	sCall		DataSelect_Call6
-	sCall		DataSelect_Call6
+	sCall		DataSelect_Call5
+	sCall		DataSelect_Call5
+	sCall		DataSelect_Call5
+	sCall		DataSelect_Call5
+	sCall		DataSelect_Call5
+	sCall		DataSelect_Call5
+	sCall		DataSelect_Call5
 	dc.b nBb6, $06, nBb6, $03, nBb6, nBb6, $06, nBb6
 	dc.b nBb6, nBb6, nBb6, nBb6, $36
-	sCall		DataSelect_Call5
-	sCall		DataSelect_Call5
+	sCall		DataSelect_Call4
+	sCall		DataSelect_Call4
 	saVolFM		$FD, $D3
 	dc.b $06
 	saVolFM		$03, $D3
 	dc.b $03, nBb6
 
-DataSelect_Loop10:
+DataSelect_Loop4:
 	dc.b nBb6, $06
-	sLoop		$00, $0D, DataSelect_Loop10
+	sLoop		$00, $0D, DataSelect_Loop4
 	dc.b nBb6, $32, nBb6, $34, nBb6, $06, nBb6, $03
 	dc.b nBb6, nBb6, $06
 	saVolFM		$FD, $D3
@@ -784,13 +778,13 @@ DataSelect_Loop10:
 	dc.b nBb6, nBb6, nBb6, nBb6, nBb6, nBb6, nBb6, nBb6
 	dc.b nBb6
 
-DataSelect_Loop11:
+DataSelect_Loop5:
 	dc.b nBb6, $06, nBb6, $03, nBb6, nBb6, $06
 	saVolFM		$FD, $D3
 	saVolFM		$03, $D3
 	dc.b nBb6, nBb6, nBb6, nBb6, nBb6, nBb6, nBb6, nBb6
 	dc.b nBb6, nBb6, nBb6
-	sLoop		$00, $06, DataSelect_Loop11
+	sLoop		$00, $06, DataSelect_Loop5
 	dc.b nBb6, $06, nBb6, $03, nBb6, nBb6, $06
 	saVolFM		$FD, $D3
 	saVolFM		$03, $D3
@@ -804,22 +798,23 @@ DataSelect_Loop11:
 	dc.b $06
 	saVolFM		$FD, $D3
 	dc.b nBb6
-	sJump		DataSelect_Jump9
+	sJump		DataSelect_Jump8
 
-DataSelect_Call5:
+DataSelect_Call4:
 	saVolFM		$FD, $D3
 	dc.b $06
 	saVolFM		$03, $D3
 	dc.b $03, nBb6
 
-DataSelect_Loop7:
+DataSelect_Loop1:
 	dc.b nBb6, $06
-	sLoop		$01, $0E, DataSelect_Loop7
-	sRet	
+	sLoop		$01, $0E, DataSelect_Loop1
+	sRet		
 
-DataSelect_Call6:
+DataSelect_Call5:
 	dc.b nBb6, $06, nBb6, $03, nBb6
-DataSelect_Loop9:
+
+DataSelect_Loop3:
 	dc.b nBb6, $06
-	sLoop		$01, $0E, DataSelect_Loop9
-	sRet	
+	sLoop		$01, $0E, DataSelect_Loop3
+	sRet		

@@ -9,12 +9,11 @@ Izayoi_Header:
 	sHeaderFM	Izayoi_FM3, $00, $0E
 	sHeaderFM	Izayoi_FM4, $00, $10
 	sHeaderFM	Izayoi_FM5, $00, $15
-	sHeaderPSG	Izayoi_PSG1, $DC, $06, ModEnv_00, VolEnv_08
-	sHeaderPSG	Izayoi_PSG2, $DC, $09, ModEnv_00, VolEnv_08
-	sHeaderPSG	Izayoi_PSG3, $00, $01, ModEnv_00, VolEnv_02
+	sHeaderPSG	Izayoi_PSG1, $DC, $06, $00, VolEnv_08
+	sHeaderPSG	Izayoi_PSG2, $DC, $09, $00, VolEnv_08
+	sHeaderPSG	Izayoi_PSG3, $00, $01, $00, VolEnv_02
 
 Izayoi_FM1:
-Izayoi_Jump6:
 	dc.b nRst, $30, nRst, $0F
 	sPatFM		$3F
 	saVolFM		$02
@@ -25,9 +24,9 @@ Izayoi_Jump6:
 	saVolFM		$FE
 	sPatFM		$13
 	dc.b nC3, $0C
-	sPanAni		$00
+	sPanAni
 
-Izayoi_Jump2:
+Izayoi_Jump1:
 	sCall		Izayoi_Call1
 	sCall		Izayoi_Call1
 	dc.b nRst, $30
@@ -67,7 +66,7 @@ Izayoi_Jump2:
 	saVolFM		$01
 	sCall		Izayoi_Call3
 	sCall		Izayoi_Call4
-	sJump		Izayoi_Jump2
+	sJump		Izayoi_Jump1
 
 Izayoi_Call1:
 	sPatFM		$41
@@ -144,7 +143,7 @@ Izayoi_Call3:
 	sPatFM		$41
 	saVolFM		$FD
 
-Izayoi_Loop4:
+Izayoi_Loop1:
 	ssMod68k	$01, $03, $3F, $AF
 	dc.b nD4, $06
 	ssMod68k	$1C, $01, $0A, $04
@@ -161,7 +160,7 @@ Izayoi_Loop4:
 	dc.b nEb4, $06
 	ssMod68k	$1C, $01, $0A, $04
 	dc.b sHold, nF4, $12, sHold, $18
-	sLoop		$00, $02, Izayoi_Loop4
+	sLoop		$00, $02, Izayoi_Loop1
 	ssMod68k	$01, $03, $3F, $AF
 	dc.b nF4, $06
 	ssMod68k	$1C, $01, $0A, $04
@@ -254,82 +253,82 @@ Izayoi_Call4:
 	ssMod68k	$1C, $01, $0A, $04
 	saVolFM		$03
 	sRet
-	; Unused
-	dc.b $E0, $C0, $80, $30, $80, $80, $18, $EF
-	dc.b $30, $E0, $C0, $FB, $0C, $F0, $04, $03
-	dc.b $43, $03, $BD, $0C, $F0, $04, $01, $0A
-	dc.b $05, $E7, $BF, $30, $E6, $02, $E7, $BE
-	dc.b $02, $E7, $BD, $E6, $03, $E7, $BC, $E7
-	dc.b $BB, $E6, $04, $E7, $BA, $E7, $B9, $FB
-	dc.b $F4, $E6, $F7, $80, $30, $80, $FB, $0C
-	dc.b $EF, $3C, $E6, $08, $B1, $04, $A5, $A7
-	dc.b $B3, $04, $A5, $A7, $B5, $04, $A5, $A7
-	dc.b $B6, $04, $A5, $A7, $B8, $04, $A5, $A7
-	dc.b $BA, $04, $A5, $A7, $BD, $04, $A5, $A7
-	dc.b $BF, $04, $A5, $A7, $FB, $F4, $E6, $F8
-	dc.b $80, $30, $80, $EF, $30, $F0, $0F, $01
-	dc.b $04, $05, $E6, $00, $C2, $04, $BF, $C4
-	dc.b $BF, $BC, $BF, $F7, $00, $03, $FF, $F5
-	dc.b $BD, $BA, $BC, $BA, $B6, $BA, $E6, $00
-	dc.b $80, $30, $80, $EF, $42, $FB, $0C, $E6
-	dc.b $FD, $F0, $0F, $01, $04, $05, $BD, $06
-	dc.b $F0, $05, $02, $32, $32, $B8, $0C, $F7
-	dc.b $00, $05, $FF, $EE, $F0, $0F, $01, $04
-	dc.b $05, $BD, $06, $FB, $F4, $E6, $03, $F9
-	dc.b $E0, $40, $F0, $0F, $01, $04, $05, $EF
-	dc.b $41, $E6, $FB, $A2, $12, $A7, $06, $80
-	dc.b $0C, $E6, $05, $E0, $C0, $EF, $1E, $E6
-	dc.b $FB, $AA, $06, $AB, $E6, $05, $E0, $40
-	dc.b $EF, $41, $E6, $FB, $A0, $12, $A7, $06
-	dc.b $80, $0C, $E6, $05, $E0, $C0, $EF, $1E
-	dc.b $E6, $FB, $A8, $06, $A9, $80, $E6, $05
-	dc.b $E0, $40, $EF, $41, $E6, $FB, $9F, $12
-	dc.b $A0, $05, $80, $13, $E6, $05, $E0, $C0
-	dc.b $EF, $30, $E6, $02, $AE, $06, $BA, $03
-	dc.b $B5, $01, $B6, $E7, $B7, $E7, $B8, $05
-	dc.b $80, $07, $BA, $04, $80, $02, $E6, $FE
-	dc.b $E0, $40, $EF, $41, $E6, $FB, $A2, $06
-	dc.b $80, $0C, $E6, $05, $F7, $00, $03, $FF
-	dc.b $90, $E6, $FB, $A2, $12, $A7, $06, $80
-	dc.b $0C, $E6, $05, $E0, $C0, $EF, $1E, $E6
-	dc.b $FB, $AA, $06, $AB, $E6, $05, $E0, $40
-	dc.b $EF, $41, $E6, $FB, $A0, $12, $A7, $06
-	dc.b $80, $0C, $E6, $05, $E0, $C0, $EF, $1E
-	dc.b $E6, $FB, $A8, $06, $A9, $80, $E6, $05
-	dc.b $E0, $40, $EF, $41, $E6, $FB, $9F, $12
-	dc.b $A0, $0C, $A4, $F0, $01, $03, $E5, $A0
-	dc.b $E4, $02, $03, $01, $03, $02, $E7, $30
-	dc.b $E6, $05, $FD, $E4, $00, $F9, $EF, $41
-	dc.b $E0, $40, $F0, $0F, $01, $04, $05, $E6
-	dc.b $FB, $80, $0C, $A5, $12, $A7, $A5, $A7
-	dc.b $1E, $80, $0C, $A5, $10, $80, $02, $A7
-	dc.b $12, $AC, $06, $AB, $A7, $A5, $1E, $F7
-	dc.b $00, $04, $FC, $C9, $E6, $05, $F9, $E0
-	dc.b $40, $F0, $0F, $01, $04, $05, $EF, $41
-	dc.b $E6, $FB, $A9, $08, $A9, $04, $AB, $06
-	dc.b $80, $AC, $80, $AB, $80, $AC, $80, $AB
-	dc.b $08, $AE, $04, $80, $0C, $08, $A9, $04
-	dc.b $E7, $A9, $08, $A9, $04, $AB, $06, $80
-	dc.b $AC, $80, $AB, $80, $AC, $80, $AB, $08
-	dc.b $A9, $04, $80, $0C, $08, $A9, $04, $E7
-	dc.b $A9, $08, $A9, $04, $AB, $06, $80, $AC
-	dc.b $80, $AB, $80, $AC, $80, $AB, $08, $AE
-	dc.b $04, $80, $0C, $08, $A9, $04, $E7, $A9
-	dc.b $08, $A9, $04, $AB, $06, $80, $AC, $80
-	dc.b $AB, $80, $AC, $80, $AB, $08, $A9, $04
-	dc.b $F7, $00, $02, $FF, $CE, $80, $0C, $08
-	dc.b $80, $04, $A9, $08, $A9, $04, $AB, $06
-	dc.b $80, $AC, $80, $AB, $80, $AC, $80, $AB
-	dc.b $08, $AE, $04, $80, $0C, $08, $A9, $04
-	dc.b $E7, $A9, $08, $A9, $04, $AB, $06, $80
-	dc.b $AC, $80, $EF, $41, $A7, $0C, $F0, $01
-	dc.b $03, $E5, $A0, $E4, $02, $02, $00, $03
-	dc.b $02, $E7, $30, $FD, $E4, $00, $E6, $05
-	dc.b $F9
+	dc.b $E0, $C0, $80, $30, $80, $80, $18, $EF	; Unused
+	dc.b $30, $E0, $C0, $FB, $0C, $F0, $04, $03	; Unused
+	dc.b $43, $03, $BD, $0C, $F0, $04, $01, $0A	; Unused
+	dc.b $05, $E7, $BF, $30, $E6, $02, $E7, $BE	; Unused
+	dc.b $02, $E7, $BD, $E6, $03, $E7, $BC, $E7	; Unused
+	dc.b $BB, $E6, $04, $E7, $BA, $E7, $B9, $FB	; Unused
+	dc.b $F4, $E6, $F7, $80, $30, $80, $FB, $0C	; Unused
+	dc.b $EF, $3C, $E6, $08, $B1, $04, $A5, $A7	; Unused
+	dc.b $B3, $04, $A5, $A7, $B5, $04, $A5, $A7	; Unused
+	dc.b $B6, $04, $A5, $A7, $B8, $04, $A5, $A7	; Unused
+	dc.b $BA, $04, $A5, $A7, $BD, $04, $A5, $A7	; Unused
+	dc.b $BF, $04, $A5, $A7, $FB, $F4, $E6, $F8	; Unused
+	dc.b $80, $30, $80, $EF, $30, $F0, $0F, $01	; Unused
+	dc.b $04, $05, $E6, $00, $C2, $04, $BF, $C4	; Unused
+	dc.b $BF, $BC, $BF, $F7, $00, $03, $FF, $F5	; Unused
+	dc.b $BD, $BA, $BC, $BA, $B6, $BA, $E6, $00	; Unused
+	dc.b $80, $30, $80, $EF, $42, $FB, $0C, $E6	; Unused
+	dc.b $FD, $F0, $0F, $01, $04, $05, $BD, $06	; Unused
+	dc.b $F0, $05, $02, $32, $32, $B8, $0C, $F7	; Unused
+	dc.b $00, $05, $FF, $EE, $F0, $0F, $01, $04	; Unused
+	dc.b $05, $BD, $06, $FB, $F4, $E6, $03, $F9	; Unused
+	dc.b $E0, $40, $F0, $0F, $01, $04, $05, $EF	; Unused
+	dc.b $41, $E6, $FB, $A2, $12, $A7, $06, $80	; Unused
+	dc.b $0C, $E6, $05, $E0, $C0, $EF, $1E, $E6	; Unused
+	dc.b $FB, $AA, $06, $AB, $E6, $05, $E0, $40	; Unused
+	dc.b $EF, $41, $E6, $FB, $A0, $12, $A7, $06	; Unused
+	dc.b $80, $0C, $E6, $05, $E0, $C0, $EF, $1E	; Unused
+	dc.b $E6, $FB, $A8, $06, $A9, $80, $E6, $05	; Unused
+	dc.b $E0, $40, $EF, $41, $E6, $FB, $9F, $12	; Unused
+	dc.b $A0, $05, $80, $13, $E6, $05, $E0, $C0	; Unused
+	dc.b $EF, $30, $E6, $02, $AE, $06, $BA, $03	; Unused
+	dc.b $B5, $01, $B6, $E7, $B7, $E7, $B8, $05	; Unused
+	dc.b $80, $07, $BA, $04, $80, $02, $E6, $FE	; Unused
+	dc.b $E0, $40, $EF, $41, $E6, $FB, $A2, $06	; Unused
+	dc.b $80, $0C, $E6, $05, $F7, $00, $03, $FF	; Unused
+	dc.b $90, $E6, $FB, $A2, $12, $A7, $06, $80	; Unused
+	dc.b $0C, $E6, $05, $E0, $C0, $EF, $1E, $E6	; Unused
+	dc.b $FB, $AA, $06, $AB, $E6, $05, $E0, $40	; Unused
+	dc.b $EF, $41, $E6, $FB, $A0, $12, $A7, $06	; Unused
+	dc.b $80, $0C, $E6, $05, $E0, $C0, $EF, $1E	; Unused
+	dc.b $E6, $FB, $A8, $06, $A9, $80, $E6, $05	; Unused
+	dc.b $E0, $40, $EF, $41, $E6, $FB, $9F, $12	; Unused
+	dc.b $A0, $0C, $A4, $F0, $01, $03, $E5, $A0	; Unused
+	dc.b $E4, $02, $03, $01, $03, $02, $E7, $30	; Unused
+	dc.b $E6, $05, $FD, $E4, $00, $F9, $EF, $41	; Unused
+	dc.b $E0, $40, $F0, $0F, $01, $04, $05, $E6	; Unused
+	dc.b $FB, $80, $0C, $A5, $12, $A7, $A5, $A7	; Unused
+	dc.b $1E, $80, $0C, $A5, $10, $80, $02, $A7	; Unused
+	dc.b $12, $AC, $06, $AB, $A7, $A5, $1E, $F7	; Unused
+	dc.b $00, $04, $FC, $C9, $E6, $05, $F9, $E0	; Unused
+	dc.b $40, $F0, $0F, $01, $04, $05, $EF, $41	; Unused
+	dc.b $E6, $FB, $A9, $08, $A9, $04, $AB, $06	; Unused
+	dc.b $80, $AC, $80, $AB, $80, $AC, $80, $AB	; Unused
+	dc.b $08, $AE, $04, $80, $0C, $08, $A9, $04	; Unused
+	dc.b $E7, $A9, $08, $A9, $04, $AB, $06, $80	; Unused
+	dc.b $AC, $80, $AB, $80, $AC, $80, $AB, $08	; Unused
+	dc.b $A9, $04, $80, $0C, $08, $A9, $04, $E7	; Unused
+	dc.b $A9, $08, $A9, $04, $AB, $06, $80, $AC	; Unused
+	dc.b $80, $AB, $80, $AC, $80, $AB, $08, $AE	; Unused
+	dc.b $04, $80, $0C, $08, $A9, $04, $E7, $A9	; Unused
+	dc.b $08, $A9, $04, $AB, $06, $80, $AC, $80	; Unused
+	dc.b $AB, $80, $AC, $80, $AB, $08, $A9, $04	; Unused
+	dc.b $F7, $00, $02, $FF, $CE, $80, $0C, $08	; Unused
+	dc.b $80, $04, $A9, $08, $A9, $04, $AB, $06	; Unused
+	dc.b $80, $AC, $80, $AB, $80, $AC, $80, $AB	; Unused
+	dc.b $08, $AE, $04, $80, $0C, $08, $A9, $04	; Unused
+	dc.b $E7, $A9, $08, $A9, $04, $AB, $06, $80	; Unused
+	dc.b $AC, $80, $EF, $41, $A7, $0C, $F0, $01	; Unused
+	dc.b $03, $E5, $A0, $E4, $02, $02, $00, $03	; Unused
+	dc.b $02, $E7, $30, $FD, $E4, $00, $E6, $05	; Unused
+	dc.b $F9	; Unused
 
 Izayoi_FM2:
 	dc.b nRst, $30, nRst
-Izayoi_Jump3:
+
+Izayoi_Jump2:
 	saVolFM		$FE
 	sPatFM		$08
 	sNoteTimeOut	$00
@@ -368,10 +367,47 @@ Izayoi_Jump3:
 	sPanAni		$01, $01, $01, $03, $01
 	dc.b sHold, $30, sHold, $30
 	sModOff
-	sPanAni		$00
+	sPanAni
 	saVolFM		$04
 	saVolFM		$01
 	sPatFM		$43
+
+Izayoi_Loop2:
+	dc.b nA2, $06
+	sLoop		$00, $17, Izayoi_Loop2
+	dc.b nD3, $06
+	ssMod68k	$14, $01, $DF, $AF
+	dc.b sHold, $18
+	sModOff
+	dc.b nD3, $06, nD3, nD2, nD3
+
+Izayoi_Loop3:
+	dc.b nA2, $06
+	sLoop		$00, $17, Izayoi_Loop3
+	dc.b nD3, $06, sHold, $30, sHold, $30, nRst, $30
+
+Izayoi_Loop4:
+	dc.b nA2, $06, nA2, nA2, nA2, nA2, $06, nA2
+	dc.b nA2, nA2, nA2, nC3, sHold, $0C, nG2, $18
+	dc.b nA2, $06, nA2, nA2, nA2, nA2, $06, nA2
+	dc.b nA2, nA2, nA2, nE3, sHold, $0C, nEb3, $06
+	dc.b nEb2, nE3, nE2
+	sLoop		$00, $02, Izayoi_Loop4
+	dc.b nD3, $06, nD3, nD2, nD3, $0C, nD3, $06
+	dc.b nD2, nD3, sHold, $06, nD3, nD2, nD3, $0C
+	dc.b nD3, $06, nD2, nD3, nD3, $06, nD3, nD2
+	dc.b nD3, $0C, nD3, $06, nD2, nD3, sHold, $06
+	dc.b nD3, nD2, nD3, $0C, nD3, $06, nD2, nD3
+	dc.b nF3, $06, nF3, nF2, nF3, $0C, nF3, $06
+	dc.b nF2, nF3, sHold, $06, nF3, nF2, nF3, $0C
+	dc.b nF3, $06, nF2, nC3, sHold, $06, nC2, nC2
+	dc.b nD3, $0C, nD2, $06, nD2, nE3, sHold, $06
+	dc.b nE2, nE2, nFs3, sHold, $18, sHold, $18, nFs3
+	dc.b $02, sHold, nF3, sHold, nE3, sHold, nEb3, sHold
+	dc.b nD3, sHold, nCs3, sHold, nC3, sHold, nB2, sHold
+	dc.b nBb2, sHold, nA2, sHold, nAb2, sHold, nG2, sHold
+	dc.b nFs2, sHold, nF2, sHold, nE2, sHold, nEb2, sHold
+	dc.b nD2, sHold, nCs2, nRst, $24, nRst, $18
 
 Izayoi_Loop5:
 	dc.b nA2, $06
@@ -408,47 +444,10 @@ Izayoi_Loop7:
 	dc.b nD3, sHold, nCs3, sHold, nC3, sHold, nB2, sHold
 	dc.b nBb2, sHold, nA2, sHold, nAb2, sHold, nG2, sHold
 	dc.b nFs2, sHold, nF2, sHold, nE2, sHold, nEb2, sHold
-	dc.b nD2, sHold, nCs2, nRst, $24, nRst, $18
-
-Izayoi_Loop8:
-	dc.b nA2, $06
-	sLoop		$00, $17, Izayoi_Loop8
-	dc.b nD3, $06
-	ssMod68k	$14, $01, $DF, $AF
-	dc.b sHold, $18
-	sModOff
-	dc.b nD3, $06, nD3, nD2, nD3
-
-Izayoi_Loop9:
-	dc.b nA2, $06
-	sLoop		$00, $17, Izayoi_Loop9
-	dc.b nD3, $06, sHold, $30, sHold, $30, nRst, $30
-
-Izayoi_Loop10:
-	dc.b nA2, $06, nA2, nA2, nA2, nA2, $06, nA2
-	dc.b nA2, nA2, nA2, nC3, sHold, $0C, nG2, $18
-	dc.b nA2, $06, nA2, nA2, nA2, nA2, $06, nA2
-	dc.b nA2, nA2, nA2, nE3, sHold, $0C, nEb3, $06
-	dc.b nEb2, nE3, nE2
-	sLoop		$00, $02, Izayoi_Loop10
-	dc.b nD3, $06, nD3, nD2, nD3, $0C, nD3, $06
-	dc.b nD2, nD3, sHold, $06, nD3, nD2, nD3, $0C
-	dc.b nD3, $06, nD2, nD3, nD3, $06, nD3, nD2
-	dc.b nD3, $0C, nD3, $06, nD2, nD3, sHold, $06
-	dc.b nD3, nD2, nD3, $0C, nD3, $06, nD2, nD3
-	dc.b nF3, $06, nF3, nF2, nF3, $0C, nF3, $06
-	dc.b nF2, nF3, sHold, $06, nF3, nF2, nF3, $0C
-	dc.b nF3, $06, nF2, nC3, sHold, $06, nC2, nC2
-	dc.b nD3, $0C, nD2, $06, nD2, nE3, sHold, $06
-	dc.b nE2, nE2, nFs3, sHold, $18, sHold, $18, nFs3
-	dc.b $02, sHold, nF3, sHold, nE3, sHold, nEb3, sHold
-	dc.b nD3, sHold, nCs3, sHold, nC3, sHold, nB2, sHold
-	dc.b nBb2, sHold, nA2, sHold, nAb2, sHold, nG2, sHold
-	dc.b nFs2, sHold, nF2, sHold, nE2, sHold, nEb2, sHold
 	dc.b nD2, sHold, nCs2, nRst, $24, nRst, $30, nRst
 	dc.b $12
 
-Izayoi_Loop11:
+Izayoi_Loop8:
 	saVolFM		$FE
 	dc.b nA2, $0C
 	saVolFM		$02
@@ -460,9 +459,9 @@ Izayoi_Loop11:
 	saVolFM		$FE
 	dc.b nA3, nA2
 	saVolFM		$02
-	sLoop		$00, $04, Izayoi_Loop11
+	sLoop		$00, $04, Izayoi_Loop8
 
-Izayoi_Loop12:
+Izayoi_Loop9:
 	saVolFM		$FE
 	dc.b nC3, $0C
 	saVolFM		$02
@@ -474,7 +473,7 @@ Izayoi_Loop12:
 	saVolFM		$FE
 	dc.b nC4, nC3
 	saVolFM		$02
-	sLoop		$00, $03, Izayoi_Loop12
+	sLoop		$00, $03, Izayoi_Loop9
 	saVolFM		$FE
 	dc.b nC3, $0C
 	saVolFM		$02
@@ -487,13 +486,13 @@ Izayoi_Loop12:
 	dc.b nC4, nC3, $0C
 	saVolFM		$02
 
-Izayoi_Loop13:
+Izayoi_Loop10:
 	dc.b nA2, $12, nA2, $06, nA2, $18, nA2, $06
 	dc.b nA2, nA2, nA2, nA2, $06, nA2, nA2, nA2
 	dc.b nA2, $06, nA2, nA2, nA2, nA2, $06, nA2
 	dc.b nA2, nA2, nA2, $06, nA2, nA2, nA2, nA2
 	dc.b $06, nA2, nA2, nA2
-	sLoop		$00, $03, Izayoi_Loop13
+	sLoop		$00, $03, Izayoi_Loop10
 	dc.b nA2, $12, nA2, $06, nA2, $0C, nC3, $12
 	dc.b nC3, $06, nC3, $0C, nEb3, $12, nEb3, $06
 	dc.b nEb3, $06, nEb2, nEb3, nEb2, nEb3, $06, nEb2
@@ -504,56 +503,56 @@ Izayoi_Loop13:
 	dc.b nE3, $06, sHold, $60
 	sModOff
 	saVolFM		$FF
-	sJump		Izayoi_Jump3
-	; Unused
-	dc.b $F2, $F8, $00, $A2, $E6, $FD, $EF, $43
-	dc.b $A2, $12, $A7, $06, $80, $18, $A0, $12
-	dc.b $A7, $06, $80, $18, $80, $06, $9F, $12
-	dc.b $A0, $05, $80, $13, $80, $18, $06, $A2
-	dc.b $80, $0C, $F7, $00, $03, $A2, $12, $A7
-	dc.b $06, $80, $18, $A0, $12, $A7, $06, $80
-	dc.b $18, $80, $06, $9F, $12, $A0, $0C, $9D
-	dc.b $E7, $30, $F8, $00, $96, $F8, $00, $93
-	dc.b $EF, $08, $E8, $00, $A7, $06, $B3, $B1
-	dc.b $A7, $B0, $AE, $A7, $0C, $AE, $06, $AC
-	dc.b $A7, $0C, $B0, $06, $A7, $B1, $B3, $F7
-	dc.b $00, $04, $FD, $9B, $E6, $04, $EF, $43
-	dc.b $F8, $00, $43, $F8, $00, $40, $E6, $FC
-	dc.b $F8, $00, $8D, $EF, $43, $A2, $16, $A7
-	dc.b $06, $80, $18, $A0, $12, $A7, $06, $80
-	dc.b $18, $80, $06, $9F, $12, $A0, $05, $80
-	dc.b $13, $80, $18, $06, $A2, $80, $0C, $A2
-	dc.b $12, $A7, $06, $80, $18, $A0, $12, $A7
-	dc.b $06, $80, $18, $80, $06, $9F, $12, $A0
-	dc.b $0C, $9D, $E7, $30, $F8, $00, $34, $F8
-	dc.b $00, $31, $F6, $FC, $8F, $AA, $06, $9E
-	dc.b $AA, $9E, $AA, $9E, $AA, $9E, $A9, $9D
-	dc.b $A9, $9D, $A7, $9B, $F7, $00, $0A, $FF
-	dc.b $FA, $AA, $06, $9E, $AA, $9E, $AA, $9E
-	dc.b $AA, $9E, $A9, $9D, $A9, $9D, $A8, $9C
-	dc.b $A8, $9C, $A7, $9B, $F7, $00, $08, $FF
-	dc.b $FA, $F9, $EF, $08, $E8, $00, $A2, $06
-	dc.b $A2, $A2, $A2, $F7, $00, $07, $FF, $F3
-	dc.b $A2, $9F, $A0, $A1, $A2, $06, $A2, $A2
-	dc.b $A2, $F7, $00, $06, $FF, $F7, $A2, $AE
-	dc.b $AD, $AC, $AB, $A7, $A8, $A9, $F9, $E0
-	dc.b $80, $F0, $0F, $01, $04, $05, $EF, $41
-	dc.b $E6, $FE, $A2, $08, $A2, $04, $A2, $06
-	dc.b $80, $A2, $80, $A2, $80, $A2, $80, $A2
-	dc.b $08, $A2, $04, $80, $0C, $08, $A2, $04
-	dc.b $E7, $A2, $08, $A2, $04, $A2, $06, $80
-	dc.b $A2, $80, $A2, $80, $A2, $80, $A2, $08
-	dc.b $A2, $04, $80, $0C, $08, $A2, $04, $E7
-	dc.b $A2, $08, $A2, $04, $A2, $06, $80, $A2
-	dc.b $80, $A2, $80, $A2, $80, $A2, $08, $A2
-	dc.b $04, $80, $0C, $08, $A2, $04, $E7, $A2
-	dc.b $08, $A2, $04, $A2, $06, $80, $A2, $80
-	dc.b $A2, $80, $A2, $80, $A2, $08, $A2, $04
-	dc.b $80, $14, $E6, $02, $E0, $C0, $F9
+	sJump		Izayoi_Jump2
+	dc.b $F2, $F8, $00, $A2, $E6, $FD, $EF, $43	; Unused
+	dc.b $A2, $12, $A7, $06, $80, $18, $A0, $12	; Unused
+	dc.b $A7, $06, $80, $18, $80, $06, $9F, $12	; Unused
+	dc.b $A0, $05, $80, $13, $80, $18, $06, $A2	; Unused
+	dc.b $80, $0C, $F7, $00, $03, $A2, $12, $A7	; Unused
+	dc.b $06, $80, $18, $A0, $12, $A7, $06, $80	; Unused
+	dc.b $18, $80, $06, $9F, $12, $A0, $0C, $9D	; Unused
+	dc.b $E7, $30, $F8, $00, $96, $F8, $00, $93	; Unused
+	dc.b $EF, $08, $E8, $00, $A7, $06, $B3, $B1	; Unused
+	dc.b $A7, $B0, $AE, $A7, $0C, $AE, $06, $AC	; Unused
+	dc.b $A7, $0C, $B0, $06, $A7, $B1, $B3, $F7	; Unused
+	dc.b $00, $04, $FD, $9B, $E6, $04, $EF, $43	; Unused
+	dc.b $F8, $00, $43, $F8, $00, $40, $E6, $FC	; Unused
+	dc.b $F8, $00, $8D, $EF, $43, $A2, $16, $A7	; Unused
+	dc.b $06, $80, $18, $A0, $12, $A7, $06, $80	; Unused
+	dc.b $18, $80, $06, $9F, $12, $A0, $05, $80	; Unused
+	dc.b $13, $80, $18, $06, $A2, $80, $0C, $A2	; Unused
+	dc.b $12, $A7, $06, $80, $18, $A0, $12, $A7	; Unused
+	dc.b $06, $80, $18, $80, $06, $9F, $12, $A0	; Unused
+	dc.b $0C, $9D, $E7, $30, $F8, $00, $34, $F8	; Unused
+	dc.b $00, $31, $F6, $FC, $8F, $AA, $06, $9E	; Unused
+	dc.b $AA, $9E, $AA, $9E, $AA, $9E, $A9, $9D	; Unused
+	dc.b $A9, $9D, $A7, $9B, $F7, $00, $0A, $FF	; Unused
+	dc.b $FA, $AA, $06, $9E, $AA, $9E, $AA, $9E	; Unused
+	dc.b $AA, $9E, $A9, $9D, $A9, $9D, $A8, $9C	; Unused
+	dc.b $A8, $9C, $A7, $9B, $F7, $00, $08, $FF	; Unused
+	dc.b $FA, $F9, $EF, $08, $E8, $00, $A2, $06	; Unused
+	dc.b $A2, $A2, $A2, $F7, $00, $07, $FF, $F3	; Unused
+	dc.b $A2, $9F, $A0, $A1, $A2, $06, $A2, $A2	; Unused
+	dc.b $A2, $F7, $00, $06, $FF, $F7, $A2, $AE	; Unused
+	dc.b $AD, $AC, $AB, $A7, $A8, $A9, $F9, $E0	; Unused
+	dc.b $80, $F0, $0F, $01, $04, $05, $EF, $41	; Unused
+	dc.b $E6, $FE, $A2, $08, $A2, $04, $A2, $06	; Unused
+	dc.b $80, $A2, $80, $A2, $80, $A2, $80, $A2	; Unused
+	dc.b $08, $A2, $04, $80, $0C, $08, $A2, $04	; Unused
+	dc.b $E7, $A2, $08, $A2, $04, $A2, $06, $80	; Unused
+	dc.b $A2, $80, $A2, $80, $A2, $80, $A2, $08	; Unused
+	dc.b $A2, $04, $80, $0C, $08, $A2, $04, $E7	; Unused
+	dc.b $A2, $08, $A2, $04, $A2, $06, $80, $A2	; Unused
+	dc.b $80, $A2, $80, $A2, $80, $A2, $08, $A2	; Unused
+	dc.b $04, $80, $0C, $08, $A2, $04, $E7, $A2	; Unused
+	dc.b $08, $A2, $04, $A2, $06, $80, $A2, $80	; Unused
+	dc.b $A2, $80, $A2, $80, $A2, $08, $A2, $04	; Unused
+	dc.b $80, $14, $E6, $02, $E0, $C0, $F9	; Unused
 
 Izayoi_FM3:
 	dc.b nRst, $30, nRst
-Izayoi_Jump4:
+
+Izayoi_Jump3:
 	sCall		Izayoi_Call5
 	sCall		Izayoi_Call6
 	dc.b nRst, $30
@@ -582,11 +581,10 @@ Izayoi_Jump4:
 	dc.b nB2, sHold, nBb2
 	saVolFM		$02
 	sCall		Izayoi_Call9
-	sJump		Izayoi_Jump4
-	; Unused
-	dc.b $F8, $00, $7C, $F8, $00, $E4, $F8, $00
-	dc.b $0B, $F8, $01, $3E, $F8, $00, $DB, $F6
-	dc.b $FF, $80, $F2
+	sJump		Izayoi_Jump3
+	dc.b $F8, $00, $7C, $F8, $00, $E4, $F8, $00	; Unused
+	dc.b $0B, $F8, $01, $3E, $F8, $00, $DB, $F6	; Unused
+	dc.b $FF, $80, $F2	; Unused
 
 Izayoi_Call5:
 	sPatFM		$42
@@ -666,7 +664,7 @@ Izayoi_Call7:
 	ssMod68k	$0F, $01, $04, $05
 	saVolFM		$FB
 
-Izayoi_Loop14:
+Izayoi_Loop11:
 	sNoteTimeOut	$05
 	saVolFM		$FE
 	dc.b nA2, $06
@@ -707,7 +705,7 @@ Izayoi_Loop14:
 	sNoteTimeOut	$00
 	dc.b nEb3, $06, nRst, nE3, nRst
 	saVolFM		$02
-	sLoop		$00, $02, Izayoi_Loop14
+	sLoop		$00, $02, Izayoi_Loop11
 	saVolFM		$05
 	sRet
 
@@ -804,11 +802,11 @@ Izayoi_Call9:
 	ssMod68k	$1C, $01, $0A, $04
 	saVolFM		$F8
 
-Izayoi_Loop15:
+Izayoi_Loop12:
 	dc.b nA4, $06, sHold, $24, sHold, $06, nC5, $06
 	dc.b sHold, $24, sHold, $06, nB4, $06, sHold, $24
 	dc.b sHold, $06, nBb4, $06, sHold, $24, sHold, $06
-	sLoop		$00, $02, Izayoi_Loop15
+	sLoop		$00, $02, Izayoi_Loop12
 	dc.b nC5, $06, sHold, $24, sHold, $06, nEb5, $06
 	dc.b sHold, $24, sHold, $06, nD5, $06, sHold, $24
 	dc.b sHold, $06, nCs5, $06, sHold, $24, sHold, $06
@@ -855,68 +853,68 @@ Izayoi_Loop15:
 	saVolFM		$02
 	ssMod68k	$1C, $01, $0A, $04
 	sRet
-	; Unused
-	dc.b $B1, $30, $B0, $18, $AE, $12, $AA, $36
-	dc.b $E7, $18, $80, $06, $A7, $AA, $AE, $B1
-	dc.b $30, $B0, $18, $AF, $12, $AE, $36, $E7
-	dc.b $18, $80, $06, $A7, $AA, $AE, $B1, $30
-	dc.b $B0, $18, $AE, $12, $AA, $36, $E7, $18
-	dc.b $80, $06, $A7, $AA, $AE, $B1, $30, $B0
-	dc.b $18, $AF, $12, $AE, $36, $E7, $30, $E6
-	dc.b $09, $FB, $F4, $F9, $E0, $80, $F0, $0C
-	dc.b $01, $05, $03, $EF, $41, $E6, $FA, $A9
-	dc.b $12, $AE, $06, $80, $0C, $E6, $06, $E0
-	dc.b $C0, $EF, $1E, $E6, $FB, $B2, $06, $B3
-	dc.b $E6, $05, $E0, $80, $EF, $41, $E6, $FA
-	dc.b $A7, $12, $AE, $06, $80, $0C, $E6, $06
-	dc.b $E0, $C0, $EF, $1E, $E6, $FB, $B0, $06
-	dc.b $B1, $80, $E6, $05, $E0, $80, $EF, $41
-	dc.b $E6, $FA, $A6, $12, $A7, $05, $80, $13
-	dc.b $E6, $06, $F0, $01, $01, $60, $03, $E9
-	dc.b $0C, $5A, $E6, $FA, $EF, $1F, $E8, $01
-	dc.b $A0, $06, $B3, $A0, $A0, $B3, $E6, $06
-	dc.b $E9, $00, $00, $E8, $00, $F0, $0C, $01
-	dc.b $05, $03, $EF, $41, $E6, $FA, $A9, $06
-	dc.b $80, $0C, $E6, $06, $F7, $00, $03, $FC
-	dc.b $E4, $E6, $FA, $A9, $12, $AE, $06, $80
-	dc.b $0C, $E6, $06, $E0, $C0, $EF, $1E, $E6
-	dc.b $FB, $B2, $06, $B3, $E6, $05, $E0, $80
-	dc.b $EF, $41, $E6, $FA, $A7, $12, $AE, $06
-	dc.b $80, $0C, $E6, $06, $E0, $C0, $EF, $1E
-	dc.b $E6, $FB, $B0, $06, $B1, $80, $E6, $05
-	dc.b $E0, $80, $EF, $41, $E6, $FA, $A6, $12
-	dc.b $A7, $0C, $A7, $F0, $01, $03, $E5, $A0
-	dc.b $E4, $02, $02, $00, $03, $02, $E7, $30
-	dc.b $E6, $06, $FD, $E4, $00, $F9, $EF, $42
-	dc.b $E0, $80, $F0, $0C, $01, $05, $03, $E6
-	dc.b $FA, $A2, $18, $0C, $80, $06, $A2, $80
-	dc.b $0C, $A2, $80, $18, $A2, $0C, $80, $A2
-	dc.b $80, $A7, $06, $A7, $A2, $A0, $1E, $F7
-	dc.b $00, $04, $FC, $DA, $E6, $06, $F9, $E0
-	dc.b $80, $F0, $0F, $01, $04, $05, $EF, $41
-	dc.b $E6, $FA, $A2, $08, $A2, $04, $A2, $06
-	dc.b $80, $A2, $80, $A2, $80, $A2, $80, $A2
-	dc.b $08, $A2, $04, $80, $0C, $08, $A2, $04
-	dc.b $E7, $A2, $08, $A2, $04, $A2, $06, $80
-	dc.b $A2, $80, $A2, $80, $A2, $80, $A2, $08
-	dc.b $A2, $04, $80, $0C, $08, $A2, $04, $E7
-	dc.b $A2, $08, $A2, $04, $A2, $06, $80, $A2
-	dc.b $80, $A2, $80, $A2, $80, $A2, $08, $A2
-	dc.b $04, $80, $0C, $08, $A2, $04, $E7, $A2
-	dc.b $08, $A2, $04, $A2, $06, $80, $A2, $80
-	dc.b $A2, $80, $A2, $80, $A2, $08, $A2, $04
-	dc.b $80, $0C, $08, $80, $04, $A2, $08, $A2
-	dc.b $04, $A2, $06, $80, $A2, $80, $A2, $80
-	dc.b $A2, $80, $A2, $08, $A2, $04, $80, $0C
-	dc.b $08, $A2, $04, $E7, $A2, $08, $A2, $04
-	dc.b $A2, $06, $80, $A2, $80, $EF, $41, $A4
-	dc.b $0C, $F0, $01, $03, $E5, $A0, $E4, $02
-	dc.b $03, $01, $03, $02, $E7, $30, $FD, $E4
-	dc.b $00, $E6, $06, $F9
+	dc.b $B1, $30, $B0, $18, $AE, $12, $AA, $36	; Unused
+	dc.b $E7, $18, $80, $06, $A7, $AA, $AE, $B1	; Unused
+	dc.b $30, $B0, $18, $AF, $12, $AE, $36, $E7	; Unused
+	dc.b $18, $80, $06, $A7, $AA, $AE, $B1, $30	; Unused
+	dc.b $B0, $18, $AE, $12, $AA, $36, $E7, $18	; Unused
+	dc.b $80, $06, $A7, $AA, $AE, $B1, $30, $B0	; Unused
+	dc.b $18, $AF, $12, $AE, $36, $E7, $30, $E6	; Unused
+	dc.b $09, $FB, $F4, $F9, $E0, $80, $F0, $0C	; Unused
+	dc.b $01, $05, $03, $EF, $41, $E6, $FA, $A9	; Unused
+	dc.b $12, $AE, $06, $80, $0C, $E6, $06, $E0	; Unused
+	dc.b $C0, $EF, $1E, $E6, $FB, $B2, $06, $B3	; Unused
+	dc.b $E6, $05, $E0, $80, $EF, $41, $E6, $FA	; Unused
+	dc.b $A7, $12, $AE, $06, $80, $0C, $E6, $06	; Unused
+	dc.b $E0, $C0, $EF, $1E, $E6, $FB, $B0, $06	; Unused
+	dc.b $B1, $80, $E6, $05, $E0, $80, $EF, $41	; Unused
+	dc.b $E6, $FA, $A6, $12, $A7, $05, $80, $13	; Unused
+	dc.b $E6, $06, $F0, $01, $01, $60, $03, $E9	; Unused
+	dc.b $0C, $5A, $E6, $FA, $EF, $1F, $E8, $01	; Unused
+	dc.b $A0, $06, $B3, $A0, $A0, $B3, $E6, $06	; Unused
+	dc.b $E9, $00, $00, $E8, $00, $F0, $0C, $01	; Unused
+	dc.b $05, $03, $EF, $41, $E6, $FA, $A9, $06	; Unused
+	dc.b $80, $0C, $E6, $06, $F7, $00, $03, $FC	; Unused
+	dc.b $E4, $E6, $FA, $A9, $12, $AE, $06, $80	; Unused
+	dc.b $0C, $E6, $06, $E0, $C0, $EF, $1E, $E6	; Unused
+	dc.b $FB, $B2, $06, $B3, $E6, $05, $E0, $80	; Unused
+	dc.b $EF, $41, $E6, $FA, $A7, $12, $AE, $06	; Unused
+	dc.b $80, $0C, $E6, $06, $E0, $C0, $EF, $1E	; Unused
+	dc.b $E6, $FB, $B0, $06, $B1, $80, $E6, $05	; Unused
+	dc.b $E0, $80, $EF, $41, $E6, $FA, $A6, $12	; Unused
+	dc.b $A7, $0C, $A7, $F0, $01, $03, $E5, $A0	; Unused
+	dc.b $E4, $02, $02, $00, $03, $02, $E7, $30	; Unused
+	dc.b $E6, $06, $FD, $E4, $00, $F9, $EF, $42	; Unused
+	dc.b $E0, $80, $F0, $0C, $01, $05, $03, $E6	; Unused
+	dc.b $FA, $A2, $18, $0C, $80, $06, $A2, $80	; Unused
+	dc.b $0C, $A2, $80, $18, $A2, $0C, $80, $A2	; Unused
+	dc.b $80, $A7, $06, $A7, $A2, $A0, $1E, $F7	; Unused
+	dc.b $00, $04, $FC, $DA, $E6, $06, $F9, $E0	; Unused
+	dc.b $80, $F0, $0F, $01, $04, $05, $EF, $41	; Unused
+	dc.b $E6, $FA, $A2, $08, $A2, $04, $A2, $06	; Unused
+	dc.b $80, $A2, $80, $A2, $80, $A2, $80, $A2	; Unused
+	dc.b $08, $A2, $04, $80, $0C, $08, $A2, $04	; Unused
+	dc.b $E7, $A2, $08, $A2, $04, $A2, $06, $80	; Unused
+	dc.b $A2, $80, $A2, $80, $A2, $80, $A2, $08	; Unused
+	dc.b $A2, $04, $80, $0C, $08, $A2, $04, $E7	; Unused
+	dc.b $A2, $08, $A2, $04, $A2, $06, $80, $A2	; Unused
+	dc.b $80, $A2, $80, $A2, $80, $A2, $08, $A2	; Unused
+	dc.b $04, $80, $0C, $08, $A2, $04, $E7, $A2	; Unused
+	dc.b $08, $A2, $04, $A2, $06, $80, $A2, $80	; Unused
+	dc.b $A2, $80, $A2, $80, $A2, $08, $A2, $04	; Unused
+	dc.b $80, $0C, $08, $80, $04, $A2, $08, $A2	; Unused
+	dc.b $04, $A2, $06, $80, $A2, $80, $A2, $80	; Unused
+	dc.b $A2, $80, $A2, $08, $A2, $04, $80, $0C	; Unused
+	dc.b $08, $A2, $04, $E7, $A2, $08, $A2, $04	; Unused
+	dc.b $A2, $06, $80, $A2, $80, $EF, $41, $A4	; Unused
+	dc.b $0C, $F0, $01, $03, $E5, $A0, $E4, $02	; Unused
+	dc.b $03, $01, $03, $02, $E7, $30, $FD, $E4	; Unused
+	dc.b $00, $E6, $06, $F9	; Unused
 
 Izayoi_FM4:
 	dc.b nRst, $30, nRst
-Izayoi_Jump5:
+
+Izayoi_Jump4:
 	dc.b nRst, $30, nRst, nRst, $30, nRst, nRst, $30
 	dc.b nRst, nRst, $24, nRst, $06
 	saVolFM		$FC
@@ -926,7 +924,7 @@ Izayoi_Jump5:
 	sPanAni		$01, $03, $01, $01, $01
 	dc.b sHold, $30, sHold, $30
 	sModOff
-	sPanAni		$00
+	sPanAni
 	saVolFM		$04
 	sCall		Izayoi_Call10
 	sCall		Izayoi_Call11
@@ -941,10 +939,9 @@ Izayoi_Jump5:
 	dc.b nRst, $30
 	sCall		Izayoi_Call13
 	sCall		Izayoi_Call14
-	sJump		Izayoi_Jump5
-	; Unused
-	dc.b $F2, $EF, $41, $E0, $80, $F0, $1C, $01
-	dc.b $0A, $04, $E6, $FD, $E6, $03
+	sJump		Izayoi_Jump4
+	dc.b $F2, $EF, $41, $E0, $80, $F0, $1C, $01	; Unused
+	dc.b $0A, $04, $E6, $FD, $E6, $03	; Unused
 
 Izayoi_Call10:
 	dc.b nRst, $30, nRst, nRst, $30, nRst, nRst, $30
@@ -957,7 +954,7 @@ Izayoi_Call11:
 	ssMod68k	$0F, $01, $04, $05
 	saVolFM		$F9
 
-Izayoi_Loop16:
+Izayoi_Loop13:
 	sNoteTimeOut	$05
 	saVolFM		$FE
 	dc.b nE3, $06
@@ -998,7 +995,7 @@ Izayoi_Loop16:
 	sNoteTimeOut	$00
 	dc.b nBb3, $06, nRst, nB3, nRst
 	saVolFM		$02
-	sLoop		$00, $02, Izayoi_Loop16
+	sLoop		$00, $02, Izayoi_Loop13
 	saVolFM		$07
 	sRet
 
@@ -1104,14 +1101,13 @@ Izayoi_Call14:
 Izayoi_FM5:
 	dc.b nRst, $12
 	sPan		spCenter, $00
-	sJump		Izayoi_Jump6
-	; Unused
-	dc.b $F2
+	sJump		Izayoi_FM1
+	dc.b $F2	; Unused
 
 Izayoi_PSG1:
-Izayoi_Jump8:
 	dc.b nRst, $30, nRst
-Izayoi_Jump7:
+
+Izayoi_Jump5:
 	sCall		Izayoi_Call15
 	sCall		Izayoi_Call16
 	sCall		Izayoi_Call17
@@ -1123,9 +1119,8 @@ Izayoi_Jump7:
 	dc.b nRst, $18, nRst, $30, nRst, $18, nRst, $2A
 	sCall		Izayoi_Call19
 	sCall		Izayoi_Call20
-	sJump		Izayoi_Jump7
-	; Unused
-	dc.b $F2
+	sJump		Izayoi_Jump5
+	dc.b $F2	; Unused
 
 Izayoi_Call15:
 	saTranspose	$0C
@@ -1149,7 +1144,7 @@ Izayoi_Call17:
 	saTranspose	$0C
 	ssMod68k	$0C, $02, $02, $03
 
-Izayoi_Loop17:
+Izayoi_Loop14:
 	sVolEnvPSG	VolEnv_08
 	sNoteTimeOut	$05
 	saVolPSG	$FE
@@ -1191,7 +1186,7 @@ Izayoi_Loop17:
 	sNoteTimeOut	$00
 	dc.b nBb3, $06, nRst, nB3, nRst
 	saVolPSG	$02
-	sLoop		$00, $02, Izayoi_Loop17
+	sLoop		$00, $02, Izayoi_Loop14
 	saTranspose	$F4
 	sRet
 
@@ -1261,13 +1256,13 @@ Izayoi_Call19:
 	ssMod68k	$1C, $02, $03, $02
 	saTranspose	$0C
 	saVolPSG	$FD
-	sVolEnvPSG	$00
+	sVolEnvPSG	VolEnv_00
 
-Izayoi_Loop18:
+Izayoi_Loop15:
 	dc.b nE4, $06, sHold, $24, sHold, $06, nG4, $06
 	dc.b sHold, $24, sHold, $06, nFs4, $06, sHold, $24
 	dc.b sHold, $06, nF4, $06, sHold, $24, sHold, $06
-	sLoop		$00, $02, Izayoi_Loop18
+	sLoop		$00, $02, Izayoi_Loop15
 	dc.b nG4, $06, sHold, $24, sHold, $06, nBb4, $06
 	dc.b sHold, $24, sHold, $06, nA4, $06, sHold, $24
 	dc.b sHold, $06, nAb4, $06, sHold, $24, sHold, $06
@@ -1287,80 +1282,81 @@ Izayoi_Call20:
 
 Izayoi_PSG2:
 	dc.b nRst, $09
-	sJump		Izayoi_Jump8
-	; Unused
-	dc.b $F2
+	sJump		Izayoi_PSG1
+	dc.b $F2	; Unused
 
 Izayoi_PSG3:
 	sNoisePSG	$E7
 	dc.b nRst, $30, nRst
 
-Izayoi_Jump9:
+Izayoi_Jump6:
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, $30, nRst
 	dc.b nRst, nRst, nRst, $30, nRst, nRst, nRst, nRst
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, $30, nRst
 	dc.b nRst, $30, nRst, nRst, nRst
-Izayoi_Loop19:
+
+Izayoi_Loop16:
 	sVolEnvPSG	VolEnv_01
 	sNoteTimeOut	$02
 	dc.b nA5, $06, nA5, nA5, nA5
-	sLoop		$00, $1D, Izayoi_Loop19
+	sLoop		$00, $1D, Izayoi_Loop16
 
-Izayoi_Loop20:
+Izayoi_Loop17:
 	sVolEnvPSG	VolEnv_01
 	sNoteTimeOut	$14
 	dc.b nA5, $0C, nA5, nA5, nA5
-	sLoop		$00, $09, Izayoi_Loop20
+	sLoop		$00, $09, Izayoi_Loop17
 	dc.b nRst, $30
 
-Izayoi_Loop21:
+Izayoi_Loop18:
 	sVolEnvPSG	VolEnv_01
 	sNoteTimeOut	$02
 	dc.b nA5, $06, nA5, nA5, nA5
-	sLoop		$00, $10, Izayoi_Loop21
+	sLoop		$00, $10, Izayoi_Loop18
+
+Izayoi_Loop19:
+	sVolEnvPSG	VolEnv_01
+	sNoteTimeOut	$14
+	dc.b nA5, $0C, nA5, nA5, nA5
+	sLoop		$00, $0B, Izayoi_Loop19
+	dc.b nRst, $18
+
+Izayoi_Loop20:
+	sVolEnvPSG	VolEnv_01
+	sNoteTimeOut	$0F
+	dc.b nA5, $18
+	sLoop		$00, $18, Izayoi_Loop20
+
+Izayoi_Loop21:
+	sNoteTimeOut	$02
+	dc.b nA5, $06, nA5, nA5, nA5
+	sLoop		$00, $08, Izayoi_Loop21
 
 Izayoi_Loop22:
 	sVolEnvPSG	VolEnv_01
 	sNoteTimeOut	$14
 	dc.b nA5, $0C, nA5, nA5, nA5
-	sLoop		$00, $0B, Izayoi_Loop22
-	dc.b nRst, $18
-
-Izayoi_Loop23:
-	sVolEnvPSG	VolEnv_01
-	sNoteTimeOut	$0F
-	dc.b nA5, $18
-	sLoop		$00, $18, Izayoi_Loop23
-
-Izayoi_Loop24:
-	sNoteTimeOut	$02
-	dc.b nA5, $06, nA5, nA5, nA5
-	sLoop		$00, $08, Izayoi_Loop24
-
-Izayoi_Loop25:
-	sVolEnvPSG	VolEnv_01
-	sNoteTimeOut	$14
-	dc.b nA5, $0C, nA5, nA5, nA5
-	sLoop		$00, $10, Izayoi_Loop25
+	sLoop		$00, $10, Izayoi_Loop22
 	dc.b nA5, $06, nA5, nA5, nA5, nA5, nA5, nRst
 	sNoteTimeOut	$1E
 	dc.b nA5, $06, sHold, $18, nRst, nRst, $30
-	sJump		Izayoi_Jump9
-	; Unused
-	dc.b $F2
+	sJump		Izayoi_Jump6
+	dc.b $F2	; Unused
 
 Izayoi_DAC:
 	dc.b dC1, $08, dC2, dC3, dA5, $04, dA6, dA7
 	dc.b dC1, dC1, dC2, d81, $03, d81, d81, d81
 	dc.b dC3, $0C, nRst, $0C, dC1, $0C
-Izayoi_Jump1:
+
+Izayoi_Jump7:
 	dc.b dC0, $06, dC0, nRst, $24, nRst, $30, nRst
 	dc.b nRst, $18, d89, $06, dC1, dC2, dC3, d81
 	dc.b $06, d81, dC0, $0C, nRst, $18, nRst, $30
 	dc.b nRst, nRst, nRst, $24, dC0, $02, dC2, $0A
-Izayoi_Loop1:
+
+Izayoi_Loop23:
 	dc.b d81, $0C, dC0, d81, $06, d81, dC0, $0C
-	sLoop		$00, $06, Izayoi_Loop1
+	sLoop		$00, $06, Izayoi_Loop23
 	dc.b d81, $0C, dC0, d81, $06, dC1, dC2, d8C
 	dc.b nRst, $30, d81, $06, dC0, $03, dC0, dC3
 	dc.b $0C, d81, $06, dC0, $03, dC0, dC0, dC0
@@ -1386,9 +1382,9 @@ Izayoi_Loop1:
 	dc.b dC0, $06, dC0, dC0, dC0, dC0, dC0, d89
 	dc.b d89, dC1, dC1, dC2, dC3
 
-Izayoi_Loop2:
+Izayoi_Loop24:
 	dc.b d81, $0C, dC0, d81, $06, d81, dC0, $0C
-	sLoop		$00, $06, Izayoi_Loop2
+	sLoop		$00, $06, Izayoi_Loop24
 	dc.b d81, $0C, dC0, d81, $06, dC1, dC2, d8C
 	dc.b nRst, $30, d81, $06, dC0, $03, dC0, dC3
 	dc.b $0C, d81, $06, dC0, $03, dC0, dC0, dC0
@@ -1432,12 +1428,12 @@ Izayoi_Loop2:
 	dc.b $0C, d81, dC0, $06, d8C, $06, nRst, dC0
 	dc.b dC0, dC0, dC0, dC0, dC0, dC0
 
-Izayoi_Loop3:
+Izayoi_Loop25:
 	dc.b d81, $0C, dC0, d81, dC0, d81, dC0, d81
 	dc.b $06, d81, dC0, $0C, d81, $0C, dC0, d81
 	dc.b $06, d81, dC0, d8C, nRst, d81, dC0, $0C
 	dc.b d81, $06, d81, dC0, $0C
-	sLoop		$00, $03, Izayoi_Loop3
+	sLoop		$00, $03, Izayoi_Loop25
 	dc.b d81, $06, d8C, $0C, d81, $06, dC0, dC0
 	dc.b d81, $06, d8C, $0C, d81, $06, dC0, dC0
 	dc.b d81, $06, d8C, $0C, d81, $06, d8C, $0C
@@ -1447,51 +1443,51 @@ Izayoi_Loop3:
 	dc.b d8C, nRst, $06, d81, dC0, $0C, d81, dC1
 	dc.b d82, $04, d82, d82, d82, d82, d82, dC0
 	dc.b dC0, dC0, dC0, dC0, dC0
-	sJump		Izayoi_Jump1
-	; Unused
-	dc.b $F2, $81, $06, $82, $82, $0C, $F8, $01
-	dc.b $2A, $F8, $01, $27, $F8, $01, $24, $81
-	dc.b $06, $84, $82, $84, $81, $84, $82, $84
-	dc.b $81, $84, $82, $84, $81, $84, $82, $84
-	dc.b $82, $06, $84, $81, $82, $84, $81, $82
-	dc.b $84, $81, $82, $84, $81, $89, $8A, $82
-	dc.b $0C, $81, $0C, $82, $81, $82, $81, $82
-	dc.b $81, $82, $81, $82, $81, $82, $81, $82
-	dc.b $81, $82, $01, $8A, $0B, $F7, $00, $03
-	dc.b $FD, $F2, $81, $0C, $82, $81, $82, $81
-	dc.b $82, $81, $82, $81, $82, $81, $82, $81
-	dc.b $06, $87, $82, $87, $82, $04, $82, $82
-	dc.b $82, $82, $82, $81, $0C, $82, $F7, $00
-	dc.b $1E, $FF, $F9, $87, $02, $88, $04, $87
-	dc.b $02, $88, $04, $87, $02, $89, $04, $87
-	dc.b $02, $89, $04, $87, $02, $8A, $04, $87
-	dc.b $02, $8A, $04, $86, $02, $82, $04, $86
-	dc.b $02, $82, $04, $81, $06, $84, $82, $84
-	dc.b $F7, $00, $0F, $FF, $F7, $81, $06, $82
-	dc.b $82, $0C, $F8, $00, $96, $F8, $00, $93
-	dc.b $F8, $00, $90, $81, $06, $84, $82, $84
-	dc.b $81, $84, $82, $84, $81, $84, $82, $84
-	dc.b $81, $84, $82, $84, $82, $06, $84, $81
-	dc.b $82, $84, $81, $82, $84, $81, $82, $84
-	dc.b $81, $89, $8A, $82, $0C, $81, $0C, $84
-	dc.b $82, $84, $81, $84, $82, $84, $08, $81
-	dc.b $0C, $81, $04, $84, $0C, $82, $84, $F7
-	dc.b $00, $03, $FF, $EF, $81, $0C, $87, $04
-	dc.b $87, $87, $82, $0C, $84, $08, $81, $0C
-	dc.b $81, $04, $82, $0C, $81, $0C, $82, $F7
-	dc.b $00, $0D, $FF, $F9, $81, $06, $87, $82
-	dc.b $87, $82, $04, $82, $82, $82, $82, $82
-	dc.b $81, $0C, $82, $F7, $00, $1D, $FF, $F9
-	dc.b $81, $0C, $82, $04, $82, $82, $82, $02
-	dc.b $89, $04, $82, $02, $88, $04, $82, $02
-	dc.b $89, $04, $82, $02, $89, $04, $87, $02
-	dc.b $8A, $04, $87, $02, $8A, $04, $86, $02
-	dc.b $82, $04, $86, $02, $82, $04, $F6, $FC
-	dc.b $21, $F2, $81, $06, $84, $82, $84, $F7
-	dc.b $00, $07, $FF, $F7, $81, $06, $82, $8A
-	dc.b $0C, $F9
+	sJump		Izayoi_Jump7
+	dc.b $F2, $81, $06, $82, $82, $0C, $F8, $01	; Unused
+	dc.b $2A, $F8, $01, $27, $F8, $01, $24, $81	; Unused
+	dc.b $06, $84, $82, $84, $81, $84, $82, $84	; Unused
+	dc.b $81, $84, $82, $84, $81, $84, $82, $84	; Unused
+	dc.b $82, $06, $84, $81, $82, $84, $81, $82	; Unused
+	dc.b $84, $81, $82, $84, $81, $89, $8A, $82	; Unused
+	dc.b $0C, $81, $0C, $82, $81, $82, $81, $82	; Unused
+	dc.b $81, $82, $81, $82, $81, $82, $81, $82	; Unused
+	dc.b $81, $82, $01, $8A, $0B, $F7, $00, $03	; Unused
+	dc.b $FD, $F2, $81, $0C, $82, $81, $82, $81	; Unused
+	dc.b $82, $81, $82, $81, $82, $81, $82, $81	; Unused
+	dc.b $06, $87, $82, $87, $82, $04, $82, $82	; Unused
+	dc.b $82, $82, $82, $81, $0C, $82, $F7, $00	; Unused
+	dc.b $1E, $FF, $F9, $87, $02, $88, $04, $87	; Unused
+	dc.b $02, $88, $04, $87, $02, $89, $04, $87	; Unused
+	dc.b $02, $89, $04, $87, $02, $8A, $04, $87	; Unused
+	dc.b $02, $8A, $04, $86, $02, $82, $04, $86	; Unused
+	dc.b $02, $82, $04, $81, $06, $84, $82, $84	; Unused
+	dc.b $F7, $00, $0F, $FF, $F7, $81, $06, $82	; Unused
+	dc.b $82, $0C, $F8, $00, $96, $F8, $00, $93	; Unused
+	dc.b $F8, $00, $90, $81, $06, $84, $82, $84	; Unused
+	dc.b $81, $84, $82, $84, $81, $84, $82, $84	; Unused
+	dc.b $81, $84, $82, $84, $82, $06, $84, $81	; Unused
+	dc.b $82, $84, $81, $82, $84, $81, $82, $84	; Unused
+	dc.b $81, $89, $8A, $82, $0C, $81, $0C, $84	; Unused
+	dc.b $82, $84, $81, $84, $82, $84, $08, $81	; Unused
+	dc.b $0C, $81, $04, $84, $0C, $82, $84, $F7	; Unused
+	dc.b $00, $03, $FF, $EF, $81, $0C, $87, $04	; Unused
+	dc.b $87, $87, $82, $0C, $84, $08, $81, $0C	; Unused
+	dc.b $81, $04, $82, $0C, $81, $0C, $82, $F7	; Unused
+	dc.b $00, $0D, $FF, $F9, $81, $06, $87, $82	; Unused
+	dc.b $87, $82, $04, $82, $82, $82, $82, $82	; Unused
+	dc.b $81, $0C, $82, $F7, $00, $1D, $FF, $F9	; Unused
+	dc.b $81, $0C, $82, $04, $82, $82, $82, $02	; Unused
+	dc.b $89, $04, $82, $02, $88, $04, $82, $02	; Unused
+	dc.b $89, $04, $82, $02, $89, $04, $87, $02	; Unused
+	dc.b $8A, $04, $87, $02, $8A, $04, $86, $02	; Unused
+	dc.b $82, $04, $86, $02, $82, $04, $F6, $FC	; Unused
+	dc.b $21, $F2, $81, $06, $84, $82, $84, $F7	; Unused
+	dc.b $00, $07, $FF, $F7, $81, $06, $82, $8A	; Unused
+	dc.b $0C, $F9	; Unused
 
 Izayoi_Patches:
+
 	; Patch $00
 	; $06
 	; $01, $33, $72, $31,	$0A, $8C, $4C, $52

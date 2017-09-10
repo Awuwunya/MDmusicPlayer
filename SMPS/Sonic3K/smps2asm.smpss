@@ -1,43 +1,50 @@
-?dat {
-	=endian "little"
-	@offset 0 "Please specify offset of this song in Z80 bank"
-	=upb 0x17D8
-}
+### Sonic3K SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
+=endian "little"
+@offset 0 "Please specify offset of this song in Z80 bank"
+=upb 0x17D8
+/ >header
 
 ?header {
-	~£_Header
-	^ .of
 	! > sHeaderInit: {
-		%; Z80 offset is {$2!\offset\}
+		~£_Header .of
+		%; Z80 offset is {$4!\offset\}
 	}
 	¤ .nw == \upb\ {
 		! > sHeaderPatchUniv:;
-		$ .sw;
+		$ .sw
 	} {
-		~£_Patches
-		! > sHeaderPatch: .aw;
+		! > sHeaderPatch: .dw {
+			~£_Patches :0
+		}
 	}
 
 	=FMnum .db
 	=PSGnum .nb
 	! > sHeaderCh: .lb, .db;
 	! > sHeaderTempo: .db, .db;
-	~£_DAC
-	! > sHeaderDAC: .aw;
-	$ .sw;
-	~£_FM#
+	! > sHeaderDAC: .dw {
+		~£_DAC :0
+	}
+	$ .sw
 	* \FMnum\ - 1 {
-		! > sHeaderFM: .aw, .db, .db;
+		! > sHeaderFM: .dw, .db, .db {
+			~£_FM? :0
+		}
 	}
 
-	~£_PSG#
 	* \PSGnum\ {
-		! > sHeaderPSG: .aw, .db, .db, .db, .db {
-			#4 {
+		! > sHeaderPSG: .dw, .db, .db, .db, .db {
+			~£_PSG? :0
+			:4 {
 				?volenv;
 			}
 		}
 	}
+
+	/£_FM? ?note ?comm
+	/£_PSG? ?note ?comm
+	/£_DAC ?DAC ?comm
+	/£_Patches >patch
 }
 
 ?patch {
@@ -47,7 +54,7 @@
 	=b3 0
 	=b4 0
 	* (.an-.pc)/25 {
-		%; Patch {$2!\num\}\r\n\t; {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}
+		%\n\t; Patch {$2!\num\}\r\n\t; {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}
 		>b 25
 		! > spAlgorithm: .nb&0x7;
 		! > spFeedback: (.db&0x38)>>3;
@@ -315,8 +322,8 @@
 }
 
 ?comm {
-	!0xE0 > sPan\t: .db & 0xC0, .lb & 0x3F {
-		#0 {
+	!0xE0 > sPan: .db & 0xC0, .lb & 0x3F {
+		:0 {
 			=spNone 0x00
 			=spRight 0x40
 			=spLeft 0x80
@@ -324,25 +331,28 @@
 		}
 	}
 	!0xE1 > saDetune: .db;
-	!0xE2 > sFade\t: .db;
+	!0xE2 > sFade: .db;
 	!0xE3 > sStopFM: {
 		;
 	}
-	!0xE4 > ssVol\t: 0x100-(.db | 0x80);
-	!0xE5 > saVolFM\t: .db, .db;
-	!0xE6 > %saVolFM\t: .db;
+	!0xE4 > ssVol: $2!-(.db | 0x80);
+	!0xE5 > saVolFM: .db, .db;
+	!0xE6 > saVolFM: .db;
 	=sHold 0xE7
 	!0xE8 > sNoteTimeOut: .db;
 	!0xE9 > sSpDashRev:;
 	!0xEA > sPlayDAC: .db | 0x80;
-	~£_Jumpe#
-	!0xEB > sLoopExit: .db, .aw;
+	!0xEB > sLoopExit: .db, .dw {
+		~£_Jumpe? :1
+	}
 	!0xEC > saVolPSG: .db;
 	!0xED > ssTransposeS3K: .db;
-	!0xEE > sYM1cmd\t: .db, .db;
+	!0xEE > sYM1cmd: .db, .db;
+	!0xEF, 0-0x7F > sPatFM: .lb & 0x7F;
+	!0xEF, 0x80-0xFF > sPatFM: .lb & 0x7F, .db - 0x81;
 	!0xF0 > ssModZ80: .db, .db, .db, .db;
-	!0xF1 > sModEnv\t: .db, .db {
-		#0 {
+	!0xF1 > sModEnv: .db, .db {
+		:0 {
 			?modenv;
 		}
 	}
@@ -351,36 +361,39 @@
 	}
 	!0xF3 > sNoisePSG: .db;
 	!0xF4, 0x80 > sModOn:;
-	!0xF4 > %sModEnv\t: .db {
-		#0 {
+	!0xF4 > sModEnv: .db {
+		:0 {
 			?modenv;
 		}
 	}
 	!0xF5 > sVolEnvPSG: .db {
-		#0 {
+		:0 {
 			?volenv;
 		}
 	}
-	~£_Jump#
-	!0xF6 > sJump\t: .aw {
+	!0xF6 > sJump: .dw {
+		~£_Jump? :0
 		;
 	}
-	~£_Loop#
-	!0xF7 > sLoop\t: .db, .db, .aw;
-	~£_Call#
-	!0xF8 > sCall\t: .aw;
+	!0xF7 > sLoop: .db, .db, .dw {
+		~£_Loop? :2
+	}
+	!0xF8 > sCall: .dw {
+		~£_Call? :0
+	}
 	!0xF9 > sRet: {
 		;
 	}
 	!0xFA > sModOff:;
 	!0xFB > saTranspose: .db;
-	~£_Loopsfx#
-	!0xFC > sLoopSFX: .aw;
+	!0xFC > sLoopSFX: .dw {
+		~£_LoopSFX? :0
+	}
 	!0xFD > sRawFreq: .db;
 	!0xFE > sSpecFM3: .db, .db, .db, .db {
 		%; Broken?
 	}
-	!0xFF, 0 > ssTempo\t: .db;
+	!0xFF, 0 > ssTempo: .db;
 	!0xFF, 1 > sPlaySound: .db;
 	!0xFF, 2 > sMusPause: .db;
 	!0xFF, 3 > sCopyMem: .dw, .db {
@@ -390,12 +403,4 @@
 	!0xFF, 5 > sSSGEG: .db, .db, .db, .db;
 	!0xFF, 6 > sVolEnvFM: .db, .db;
 	!0xFF, 7 > sSpDashReset:;
-	¤ .nb == 0xEF {
-		$ .sb
-		¤ (.nb & 0x80) == 0 {
-			! > sPatFM\t: .db & 0x7F;
-		} {
-			! > sPatFM\t: .db & 0x7F, .db - 0x81;
-		}
-	}
 }

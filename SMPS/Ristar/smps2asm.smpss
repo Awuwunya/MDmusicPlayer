@@ -1,35 +1,48 @@
-?dat {
-	=endian "big"
-}
+### RISTAR SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/08
+
+=endian "big"
+=offset 0
+/ >header
 
 ?header {
-	~£_Header
-	^ .of
-	! > sHeaderInit:;
-	~£_Patches
-	! > sHeaderPatch: .hw;
+	! > sHeaderInit: {
+		~£_Header .of
+	}
+
+	! > sHeaderPatch: .dw {
+		~£_Patches :0
+	}
+
 	=FMnum .db
 	=PSGnum .nb
 	! > sHeaderCh: .lb, .db;
 	! > sHeaderTempo: .db, .db;
-	~£_DAC#
-	! > sHeaderDAC: .hw;
-	$ .sw;
-	! > %sHeaderDAC: .hw;
-	$ .sw;
-	~£_FM#
-	* \FMnum\ - 2 {
-		! > sHeaderFM: .hw, .db, .db;
+	* 2 {
+		! > sHeaderDAC: .dw {
+			~£_DAC? :0
+		}
+		$ .sw
 	}
 
-	~£_PSG#
+	* \FMnum\ - 2 {
+		! > sHeaderFM: .dw, .db, .db {
+			~£_FM? :0
+		}
+	}
+
 	* \PSGnum\ {
-		! > sHeaderPSG: .hw, .db, .db, .db, .db {
-			#4 {
+		! > sHeaderPSG: .dw, .db, .db, .db, .db {
+			~£_PSG? :0
+			:4 {
 				?volenv;
 			}
 		}
 	}
+
+	/£_FM? ?note ?comm
+	/£_PSG? ?note ?comm
+	/£_DAC ?DAC ?comm
+	/£_Patches >patch
 }
 
 ?patch {
@@ -39,7 +52,7 @@
 	=b3 0
 	=b4 0
 	* (.an-.pc)/25 {
-		%; Patch {$2!\num\}\r\n\t; {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}
+		%\n\t; Patch {$2!\num\}\r\n\t; {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}
 		>b 25
 		! > spAlgorithm: .nb&0x7;
 		! > spFeedback: (.db&0x38)>>3;
@@ -300,8 +313,8 @@
 }
 
 ?comm {
-	!0xE0 > sPan\t: .db & 0xC0, .lb & 0x3F {
-		#0 {
+	!0xE0 > sPan: .db & 0xC0, .lb & 0x3F {
+		:0 {
 			=spNone 0x00
 			=spRight 0x40
 			=spLeft 0x80
@@ -309,56 +322,50 @@
 		}
 	}
 	!0xE1 > saDetune: .db;
-	!0xE2 > sComm\t: .db {
-		;
-	}
+	!0xE2 > sComm: .db;
 	!0xE3 > sStopFM: {
 		;
 	}
-	¤ .nb == 0xE4 {
-		$ .sb
-		¤ .nb == 0 {
-			! > sPanAni\t: .db;
-		} {
-			! > %sPanAni\t: .db, .db, .db, .db, .db;
-		}
-	}
-	!0xE5 > saVolFM\t: .db, .db;
-	!0xE6 > %saVolFM\t: .db;
+	!0xE4, 0 > sPanAni:;
+	!0xE4, 1-0xFF > sPanAni: .lb, .db, .db, .db, .db;
+	!0xE5 > saVolFM: .db, .db;
+	!0xE6 > saVolFM: .db;
 	=sHold 0xE7
 	!0xE8 > sNoteTimeOut: .db;
-	!0xE9 > ssLFO\t: .db, .db;
-	!0xEA > ssTempo\t: .db;
+	!0xE9 > ssLFO: .db, .db;
+	!0xEA > ssTempo: .db;
 	!0xEB > sPlaySound: .db;
 	!0xEC > saVolPSG: .db;
-	!0xED > sYMcmd\t: .db, .db;
-	!0xEE > sYM1cmd\t: .db, .db;
-	!0xEF > sPatFM\t: .db;
+	!0xED > sYMcmd: .db, .db;
+	!0xEE > sYM1cmd: .db, .db;
+	!0xEF > sPatFM: .db;
 	!0xF0 > ssMod68k: .db, .db, .db, .db;
-	!0xF1 > sModEnv\t: .db, .db;
+	!0xF1 > sModEnv: .db, .db;
 	!0xF2 > sStop:{
 		;
 	}
 	!0xF3 > sNoisePSG: .db;
-	!0xF4 > %sModEnv\t: .db {
-		#0 {
+	!0xF4 > sModEnv: .db {
+		:0 {
 			?modenv;
 		}
 	}
 	!0xF5 > sVolEnvPSG: .db {
-		#0 {
+		:0 {
 			?volenv;
 		}
 	}
-	~£_Jump#
-	!0xF6 > sJump\t: .rw {
+	!0xF6 > sJump: .ow {
+		~£_Jump? :0
 		;
 	}
-	~£_Loop#
-	!0xF7 > sLoop\t: .db, .db, .rw;
-	~£_Call#
-	!0xF8 > sCall\t: .rw;
-	!0xF9 > sRet: {
+	!0xF7 > sLoop: .db, .db, .ow {
+		~£_Loop? :2
+	}
+	!0xF8 > sCall: .ow {
+		~£_Call? :0
+	}
+	!0xF9 > sRet:{
 		;
 	}
 	!0xFA > ssTickMulCh: .db;
@@ -366,15 +373,16 @@
 	!0xFC > sModOn:;
 	!0xFD > sModOff:;
 	!0xFE > sSpecFM3: .db, .db, .db, .db;
-	!0xFF, 0 > sSSGEG\t: .db, .db, .db, .db;
+	!0xFF, 0 > sSSGEG: .db, .db, .db, .db;
 	!0xFF, 1 > sMusPause: .db;
 	!0xFF, 2 > ssTickMul: .db;
 	!0xFF, 3 > sFadeSPC: .db, .db;
-	!0xFF, 4 > %sFadeSPC:;
+	!0xFF, 4 > sFadeSPC:;
 	!0xFF, 5 > sFM4freq: .db;
 	!0xFF, 6 > sNoteTimeIn: .db;
-	~£_Cond#
-	!0xFF, 7 > sCondJmp: .rw;
+	!0xFF, 7 > sCondJmp: .rw {
+		~£_Cond? :0
+	}
 	!0xFF, 8 > ssPalTempo: .db;
 	!0xFF, 9 > ssPalNoteDur: .db;
 }

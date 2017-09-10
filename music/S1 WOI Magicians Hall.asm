@@ -10,12 +10,13 @@ Magicians_Hall_Header:
 	sHeaderFM	Magicians_Hall_FM4, $00, $1D
 	sHeaderFM	Magicians_Hall_FM5, $00, $1D
 	sHeaderFM	Magicians_Hall_FM6, $00, $1C
-	sHeaderPSG	Magicians_Hall_PSG1, $DC, $02, ModEnv_00, VolEnv_00
-	sHeaderPSG	Magicians_Hall_PSG2, $DC, $02, ModEnv_00, VolEnv_00
-	sHeaderPSG	Magicians_Hall_PSG3, $DC, $02, ModEnv_00, VolEnv_00
+	sHeaderPSG	Magicians_Hall_PSG1, $DC, $02, $00, VolEnv_00
+	sHeaderPSG	Magicians_Hall_PSG2, $DC, $02, $00, VolEnv_00
+	sHeaderPSG	Magicians_Hall_PSG3, $DC, $02, $00, VolEnv_00
 
 Magicians_Hall_FM1:
 	dc.b nRst, $06
+
 Magicians_Hall_Jump1:
 	sPan		spCenter, $00
 	sPatFM		$00
@@ -59,7 +60,6 @@ Magicians_Hall_Jump1:
 	sJump		Magicians_Hall_Jump1
 
 Magicians_Hall_FM2:
-Magicians_Hall_Jump2:
 	sPan		spCenter, $00
 	sPatFM		$00
 	dc.b nAb2, $04, nEb3, nAb3, nA3, nB3, nEb4, nAb4
@@ -99,10 +99,9 @@ Magicians_Hall_Jump2:
 	dc.b nF4, nG4, nBb4, nCs5, nF5, nCs2, nAb2, nB2
 	dc.b nEb3, nE3, nAb3, nB3, nEb4, nE4, nAb4, nB4
 	dc.b nEb5
-	sJump		Magicians_Hall_Jump2
+	sJump		Magicians_Hall_FM2
 
 Magicians_Hall_FM3:
-Magicians_Hall_Jump3:
 	sPan		spCenter, $00
 	sPatFM		$01
 	dc.b nAb1, $10, nEb2, nB2, nA2, nCs2, nFs1, nAb1
@@ -115,10 +114,9 @@ Magicians_Hall_Jump3:
 	dc.b nBb1, nG2, nCs1, nB1, nEb2, nEb1, nBb1, nG2
 	dc.b nCs1, nB1, nEb2, nEb1, nBb1, nG2, nCs1, nB1
 	dc.b nEb2
-	sJump		Magicians_Hall_Jump3
+	sJump		Magicians_Hall_FM3
 
 Magicians_Hall_FM4:
-Magicians_Hall_Jump4:
 	sPan		spRight, $00
 	sPatFM		$02
 	dc.b nEb4, $08
@@ -224,11 +222,12 @@ Magicians_Hall_Jump4:
 	dc.b $08
 	sPan		spCenter, $00
 	dc.b $08, nD5, $08, $08
-	sJump		Magicians_Hall_Jump4
+	sJump		Magicians_Hall_FM4
 
 Magicians_Hall_FM5:
 	dc.b nRst, $06
-Magicians_Hall_Jump5:
+
+Magicians_Hall_Jump2:
 	sPan		spRight, $00
 	sPatFM		$02
 	dc.b nEb4, $04
@@ -338,11 +337,12 @@ Magicians_Hall_Jump5:
 	dc.b nCs5
 	sPan		spCenter, $00
 	dc.b nCs4, nCs5, nCs4, nD5, nD4, nD5, $08
-	sJump		Magicians_Hall_Jump5
+	sJump		Magicians_Hall_Jump2
 
 Magicians_Hall_FM6:
 	dc.b nRst, $04
-Magicians_Hall_Jump6:
+
+Magicians_Hall_Jump3:
 	sPan		spCenter, $00
 	sPatFM		$02
 	dc.b nEb3, $08, $08, nEb4, $08, $08
@@ -450,10 +450,9 @@ Magicians_Hall_Jump6:
 	dc.b $08
 	sPan		spCenter, $00
 	dc.b $08, nD4, $08, $08
-	sJump		Magicians_Hall_Jump6
+	sJump		Magicians_Hall_Jump3
 
 Magicians_Hall_PSG1:
-Magicians_Hall_Jump7:
 	sVolEnvPSG	VolEnv_05
 	dc.b nEb4, $30, nCs4, $20, nE4, $10, nEb4, $30
 	dc.b nE4, $10, nFs4, nE4, nEb4, $30, nCs4, $20
@@ -474,10 +473,9 @@ Magicians_Hall_Jump7:
 	dc.b $02, nG4, $08, nF4, nG4, nAb4, nG4, nF4
 	dc.b $03, nG4, nF4, $02, nEb4, $08, nCs4, nEb4
 	dc.b nE4
-	sJump		Magicians_Hall_Jump7
+	sJump		Magicians_Hall_PSG1
 
 Magicians_Hall_PSG2:
-Magicians_Hall_Jump8:
 	sVolEnvPSG	VolEnv_05
 	dc.b nAb4, $30, nFs4, $20, nA4, $10, nAb4, $30
 	dc.b nA4, $10, nB4, nA4, nAb4, $30, nFs4, $20
@@ -497,11 +495,12 @@ Magicians_Hall_Jump8:
 	dc.b $02, nEb4, $08, nCs4, nEb4, nF4, nEb4, nCs4
 	dc.b $03, nEb4, nCs4, $02, nB3, $08, nA3, nB3
 	dc.b nCs4
-	sJump		Magicians_Hall_Jump8
+	sJump		Magicians_Hall_PSG2
 
 Magicians_Hall_PSG3:
 	dc.b nRst, $06
-Magicians_Hall_Jump9:
+
+Magicians_Hall_Jump4:
 	sVolEnvPSG	VolEnv_05
 	dc.b nAb4, $30, nFs4, $20, nA4, $10, nAb4, $30
 	dc.b nA4, $10, nB4, nA4, nAb4, $30, nFs4, $20
@@ -521,12 +520,13 @@ Magicians_Hall_Jump9:
 	dc.b $02, nEb4, $08, nCs4, nEb4, nF4, nEb4, nCs4
 	dc.b $03, nEb4, nCs4, $02, nB3, $08, nA3, nB3
 	dc.b nCs4
-	sJump		Magicians_Hall_Jump9
+	sJump		Magicians_Hall_Jump4
 
 Magicians_Hall_DAC:
-	sStop	
+	sStop		
 
 Magicians_Hall_Patches:
+
 	; Patch $00
 	; $34
 	; $33, $41, $7E, $74,	$5B, $9F, $5F, $1F

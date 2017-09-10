@@ -10,9 +10,9 @@ Ballad_Header:
 	sHeaderFM	Ballad_FM4, $FE, $0E
 	sHeaderFM	Ballad_FM5, $FE, $0E
 	sHeaderFM	Ballad_FM6, $FE, $0D
-	sHeaderPSG	Ballad_PSG1, $DA, $04, ModEnv_00, VolEnv_00
-	sHeaderPSG	Ballad_PSG2, $DA, $02, ModEnv_00, VolEnv_00
-	sHeaderPSG	Ballad_PSG3, $DA, $02, ModEnv_00, VolEnv_03
+	sHeaderPSG	Ballad_PSG1, $DA, $04, $00, VolEnv_00
+	sHeaderPSG	Ballad_PSG2, $DA, $02, $00, VolEnv_00
+	sHeaderPSG	Ballad_PSG3, $DA, $02, $00, VolEnv_03
 
 Ballad_PSG2:
 	sStop
@@ -25,6 +25,7 @@ Ballad_DAC:
 
 Ballad_FM1:
 	dc.b nRst, $18
+
 Ballad_Jump1:
 	saVolFM		$02
 	sPatFM		$02
@@ -248,11 +249,11 @@ Ballad_Jump1:
 	dc.b nG5, $2F, sHold, $30
 	ssTempo		$0C
 	sJump		Ballad_Jump1
-	; Unused
-	dc.b $F2
+	dc.b $F2	; Unused
 
 Ballad_FM2:
 	dc.b nRst, $18
+
 Ballad_Jump2:
 	sPatFM		$02
 	saVolFM		$12
@@ -386,11 +387,11 @@ Ballad_Jump2:
 	dc.b $08, nD5, nEb5, nF5, nG5, $10, nRst, $20
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, nRst
 	sJump		Ballad_Jump2
-	; Unused
-	dc.b $F2
+	dc.b $F2	; Unused
 
 Ballad_FM3:
 	dc.b nRst, $30
+
 Ballad_Jump3:
 	sPatFM		$04
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, nRst, nRst
@@ -418,11 +419,11 @@ Ballad_Jump3:
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, nRst, nRst
 	dc.b $18
 	sJump		Ballad_Jump3
-	; Unused
-	dc.b $F2
+	dc.b $F2	; Unused
 
 Ballad_FM4:
 	dc.b nRst, $30
+
 Ballad_Jump4:
 	sPatFM		$04
 	dc.b nBb3, $30, sHold, $30, nA3, sHold, $30, nG3
@@ -483,11 +484,11 @@ Ballad_Jump4:
 	dc.b $10, nG4, $08, nD5, $18, nRst, $18, nRst
 	dc.b $18
 	sJump		Ballad_Jump4
-	; Unused
-	dc.b $F2
+	dc.b $F2	; Unused
 
 Ballad_FM5:
 	dc.b nRst, $30
+
 Ballad_Jump5:
 	sPatFM		$04
 	dc.b nRst, $03, nF4, $30, sHold, $2D, nRst, $03
@@ -551,13 +552,11 @@ Ballad_Jump5:
 	dc.b $10, nE4, $08, nRst, $0B, nE5, $15, nRst
 	dc.b $09, nRst, $0F, nRst, $18
 	sJump		Ballad_Jump5
-	; Unused
-	dc.b $F2
-
-	dc.b "For Mr Otter 💚"
+	dc.b $F2	; Unused
 
 Ballad_FM6:
 	dc.b nRst, $30
+
 Ballad_Jump6:
 	sPatFM		$04
 	dc.b nRst, $06, nA4, $30, sHold, $2A, nRst, $06
@@ -597,11 +596,11 @@ Ballad_Jump6:
 	dc.b nRst, nRst, $06, nG5, $13, nRst, $08, nRst
 	dc.b $0F, nRst, $18
 	sJump		Ballad_Jump6
-	; Unused
-	dc.b $F2
+	dc.b $F2	; Unused
 
 Ballad_PSG1:
 	dc.b nRst, $30
+
 Ballad_Jump7:
 	sVolEnvPSG	VolEnv_09
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, nRst, nRst
@@ -622,10 +621,10 @@ Ballad_Jump7:
 	dc.b nRst, nRst, nRst, nRst, nRst, nRst, nRst, nRst
 	dc.b $09, nC6, $18, nRst, $0F, nRst, $18
 	sJump		Ballad_Jump7
-	; Unused
-	dc.b $F2
+	dc.b $F2	; Unused
 
 Ballad_Patches:
+
 	; Patch $00
 	; $3C
 	; $78, $78, $34, $34,	$1F, $12, $1F, $1F

@@ -44,8 +44,8 @@ sMuteStopFM	macro
 
 sPanAni		macro v1, v2, v3, v4, v5
 	dc.b $E4
-	if narg=1
-		dc.b \v1
+	if narg=0
+		dc.b 0
 	else
 		dc.b \v1, \v2, \v3, \v4, \v5
 	endif

@@ -1,29 +1,28 @@
-lv4_Header:
+Level4_Header:
 	sHeaderInit	
-	sHeaderPatch	lv4_Patches
+	sHeaderPatch	Level4_Patches
 	sHeaderCh	$07, $00
 	sHeaderTempo	$01, $06
-	sHeaderDAC	lv4_DAC
-	sHeaderFM	lv4_FM1, $18, $1B
-	sHeaderFM	lv4_FM2, $30, $1D
-	sHeaderFM	lv4_FM3, $3C, $1D
-	sHeaderFM	lv4_FM4, $18, $12
-	sHeaderFM	lv4_FM5, $14, $14
-	sHeaderFM	lv4_FM6, $1C, $14
+	sHeaderDAC	Level4_DAC
+	sHeaderFM	Level4_FM1, $18, $1B
+	sHeaderFM	Level4_FM2, $30, $1D
+	sHeaderFM	Level4_FM3, $3C, $1D
+	sHeaderFM	Level4_FM4, $18, $12
+	sHeaderFM	Level4_FM5, $14, $14
+	sHeaderFM	Level4_FM6, $1C, $14
 
-lv4_FM1:
-lv4_Jump1:
+Level4_FM1:
 	sPatFM		$00
 	sPan		spCenter, $00
 
-lv4_Loop1:
+Level4_Loop1:
 	dc.b nD2, $18, nF1, $10, nG1, $08, nRst, nD2
 	dc.b nRst, nC2, nRst, $06, $08, nF1
-	sLoop		$00, $16, lv4_Loop1
+	sLoop		$00, $16, Level4_Loop1
 	saTranspose	$F4
 	saVolFM		$FE
 
-lv4_Loop2:
+Level4_Loop2:
 	sPatFM		$09
 	dc.b nA0, $18, $18
 	saTranspose	$1F
@@ -40,20 +39,20 @@ lv4_Loop2:
 	dc.b nC0, $03, $06, nRst, nRst, nRst, $03
 	saTranspose	$E1
 	saVolFM		$50
-	sLoop		$00, $08, lv4_Loop2
+	sLoop		$00, $08, Level4_Loop2
 	saTranspose	$0C
 	saVolFM		$02
-	sJump		lv4_Jump1
+	sJump		Level4_FM1
 
-lv4_FM2:
+Level4_FM2:
 	sPan		spCenter, $00
 
-lv4_Jump2:
+Level4_Jump1:
 	sPatFM		$00
 
-lv4_Loop3:
+Level4_Loop3:
 	dc.b nG0, $18, nEb1, nD1, nEb1, nRst, $06
-	sLoop		$00, $16, lv4_Loop3
+	sLoop		$00, $16, Level4_Loop3
 	dc.b $60, $60, $60, $60
 	sPatFM		$03
 	dc.b nE1, $0C, nF1, nRst, nC2, nRst, $18, $0C
@@ -63,54 +62,54 @@ lv4_Loop3:
 	dc.b nBb0, $18, nFs1, $48, nRst, $60, $60, $60
 	dc.b $60, $60, $60, $60, $60
 	saTranspose	$F4
-	sJump		lv4_Jump2
+	sJump		Level4_Jump1
 
-lv4_FM3:
+Level4_FM3:
 	sPan		spCenter, $00
 
-lv4_Jump3:
-	sCall		lv4_Call1
-	sCall		lv4_Call2
+Level4_Jump2:
+	sCall		Level4_Call1
+	sCall		Level4_Call2
 	dc.b nRst, $60, $60, $0C
 	saTranspose	$0C
-	sCall		lv4_Call1
-	sCall		lv4_Call2
+	sCall		Level4_Call1
+	sCall		Level4_Call2
 	sPatFM		$03
 
-lv4_Loop5:
+Level4_Loop5:
 	saTranspose	$F4
 	dc.b nE1, $0C, nF1, nRst, nC2, nRst, $18, $0C
 	dc.b nC2, nB1, nG1, nD1, $18, nRst, $30, nE1
 	dc.b $0C, nF1, nRst, nC2, nRst, $18, $0C, nA1
 	saTranspose	$0C
 	dc.b nBb0, $18, nFs1, $48
-	sLoop		$00, $02, lv4_Loop5
+	sLoop		$00, $02, Level4_Loop5
 	dc.b nRst, $60, $60, $60, $60, $60, $60, $60
 	dc.b $60
 	saTranspose	$0C
-	sJump		lv4_Jump3
+	sJump		Level4_Jump2
 
-lv4_Call1:
+Level4_Call1:
 	sPatFM		$01
 	dc.b nRst, $30, $18, nC1, $03, nE1, nAb1, nC2
 	dc.b nC1, nEb1, nAb1, nC2, nRst, $60, $0C
-	sRet	
+	sRet		
 
-lv4_Call2:
+Level4_Call2:
 	saTranspose	$F4
 	sPatFM		$02
 
-lv4_Loop4:
+Level4_Loop4:
 	dc.b nA1, $06, nA0, nA1, nA0, nG1, nG0, nG1
 	dc.b nA1, nA0, nA1, nA0, nG1, nG0, nG1, nA1
 	dc.b nA0, nA1
-	sLoop		$00, $08, lv4_Loop4
-	sRet	
+	sLoop		$00, $08, Level4_Loop4
+	sRet		
 
-lv4_FM4:
-	sCall		lv4_Call3
+Level4_FM4:
+	sCall		Level4_Call3
 
-lv4_Jump4:
+Level4_Jump3:
 	saVolFM		$30
 	dc.b nAb0, $30, sHold
 	saVolFM		$FD
@@ -145,14 +144,14 @@ lv4_Jump4:
 	saTranspose	$0C
 	saVolFM		$F9
 
-lv4_Loop6:
+Level4_Loop6:
 	dc.b nD1, $30, nC1, nRst, $06, nD1, $30, nE1
 	dc.b nRst, $06
-	sLoop		$00, $02, lv4_Loop6
-	sCall		lv4_Call4
-	sCall		lv4_Call5
+	sLoop		$00, $02, Level4_Loop6
+	sCall		Level4_Call4
+	sCall		Level4_Call5
 	saTranspose	$0C
-	sCall		lv4_Call5
+	sCall		Level4_Call5
 	dc.b $60, $60, $60, $30
 	sPatFM		$06
 	saVolFM		$07
@@ -167,34 +166,33 @@ lv4_Loop6:
 	dc.b nD2, $60, nRst, $06
 	saTranspose	$E8
 	saVolFM		$F9
-	sJump		lv4_Jump4
+	sJump		Level4_Jump3
 
-lv4_Call3:
+Level4_Call3:
 	sPan		spCenter, $00
 	sPatFM		$04
 	dc.b nRst, $60, $06
-	sRet	
+	sRet		
 
-lv4_Call6:
-	; Unused
-	dc.b $88, $60, $E7, $60, $E7, $0C, $E3
-lv4_Call4:
-lv4_Loop7:
+Level4_Call6:
+	dc.b nG0, $60, sHold, $60, sHold, $0C
+	sRet		
+
+Level4_Call4:
 	dc.b nRst, $60, $06
-	sLoop		$00, $04, lv4_Loop7
-	sRet	
+	sLoop		$00, $04, Level4_Call4
+	sRet		
 
-lv4_Call5:
-lv4_Loop8:
+Level4_Call5:
 	dc.b nD1, $30, nC1, sHold, $18, sHold, $06, nB0
 	dc.b $18, nA0, nG0, nRst, $06
-	sLoop		$00, $02, lv4_Loop8
-	sRet	
+	sLoop		$00, $02, Level4_Call5
+	sRet		
 
-lv4_FM5:
-	sCall		lv4_Call3
+Level4_FM5:
+	sCall		Level4_Call3
 
-lv4_Jump5:
+Level4_Jump4:
 	dc.b $18, $18, $18
 	saVolFM		$2E
 	dc.b nAb0, sHold
@@ -229,15 +227,15 @@ lv4_Jump5:
 	saVolFM		$FB
 	saTranspose	$10
 
-lv4_Loop9:
-	sCall		lv4_Call6
-	sLoop		$00, $02, lv4_Loop9
-	sCall		lv4_Call4
+Level4_Loop7:
+	sCall		Level4_Call6
+	sLoop		$00, $02, Level4_Loop7
+	sCall		Level4_Call4
 
-lv4_Loop10:
+Level4_Loop8:
 	dc.b nF0, $30, nE0, nRst, $06, nD0, $30, nC0
 	dc.b nRst, $06
-	sLoop		$00, $04, lv4_Loop10
+	sLoop		$00, $04, Level4_Loop8
 	dc.b $60, $60, $60, $30
 	sPatFM		$07
 	dc.b nA1, nRst, $60, $60, $60, $60
@@ -250,12 +248,12 @@ lv4_Loop10:
 	dc.b nA1, nA1, $60, nRst, $06
 	saTranspose	$E4
 	saVolFM		$F8
-	sJump		lv4_Jump5
+	sJump		Level4_Jump4
 
-lv4_FM6:
-	sCall		lv4_Call3
+Level4_FM6:
+	sCall		Level4_Call3
 
-lv4_Jump6:
+Level4_Jump5:
 	dc.b $18, $18, $18, $18, $18, $18, $18
 	saVolFM		$2E
 	dc.b nAb0, sHold
@@ -290,16 +288,16 @@ lv4_Jump6:
 	saVolFM		$FB
 	saTranspose	$08
 
-lv4_Loop11:
+Level4_Loop9:
 	dc.b nEb0, $30, nD0, nRst, $06, nEb0, $30, nF0
 	dc.b nRst, $06
-	sLoop		$00, $02, lv4_Loop11
-	sCall		lv4_Call4
+	sLoop		$00, $02, Level4_Loop9
+	sCall		Level4_Call4
 	saTranspose	$F4
 
-lv4_Loop12:
-	sCall		lv4_Call6
-	sLoop		$00, $04, lv4_Loop12
+Level4_Loop10:
+	sCall		Level4_Call6
+	sLoop		$00, $04, Level4_Loop10
 	dc.b nRst, $60, $60, $60, $30
 	saTranspose	$0C
 	sPatFM		$07
@@ -309,28 +307,29 @@ lv4_Loop12:
 	dc.b nFs1, $18, nE1, nD1, $30, nCs1, nB0, nAb0
 	dc.b nG0, nFs0, nE0
 	sPatFM		$05
-	sCall		lv4_Call7
-	sCall		lv4_Call7
-	sCall		lv4_Call8
-	sCall		lv4_Call8
+	sCall		Level4_Call7
+	sCall		Level4_Call7
+	sCall		Level4_Call8
+	sCall		Level4_Call8
 	dc.b nE2, $60, nRst, $06
 	saTranspose	$04
-	sJump		lv4_Jump6
+	sJump		Level4_Jump5
 
-lv4_Call7:
+Level4_Call7:
 	dc.b nD0, $0C, nRst, nA0, nRst, nE2, $18, sHold
 	dc.b nE2
-	sRet	
+	sRet		
 
-lv4_Call8:
+Level4_Call8:
 	dc.b nD0, $0C, nRst, nA0, nRst, nEb2, $18, sHold
 	dc.b nEb2
-	sRet	
+	sRet		
 
-lv4_DAC:
-	sStop	
+Level4_DAC:
+	sStop		
 
-lv4_Patches:
+Level4_Patches:
+
 	; Patch $00
 	; $04
 	; $7A, $72, $3E, $32,	$12, $12, $12, $12
