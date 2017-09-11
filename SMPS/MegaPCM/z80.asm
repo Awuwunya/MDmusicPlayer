@@ -4,7 +4,10 @@
 ; Mega PCM v.1.1
 ; (C) 2012, Vladikcomper
 ; ---------------------------------------------------------------
+	include "../../code/LANG Z80.ASM"
+
 	org 0
+	z80prog 0
 ; ---------------------------------------------------------------
 ; Constants
 ; ---------------------------------------------------------------
@@ -70,7 +73,7 @@ Idle_Loop:
 
 Idle_WaitDAC:
 	ld	a,(hl)			; load DAC number
-	or	a			; test it
+	zor	a			; test it
 	jp	p,Idle_WaitDAC		; if it's positive, branch
 
 ; ---------------------------------------------------------------
@@ -78,7 +81,7 @@ Idle_WaitDAC:
 ; ---------------------------------------------------------------
 
 LoadDAC:
-	sub	81h			; subtract 81h from DAC number
+	zsub	81h			; subtract 81h from DAC number
 	jr	c,Idle_WaitDAC		; if a = 80h, branch
 	ld	(hl),0h			; reset DAC number in RAM
 
@@ -86,22 +89,22 @@ LoadDAC:
 	ld	ix,DAC_Table		; ix = DAC Table
 	ld	h,0h
 	ld	l,a			; hl = DAC
-	add	hl,hl			; hl = DAC*2
-	add	hl,hl			; hl = DAC*4
-	add	hl,hl			; hl = DAC*8
+	zadd	hl,hl			; hl = DAC*2
+	zadd	hl,hl			; hl = DAC*4
+	zadd	hl,hl			; hl = DAC*8
 	ex	de,hl
-	add	ix,de			; ix = DAC_Table + DAC*8
+	zadd	ix,de			; ix = DAC_Table + DAC*8
 
 	; Init events table according to playback mode
 	ld	a,(ix+flags)		; a = Flags
-	and	7h			; mask only Mode
-	add	a,a			; a = Mode*2
-	add	a,a			; a = Mode*4
-	add	a,a			; a = Mode*8
+	zand	7h			; mask only Mode
+	zadd	a,a			; a = Mode*2
+	zadd	a,a			; a = Mode*4
+	zadd	a,a			; a = Mode*8
 	ld	b,0h
 	ld	c,a			; bc = Mode*8
 	ld	hl,Events_List
-	add	hl,bc			; hl = Events_List + Mode*8
+	zadd	hl,bc			; hl = Events_List + Mode*8
 	ld	de,Ptr_InitPlayback	; de = Events Pointers
 	ld	bc,4FFh			; do 4 times, 'c' should never borrow 'b' on decrement
 
@@ -121,7 +124,7 @@ SetupDAC:
 	ld	(iy+0),2Bh		;
 	ld	(iy+1),80h		; YM => Enable DAC
 	ld	a,(ix+flags)		; load flags
-	and	0C0h			; are pan bits set?
+	zand	0C0h			; are pan bits set?
 	jr	z,SetupDAC0		; if not, branch
         ld	(iy+2),0B6h		;
 	ld	(iy+3),a		; YM => Set Pan
@@ -210,7 +213,7 @@ PauseDAC:
 
 PauseDAC0:
 	ld	a,(DAC_Number)		; load ctrl byte
-	or	a			; is byte zero?
+	zor	a			; is byte zero?
 	jr	nz,PauseDAC0		; if not, branch
 
 	call	SetupDAC		; setup YM for playback
@@ -252,7 +255,7 @@ InitBankSwitching:
 	cp	c		; does the sample end in the first bank?
 	jr	nz,InitBankSwitching0; if not, branch
 	sbc	hl,de		; hl' = end offset - start offset
-	set	7,h		; make the number 8000h-based
+	zset	7,h		; make the number 8000h-based
 
 InitBankSwitching0:
 	ld	de,BankRegister	; de' = bank register
@@ -311,7 +314,7 @@ Init_PCM:
 	ld	c,(ix+pitch)		; c  = pitch
 	ld	h,(ix+s_pos+1)		;
 	ld	l,(ix+s_pos)		; hl = Start offset
-	set	7,h			; make it 8000h-based if it's not (perverts memory damage if playing corrupted slots)
+	zset	7,h			; make it 8000h-based if it's not (perverts memory damage if playing corrupted slots)
 	ld	(iy+0),2Ah		; YM => prepare to fetch DAC bytes
 
 ; ---------------------------------------------------------------
@@ -323,7 +326,7 @@ Process_PCM:
 	; Read sample's byte and send it to DAC with pitching
 	ld	a,(hl)			; 7	; get PCM byte
 	ld	b,c			; 4	; b = Pitch
-	djnz	$			; 7/13+	; wait until pitch zero
+	djnz	*			; 7/13+	; wait until pitch zero
 	ld	(YM_Port0_Data),a	; 13	; write to DAC
 	; Cycles: 31
 
@@ -336,10 +339,10 @@ Process_PCM:
 	; Check if sample playback is finished
 	exx				; 4	;
 	ld	a,c			; 4	; load last bank no.
-	sub	b			; 4	; compare to current bank no.
+	zsub	b			; 4	; compare to current bank no.
 	jr	nz,Process_PCM1			; 7/12	; if last bank isn't reached, branch
 	dec	hl			; 6	; decrease number of bytes to play in last bank
-	or	h			; 4	; is hl positive?
+	zor	h			; 4	; is hl positive?
 	jp	p,Process_PCM3		; 10	; if yes, quit playback loop
 	exx				; 4	;
 	; Cycles: 43
@@ -347,7 +350,7 @@ Process_PCM:
 	; Check if we should play a new sample
 Process_PCM0:
 	ld	a,(DAC_Number)		; 13	; load DAC number
-	or	a			; 4	; test it
+	zor	a			; 4	; test it
 	jp	z,Process_PCM		; 10	; if zero, go on playing
 	jp	Event_Interrupt		;	; otherwise, interrupt playback
 	; Cycles: 27
@@ -355,7 +358,7 @@ Process_PCM0:
 	; Synchronization loop (20 cycles)
 Process_PCM1:
 	exx				; 4
-	nop				; 4
+	znop				; 4
 	jr	Process_PCM0		; 12
 
 	; Switch to next bank
@@ -397,7 +400,7 @@ Init_DPCM:
 	ld	c,(ix+pitch)		; c  = pitch
 	ld	d,(ix+s_pos+1)		;
 	ld	e,(ix+s_pos)		; de = start offset
-	set	7,d			; make it 8000h-based if it's not (perverts memory damage if playing corrupted slots)
+	zset	7,d			; make it 8000h-based if it's not (perverts memory damage if playing corrupted slots)
 	ld	h,DPCM_DeltaArray>>8	; load delta table base
 	ld	(iy+0),2Ah		; YM => prepare to fetch DAC bytes
 	ld	b,80h			; init DAC value
@@ -410,23 +413,23 @@ Process_DPCM:
 	rrca				; 4	;
 	rrca				; 4	;
 	rrca				; 4	;
-	and	0Fh			; 7	; mask nibble
+	zand	0Fh			; 7	; mask nibble
 	ld	l,a			; 4	; setup delta table index
 	ld	a,b			; 4	; load DAC Value
-	add	a,(hl)			; 7	; add delta to it
+	zadd	a,(hl)			; 7	; add delta to it
 	ld	b,c			; 4	; b = Pitch
-	djnz	$			; 7/13+	; wait until pitch zero
+	djnz	*			; 7/13+	; wait until pitch zero
 	ld	(YM_Port0_Data),a	; 13	; write to DAC
 	ld	b,a			; 4	; b = DAC Value
 	; Cycles: 73
 
 	ld	a,(de)			; 7	; reload DPCM stream byte
-	and	0Fh			; 7	; get second nibble
+	zand	0Fh			; 7	; get second nibble
 	ld	l,a			; 4	; setup delta table index
 	ld	a,b			; 4	; load DAC Value
-	add	a,(hl)			; 7	; add delta to it
+	zadd	a,(hl)			; 7	; add delta to it
 	ld	b,c			; 4	; b = Pitch
-	djnz	$			; 7/13+	; wait until pitch zero
+	djnz	*			; 7/13+	; wait until pitch zero
 	ld	(YM_Port0_Data),a	; 13	; write to DAC
 	ld	b,a			; 4	; b = DAC Value
 	; Cycles: 57
@@ -440,10 +443,10 @@ Process_DPCM:
 	; Check if sample playback is finished
 	exx				; 4	;
 	ld	a,c			; 4	; load last bank no.
-	sub	b			; 4	; compare to current bank no.
+	zsub	b			; 4	; compare to current bank no.
 	jr	nz,Process_DPCM1	; 7/12	; if last bank isn't reached, branch
 	dec	hl			; 6	; decrease number of bytes to play in last bank
-	or	h			; 4	; is hl positive?
+	zor	h			; 4	; is hl positive?
 	jp	p,Process_DPCM3		; 10	; if yes, quit playback loop
 	exx				; 4	;
 	; Cycles: 43
@@ -451,7 +454,7 @@ Process_DPCM:
 	; Check if we should play a new sample
 Process_DPCM0:
 	ld	a,(DAC_Number)		; 13	; load DAC number
-	or	a			; 4	; test it
+	zor	a			; 4	; test it
 	jp	z,Process_DPCM		; 10	; if zero, go on playing
 	jp	Event_Interrupt		;	; otherwise, interrupt playback
 	; Cycles: 27
@@ -459,7 +462,7 @@ Process_DPCM0:
 	; Synchronization loop (20 cycles)
 Process_DPCM1:
 	exx				; 4
-	nop				; 4
+	znop				; 4
 	jr	Process_DPCM0		; 12
 
 	; Switch to next bank
@@ -498,3 +501,4 @@ DPCM_DeltaArray:
 ; It remains empty here, you are meant to fill it in your hack's
 ; disassembly right after including compiled driver.
 DAC_Table:
+	z80prog

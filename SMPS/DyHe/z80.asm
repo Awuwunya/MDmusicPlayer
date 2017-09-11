@@ -20,8 +20,10 @@
 ; ===========================================================================
 
 ; Segment type:	Regular
-		org 0h
-
+	include "../../code/LANG Z80.ASM"
+	opt w-	; a lot of warnings, ignore...
+		org 0
+	z80prog 0
 loc_0:					; DATA XREF: RAM:000Br	RAM:000Fr ...
 		di
 		di
@@ -63,12 +65,12 @@ loc_0:					; DATA XREF: RAM:000Br	RAM:000Fr ...
 
 loc_5D:					; CODE XREF: RAM:0061j	RAM:06F8j
 		ld	a, (byte_1FFE)
-		or	a
+		zor	a
 		jp	z, loc_5D
 
 loc_64:					; CODE XREF: RAM:0189j	RAM:01E7j ...
 		ld	(byte_1F2A), a
-		or	a
+		zor	a
 		jp	m, loc_1EA
 		ld	(byte_1FE0), a
 		xor	a
@@ -77,7 +79,7 @@ loc_64:					; CODE XREF: RAM:0189j	RAM:01E7j ...
 		ld	a, (byte_1FFB)
 		ld	(byte_1FFC), a
 		ld	a, (byte_1FFD)
-		or	a
+		zor	a
 		jp	m, loc_88
 		ld	a, (byte_1FF9)
 		jr	loc_8B
@@ -87,7 +89,7 @@ loc_88:					; CODE XREF: RAM:0080j
 		ld	a, (byte_1FFA)
 
 loc_8B:					; CODE XREF: RAM:0086j
-		ex	af, af'
+		ex	af, af
 	; loading z80 bank begins here
 		ld	a, (byte_1FE9)
 		rlca
@@ -108,7 +110,7 @@ loc_98:					; CODE XREF: RAM:009Cj
 
 loc_AE:					; CODE XREF: RAM:00B2j	RAM:00BDj
 		ld	a, (byte_1FFF)
-		or	a
+		zor	a
 		jp	nz, loc_AE
 		ldi			; copy 80h bytes from ROM bank to Z80 RAM
 		ldi
@@ -117,7 +119,7 @@ loc_AE:					; CODE XREF: RAM:00B2j	RAM:00BDj
 		jp	pe, loc_AE
 		ld	a, (iy+2)
 		ld	b, (iy+3)
-		sub	80h
+		zsub	80h
 		jp	nc, loc_CC
 		dec	b
 
@@ -128,7 +130,7 @@ loc_CC:					; CODE XREF: RAM:00C8j
 		ld	(byte_1F2A), a
 		ld	ix, (loc_0)
 		ld	ix, (loc_0)
-		ex	af, af'
+		ex	af, af
 		ld	hl, 4002h
 		ld	(hl), 0B6h
 		inc	hl
@@ -155,7 +157,7 @@ loc_CC:					; CODE XREF: RAM:00C8j
 		ld	hl, SampleCache
 		ld	(word_1FE2), hl
 		ld	a, 80h
-		ex	af, af'
+		ex	af, af
 		xor	a
 		ld	(byte_1F2A), a
 		jp	loc_179
@@ -167,13 +169,13 @@ loc_120:				; CODE XREF: RAM:0186j
 		ld	a, l
 		inc	a
 		ld	(word_1FE2), a
-		ex	af, af'
+		ex	af, af
 		ld	l, (hl)
 		dec	h
-		add	a, (hl)
+		zadd	a, (hl)
 		exx
 		ld	(hl), d
-		nop
+		znop
 		ld	b, c
 		ex	de, hl
 		ld	(hl), e
@@ -182,11 +184,11 @@ loc_120:				; CODE XREF: RAM:0186j
 		ld	(hl), e
 
 loc_138:				; CODE XREF: RAM:loc_138j
-		djnz	$
+		djnz	*
 		exx
 		dec	h
-		add	a, (hl)
-		ex	af, af'
+		zadd	a, (hl)
+		ex	af, af
 		cp	e
 		jr	z, loc_154
 		jp	m, loc_15D
@@ -194,8 +196,8 @@ loc_138:				; CODE XREF: RAM:loc_138j
 		inc	iy
 
 loc_149:				; CODE XREF: RAM:0161j
-		nop
-		nop
+		znop
+		znop
 		inc	iy
 		inc	iy
 		inc	iy
@@ -204,14 +206,14 @@ loc_149:				; CODE XREF: RAM:0161j
 
 loc_154:				; CODE XREF: RAM:013Fj	RAM:015Aj
 		ld	a, (byte_1FFF)
-		or	a
+		zor	a
 		jr	z, loc_163
 		jp	loc_154
 ; ---------------------------------------------------------------------------
 
 loc_15D:				; CODE XREF: RAM:0141j
 		ld	a, (byte_1FFF)
-		or	a
+		zor	a
 		jr	nz, loc_149
 
 loc_163:				; CODE XREF: RAM:0158j
@@ -221,10 +223,10 @@ loc_163:				; CODE XREF: RAM:0158j
 		push	hl
 
 loc_169:				; CODE XREF: RAM:0151j
-		ex	af, af'
+		ex	af, af
 		exx
 		ld	(hl), d
-		nop
+		znop
 		ld	b, c
 		ex	de, hl
 		ld	(hl), e
@@ -233,32 +235,32 @@ loc_169:				; CODE XREF: RAM:0151j
 		ld	(hl), e
 
 loc_175:				; CODE XREF: RAM:loc_175j
-		djnz	$
+		djnz	*
 		exx
-		ex	af, af'
+		ex	af, af
 
 loc_179:				; CODE XREF: RAM:011Dj
 		ld	a, b
-		or	a
+		zor	a
 		jp	m, loc_18C
-		or	c
+		zor	c
 		jp	z, loc_18F
 		ld	a, (byte_1FFE)
-		or	a
+		zor	a
 		jp	z, loc_120
 		jp	loc_64
 ; ---------------------------------------------------------------------------
 
 loc_18C:				; CODE XREF: RAM:017Bj
-		nop
+		znop
 		inc	iy
 
 loc_18F:				; CODE XREF: RAM:017Fj
 		ld	a, 0
-		nop
-		nop
+		znop
+		znop
 		ld	a, e
-		add	a, c
+		zadd	a, c
 		ld	e, a
 
 loc_196:				; CODE XREF: RAM:01E4j
@@ -267,13 +269,13 @@ loc_196:				; CODE XREF: RAM:01E4j
 		ld	a, l
 		inc	a
 		ld	(word_1FE2), a
-		ex	af, af'
+		ex	af, af
 		ld	l, (hl)
 		dec	h
-		add	a, (hl)
+		zadd	a, (hl)
 		exx
 		ld	(hl), d
-		nop
+		znop
 		ld	b, c
 		ex	de, hl
 		ld	(hl), e
@@ -282,13 +284,13 @@ loc_196:				; CODE XREF: RAM:01E4j
 		ld	(hl), e
 
 loc_1AE:				; CODE XREF: RAM:loc_1AEj
-		djnz	$
+		djnz	*
 		exx
 		dec	h
-		add	a, (hl)
-		ex	af, af'
-		nop
-		nop
+		zadd	a, (hl)
+		ex	af, af
+		znop
+		znop
 		inc	iy
 		inc	iy
 		inc	iy
@@ -298,10 +300,10 @@ loc_1AE:				; CODE XREF: RAM:loc_1AEj
 		inc	iy
 		inc	iy
 		inc	iy
-		ex	af, af'
+		ex	af, af
 		exx
 		ld	(hl), d
-		nop
+		znop
 		ld	b, c
 		ex	de, hl
 		ld	(hl), e
@@ -310,16 +312,16 @@ loc_1AE:				; CODE XREF: RAM:loc_1AEj
 		ld	(hl), e
 
 loc_1D4:				; CODE XREF: RAM:loc_1D4j
-		djnz	$
+		djnz	*
 		exx
-		ex	af, af'
-		nop
-		nop
+		ex	af, af
+		znop
+		znop
 		inc	iy
 		cp	e
 		jp	z, loc_6C8
 		ld	a, (byte_1FFE)
-		or	a
+		zor	a
 		jp	z, loc_196
 		jp	loc_64
 ; ---------------------------------------------------------------------------
@@ -371,12 +373,12 @@ loc_1EA:				; CODE XREF: RAM:0068j
 loc_252:				; CODE XREF: RAM:0296j
 		pop	hl
 		ld	a, l
-		ex	af, af'
+		ex	af, af
 		ld	c, 80h
-		add	ix, bc
-		add	iy, bc
-		nop
-		nop
+		zadd	ix, bc
+		zadd	iy, bc
+		znop
+		znop
 		ld	a, 0
 		ld	de, (loc_0)
 		ld	de, (loc_0)
@@ -386,9 +388,9 @@ loc_252:				; CODE XREF: RAM:0296j
 loc_26A:				; CODE XREF: RAM:02AFj
 		pop	hl
 		ld	c, 80h
-		add	ix, bc
-		add	iy, bc
-		nop
+		zadd	ix, bc
+		zadd	iy, bc
+		znop
 		ld	de, 0
 		ld	de, (loc_0)
 		ld	de, (loc_0)
@@ -409,17 +411,17 @@ loc_288:				; CODE XREF: RAM:024Fj	RAM:0588j ...
 		inc	d
 		ld	l, (hl)
 		ld	h, 0Bh		; 0Bxx - DPCM_HighNibble
-		add	a, (hl)
+		zadd	a, (hl)
 		ld	c, a
-		add	ix, bc
+		zadd	ix, bc
 		dec	h		; 0Axx - DPCM_LowNibble
-		add	a, (hl)
+		zadd	a, (hl)
 		ld	c, a
-		add	iy, bc
+		zadd	iy, bc
 		ld	e, a
 		ld	(word_1FC1), de
 		ld	a, d
-		ex	af, af'
+		ex	af, af
 
 loc_2AE:				; CODE XREF: RAM:0267j
 		pop	af
@@ -429,20 +431,20 @@ loc_2AE:				; CODE XREF: RAM:0267j
 		inc	d
 		ld	l, (hl)
 		dec	h
-		add	a, (hl)
+		zadd	a, (hl)
 		ld	c, a
-		add	ix, bc
+		zadd	ix, bc
 		dec	h
-		add	a, (hl)
+		zadd	a, (hl)
 		ld	c, a
-		add	iy, bc
+		zadd	iy, bc
 		ld	e, a
 		ld	(word_1FC5), de
 		ld	a, (word_1FB2)
-		sub	d
+		zsub	d
 		jr	z, loc_2CF
-		nop
-		nop
+		znop
+		znop
 		jp	loc_2D2
 ; ---------------------------------------------------------------------------
 
@@ -463,13 +465,13 @@ loc_2D2:				; CODE XREF: RAM:0285j	RAM:02CCj
 		pop	af
 		jp	nc, loc_3D9
 		pop	de
-		ex	af, af'
-		sub	e
+		ex	af, af
+		zsub	e
 		jp	nz, loc_2F6
 
 loc_2EA:				; CODE XREF: RAM:02EEj
 		ld	a, (byte_1FFF)
-		or	a
+		zor	a
 		jp	nz, loc_2EA
 		ld	a, 0
 		jp	loc_302
@@ -479,7 +481,7 @@ loc_2F6:				; CODE XREF: RAM:02E7j
 		cp	0C0h
 		jp	c, loc_38F
 		ld	a, (byte_1FFF)
-		or	a
+		zor	a
 		jp	nz, loc_396
 
 loc_302:				; CODE XREF: RAM:02F3j
@@ -515,13 +517,13 @@ loc_302:				; CODE XREF: RAM:02F3j
 		xor	a
 		ld	(byte_1F90), a
 		ld	a, 0
-		nop
+		znop
 		jr	loc_33E
 ; ---------------------------------------------------------------------------
 
 loc_333:				; CODE XREF: RAM:0323j
 		ld	a, b
-		or	a
+		zor	a
 		jp	m, loc_362
 		push	bc
 		push	hl
@@ -539,21 +541,21 @@ loc_33E:				; CODE XREF: RAM:0331j	RAM:03D6j ...
 		ld	(hl), e
 		exx
 		ld	a, (byte_1FFE)
-		or	a
+		zor	a
 		jp	z, loc_4C3
-		ex	af, af'
+		ex	af, af
 		xor	a
 		ld	(byte_1F86), a
 		ld	(byte_1FA6), a
 		ld	(byte_1F87), a
 		ld	(byte_1FA7), a
-		ex	af, af'
+		ex	af, af
 		jp	loc_64
 ; ---------------------------------------------------------------------------
 
 loc_362:				; CODE XREF: RAM:0335j
 		ld	a, e
-		add	a, c
+		zadd	a, c
 		ld	(word_1F92), a
 		xor	a
 		ld	(byte_1F90), a
@@ -567,15 +569,15 @@ loc_362:				; CODE XREF: RAM:0335j
 		ld	(hl), e
 		exx
 		ld	a, (byte_1FFE)
-		or	a
+		zor	a
 		jp	z, loc_4C3
-		ex	af, af'
+		ex	af, af
 		xor	a
 		ld	(byte_1F86), a
 		ld	(byte_1FA6), a
 		ld	(byte_1F87), a
 		ld	(byte_1FA7), a
-		ex	af, af'
+		ex	af, af
 		jp	loc_64
 ; ---------------------------------------------------------------------------
 
@@ -586,9 +588,9 @@ loc_38F:				; CODE XREF: RAM:02F8j
 
 loc_396:				; CODE XREF: RAM:02FFj
 		ld	a, (byte_1F86)
-		or	a
+		zor	a
 		jp	m, loc_3A5
-		nop
+		znop
 		ld	a, 0
 		ld	bc, 0
 		jr	loc_3AD
@@ -600,7 +602,7 @@ loc_3A5:				; CODE XREF: RAM:039Aj	RAM:03EEj
 		ld	(byte_1F90), a
 
 loc_3AD:				; CODE XREF: RAM:03A3j
-		nop
+		znop
 		ld	bc, (loc_0)
 		ld	bc, (loc_0)
 		ld	bc, (loc_0)
@@ -616,17 +618,17 @@ loc_3AD:				; CODE XREF: RAM:03A3j
 
 loc_3D9:				; CODE XREF: RAM:02E1j
 		jp	z, loc_448
-		nop
-		nop
-		nop
+		znop
+		znop
+		znop
 		ld	bc, 0
 		ld	bc, (loc_0)
 		ld	bc, (loc_0)
 		ld	a, (byte_1F86)
-		or	a
+		zor	a
 		jp	m, loc_3A5
 		jp	nz, loc_405
-		nop
+		znop
 		ld	a, 0
 		ld	bc, 0
 		ld	bc, (loc_0)
@@ -636,7 +638,7 @@ loc_3D9:				; CODE XREF: RAM:02E1j
 
 loc_405:				; CODE XREF: RAM:03F1j
 		pop	de
-		ex	af, af'
+		ex	af, af
 		cp	e
 		jp	z, loc_418
 		ld	a, 0
@@ -653,13 +655,13 @@ loc_418:				; CODE XREF: RAM:0408j
 
 loc_422:				; CODE XREF: RAM:0402j
 		ld	a, (byte_1FA6)
-		or	a
+		zor	a
 		jp	z, loc_6C8
 
 loc_429:				; CODE XREF: RAM:0415j
-		nop
-		nop
-		nop
+		znop
+		znop
+		znop
 		ld	a, 0
 		ld	bc, 0
 		ld	bc, (loc_0)
@@ -692,7 +694,7 @@ loc_448:				; CODE XREF: RAM:loc_3D9j
 		push	hl
 		xor	a
 		ld	(byte_1F2A), a
-		nop
+		znop
 		ld	bc, (loc_0)
 		ld	bc, (loc_0)
 		ld	bc, (loc_0)
@@ -704,8 +706,8 @@ loc_448:				; CODE XREF: RAM:loc_3D9j
 loc_48D:				; CODE XREF: RAM:04D1j
 		pop	hl
 		ld	c, 80h
-		add	ix, bc
-		add	iy, bc
+		zadd	ix, bc
+		zadd	iy, bc
 		ld	a, 0
 		ld	de, 0
 		ld	de, (loc_0)
@@ -718,13 +720,13 @@ loc_48D:				; CODE XREF: RAM:04D1j
 loc_4AC:				; CODE XREF: RAM:04F6j
 		pop	hl
 		ld	a, l
-		ex	af, af'
+		ex	af, af
 		ld	c, 80h
-		add	ix, bc
-		add	iy, bc
-		nop
-		nop
-		nop
+		zadd	ix, bc
+		zadd	iy, bc
+		znop
+		znop
+		znop
 		ld	de, (loc_0)
 		ld	de, (loc_0)
 		jp	loc_50D
@@ -742,20 +744,20 @@ loc_4C3:				; CODE XREF: RAM:034Dj	RAM:037Aj
 		inc	d
 		ld	l, (hl)
 		ld	h, 0Bh		; 0Bxx - DPCM_HighNibble
-		add	a, (hl)
+		zadd	a, (hl)
 		ld	c, a
-		add	ix, bc
+		zadd	ix, bc
 		dec	h		; 0Axx - DPCM_LowNibble
-		add	a, (hl)
+		zadd	a, (hl)
 		ld	c, a
-		add	iy, bc
+		zadd	iy, bc
 		ld	e, a
 		ld	(word_1FC1), de
 		ld	a, (word_1F92)
-		sub	d
+		zsub	d
 		jr	z, loc_4F2
-		nop
-		nop
+		znop
+		znop
 		jp	loc_4F5
 ; ---------------------------------------------------------------------------
 
@@ -770,17 +772,17 @@ loc_4F5:				; CODE XREF: RAM:04A9j	RAM:04EFj
 		inc	d
 		ld	l, (hl)
 		dec	h
-		add	a, (hl)
+		zadd	a, (hl)
 		ld	c, a
-		add	ix, bc
+		zadd	ix, bc
 		dec	h
-		add	a, (hl)
+		zadd	a, (hl)
 		ld	c, a
-		add	iy, bc
+		zadd	iy, bc
 		ld	e, a
 		ld	(word_1FC5), de
 		ld	a, d
-		ex	af, af'
+		ex	af, af
 
 loc_50D:				; CODE XREF: RAM:04C0j
 		exx
@@ -796,13 +798,13 @@ loc_50D:				; CODE XREF: RAM:04C0j
 		pop	af
 		jp	nc, loc_614
 		pop	de
-		ex	af, af'
-		sub	e
+		ex	af, af
+		zsub	e
 		jp	nz, loc_531
 
 loc_525:				; CODE XREF: RAM:0529j
 		ld	a, (byte_1FFF)
-		or	a
+		zor	a
 		jp	nz, loc_525
 		ld	a, 0
 		jp	loc_53D
@@ -812,7 +814,7 @@ loc_531:				; CODE XREF: RAM:0522j
 		cp	0C0h
 		jp	c, loc_5CA
 		ld	a, (byte_1FFF)
-		or	a
+		zor	a
 		jp	nz, loc_5D1
 
 loc_53D:				; CODE XREF: RAM:052Ej
@@ -848,13 +850,13 @@ loc_53D:				; CODE XREF: RAM:052Ej
 		xor	a
 		ld	(byte_1FB0), a
 		ld	a, 0
-		nop
+		znop
 		jr	loc_579
 ; ---------------------------------------------------------------------------
 
 loc_56E:				; CODE XREF: RAM:055Ej
 		ld	a, b
-		or	a
+		zor	a
 		jp	m, loc_59D
 		push	bc
 		push	hl
@@ -872,21 +874,21 @@ loc_579:				; CODE XREF: RAM:056Cj	RAM:0611j ...
 		ld	(hl), e
 		exx
 		ld	a, (byte_1FFE)
-		or	a
+		zor	a
 		jp	z, loc_288
-		ex	af, af'
+		ex	af, af
 		xor	a
 		ld	(byte_1F86), a
 		ld	(byte_1FA6), a
 		ld	(byte_1F87), a
 		ld	(byte_1FA7), a
-		ex	af, af'
+		ex	af, af
 		jp	loc_64
 ; ---------------------------------------------------------------------------
 
 loc_59D:				; CODE XREF: RAM:0570j
 		ld	a, e
-		add	a, c
+		zadd	a, c
 		ld	(word_1FB2), a
 		xor	a
 		ld	(byte_1FB0), a
@@ -900,15 +902,15 @@ loc_59D:				; CODE XREF: RAM:0570j
 		ld	(hl), e
 		exx
 		ld	a, (byte_1FFE)
-		or	a
+		zor	a
 		jp	z, loc_288
-		ex	af, af'
+		ex	af, af
 		xor	a
 		ld	(byte_1F86), a
 		ld	(byte_1FA6), a
 		ld	(byte_1F87), a
 		ld	(byte_1FA7), a
-		ex	af, af'
+		ex	af, af
 		jp	loc_64
 ; ---------------------------------------------------------------------------
 
@@ -919,9 +921,9 @@ loc_5CA:				; CODE XREF: RAM:0533j
 
 loc_5D1:				; CODE XREF: RAM:053Aj
 		ld	a, (byte_1FA6)
-		or	a
+		zor	a
 		jp	m, loc_5E0
-		nop
+		znop
 		ld	a, 0
 		ld	bc, 0
 		jr	loc_5E8
@@ -933,7 +935,7 @@ loc_5E0:				; CODE XREF: RAM:05D5j	RAM:0629j
 		ld	(byte_1FB0), a
 
 loc_5E8:				; CODE XREF: RAM:05DEj
-		nop
+		znop
 		ld	bc, (loc_0)
 		ld	bc, (loc_0)
 		ld	bc, (loc_0)
@@ -949,17 +951,17 @@ loc_5E8:				; CODE XREF: RAM:05DEj
 
 loc_614:				; CODE XREF: RAM:051Cj
 		jp	z, loc_683
-		nop
-		nop
-		nop
+		znop
+		znop
+		znop
 		ld	bc, 0
 		ld	bc, (loc_0)
 		ld	bc, (loc_0)
 		ld	a, (byte_1FA6)
-		or	a
+		zor	a
 		jp	m, loc_5E0
 		jp	nz, loc_640
-		nop
+		znop
 		ld	a, 0
 		ld	bc, 0
 		ld	bc, (loc_0)
@@ -969,7 +971,7 @@ loc_614:				; CODE XREF: RAM:051Cj
 
 loc_640:				; CODE XREF: RAM:062Cj
 		pop	de
-		ex	af, af'
+		ex	af, af
 		cp	e
 		jp	z, loc_653
 		ld	a, 0
@@ -986,13 +988,13 @@ loc_653:				; CODE XREF: RAM:0643j
 
 loc_65D:				; CODE XREF: RAM:063Dj
 		ld	a, (byte_1F86)
-		or	a
+		zor	a
 		jp	z, loc_6C8
 
 loc_664:				; CODE XREF: RAM:0650j
-		nop
-		nop
-		nop
+		znop
+		znop
+		znop
 		ld	a, 0
 		ld	bc, 0
 		ld	bc, (loc_0)
@@ -1025,7 +1027,7 @@ loc_683:				; CODE XREF: RAM:loc_614j
 		push	hl
 		xor	a
 		ld	(byte_1F2A), a
-		nop
+		znop
 		ld	bc, (loc_0)
 		ld	bc, (loc_0)
 		ld	bc, (loc_0)
@@ -1106,7 +1108,7 @@ DPCM_LowNibble:	db 0, 1, 2, 4, 8, 10h, 20h, 40h, 80h, 0FFh, 0FEh, 0FCh,	0F8h, 0F
 		db 0, 1, 2, 4, 8, 10h, 20h, 40h, 80h, 0FFh, 0FEh, 0FCh,	0F8h, 0F0h, 0E0h, 0C0h
 		db 0, 1, 2, 4, 8, 10h, 20h, 40h, 80h, 0FFh, 0FEh, 0FCh,	0F8h, 0F0h, 0E0h, 0C0h
 		db 0, 1, 2, 4, 8, 10h, 20h, 40h, 80h, 0FFh, 0FEh, 0FCh,	0F8h, 0F0h, 0E0h, 0C0h
-DPCM_HighNibble:db 0, 0, 0, 0, 0, 0, 0,	0, 0, 0, 0, 0, 0, 0, 0,	0
+DPCM_HighNibble: db 0, 0, 0, 0, 0, 0, 0,	0, 0, 0, 0, 0, 0, 0, 0,	0
 		db 1, 1, 1, 1, 1, 1, 1,	1, 1, 1, 1, 1, 1, 1, 1,	1
 		db 2, 2, 2, 2, 2, 2, 2,	2, 2, 2, 2, 2, 2, 2, 2,	2
 		db 4, 4, 4, 4, 4, 4, 4,	4, 4, 4, 4, 4, 4, 4, 4,	4
@@ -1122,7 +1124,7 @@ DPCM_HighNibble:db 0, 0, 0, 0, 0, 0, 0,	0, 0, 0, 0, 0, 0, 0, 0,	0
 		db 0F0h, 0F0h, 0F0h, 0F0h, 0F0h, 0F0h, 0F0h, 0F0h, 0F0h, 0F0h, 0F0h, 0F0h, 0F0h, 0F0h, 0F0h, 0F0h
 		db 0E0h, 0E0h, 0E0h, 0E0h, 0E0h, 0E0h, 0E0h, 0E0h, 0E0h, 0E0h, 0E0h, 0E0h, 0E0h, 0E0h, 0E0h, 0E0h
 		db 0C0h, 0C0h, 0C0h, 0C0h, 0C0h, 0C0h, 0C0h, 0C0h, 0C0h, 0C0h, 0C0h, 0C0h, 0C0h, 0C0h, 0C0h, 0C0h
-SampleCache = $
+SampleCache = *
 SampleCache2 =	SampleCache+100h
 byte_1F00 =	$1F00
 byte_1F2A =	$1F2A
@@ -1154,4 +1156,5 @@ byte_1FFC =	$1FFC
 byte_1FFD =	$1FFD
 byte_1FFE =	$1FFE
 byte_1FFF =	$1FFF
+	z80prog
 		end

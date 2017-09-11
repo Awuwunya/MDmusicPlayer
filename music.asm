@@ -24,3 +24,8 @@ SMPS asm MegaPCM "S1 GnG Level 4" "Ghouls'n Ghosts - Level 4" 68k
 SMPS asm DyHe "DyHe Izayoi" "You're Izayoi" 68k
 SMPS asm DyHe "DyHe Funny Angry" "Funny Angry" 68k
 SMPS asm DyHe "DyHe Ballad for You" "Ballad For You" 68k
+
+; Ristar sound driver music
+SMPS asm Ristar "RST Dancing Leaves" "Dancing Leaves" 68k
+SMPS asm Ristar "RST Rink Rink" "Rink Rink" 68k
+SMPS asm Ristar "RST On Parade" "On Parade" 68k

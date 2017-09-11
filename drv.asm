@@ -15,6 +15,7 @@ drvnum =	0
 ; compression: the compression of the sound driver. See macro.asm for further details.
 	incdrv	SMPS, MegaPCM, cmp_kos
 	incdrv	SMPS, Sonic3K, cmp_kos
+	incdrv	SMPS, Ristar, cmp_kos
 	incdrv	SMPS, DyHe, cmp_kos
 	incdrv	GEMS, Aladdin, cmp_none
 	incdrv	GEMS, Vectorman, cmp_none

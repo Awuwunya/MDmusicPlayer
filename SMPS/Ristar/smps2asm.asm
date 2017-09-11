@@ -4,13 +4,22 @@ sHold =			$E7
 nMaxPSG	=	nA5
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
-	enum $00,	  VolEnv_00
+	enum $00,	  VolEnv_00,VolEnv_01,VolEnv_02,VolEnv_03,VolEnv_04,VolEnv_05
+	enum VolEnv_05+1, VolEnv_06,VolEnv_07,VolEnv_08,VolEnv_09,VolEnv_0A,VolEnv_0B
+	enum VolEnv_0B+1, VolEnv_0C,VolEnv_0D,VolEnv_0E,VolEnv_0F,VolEnv_10,VolEnv_11
+	enum VolEnv_11+1, VolEnv_12,VolEnv_13,VolEnv_14,VolEnv_15,VolEnv_16,VolEnv_17
+	enum VolEnv_17+1, VolEnv_18,VolEnv_19,VolEnv_1A,VolEnv_1B,VolEnv_1C,VolEnv_1D
 ; ---------------------------------------------------------------------------------------------
 ; PSG modulation envelope equates
-	enum $00,	  ModEnv_00
+	enum $00,	  ModEnv_00,ModEnv_01,ModEnv_02,ModEnv_03,ModEnv_04,ModEnv_05
+	enum VolEnv_05+1, ModEnv_06,ModEnv_07
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
-	enum $81, dSnare
+	enum $81, d81,d82,d83,d84,d85,d86,d87,d88,d89,d8A,d8B,d8C,d8D,d8E,d8F
+	enum $90, d90,d91,d92,d93,d94,d95,d96,d97,d98,d99,d9A,d9B,d9C,d9D,d9E,d9F
+	enum $A0, dA0,dA1,dA2,dA3,dA4,dA5,dA6,dA7,dA8,dA9,dAA,dAB,dAC,dAD,dAE,dAF
+	enum $B0, dB0,dB1,dB2,dB3,dB4,dB5,dB6,dB7,dB8,dB9,dBA,dBB,dBC,dBD,dBE,dBF
+	enum $C0, dC0,dC1
 ; ---------------------------------------------------------------------------------------------
 ; SMPS commands
 
@@ -45,8 +54,8 @@ sMuteStopFM	macro
 
 sPanAni		macro v1, v2, v3, v4, v5
 	dc.b $E4
-	if narg=1
-		dc.b \v1
+	if narg=0
+		dc.b 0
 	else
 		dc.b \v1, \v2, \v3, \v4, \v5
 	endif
@@ -144,19 +153,19 @@ sVolEnvPSG	macro voice
 ; F6xxxx - Jump to xxxx (GOTO)
 sJump		macro loc
 	dc.b $F6
-	dc.w loc-offset(*)
+	dc.w \loc-offset(*)-2
     endm
 
 ; F7xxyyzzzz - Loop back to zzzz yy times, xx being the loop index for loop recursion fixing (LOOP)
 sLoop		macro index,loops,loc
 	dc.b $F7,\index,\loops
-	dc.w loc-offset(*)
+	dc.w \loc-offset(*)-2
     endm
 
 ; F8xxxx - Call pattern at xxxx, saving return point (GOSUB)
 sCall		macro loc
 	dc.b $F8
-	dc.w loc-offset(*)
+	dc.w \loc-offset(*)-2
     endm
 
 ; F9 - Return (RETURN)
@@ -225,7 +234,7 @@ sNoteTimeIn	macro val
 ; FF07xxxx - Jump to xxxx if F041 is nonzero (COND_JUMP - CJMP_NZ)
 sCondJmp	macro loc
 	dc.b $FF,$07
-	dc.w loc-offset(*)
+	dc.w loc-offset(*)-2
     endm
 
 ; FF08xx - Set tempo only in PAL region

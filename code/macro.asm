@@ -356,6 +356,8 @@ ChanDat		rs.b 8+(16*6)	; total amount of space for channel data
 	rsset ChanDat
 sTempo		rs.b 1		; tempo of the driver
 sTickMul	rs.b 1		; tick multiplier of the driver
+sDAC2number	rs.b 1		; the DAC2 ID we are playing currently
+sDAC2time	rs.b 1		; timer for the currently playing DAC2
 sDACnumber	rs.b 1		; the DAC ID we are playing currently
 sDACtime	rs.b 1		; timer for the currently playing DAC
 		rs.w 0		; make sure these addresses are even

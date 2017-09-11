@@ -355,14 +355,14 @@
 			?volenv;
 		}
 	}
-	!0xF6 > sJump: .ow {
+	!0xF6 > sJump: .rw {
 		~£_Jump? :0
 		;
 	}
-	!0xF7 > sLoop: .db, .db, .ow {
+	!0xF7 > sLoop: .db, .db, .rw {
 		~£_Loop? :2
 	}
-	!0xF8 > sCall: .ow {
+	!0xF8 > sCall: .rw {
 		~£_Call? :0
 	}
 	!0xF9 > sRet:{
