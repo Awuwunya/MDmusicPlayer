@@ -28,13 +28,13 @@ Contents:
     into the prompt itself. Do note, some scripts may require additional
     parameters. You can put them right after the other parameters. Here is an
     example:
-      "SMPS2ASM ICZ.bin S3K_SMPS IceCap1 0x86AA"
+      "SMPS2ASM ICZ.bin Sonic3K IceCap1 0x86AA"
 
     If you want to use another script inside a folder, you can append a dot, and
     the unique name of the script. You can see this with scripts related to SFX.
     For example with script "S1_SMPS/smps2asm script.SFX.asm", you would want to
     append ".SFX" to the folder name, as follows:
-      "SMPS2ASM Jump.bin S1_SMPS.SFX Jump"
+      "SMPS2ASM Jump.bin Sonic1.SFX Jump"
 
   *1.4 - Special flags*
     The commandline supports you adding special flags to use different special
@@ -54,24 +54,9 @@ Contents:
     the main script, then the program evaluates if this function should be
     executed. There also can be equates, which will be evaluated when they are
     first found (That is, not at script parse time, but when the script at its
-    location is ran first). Scripts are split into a few subscripts;
-      * dat - Contains some basic pointers and functions for the entire file.
-
-      * header - Contains instructions for how to construct the header. The
-        entire header script is attempted to parse at once, over other times
-        when the script is only parsed by matching. You can still limit the
-        matching in same way however.
-
-      * DAC - Is used when attempting to parse DAC code. Contains pointers to
-        different possible DAC ID's.
-
-      * note - Is used when attempting to parse FM or PSG code. Contains pointers
-        to different possible notes.
-
-      * comm - Contains information about command flags.
-
-      * patches - Contains information for how to construct each patch data.
-        The entire script is attempted to parse at once, for every patch found.
+    location is ran first). Scripts are split into subscripts, which are user
+    defined, in order to be ran or used by the code to aid in conversion
+    process.
 
   *2.2 - Mnemonics*
     *2.2.1 - Function types*
@@ -106,7 +91,7 @@ Contents:
 
         * Argument modifier - This adds the functionality to modify an argument
           of a macro. It can be defined it to one argument only, and will change
-          equated value to its lable. The symbol for this operation is '#'
+          equated value to its lable. The symbol for this operation is ':'
 
         * If block - This function is used to run alternate code based on
           condition. If blocks can also contain only true condition. The symbol
@@ -142,6 +127,10 @@ Contents:
           comments and they are set on a new line. If placed inside a macro,
           the comment will be appended after the macro itself. The symbol for
           this operation is '%'
+
+        * Print - This can be used in order to print text to the command window.
+          This works almost like a Comment operation, but will not put anything
+          in the output file. The symbol for this operation is '+'
 
         * Go to - This operator is used to go to file position, or advance
           specified amount of bytes forward or backward. Useful for writing
@@ -251,15 +240,15 @@ Contents:
         not need additional code block. If you do, you use '{' instead.
 
     *2.3.3 - Argument modifier*
-      #<num> {
-      #4 {
+      :<num> {
+      :4 {
         <num> is a 0-based offset of the argument that will be modified. This
         function always starts a new code block which define the possible
         argument lables.
 
     *2.3.4 - If block*
       ¤ <condition> {
-      ¤ /nw == 0x17D8 {
+      ¤ .nw == 0x17D8 {
       ¤ false {
         <condition> defines on what basis the if block will evaluate when to run
         the true block (right after the line) or false block (after the first
@@ -268,7 +257,7 @@ Contents:
 
     *2.3.5 - Operation*
       $ <operation>
-      $ /sb
+      $ .sb
         <operation> will be the raw operation, typically consisting of operators
         only. The operation will be evaluated once the interpreter finds it. The
         operation may only contain operators or statements, not other functions.
@@ -320,11 +309,18 @@ Contents:
       *2.3.10 - Comment*
         %<note>
         %; This is a comment!
-        %; The actual value was {/lb}
+        %; The actual value was {.lb}
           <note> is the string you want to notify user with. All the operations
           you use must be between { and } tags.
 
-      *2.3.10 - Go to*
+      *2.3.11 - Print*
+        +<note>
+        +Hello World!
+        +There is some error at {.pc}
+          <note> is the string you want to notify user with. All the operations
+          you use must be between { and } tags.
+
+      *2.3.12 - Go to*
         ><type> <off>
         >a <dw>
         >b 10
@@ -332,7 +328,7 @@ Contents:
           forward via offset addition, 'b' is backward via offset substraction.
           <off> is the offset, evaluated once the interpreter finds the Go to.
 
-      *2.3.11 - Arbitary Lable*
+      *2.3.13 - Arbitary Lable*
         ^ <offset>
         ^ .pc
         ^ .sz-10

@@ -19,7 +19,7 @@ nMaxPSG2 =		nB6
 ; Dx - World of Illusion special volume set command.
 ; The volume is set to x+volbase for PSG, and x+10h+volbase for FM
 ; (VOL_QUICK - VQ_SET_4B_WOI2)
-ssVolWOI	macro vol
+ssVolQuick	macro vol
 	dc.b $D0+(vol&$F)
     endm
 

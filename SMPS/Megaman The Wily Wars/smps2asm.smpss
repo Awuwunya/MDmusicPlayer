@@ -1,4 +1,4 @@
-### Mega Man The Wily Wars SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
+### MEGA MAN THE WILY WARS SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
 =endian "little"
 =offset 0x1002
 / >header

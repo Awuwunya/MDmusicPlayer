@@ -12,11 +12,11 @@ nMaxPSG2 =		nB6
 	enum VolEnv_11+1, VolEnv_12,VolEnv_13,VolEnv_14,VolEnv_15,VolEnv_16,VolEnv_17
 	enum VolEnv_17+1, VolEnv_18,VolEnv_19,VolEnv_1A,VolEnv_1B,VolEnv_1C,VolEnv_1D
 	enum VolEnv_1D+1, VolEnv_1E,VolEnv_1F,VolEnv_20,VolEnv_21,VolEnv_22,VolEnv_23
-	enum VolEnv_23+1, VolEnv_24,VolEnv_25,VolEnv_26
+	enum VolEnv_23+1, VolEnv_24,VolEnv_25,VolEnv_26,VolEnv_27
 ; ---------------------------------------------------------------------------------------------
 ; PSG modulation envelope equates
 	enum $00,	  ModEnv_00,ModEnv_01,ModEnv_02,ModEnv_03,ModEnv_04,ModEnv_05
-	enum VolEnv_05+1, ModEnv_06,ModEnv_07
+	enum VolEnv_05+1, ModEnv_06,ModEnv_07,ModEnv_08
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
 	enum $81, dSnare,dHighTom,dMidTom,dLowTom,dFloorTom,dKick,dMuffledSnare

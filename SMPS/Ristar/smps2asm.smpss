@@ -131,6 +131,7 @@
 	=VolEnv_1B 0x1B
 	=VolEnv_1C 0x1C
 	=VolEnv_1D 0x1D
+	=VolEnv_1E 0x1E
 }
 
 ?modenv {
@@ -142,6 +143,7 @@
 	=ModEnv_05 5
 	=ModEnv_06 6
 	=ModEnv_07 7
+	=ModEnv_08 8
 }
 
 ?DAC {

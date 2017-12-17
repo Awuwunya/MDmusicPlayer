@@ -4,10 +4,13 @@ sHold =		$E7
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
 	enum $00,	  VolEnv_00,VolEnv_01,VolEnv_02,VolEnv_03,VolEnv_04,VolEnv_05,VolEnv_06
-	enum VolEnv_06+1, VolEnv_07,VolEnv_08,VolEnv_09
+	enum VolEnv_06+1, VolEnv_07,VolEnv_08,VolEnv_09,VolEnv_0A,VolEnv_0B,VolEnv_0C,VolEnv_0D
+	enum VolEnv_0D+1, VolEnv_0E,VolEnv_0F,VolEnv_10,VolEnv_11,VolEnv_12,VolEnv_13,VolEnv_14
+	enum VolEnv_14+1, VolEnv_15,VolEnv_16,VolEnv_17
 ; ---------------------------------------------------------------------------------------------
 ; PSG modulation envelope equates
-	enum $00, 	  ModEnv_00
+	enum $00, 	  ModEnv_00,ModEnv_01,ModEnv_02,ModEnv_03,ModEnv_04,ModEnv_05,ModEnv_06
+	enum ModEnv_06+1, ModEnv_07,ModEnv_08,ModEnv_09
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
 	enum $81, d81,d82,d83,d84,d85,d86,d87,d88,d89,d8A,d8B,d8C,d8D,d8E,d8F

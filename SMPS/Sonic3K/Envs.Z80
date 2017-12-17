@@ -11,15 +11,14 @@ ModEnv_06:	incbin "ModEnv/06.bin"
 ModEnv_07:	incbin "ModEnv/07.bin"
 
 ; ---------------------------------------------------------------------------
-VolEnvPointers:	dw VolEnv_00, VolEnv_01, VolEnv_02, VolEnv_03, VolEnv_04, VolEnv_05
+VolEnvPointers:	dw            VolEnv_01, VolEnv_02, VolEnv_03, VolEnv_04, VolEnv_05
 		dw VolEnv_06, VolEnv_07, VolEnv_08, VolEnv_09, VolEnv_0A, VolEnv_0B
 		dw VolEnv_0C, VolEnv_0D, VolEnv_0E, VolEnv_0F, VolEnv_10, VolEnv_11
 		dw VolEnv_12, VolEnv_13, VolEnv_14, VolEnv_15, VolEnv_16, VolEnv_17
 		dw VolEnv_18, VolEnv_19, VolEnv_1A, VolEnv_1B, VolEnv_1C, VolEnv_1D
 		dw VolEnv_1E, VolEnv_1F, VolEnv_20, VolEnv_21, VolEnv_22, VolEnv_23
-		dw VolEnv_24, VolEnv_25, VolEnv_26
+		dw VolEnv_24, VolEnv_25, VolEnv_26, VolEnv_27
 
-VolEnv_00:	incbin "VolEnv/00.bin"
 VolEnv_01:	incbin "VolEnv/01.bin"
 VolEnv_02:	incbin "VolEnv/02.bin"
 VolEnv_03:	incbin "VolEnv/03.bin"
@@ -56,5 +55,6 @@ VolEnv_21:	incbin "VolEnv/21.bin"
 VolEnv_22:	incbin "VolEnv/22.bin"
 VolEnv_23:	incbin "VolEnv/23.bin"
 VolEnv_24:	incbin "VolEnv/24.bin"
-VolEnv_25:	incbin "VolEnv/25.SK.bin"
-VolEnv_26:	incbin "VolEnv/26.bin"
+VolEnv_25:	incbin "VolEnv/25.bin"
+VolEnv_26:	incbin "VolEnv/26.SK.bin"
+VolEnv_27:	incbin "VolEnv/27.bin"

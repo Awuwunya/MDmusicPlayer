@@ -34,15 +34,15 @@ IsPal:		dc.b 0	; NATSUMI: Is -1 if PAL mode is active.
 PSG_Index:	dc.l PSG1, PSG2, PSG3
 		dc.l PSG4, PSG5, PSG6
 		dc.l PSG7, PSG8, PSG9
-PSG1:		incbin	psg\psg1.bin
-PSG2:		incbin	psg\psg2.bin
-PSG3:		incbin	psg\psg3.bin
-PSG4:		incbin	psg\psg4.bin
-PSG6:		incbin	psg\psg6.bin
-PSG5:		incbin	psg\psg5.bin
-PSG7:		incbin	psg\psg7.bin
-PSG8:		incbin	psg\psg8.bin
-PSG9:		incbin	psg\psg9.bin
+PSG1:		incbin	"psg\01.bin"
+PSG2:		incbin	"psg\02.bin"
+PSG3:		incbin	"psg\03.bin"
+PSG4:		incbin	"psg\04.bin"
+PSG6:		incbin	"psg\06.bin"
+PSG5:		incbin	"psg\05.bin"
+PSG7:		incbin	"psg\07.bin"
+PSG8:		incbin	"psg\08.bin"
+PSG9:		incbin	"psg\09.bin"
 
 byte_71A94:	dc.b 7,	$72, $73, $26, $15, 8, $FF, 5
 ; ---------------------------------------------------------------------------
@@ -2247,4 +2247,3 @@ loc_72E64:				; XREF: loc_72A64
 		move.b	#$8C,d0
 		move.b	#$F,d1
 		bra.w	sub_7272E
-EndOfROM

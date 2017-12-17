@@ -1,4 +1,4 @@
-### Sonic3K SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
+### CHAOTIX SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
 =endian "little"
 @offset 0 "Please specify offset of this song in Z80 bank"
 =upb 0x17D8

@@ -1,4 +1,4 @@
-### SONIC2 SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
+### J LEAGUE PRO STRIKER 2 SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/09
 =endian "little"
 @offset 0 "Please specify offset of this song in Z80 bank"
 / >header
@@ -8,6 +8,7 @@
 		~£_Header .of
 		%; Z80 offset is {$4!\offset\}
 	}
+
 	! > sHeaderPatch: .dw {
 		~£_Patches :0
 	}
@@ -54,35 +55,43 @@
 		! > spAlgorithm: .nb&0x7;
 		! > spFeedback: (.db&0x38)>>3;
 		=b1 .db
-		=b2 .db
 		=b3 .db
+		=b2 .db
 		=b4 .db
 		! > spDetune: (\b1\&0xF0)>>4, (\b2\&0xF0)>>4, (\b3\&0xF0)>>4, (\b4\&0xF0)>>4;
 		! > spMultiple: \b1\&0xF, \b2\&0xF, \b3\&0xF, \b4\&0xF;
 		=b1 .db
-		=b2 .db
 		=b3 .db
+		=b2 .db
 		=b4 .db
 		! > spRateScale: (\b1\&0xC0)>>6, (\b2\&0xC0)>>6, (\b3\&0xC0)>>6, (\b4\&0xC0)>>6;
 		! > spAttackRt: \b1\&0x1F, \b2\&0x1F, \b3\&0x1F, \b4\&0x1F;
 		=b1 .db
-		=b2 .db
 		=b3 .db
+		=b2 .db
 		=b4 .db
 		! > spAmpMod: (\b1\&0x80)>>7, (\b2\&0x80)>>7, (\b3\&0x80)>>7, (\b4\&0x80)>>7;
 		! > spDecayRt: \b1\&0x1F, \b2\&0x1F, \b3\&0x1F, \b4\&0x1F;
-		! > spSustainRt: .db, .db, .db, .db;
 		=b1 .db
-		=b2 .db
 		=b3 .db
+		=b2 .db
+		=b4 .db
+		! > spSustainRt: \b1\, \b2\, \b3\, \b4\;
+		=b1 .db
+		=b3 .db
+		=b2 .db
 		=b4 .db
 		! > spSustainLv: (\b1\&0xF0)>>4, (\b2\&0xF0)>>4, (\b3\&0xF0)>>4, (\b4\&0xF0)>>4;
 		! > spReleaseRt: \b1\&0xF, \b2\&0xF, \b3\&0xF, \b4\&0xF;
-		! > spTotalLv: .db&0x7F, .db&0x7F, .db&0x7F, .db&0x7F;
+		=b1 .db
+		=b3 .db
+		=b2 .db
+		! > spTotalLv: \b1\&0x7F, \b2\&0x7F, \b3\&0x7F, .db&0x7F;
 		=num \num\+1
 	}
 }
 
+# this subscript will use an index of look-up values. You know, for some speed bonus!
 ?volenv {
 	=VolEnv_00 0
 	=VolEnv_01 1
@@ -94,29 +103,70 @@
 	=VolEnv_07 7
 	=VolEnv_08 8
 	=VolEnv_09 9
-	=VolEnv_0A 8
-	=VolEnv_0B 9
-	=VolEnv_0C 8
+	=VolEnv_0A 0x0A
+	=VolEnv_0B 0x0B
+	=VolEnv_0C 0x0C
+	=VolEnv_0D 0x0D
+	=VolEnv_0E 0x0E
+	=VolEnv_0F 0x0F
+	=VolEnv_10 0x10
+	=VolEnv_11 0x11
+	=VolEnv_12 0x12
+	=VolEnv_13 0x13
+	=VolEnv_14 0x14
+	=VolEnv_15 0x15
+	=VolEnv_16 0x16
+	=VolEnv_17 0x17
+}
+
+?modenv {
+	=ModEnv_00 0
 }
 
 ?DAC {
 	=nRst 0x80
-	=dKick 0x81
-	=dSnare 0x83
-	=dClap 0x84
-	=dScratch 0x85
-	=dTimpani 0x86
-	=dHiTom 0x87
-	=dVLowClap 0x88
-	=dHiTimpani 0x89
-	=dMidTimpani 0x8A
-	=dLowTimpani 0x8B
-	=dFloorTimpani 0x8C
-	=dMidTom 0x8D
-	=dLowTom 0x8E
-	=dFloorTom 0x8F
-	=dHiClap 0x90
-	=dMidClapdLowClap 0x91
+	=d81 0x81
+	=d82 0x82
+	=d83 0x83
+	=d84 0x84
+	=d85 0x85
+	=d86 0x86
+	=d87 0x87
+	=d88 0x88
+	=d89 0x89
+	=d8A 0x8A
+	=d8B 0x8B
+	=d8C 0x8C
+	=d8D 0x8D
+	=d8E 0x8E
+	=d8F 0x8F
+	=d90 0x90
+	=d91 0x91
+	=d92 0x92
+	=d93 0x93
+	=d94 0x94
+	=d95 0x95
+	=d96 0x96
+	=d97 0x97
+	=d98 0x98
+	=d99 0x99
+	=d9A 0x9A
+	=d9B 0x9B
+	=d9C 0x9C
+	=d9D 0x9D
+	=d9E 0x9E
+	=d9F 0x9F
+	=dA0 0xA0
+	=dA1 0xA1
+	=dA2 0xA2
+	=dA3 0xA3
+	=dA4 0xA4
+	=dA5 0xA5
+	=dA6 0xA6
+	=dA7 0xA7
+	=dA8 0xA8
+	=dA9 0xA9
+	=dAA 0xAA
 }
 
 ?note {
@@ -221,6 +271,7 @@
 ?comm {
 	!0xE0 > sPan: .db & 0xC0, .lb & 0x3F {
 		:0 {
+			# On some cases, like :, they may be treated as look-up-tables
 			=spNone 0x00
 			=spRight 0x40
 			=spLeft 0x80
@@ -229,30 +280,34 @@
 	}
 	!0xE1 > saDetune: .db;
 	!0xE2 > sComm: .db;
-	!0xE3 > sRet: {
-		;
-	}
-	!0xE4 > sFade: {
-		;
-	}
-	!0xE5 > ssTickMulCh: .db;
+	!0xE3 > sMuteStopFM:;
+	!0xE4, 0 > sPanAni:;
+	!0xE4, 1-0xFF > sPanAni: .lb, .db, .db, .db, .db;
+	!0xE5 > saVolFM: .db, .db;
 	!0xE6 > saVolFM: .db;
 	=sHold 0xE7
 	!0xE8 > sNoteTimeOut: .db;
-	!0xE9 > saTranspose: .db;
-	!0xEA > ssTempo: .db;
-	!0xEB > ssTickMul: .db;
+	!0xE9 > ssLFO: .db, .db;
+	!0xEA > sPlayDAC: .db | 0x80;
+	!0xEB > sLoopExit: .db, .dw {
+		~£_LpExit? :1
+	}
 	!0xEC > saVolPSG: .db;
-	!0xED > sNop:;
-	!0xEE > sNop: .db;
+	!0xED > sYMcmd: .db, .db;
+	!0xEE > sYM1cmd: .db, .db;
 	!0xEF > sPatFM: .db;
-	!0xF0 > ssMod68k: .db, .db, .db, .db;
-	!0xF1 > sModOn:;
+	!0xF0 > ssModZ80: .db, .db, .db, .db;
+	!0xF1 > sModEnv: .db, .db;
 	!0xF2 > sStop:{
 		;
 	}
 	!0xF3 > sNoisePSG: .db;
-	!0xF4 > sModOff:;
+	!0xF4, 0x80 > sModOn:;
+	!0xF4 > sModEnv: .db {
+		:0 {
+			?modenv;
+		}
+	}
 	!0xF5 > sVolEnvPSG: .db {
 		:0 {
 			?volenv;
@@ -268,5 +323,22 @@
 	!0xF8 > sCall: .dw {
 		~£_Call? :0
 	}
-	!0xF9 > sMuteFM1:;
+	!0xF9 > sRet: {
+		;
+	}
+	!0xFA > ssTickMulCh: .db;
+	!0xFB > saTranspose: .db;
+	!0xFC > sPitchSlide: .db;
+	!0xFD > sRawFreq: .db;
+	!0xFE > sSpecFM3: .db, .db, .db, .db;
+	!0xFF, 0 > ssTempo: .db;
+	!0xFF, 1 > sPlaySound: .db;
+	!0xFF, 2 > sMusPause: .db;
+	!0xFF, 3 > sCopyMem: .dw, .db {
+		%; No song should ever use this command. It may good idea to remove it.
+	}
+	!0xFF, 4 > ssTickMul: .db;
+	!0xFF, 5 > sSSGEG: .db, .db, .db, .db;
+	!0xFF, 6 > sVolEnvFM: .db, .db;
+	!0xFF, 7 > sNoteTimeIn: .db;
 }

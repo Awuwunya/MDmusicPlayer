@@ -211,7 +211,7 @@
 }
 
 ?comm {
-	!0xD0-0xDF > ssVolWOI: .lb&0xF;
+	!0xD0-0xDF > ssVolQuick: .lb&0xF;
 	!0xE0 > sPan: .db & 0xC0, .lb & 0x3F {
 		:0 {
 			# On some cases, like :, they may be treated as look-up-tables

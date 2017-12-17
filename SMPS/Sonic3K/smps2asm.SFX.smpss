@@ -1,4 +1,4 @@
-### Sonic3K SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
+### SONIC3K SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
 =endian "little"
 @offset 0 "Please specify offset of this sfx in Z80 bank"
 =upb 0x17D8
@@ -144,6 +144,7 @@
 	=VolEnv_24 0x24
 	=VolEnv_25 0x25
 	=VolEnv_26 0x26
+	=VolEnv_27 0x27
 }
 
 ?modenv {
@@ -155,6 +156,7 @@
 	=ModEnv_05 5
 	=ModEnv_06 6
 	=ModEnv_07 7
+	=ModEnv_08 7
 }
 
 ?DAC {
