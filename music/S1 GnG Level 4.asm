@@ -1,5 +1,5 @@
 Level4_Header:
-	sHeaderInit	
+	sHeaderInit
 	sHeaderPatch	Level4_Patches
 	sHeaderCh	$07, $00
 	sHeaderTempo	$01, $06
@@ -93,7 +93,7 @@ Level4_Call1:
 	sPatFM		$01
 	dc.b nRst, $30, $18, nC1, $03, nE1, nAb1, nC2
 	dc.b nC1, nEb1, nAb1, nC2, nRst, $60, $0C
-	sRet		
+	sRet
 
 Level4_Call2:
 	saTranspose	$F4
@@ -104,7 +104,7 @@ Level4_Loop4:
 	dc.b nA1, nA0, nA1, nA0, nG1, nG0, nG1, nA1
 	dc.b nA0, nA1
 	sLoop		$00, $08, Level4_Loop4
-	sRet		
+	sRet
 
 Level4_FM4:
 	sCall		Level4_Call3
@@ -172,22 +172,22 @@ Level4_Call3:
 	sPan		spCenter, $00
 	sPatFM		$04
 	dc.b nRst, $60, $06
-	sRet		
+	sRet
 
 Level4_Call6:
 	dc.b nG0, $60, sHold, $60, sHold, $0C
-	sRet		
+	sRet
 
 Level4_Call4:
 	dc.b nRst, $60, $06
 	sLoop		$00, $04, Level4_Call4
-	sRet		
+	sRet
 
 Level4_Call5:
 	dc.b nD1, $30, nC1, sHold, $18, sHold, $06, nB0
 	dc.b $18, nA0, nG0, nRst, $06
 	sLoop		$00, $02, Level4_Call5
-	sRet		
+	sRet
 
 Level4_FM5:
 	sCall		Level4_Call3
@@ -318,15 +318,15 @@ Level4_Loop10:
 Level4_Call7:
 	dc.b nD0, $0C, nRst, nA0, nRst, nE2, $18, sHold
 	dc.b nE2
-	sRet		
+	sRet
 
 Level4_Call8:
 	dc.b nD0, $0C, nRst, nA0, nRst, nEb2, $18, sHold
 	dc.b nEb2
-	sRet		
+	sRet
 
 Level4_DAC:
-	sStop		
+	sStop
 
 Level4_Patches:
 

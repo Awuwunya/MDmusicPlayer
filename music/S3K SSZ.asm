@@ -15,7 +15,7 @@ SkySanctuary_Header:
 
 SkySanctuary_FM1:
 	sPatFM		$00
-	saDetune	$FE
+	ssDetune	$FE
 
 SkySanctuary_Jump1:
 	dc.b nG2, $07, nRst, $04, nG2, $08, nRst, $04
@@ -185,7 +185,7 @@ SkySanctuary_Loop11:
 
 SkySanctuary_FM4:
 	ssModZ80	$24, $01, $04, $07
-	saDetune	$02
+	ssDetune	$02
 	sPatFM		$01
 	dc.b nRst, $0E
 	sJump		SkySanctuary_Jump2

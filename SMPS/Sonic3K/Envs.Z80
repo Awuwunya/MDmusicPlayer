@@ -1,14 +1,14 @@
-ModEnvPointers:	dw ModEnv_00, ModEnv_01, ModEnv_02, ModEnv_03
-		dw ModEnv_04, ModEnv_05, ModEnv_06, ModEnv_07
+ModEnvPointers:	dw ModEnv_01, ModEnv_02, ModEnv_03, ModEnv_04
+		dw ModEnv_05, ModEnv_06, ModEnv_07, ModEnv_08
 
-ModEnv_01:	incbin "ModEnv/01.bin"
-ModEnv_00:	incbin "ModEnv/00.bin"
 ModEnv_02:	incbin "ModEnv/02.bin"
+ModEnv_01:	incbin "ModEnv/01.bin"
 ModEnv_03:	incbin "ModEnv/03.bin"
 ModEnv_04:	incbin "ModEnv/04.bin"
 ModEnv_05:	incbin "ModEnv/05.bin"
 ModEnv_06:	incbin "ModEnv/06.bin"
 ModEnv_07:	incbin "ModEnv/07.bin"
+ModEnv_08:	incbin "ModEnv/08.bin"
 
 ; ---------------------------------------------------------------------------
 VolEnvPointers:	dw            VolEnv_01, VolEnv_02, VolEnv_03, VolEnv_04, VolEnv_05

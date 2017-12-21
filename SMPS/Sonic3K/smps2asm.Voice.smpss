@@ -1,5 +1,6 @@
 ### SONIC3K SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
 =endian "little"
+=offset 0
 / >header
 
 ?header {

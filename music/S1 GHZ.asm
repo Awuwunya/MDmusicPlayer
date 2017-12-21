@@ -1,5 +1,5 @@
 GreenHill_Header:
-	sHeaderInit	
+	sHeaderInit
 	sHeaderPatch	GreenHill_Patches
 	sHeaderCh	$06, $03
 	sHeaderTempo	$01, $03
@@ -66,7 +66,7 @@ GreenHill_Call1:
 	dc.b nA6, $04, nF6, nA6, nF6, nB6, nG6, nB6
 	dc.b nG6, nC7, nA6, nC7, nA6, nD7, nB6, nD7
 	dc.b nB6
-	sRet		
+	sRet
 
 GreenHill_Call2:
 	dc.b nC7, $08, nA6, $10, nC7, $08, nB6, $10
@@ -76,7 +76,7 @@ GreenHill_Call2:
 	dc.b $10, nC7, $08, nB6, $10, nC7, $08, nB6
 	dc.b $10, nG6, $30, nA6, $08, $08, nF6, $10
 	dc.b nA6, $08, nG6, $10, nA6, $08, nG6, $10
-	sRet		
+	sRet
 
 GreenHill_FM2:
 	sPatFM		$00
@@ -139,7 +139,7 @@ GreenHill_Call3:
 	dc.b nE3, nE3, nE3, nE3, nE3
 	sNoteTimeOut	$00
 	dc.b nC3, nD3, nE3
-	sRet		
+	sRet
 
 GreenHill_Call4:
 	sNoteTimeOut	$04
@@ -156,7 +156,7 @@ GreenHill_Call4:
 	dc.b nD3
 	sNoteTimeOut	$04
 	dc.b nC3, nC3, nC3, nC3, nC3
-	sRet		
+	sRet
 
 GreenHill_FM3:
 	sPatFM		$02
@@ -199,7 +199,7 @@ GreenHill_Jump3:
 	dc.b nA6, nRst, $24, nRst, nC7, $04, nRst, $0C
 	dc.b nA6, $10, nG6, $04, nRst, nA6, nRst, nC7
 	dc.b nRst
-	sModOff		
+	sModOff
 	sPatFM		$05
 	sCall		GreenHill_Call6
 	dc.b nG6, $04, nA6, nC7, $08, nA6
@@ -228,7 +228,7 @@ GreenHill_Jump3:
 
 GreenHill_Call5:
 	dc.b nRst, $34, nRst, nG6, $04, nA6, nC7, $08
-	sRet		
+	sRet
 
 GreenHill_Call6:
 	saVolFM		$06
@@ -236,7 +236,7 @@ GreenHill_Call6:
 	dc.b $08, nC5, $04, nRst, nD5, $08, nB4, $04
 	dc.b nRst, $0E, nRst
 	saVolFM		$FA
-	sRet		
+	sRet
 
 GreenHill_FM4:
 	sPatFM		$08
@@ -264,7 +264,7 @@ GreenHill_Loop7:
 	dc.b $01, sHold, nG5, $28, sHold, $3F
 	saVolFM		$F6
 	saTranspose	$18
-	sModOff		
+	sModOff
 
 GreenHill_Jump4:
 	sPatFM		$05
@@ -308,7 +308,7 @@ GreenHill_Jump4:
 GreenHill_Call7:
 	dc.b nE5, $08, nE5, nC5, nC5, nA4, nA4, nF4
 	dc.b nF4, nD5, nD5, nB4, nB4, nG4, nG4
-	sRet		
+	sRet
 
 GreenHill_FM5:
 	sPatFM		$03
@@ -354,7 +354,7 @@ GreenHill_Jump5:
 	saVolFM		$03
 	saTranspose	$F4
 	sPatFM		$04
-	saDetune	$02
+	ssDetune	$02
 	dc.b nG6, $10, nA6, nB6
 	saVolFM		$F9
 	dc.b nC7, $28, sHold, $28, nD7, $10, nB6, nG6
@@ -362,7 +362,7 @@ GreenHill_Jump5:
 	dc.b nC7, $28, sHold, $28, nD7, $10, nB6, nG6
 	dc.b nC7, $40, sHold, $40
 	saTranspose	$0C
-	saDetune	$00
+	ssDetune	$00
 	sPatFM		$04
 	saTranspose	$F4
 	saVolFM		$FA
@@ -390,7 +390,7 @@ GreenHill_Loop13:
 GreenHill_Call8:
 	dc.b nE5, $08, nE5, nC5, nC5, nA4, nA4, nF4
 	dc.b nF4, nD5, nD5, nB4, nB4, nG4, nG4
-	sRet		
+	sRet
 
 GreenHill_PSG1:
 	sVolEnvPSG	VolEnv_05
@@ -406,7 +406,7 @@ GreenHill_PSG1:
 	dc.b nF5, $10, $18
 	sNoteTimeOut	$00
 	dc.b nE5, $34, sHold, $34
-	sModOff		
+	sModOff
 
 GreenHill_Loop15:
 	sVolEnvPSG	VolEnv_01

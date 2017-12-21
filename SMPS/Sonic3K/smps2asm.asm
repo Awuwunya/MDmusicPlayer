@@ -50,7 +50,7 @@ sPan		macro dir,amsfms
     endm
 
 ; E1xx - Set channel frequency displacement to xx (DETUNE)
-saDetune	macro val
+ssDetune	macro val
 	dc.b $E1,\val
     endm
 

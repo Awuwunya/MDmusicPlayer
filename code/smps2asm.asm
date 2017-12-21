@@ -31,29 +31,6 @@ littleEndian	macro value
 	endr
     endm
 ; ---------------------------------------------------------------------------------------------
-; Standard Octave Pitch Equates
-smpsPitch10lo	equ $88
-smpsPitch09lo	equ $94
-smpsPitch08lo	equ $A0
-smpsPitch07lo	equ $AC
-smpsPitch06lo	equ $B8
-smpsPitch05lo	equ $C4
-smpsPitch04lo	equ $D0
-smpsPitch03lo	equ $DC
-smpsPitch02lo	equ $E8
-smpsPitch01lo	equ $F4
-smpsPitch00	equ $00
-smpsPitch01hi	equ $0C
-smpsPitch02hi	equ $18
-smpsPitch03hi	equ $24
-smpsPitch04hi	equ $30
-smpsPitch05hi	equ $3C
-smpsPitch06hi	equ $48
-smpsPitch07hi	equ $54
-smpsPitch08hi	equ $60
-smpsPitch09hi	equ $6C
-smpsPitch10hi	equ $78
-; ---------------------------------------------------------------------------------------------
 ; Note Equates
 	enum $80,  nRst,nC0,nCs0,nD0,nEb0,nE0,nF0,nFs0,nG0,nAb0,nA0,nBb0,nB0
 	enum nB0+1,	nC1,nCs1,nD1,nEb1,nE1,nF1,nFs1,nG1,nAb1,nA1,nBb1,nB1

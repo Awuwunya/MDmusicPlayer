@@ -156,7 +156,7 @@
 	=ModEnv_05 5
 	=ModEnv_06 6
 	=ModEnv_07 7
-	=ModEnv_08 7
+	=ModEnv_08 8
 }
 
 ?DAC {
@@ -341,7 +341,7 @@
 			=spCenter 0xC0
 		}
 	}
-	!0xE1 > saDetune: .db;
+	!0xE1 > ssDetune: .db;
 	!0xE2 > sFade: .db;
 	!0xE3 > sStopFM: {
 		;

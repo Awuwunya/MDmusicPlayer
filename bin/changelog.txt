@@ -127,3 +127,26 @@ MDMusicPlayer changelog
     operators.
   s- sHeaderInit is no longer hardcoded
   > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.0.4.7z
+================================================================================
+
+* v0.5
+  + Ristar sound driver
+  + Z80 LANG macro support
+  + J League Pro Striker 2 SMPS2ASM scripts
+  + Knuckles Chaotix SMPS2ASM scripts
+  + Yuu Yuu Hakusho SMPS2ASM scripts
+  + QuackShot SMPS2ASM scripts
+  + Converter for QuackShot E1, E2, ED, EE flags to real frequencies
+  + Support for dual DAC drivers
+  + Modulation Frequency is now shown
+  * Frequency is now correctly shown
+  * Fixed VolEnv and MovEnv ID's for games
+  s. Rewrote the whole shitfest
+  s+ Comments are now supported
+  s+ You can now control the convesion flow
+  s+ New operator allowing you to print stuff in the console
+  s+ Subscripts can be optimized into a look-up table for faster conversion
+  s* The program now correctly deals with tabs
+  s* Tons of small bugs. Don't care to remember all of them.
+  s~ Lables are now evaluated when macro is ran, instead of all the time
+  > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.0.5.7z

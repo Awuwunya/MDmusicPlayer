@@ -36,6 +36,11 @@ vdpCoord	macro base,x,y,rwd
 	dc.l (((VRAM&\rwd)&3)<<30)|((.addr&$3FFF)<<16)|(((VRAM&\rwd)&$FC)<<2)|((.addr&$C000)>>14)
     endm
 
+propdat		macro typ, base,x,y,rwd
+	dc.w \typ
+	vdpCoord \base, \x, \y, \rwd
+    endm
+
 ; ===========================================================================
 ; values for the type argument
 VRAM =  %100001
@@ -340,6 +345,7 @@ ActiveChn	rs.w 1		; currently active sound channels. Bits 0-5 = FM1-FM6, Bits 6-
 MusSelection	rs.w 1		; current song selection
 MusPlaying	rs.w 1		; current song playing
 DMAlen		rs.w 1		; current fake DMA mode
+DisplayList	rs.l 1		; address of display data to load
 LoadedDriver	rs.b 1		; currently loaded sound driver
 DriverType	rs.b 1		; the type of the sound driver loaded
 HWVersion	rs.b 1		; determines the region of the machine
@@ -356,25 +362,26 @@ ChanDat		rs.b 8+(16*6)	; total amount of space for channel data
 	rsset ChanDat
 sTempo		rs.b 1		; tempo of the driver
 sTickMul	rs.b 1		; tick multiplier of the driver
-sDAC2number	rs.b 1		; the DAC2 ID we are playing currently
-sDAC2time	rs.b 1		; timer for the currently playing DAC2
-sDACnumber	rs.b 1		; the DAC ID we are playing currently
-sDACtime	rs.b 1		; timer for the currently playing DAC
-		rs.w 0		; make sure these addresses are even
 
-sPSG3tmul	rs.b 1		; PSG3 tick multiplier
-sPSG3inst	rs.b 1		; PSG3 instrument
-sPSG3vol	rs.b 1		; PSG3 volume
-sPSG3note	rs.b 1		; PSG3 note
-sPSG3time	rs.b 1		; PSG3 timer
-sPSG2		rs.b 5
-sPSG1		rs.b 5
-sFM6		rs.b 5
-sFM5		rs.b 5
-sFM4		rs.b 5
-sFM3		rs.b 5
-sFM2		rs.b 5
-sFM1		rs.b 5
+; format:
+; 0 - tick mul
+; 1 - instrument
+; 2 - volume
+; 3 - timeout
+; 4-5 - freq
+; 6-7 - freq + mod + det
+
+sPSG3		rs.b 8
+sPSG2		rs.b 8
+sPSG1		rs.b 8
+sFM6		rs.b 8
+sFM5		rs.b 8
+sFM4		rs.b 8
+sFM3		rs.b 8
+sFM2		rs.b 8
+sFM1		rs.b 8
+sDAC1		rs.b 8
+sDAC2		rs.b 8
 
 ; GEMS Channel data
 	rsset ChanDat

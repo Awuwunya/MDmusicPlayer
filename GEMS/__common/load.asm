@@ -27,6 +27,7 @@ GEMS_Load_Driver:
 	startZ80			; return z80 bus
 
 		move.b	#TYPE_GEMS,DriverType.w
+		move.l	#gDriverPropertyData,DisplayList.w
 		rts
 ; ===========================================================================
 

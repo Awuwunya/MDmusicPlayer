@@ -101,47 +101,48 @@ Ristar_play:
 		move.l	d7,Driver68K+4		; set music pointer
 	;	move.b	#$FF,Drv68Kmem+$A.w	; load driver
 		move.b	#1,Drv68Kmem+$B.w	; play music id $81
+		move.l	#sDualDriverPropertyData,DisplayList.w
 
 Ristar_dmaon:
 Ristar_dmaoff:
 		rts
 Ristar_update:
-		lea	sPSG3tmul.w,a1		; get PSG3 tick multiplier
-		lea	Drv68Kmem+$21E.w,a0	; get last channel
-		moveq	#9-1,d0			; 9 channels
+		lea	sPSG3.w,a1		; get PSG3
+		lea	.chns(pc),a2		; get table to a2
+		moveq	#11-1,d0		; 11 channels
 		moveq	#0,d1
 
-.loop		tst.b	(a0)
+.loop		move.w	(a2)+,a0		; get next channel
+		tst.b	(a0)
 		bpl.s	.inactive		; branch if channel is inactive
 		bset	d0,d1			; set active bit
 
 		move.b	Track.dividing_timing(a0),(a1); get tick multiplier
-		move.b	Track.voice(a0),1(a1)		; get instrument
-		move.b	Track.volume(a0),2(a1)		; get volume
-		move.b	Track.note_frequency(a0),3(a1)	; get frequency (need to fix this crap)
-		move.b	Track.note_timeout(a0),4(a1)	; get time counter
+		move.b	Track.voice(a0),1(a1)	; get instrument
+		move.b	Track.volume(a0),2(a1)	; get volume
+		move.b	Track.note_timeout(a0),3(a1); get time counter
 
-.inactive	lea	-$34(a0),a0	; get last channel
-		addq.w	#5,a1			; advance offset
+		move.w	Track.note_frequency(a0),d6; get freq to d6
+		move.w	d6,4(a1)		; save it
+		add.w	Track.mod_frequency(a0),d6; add mod freq
+
+		move.b	Track.frequency_adjust(a0),d5; get detune
+		ext.w	d5			; extend to word
+		add.w	d5,d6			; add to mod freq
+		move.w	d6,6(a1)		; save it
+
+.inactive	addq.w	#8,a1			; advance offset
 		dbf	d0,.loop		; loop until done
 
-		tst.b	(a0)
-		bpl.s	.noDAC			; branch if channel is inactive
-		bset	#9,d1			; set active bit
-		move.b	DACTrack.sample_id(a0),sDACnumber.w	; get DAC number to variable
-		move.b	DACTrack.note_timeout(a0),sDACtime.w	; get DAC timer
-
-.noDAC1		lea	-$34(a0),a0	; get dac2 channel
-		tst.b	(a0)
-		bpl.s	.noDAC			; branch if channel is inactive
-		bset	#$A,d1			; set active bit
-		move.b	DACTrack.sample_id(a0),sDAC2number.w	; get DAC number to variable
-		move.b	DACTrack.note_timeout(a0),sDAC2time.w	; get DAC timer
-
-.noDAC		move.w	d1,ActiveChn.w		; now set the active channels and be happy
+		move.w	d1,ActiveChn.w		; now set the active channels and be happy
 		move.b	Drv68Kmem+$02.w,sTempo.w; get tempo
 		st.b	sTickMul.w		; get tick multiplier
 		rts
+
+.chns		dc.w Drv68Kmem+$21E, Drv68Kmem+$1EA, Drv68Kmem+$1B6 			; PSG 1-3
+		dc.w Drv68Kmem+$C00, Drv68Kmem+$182, Drv68Kmem+$14E 			; FM 4-5 (6 is not used)
+		dc.w Drv68Kmem+$11A, Drv68Kmem+$E6,  Drv68Kmem+$B2			; FM 1-3
+		dc.w Drv68Kmem+$7E,  Drv68Kmem+$4A					; DAC 1-2
 
 Ristar_load:
 		move.b	#TYPE_SMPS,DriverType.w

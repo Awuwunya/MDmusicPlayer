@@ -3,6 +3,18 @@ smpsNoAttack =		$E7
 nMaxPSG1 =		nBb6
 nMaxPSG2 =		nB6
 ; ---------------------------------------------------------------------------------------------
+; Note Equates (QuackShot, unlike every fucking driver ever, has notes from 60 to CF)
+	enum $60,  nRst,nC0,nCs0,nD0,nEb0,nE0,nF0,nFs0,nG0,nAb0,nA0,nBb0,nB0
+	enum nB0+1,	nC1,nCs1,nD1,nEb1,nE1,nF1,nFs1,nG1,nAb1,nA1,nBb1,nB1
+	enum nB1+1,	nC2,nCs2,nD2,nEb2,nE2,nF2,nFs2,nG2,nAb2,nA2,nBb2,nB2
+	enum nB2+1,	nC3,nCs3,nD3,nEb3,nE3,nF3,nFs3,nG3,nAb3,nA3,nBb3,nB3
+	enum nB3+1,	nC4,nCs4,nD4,nEb4,nE4,nF4,nFs4,nG4,nAb4,nA4,nBb4,nB4
+	enum nB4+1,	nC5,nCs5,nD5,nEb5,nE5,nF5,nFs5,nG5,nAb5,nA5,nBb5,nB5
+	enum nB5+1,	nC6,nCs6,nD6,nEb6,nE6,nF6,nFs6,nG6,nAb6,nA6,nBb6,nB6
+	enum nB6+1,	nC7,nCs7,nD7,nEb7,nE7,nF7,nFs7,nG7,nAb7,nA7,nBb7,nB7
+	enum nB7+1,	nC8,nCs8,nD8,nEb8,nE8,nF8,nFs8,nG8,nAb8,nA8,nBb8,nB8
+	enum nB8+1,	nC9
+; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
 	enum $00,	  VolEnv_00,VolEnv_01,VolEnv_02,VolEnv_03,VolEnv_04,VolEnv_05
 	enum VolEnv_05+1, VolEnv_06,VolEnv_07,VolEnv_08,VolEnv_09,VolEnv_0A,VolEnv_0B
@@ -18,7 +30,7 @@ nMaxPSG2 =		nB6
 
 ; Dx - World of Illusion special volume set command.
 ; The volume is set to x+volbase for PSG, and x+10h+volbase for FM
-; (VOL_QUICK - VQ_SET_4B_WOI2)
+; (VOL_QUICK - VQ_SET_4B_QS)
 ssVolQuick	macro vol
 	dc.b $D0+(vol&$F)
     endm
@@ -37,26 +49,18 @@ ssDetune	macro val
 	dc.b $E1,\val
     endm
 
-; E2xx - Set communications byte to xx (SET_COMM)
-sComm		macro val
+; E2xx - Set fraction mode for next note (positive) (no hold) xx (FREQ_FRAC - FRAC_POS_QS)
+sFreFracP	macro val
 	dc.b $E2,\val
     endm
 
-; E3 - Stop FM (TRK_END - TEND_MUTE)
-sMuteStopFM	macro
-	dc.b $E3
+; E3xx - Set fraction mode for next note (negative) (no hold) xx (FREQ_FRAC - FRAC_NEG_QS)
+sFreFracN	macro val
+	dc.b $E3,\val
     endm
 
-; EBxxyyyy - Jump to zzzz, if Z80 RAM address 1C05h is not 0 (last iteration of loop) (COND_JUMP - CJMP_NZ)
-sJumpNZ1C05h	macro loc
-	dc.b $EB
-	Z80PtrROM \loc
-    endm
-
-; E5xx - Set base volume (VOLUME - VOL_SET_BASE)
-ssVolBase	macro vol
-	dc.b $E5,\vol
-    endm
+; E4 - Duplicate of E7 (HOLD)
+; E5 - Duplicate of F0 (MOD_SETUP)
 
 ; E6xx - Add xx to FM channel volume (VOLUME - VOL_NN_FM)
 saVolFM		macro val
@@ -73,15 +77,15 @@ ssLFO		macro val1, val2
 	dc.b $E9,\val1,\val2
     endm
 
-; EAxx - Play sample xx (bit7 clear) (PLAY_DAC)
-sPlayDAC	macro sample
-	dc.b $EA,(\sample&$7F)
+; EAxxxx - Set timer A to xxxx (bit7 clear) (TIMING - TIME_SET)
+sTimerA		macro timer
+	dc.b $EA
+	dw \timer
     endm
 
-; EBxxyyyy - Jump to zzzz, if loop index xx is 1 (last iteration of loop) (LOOP_EXIT)
-sLoopExit	macro index,loc
-	dc.b $EB,\index
-	Z80PtrROM \loc
+; EBxx - Ignore ignore ignore (IGNORE)
+sNop	macro val
+	dc.b $EB, \val
     endm
 
 ; ECxx - Add xx to PSG channel volume (VOLUME - VOL_CC_PSG)
@@ -89,13 +93,13 @@ saVolPSG	macro vol
 	dc.b $EC,\vol
     endm
 
-; EDxx - Set music tempo to xx (TEMPO - TEMPO_SET)
-ssTempo		macro val
+; EDxx - Set fraction mode for next note (positive) (hold) xx (FREQ_FRAC - FRAC_POS_HOLD_QS)
+sHFreFracP	macro val
 	dc.b $ED,\val
     endm
 
-; EExx - Set global tick multiplier to xx (TICK_MULT - TMULT_ALL)
-ssTickMul	macro val
+; EExx - Set fraction mode for next note (negative) (hold) xx (FREQ_FRAC - FRAC_NEG_HOLD_QS)
+sHFreFracN	macro val
 	dc.b $EE,\val
     endm
 
@@ -110,13 +114,13 @@ sPatFM		macro val
 ;  yy: change per step
 ;  zz: number of steps
 ; (MOD_SETUP)
-ssModZ80	macro wait,speed,change,step
+ssModQu	macro wait,speed,change,step
 	dc.b $F0,\wait,\speed,\change,\step
     endm
 
-; F1xx - Add Z80 RAM 1C04h to channel pitch and eat 1 byte (TRANSPOSE - TRNSP_GADD)
-saTransp1C04h	macro val
-	dc.b $FB,\val
+; F1xx - Set base volume (VOLUME - VOL_SET_BASE)
+ssVolBase	macro vol
+	dc.b $F1,\vol
     endm
 
 ; F2 - End of channel (TRK_END - TEND_STD)
@@ -125,17 +129,12 @@ sStop		macro
     endm
 
 ; F3xx - PSG waveform to xx (PSG_NOISE - PNOIS_SET)
-sNoisePSG		macro val
+sNoisePSG	macro val
 	dc.b $F3,\val
     endm
 
-; F480 - Turn on Modulation (MOD_SET - MODS_ON)
-sModOn		macro
-	dc.b $F4,$80
-    endm
-
 ; F4xx - ?? (MOD_ENV - MENV_GEN)
-sModEnv		macro val1,val1
+sModEnv		macro val1
 		dc.b $F4,\val
     endm
 
@@ -167,9 +166,9 @@ sRet		macro
 	dc.b $F9
     endm
 
-; FAxx - Set channel tick multiplier to xx (TICK_MULT - TMULT_CUR)
-ssTickMulCh	macro val
-	dc.b $FA,\val
+; FBxx - Set channel pitch to xx (TRANSPOSE - TRNSP_SET)
+ssTranspose	macro val
+	dc.b $FB,\val
     endm
 
 ; FBxx - Add xx to channel pitch (TRANSPOSE - TRNSP_ADD)
@@ -177,13 +176,14 @@ saTranspose	macro val
 	dc.b $FB,\val
     endm
 
-; FCxx - Enable pitch slide (PITCH_SLIDE)
-sPitchSlide	macro val
-	dc.b $FC,val
+; FCxxyyyy - Jump to zzzz, if loop index xx is 1 (last iteration of loop) (LOOP_EXIT)
+sLoopExit	macro index,loc
+	dc.b $FC,\index
+	Z80PtrROM \loc
     endm
 
-; FDxx - Enable raw frequency mode (RAW_FREQ)
-sRawFreq	macro val
+; EDxx - Set music tempo to xx (TEMPO - TEMPO_SET)
+ssTempo		macro val
 	dc.b $FD,\val
     endm
 

@@ -278,7 +278,7 @@
 			=spCenter 0xC0
 		}
 	}
-	!0xE1 > saDetune: .db;
+	!0xE1 > ssDetune: .db;
 	!0xE2 > sComm: .db;
 	!0xE3 > sMuteStopFM:;
 	!0xE4, 0 > sPanAni:;

@@ -2,5 +2,5 @@ Sega Mega Drive music player, written in 68k and able to support any number of s
 
 Related repos:
 https://github.com/TheRetroSnake/MusicTool
-https://github.com/TheRetroSnake/SMPS2ASM
+https://github.com/TheRetroSnake/SMPS2ASMv2
 https://github.com/TheRetroSnake/GEMS2ASM

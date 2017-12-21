@@ -506,7 +506,7 @@ OnParade_PSG2:
 	dc.b nRst, $06, nRst, $30
 	sVolEnvPSG	VolEnv_00
 	sNoteTimeOut	$03
-	saDetune	$FF
+	ssDetune	$FF
 	dc.b nRst, $04
 	saVolPSG	$06
 	saVolPSG	$03
@@ -521,7 +521,7 @@ OnParade_Loop18:
 	dc.b nRst, $05
 	saVolPSG	$FA
 	saVolPSG	$FD
-	saDetune	$00
+	ssDetune	$00
 	sVolEnvPSG	VolEnv_12
 	sNoteTimeOut	$11
 	dc.b nRst, $30, nRst, nG4, $12, nE4
@@ -530,7 +530,7 @@ OnParade_Loop18:
 	dc.b $12, nA4, nG4, $0C
 	sNoteTimeOut	$00
 	dc.b nE4, $18, nFs4
-	saDetune	$FF
+	ssDetune	$FF
 	dc.b nRst, $03
 	saVolPSG	$04
 	sVolEnvPSG	VolEnv_19

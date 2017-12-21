@@ -22,16 +22,12 @@ Sonic3K_dmaoff:
 
 Sonic3K_update:
 	stopZ80					; request z80 bus
-		lea	sPSG3tmul.w,a1		; get PSG3 tick multiplier
+		lea	sPSG3.w,a1		; get PSG3 tick multiplier
 		lea	.addrList(pc),a2	; get last channel
-		moveq	#9-1,d0			; 9 channels
+		moveq	#10-1,d0		; 9 channels
 		moveq	#0,d1
 
 .loop		move.l	(a2)+,a0		; get the track pointer to a0
-		; FM6 is always in DAC mode in S3K, therefore we need to ignore it here
-		cmp.b	#6-1,d0			; check if this is the FM6/DAC channel
-		beq.s	.inactive		; if is, branch
-
 		tst.b	(a0)
 		bpl.s	.inactive		; branch if channel is inactive
 		bset	d0,d1			; set active bit
@@ -39,20 +35,27 @@ Sonic3K_update:
 		move.b	2(a0),(a1)		; get tick multiplier
 		move.b	8(a0),1(a1)		; get instrument
 		move.b	6(a0),2(a1)		; get volume
-		move.b	$D(a0),3(a1)		; get note
-		move.b	$B(a0),4(a1)		; get time counter
+		move.b	$B(a0),3(a1)		; get time counter
 
-.inactive	addq.w	#5,a1			; advance offset
+		move.b	$E(a0),d6		; get freq hi
+		lsl.w	#8,d6			; shift up
+		move.b	$D(a0),d6		; get freq lo
+		move.w	d6,4(a1)		; save it
+
+		move.b	$23(a0),d5		; get mod freq hi
+		lsl.w	#8,d5			; shift up
+		move.b	$22(a0),d5		; get mod freq lo
+		add.w	d5,d6			; add to freq
+
+		move.b	$10(a0),d5		; get detune
+		ext.w	d5			; extend to word
+		add.w	d5,d6			; add to mod freq
+		move.w	d6,6(a1)		; save it
+
+.inactive	addq.w	#8,a1			; advance offset
 		dbf	d0,.loop		; loop until done
 
-		lea	-$30(a0),a0		; get DAC track
-		tst.b	(a0)
-		bpl.s	.noDAC			; branch if DAC is inactive
-		bset	#9,d1			; set active bit
-		move.b	$D(a0),sDACnumber.w	; get DAC number
-		move.b	$B(a0),sDACtime.w	; get DAC timer
-
-.noDAC		move.w	d1,ActiveChn.w		; now set the active channels and be happy
+		move.w	d1,ActiveChn.w		; now set the active channels and be happy
 		move.l	(a2)+,a0		; get Z80 RAM address
 		move.b	$24(a0),sTempo.w	; get tempo
 		st.b	sTickMul.w		; get tick multiplier
@@ -60,12 +63,14 @@ Sonic3K_update:
 		rts
 
 .addrList	dc.l Z80_RAM+$1DC0, Z80_RAM+$1D90, Z80_RAM+$1D60
-		dc.l Z80_RAM+$1C40, Z80_RAM+$1D30, Z80_RAM+$1D00
+		dc.l Drv68Kmem+$1FC0,Z80_RAM+$1D30, Z80_RAM+$1D00
 		dc.l Z80_RAM+$1CD0, Z80_RAM+$1CA0, Z80_RAM+$1C70
-		dc.l Z80_RAM+$1C00
+		dc.l Z80_RAM+$1C40
 
 Sonic3K_load;
 		move.b	#TYPE_SMPS,DriverType.w
+		move.l	#sDriverPropertyData,DisplayList.w
+
 	stopZ80					; request z80 bus
 		lea	Z80_RAM+$D6,a0
 		lea	S3KZ80DACBanks,a1

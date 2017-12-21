@@ -102,6 +102,7 @@ SetupValues:	dc.w $8000		; XREF: PortA_Ok
 
 		dc.w $8174		; value	for VDP	display	mode
 		dc.w $8F02		; value	for VDP	increment
+NullUpdateList:
 		dc.l $C0000000		; value	for CRAM write mode
 		dc.l $40000010
 
@@ -135,6 +136,7 @@ GameProgram:
 		move.w	#$4E75,Driver68K	; put RTS in 68k RAM
 		move.b	#-1,LoadedDriver.w	; no sound driver loaded
 		move.b	#TYPE_NULL,DriverType.w	;
+		move.l	#NullUpdateList,DisplayList.w
 	;	move.w	#$100,Z80_reset		; reset the Z80
 
 		; fill Plane A+B with 0

@@ -1,5 +1,5 @@
 Magicians_Hall_Header:
-	sHeaderInit	
+	sHeaderInit
 	sHeaderPatch	Magicians_Hall_Patches
 	sHeaderCh	$07, $03
 	sHeaderTempo	$02, $05
@@ -523,7 +523,7 @@ Magicians_Hall_Jump4:
 	sJump		Magicians_Hall_Jump4
 
 Magicians_Hall_DAC:
-	sStop		
+	sStop
 
 Magicians_Hall_Patches:
 

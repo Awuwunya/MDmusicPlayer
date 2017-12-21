@@ -323,7 +323,7 @@
 			=spCenter 0xC0
 		}
 	}
-	!0xE1 > saDetune: .db;
+	!0xE1 > ssDetune: .db;
 	!0xE2 > sComm: .db;
 	!0xE3 > sStopFM: {
 		;

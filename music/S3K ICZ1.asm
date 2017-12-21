@@ -301,7 +301,7 @@ IceCap_Loop23:
 	sJump		IceCap_PSG1
 
 IceCap_PSG2:
-	saDetune	$01
+	ssDetune	$01
 
 IceCap_Jump1:
 	sVolEnvPSG	VolEnv_01

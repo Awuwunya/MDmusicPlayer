@@ -21,7 +21,7 @@ InvinciblityK_Header:
 
 InvinciblityK_FM1:
 	ssMod68k	$14, $01, $06, $06
-	saDetune	$FE
+	ssDetune	$FE
 	sPan		spCenter, $00
 
 InvinciblityK_Jump4:
@@ -61,7 +61,7 @@ InvinciblityK_Jump3:
 
 InvinciblityK_FM3:
 	dc.b nRst, $0B
-	saDetune	$02
+	ssDetune	$02
 	ssMod68k	$14, $01, $05, $06
 	sPan		spLeft, $00
 	sJump		InvinciblityK_Jump4

@@ -13,10 +13,10 @@ drvnum =	0
 ; directory: The directory driver files are in. Must not contain spaces.
 ; name: ID to be referred by when including SMPS files.
 ; compression: the compression of the sound driver. See macro.asm for further details.
-	incdrv	SMPS, MegaPCM, cmp_kos
-	incdrv	SMPS, Sonic3K, cmp_kos
-	incdrv	SMPS, Ristar, cmp_kos
-	incdrv	SMPS, DyHe, cmp_kos
-	incdrv	GEMS, Aladdin, cmp_none
-	incdrv	GEMS, Vectorman, cmp_none
-	incdrv	GEMS, Spinball, cmp_none
+	incdrv	SMPS, MegaPCM,	cmp_kos
+	incdrv	SMPS, Sonic3K,	cmp_kos
+	incdrv	SMPS, Ristar,	cmp_kos
+	incdrv	SMPS, DyHe,	cmp_kos
+	incdrv	GEMS, Aladdin,	cmp_none
+	incdrv	GEMS, Vectorman,cmp_none
+	incdrv	GEMS, Spinball,	cmp_none
