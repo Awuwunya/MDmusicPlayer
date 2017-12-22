@@ -42,7 +42,6 @@ SystemPalette:
 	even
 
 	include 'Code/string.asm'	; string display library
-	include 'Code/crash.asm'	; crash handlers and debuggers
 	include 'Code/init.asm'		; initialization code and main loop
 	include 'Code/program.asm'	; main program (must be after init.asm)
 	include 'Code/VBlank.asm'	; Vertical Blanking code & controller polling
@@ -67,6 +66,82 @@ SystemFont:
 			; til then, basically fuck you and deal with this padding
 MusicOff:
 	incbin "_temp/music"		; include output from music tool
+; ===============================================================
+; ---------------------------------------------------------------
+; Error handling module
+; ---------------------------------------------------------------
+
+BusError:	jsr	ErrorHandler(pc)
+		dc.b	"BUS ERROR",0			; text
+		dc.b	1				; extended stack frame
+		even
+
+AddressError:	jsr	ErrorHandler(pc)
+		dc.b	"ADDRESS ERROR",0		; text
+		dc.b	1				; extended stack frame
+		even
+
+ErrorTrap:	jsr	ErrorHandler(pc)
+		dc.b	"ERROR TRAP",0			; text
+		dc.b	0				; extended stack frame
+		even
+
+IllegalInstr:	jsr	ErrorHandler(pc)
+		dc.b	"ILLEGAL INSTRUCTION",0		; text
+		dc.b	0				; extended stack frame
+		even
+
+ZeroDivide:	jsr	ErrorHandler(pc)
+		dc.b	"ZERO DIVIDE",0  		; text
+		dc.b	0				; extended stack frame
+		even
+
+ChkInstr:	jsr	ErrorHandler(pc)
+		dc.b	"CHK INSTRUCTION",0  		; text
+		dc.b	0				; extended stack frame
+		even
+
+TrapvInstr:	jsr	ErrorHandler(pc)
+		dc.b	"TRAPV INSTRUCTION",0  		; text
+		dc.b	0				; extended stack frame
+		even
+
+PrivilegeViol:	jsr	ErrorHandler(pc)
+		dc.b	"PRIVILEGE VIOLATION",0  	; text
+		dc.b	0				; extended stack frame
+		even
+
+Trace:		jsr	ErrorHandler(pc)
+		dc.b	"TRACE",0 	  		; text
+		dc.b	0				; extended stack frame
+		even
+
+Line1010Emu:	jsr	ErrorHandler(pc)
+		dc.b	"LINE 1010 EMULATOR",0  	; text
+		dc.b	0				; extended stack frame
+		even
+
+Line1111Emu:	jsr	ErrorHandler(pc)
+		dc.b	"LINE 1111 EMULATOR",0  	; text
+		dc.b	0				; extended stack frame
+		even
+
+ErrorExcept:	jsr	ErrorHandler(pc)
+		dc.b	"ERROR EXCEPTION",0    		; text
+		dc.b	0				; extended stack frame
+		even
+
+StackUnderflow:	jsr	ErrorHandler(pc)
+		dc.b	"STACK UNDERFLOW",0    		; text
+		dc.b	0				; extended stack frame
+		even
+
+StackOverflow:	jsr	ErrorHandler(pc)
+		dc.b	"STACK OVERFLOW",0    		; text
+		dc.b	0				; extended stack frame
+		even
+
+ErrorHandler:	incbin	"code/ErrorHandler.bin"
 ; ===========================================================================
 EndOfRom:
 		END

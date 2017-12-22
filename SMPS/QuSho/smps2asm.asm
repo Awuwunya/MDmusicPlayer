@@ -1,7 +1,5 @@
 smpsIsZ80 =		1
 smpsNoAttack =		$E7
-nMaxPSG1 =		nBb6
-nMaxPSG2 =		nB6
 ; ---------------------------------------------------------------------------------------------
 ; Note Equates (QuackShot, unlike every fucking driver ever, has notes from 60 to CF)
 	enum $60,  nRst,nC0,nCs0,nD0,nEb0,nE0,nF0,nFs0,nG0,nAb0,nA0,nBb0,nB0

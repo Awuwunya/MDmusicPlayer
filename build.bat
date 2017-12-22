@@ -1,6 +1,13 @@
 @echo off
-bin\MusicTool.exe
-bin\asm68k /p /m Code/main.asm, player.md, , .lst>.build.log
+bin\MusicTool
+bin\asm68k /p /m Code/main.asm, player.md, .sym, .lst>.build.log
 type .build.log
-if exist player.bin GOTO:eof
+if exist player.md GOTO comp
 pause
+exit
+
+:comp
+bin\convsym .sym .symcmp
+copy /B player.md+.symcmp player.md /Y
+del .sym
+del .symcmp

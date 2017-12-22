@@ -1,7 +1,5 @@
 smpsIsZ80 =		1
 smpsNoAttack =		$E7
-nMaxPSG1 =		nBb6
-nMaxPSG2 =		nB6
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
 	enum $00,	  VolEnv_00,VolEnv_01,VolEnv_02,VolEnv_03,VolEnv_04,VolEnv_05

@@ -8,11 +8,11 @@ MainProgramLoop:
 ChkForErrors:
 		tst.l	StackUflowRAM.w		; check if underflow happened
 		beq.s	.chkover		; if not, check for overflow
-		error	StackUnderflow.w	; stack underflow error
+		jmp	StackUnderflow		; stack underflow error
 
 .chkover	tst.l	StackUflowRAM.w		; check if overflow happened
 		beq.s	.rts			; if not, branch
-		error	StackOverflow.w		; stack overflow error
+		jmp	StackOverflow		; stack overflow error
 
 .rts		rts
 ; ===========================================================================
