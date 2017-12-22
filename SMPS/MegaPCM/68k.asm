@@ -25,24 +25,24 @@ Go_PSGIndex:	dc.l PSG_Index		; XREF: sub_72926
 ; Music	Pointers
 ; ---------------------------------------------------------------------------
 soundindex:
-MusicIndex:	dc.l 0			; no SMPS by default
+MusicIndex:	dc.l 0	; no SMPS by default
 PalCounter:	dc.b 0	; NATSUMI: Count from 5 to -1 to check which frame to do double update
 IsPal:		dc.b 0	; NATSUMI: Is -1 if PAL mode is active.
 ; ---------------------------------------------------------------------------
 ; PSG instruments used in music
 ; ---------------------------------------------------------------------------
-PSG_Index:	dc.l PSG1, PSG2, PSG3
-		dc.l PSG4, PSG5, PSG6
-		dc.l PSG7, PSG8, PSG9
-PSG1:		incbin	"psg\01.bin"
-PSG2:		incbin	"psg\02.bin"
-PSG3:		incbin	"psg\03.bin"
-PSG4:		incbin	"psg\04.bin"
-PSG6:		incbin	"psg\06.bin"
-PSG5:		incbin	"psg\05.bin"
-PSG7:		incbin	"psg\07.bin"
-PSG8:		incbin	"psg\08.bin"
-PSG9:		incbin	"psg\09.bin"
+PSG_Index:	dc.l VolEnv_01, VolEnv_02, VolEnv_03
+		dc.l VolEnv_04, VolEnv_05, VolEnv_06
+		dc.l VolEnv_07, VolEnv_08, VolEnv_09
+VolEnv_01:	incbin	"VolEnv\01.bin"
+VolEnv_02:	incbin	"VolEnv\02.bin"
+VolEnv_03:	incbin	"VolEnv\03.bin"
+VolEnv_04:	incbin	"VolEnv\04.bin"
+VolEnv_06:	incbin	"VolEnv\06.bin"
+VolEnv_05:	incbin	"VolEnv\05.bin"
+VolEnv_07:	incbin	"VolEnv\07.bin"
+VolEnv_08:	incbin	"VolEnv\08.bin"
+VolEnv_09:	incbin	"VolEnv\09.bin"
 
 byte_71A94:	dc.b 7,	$72, $73, $26, $15, 8, $FF, 5
 ; ---------------------------------------------------------------------------

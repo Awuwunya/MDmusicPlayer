@@ -23,18 +23,28 @@ Contents:
     SMPS2ASM.exe. The application will ask you some necessary questions to
     convert the file. Remember, the symbol for hex number is '0x'.
 
+    You may also drag a script file (extension MUST be smpss) into the program,
+    to run a script outside of the MDMusicPlayer environment.
+
   *1.3 - Commandline*
     The commandline for the program will be similar than what you would input
     into the prompt itself. Do note, some scripts may require additional
     parameters. You can put them right after the other parameters. Here is an
     example:
-      "SMPS2ASM ICZ.bin Sonic3K IceCap1 0x86AA"
+      "SMPS2ASM "S3K ICZ.bin" Sonic3K IceCap1 0x86AA"
 
-    If you want to use another script inside a folder, you can append a dot, and
-    the unique name of the script. You can see this with scripts related to SFX.
-    For example with script "S1_SMPS/smps2asm script.SFX.asm", you would want to
-    append ".SFX" to the folder name, as follows:
-      "SMPS2ASM Jump.bin Sonic1.SFX Jump"
+    If you need to specify a different type for your file, you mad append a dot,
+    and the unique identifier for the type. For example, a script may allow you
+    to specify that your file is a SFX file. For example, with script
+    "MegaPCM/smps2asm.smpss", you would want to append ".SFX" to the folder
+    name, as follows:
+      "SMPS2ASM "S1 Jump.bin" MegaPCM.SFX Jump"
+
+    You can also run scripts on the spot, for example to use SMPS2ASM outside of
+    the MDMusicPlayer environment. You simple have to specify, as the first
+    argument, the script file. The script MUST have extension smpss, or else it
+    will be treated as the input file. Here is an example:
+      "SMPS2ASM script.smpss "DyHe Izayoi.bin" Izayoi"
 
   *1.4 - Special flags*
     The commandline supports you adding special flags to use different special

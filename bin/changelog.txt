@@ -139,13 +139,23 @@ MDMusicPlayer changelog
   + Converter for QuackShot E1, E2, ED, EE flags to real frequencies
   + Support for dual DAC drivers
   + Modulation Frequency is now shown
+  + All sound drivers now have boilerplate voice and sfx types
+  + You can now define per-driver chaninfo data
   * Frequency is now correctly shown
   * Fixed VolEnv and MovEnv ID's for games
+  * Changed saDetune to ssDetune, the latter is what the actual function is
+  * For MegaPCM driver's, changed PSG 0-8 to VolEnv 1-9
+  * Sonic3K VolEnv and ModEnv ID's corrected
+  ~ Change old crash handler to Vladikcomper's crash handler
+  ~ GEMS now builds with Z80 source code rather than bunch of fucking dc.b's
+  - Removed separate and unnecessary scripts for sfx and voices
   s. Rewrote the whole shitfest
   s+ Comments are now supported
   s+ You can now control the convesion flow
   s+ New operator allowing you to print stuff in the console
   s+ Subscripts can be optimized into a look-up table for faster conversion
+  s+ Now the program can run standalone scripts
+  s+ Now you can select the type of script to run, script can decide actions according to it
   s* The program now correctly deals with tabs
   s* Tons of small bugs. Don't care to remember all of them.
   s~ Lables are now evaluated when macro is ran, instead of all the time
