@@ -1,8 +1,25 @@
 ### SONIC3K SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
-=endian "little"
-@offset 0 "Please specify offset of this song in Z80 bank"
+¤ (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
+	+Available types: Music, SFX, Voice
+	;
+}
+
+=endian 'little'
 =upb 0x17D8
-/ >header
+
+¤ \type\ == 'voice' {
+	=offset 0
+	~£_Patches .of
+	/ >patch
+	;
+}
+
+@offset 0 "Please specify offset of this song in Z80 bank"
+¤ \type\ == 'sfx' {
+	/ >headersfx
+} {
+	/ >header
+}
 
 ?header {
 	! > sHeaderInit: {
@@ -44,6 +61,55 @@
 	/£_FM? ?note ?comm
 	/£_PSG? ?note ?comm
 	/£_DAC ?DAC ?comm
+	/£_Patches >patch
+}
+
+?headersfx {
+	! > sHeaderInit: {
+		~£_Header .of
+		%; Z80 offset is {$4!\offset\}
+	}
+
+	¤ .nw == \upb\ {
+		! > sHeaderPatchUniv:;
+		$ .sw
+	} {
+		! > sHeaderPatch: .dw {
+			~£_Patches :0
+		}
+	}
+
+	! > sHeaderTick: .db;
+	=CHnum .db
+	! > sHeaderCh: \CHnum\;
+	=trpd 0
+	=trpn 0
+
+	* \CHnum\ {
+		>f 1
+		=trpd .nb
+		>b 1
+		¤ (\trpd\ & 0x80) == 0 {
+			=trpn (\trpd\&3)+1
+
+			¤ (\trpd\ & 4) != 0 {
+				=trpn \trpn\+3
+			}
+
+			! > sHeaderSFX: .db, .db, .dw, .db, .db {
+				~£_FM\trpn\ :2
+			}
+		} {
+			=trpn ((\trpd\&0x60)>>5)+1
+			! > sHeaderSFX: .db, .db, .dw, .db, .db {
+				~£_PSG\trpn\ :2
+			}
+		}
+
+	}
+
+	/£_FM? ?note ?comm
+	/£_PSG? ?note ?comm
 	/£_Patches >patch
 }
 

@@ -1,7 +1,23 @@
 ### DYNAMITE HEADDY SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/08
-=endian "big"
+¤ (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
+	+Available types: Music, SFX, Voice
+	;
+}
+
+=endian 'big'
 =offset 0
-/ >header
+
+¤ \type\ == 'voice' {
+	~£_Patches .of
+	/ >patch
+	;
+}
+
+¤ \type\ == 'sfx' {
+	/ >headersfx
+} {
+	/ >header
+}
 
 ?header {
 	! > sHeaderInit: {
@@ -39,6 +55,49 @@
 	/£_FM? ?note ?comm
 	/£_PSG? ?note ?comm
 	/£_DAC ?DAC ?comm
+	/£_Patches >patch
+}
+
+?headersfx {
+	! > sHeaderInit: {
+		~£_Header .of
+	}
+	! > sHeaderPatch: .dw {
+		~£_Patches :0
+	}
+
+	! > sHeaderTick: .db;
+	=CHnum .db
+	! > sHeaderCh: \CHnum\;
+	=trpd 0
+	=trpn 0
+
+	* \CHnum\ {
+		>f 1
+		=trpd .nb
+		>b 1
+		¤ (\trpd\ & 0x80) == 0 {
+			=trpn (\trpd\&3)+1
+
+			¤ (\trpd\ & 4) != 0 {
+				=trpn \trpn\+3
+			}
+
+			! > sHeaderSFX: .db, .db, .dw, .db, .db {
+				~£_FM\trpn\ :2
+			}
+
+		} {
+			=trpn ((\trpd\&0x60)>>5)+1
+			! > sHeaderSFX: .db, .db, .dw, .db, .db {
+				~£_PSG\trpn\ :2
+			}
+		}
+
+	}
+
+	/£_FM? ?note ?comm
+	/£_PSG? ?note ?comm
 	/£_Patches >patch
 }
 

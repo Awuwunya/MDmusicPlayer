@@ -1,21 +1,33 @@
 ### CHAOTIX SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
-=endian "little"
+¤ (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
+	+Available types: Music, SFX, Voice
+	;
+}
+
+=endian 'little'
+
+¤ \type\ == 'voice' {
+	=offset 0
+	~£_Patches .of
+	/ >patch
+	;
+}
+
 @offset 0 "Please specify offset of this song in Z80 bank"
-=upb 0x17D8
-/ >header
+
+¤ \type\ == 'sfx' {
+	/ >headersfx
+} {
+	/ >header
+}
 
 ?header {
 	! > sHeaderInit: {
 		~£_Header .of
 		%; Z80 offset is {$4!\offset\}
 	}
-	¤ .nw == \upb\ {
-		! > sHeaderPatchUniv:;
-		$ .sw
-	} {
-		! > sHeaderPatch: .dw {
-			~£_Patches :0
-		}
+	! > sHeaderPatch: .dw {
+		~£_Patches :0
 	}
 
 	=FMnum .db
@@ -45,8 +57,51 @@
 
 	/£_FM? ?note ?comm
 	/£_PSG? ?note ?comm
-	/£_DAC ?DAC ?comm
 	/£_PWM? ?PWM ?comm
+	/£_Patches >patch
+}
+
+?headersfx {
+	! > sHeaderInit: {
+		~£_Header .of
+		%; Z80 offset is {$4!\offset\}
+	}
+	! > sHeaderPatch: .dw {
+		~£_Patches :0
+	}
+
+	! > sHeaderTick: .db;
+	=CHnum .db
+	! > sHeaderCh: \CHnum\;
+	=trpd 0
+	=trpn 0
+
+	* \CHnum\ {
+		>f 1
+		=trpd .nb
+		>b 1
+		¤ (\trpd\ & 0x80) == 0 {
+			=trpn (\trpd\&3)+1
+
+			¤ (\trpd\ & 4) != 0 {
+				=trpn \trpn\+3
+			}
+
+			! > sHeaderSFX: .db, .db, .dw, .db, .db {
+				~£_FM\trpn\ :2
+			}
+
+		} {
+			=trpn ((\trpd\&0x60)>>5)+1
+			! > sHeaderSFX: .db, .db, .dw, .db, .db {
+				~£_PSG\trpn\ :2
+			}
+		}
+
+	}
+
+	/£_FM? ?note ?comm
+	/£_PSG? ?note ?comm
 	/£_Patches >patch
 }
 
@@ -114,30 +169,6 @@
 	=VolEnv_0C 0x0C
 	=VolEnv_0D 0x0D
 	=VolEnv_0E 0x0E
-	=VolEnv_0F 0x0F
-	=VolEnv_10 0x10
-	=VolEnv_11 0x11
-	=VolEnv_12 0x12
-	=VolEnv_13 0x13
-	=VolEnv_14 0x14
-	=VolEnv_15 0x15
-	=VolEnv_16 0x16
-	=VolEnv_17 0x17
-	=VolEnv_18 0x18
-	=VolEnv_19 0x19
-	=VolEnv_1A 0x1A
-	=VolEnv_1B 0x1B
-	=VolEnv_1C 0x1C
-	=VolEnv_1D 0x1D
-	=VolEnv_1E 0x1E
-	=VolEnv_1F 0x1F
-	=VolEnv_20 0x20
-	=VolEnv_21 0x21
-	=VolEnv_22 0x22
-	=VolEnv_23 0x23
-	=VolEnv_24 0x24
-	=VolEnv_25 0x25
-	=VolEnv_26 0x26
 }
 
 ?modenv {
@@ -149,10 +180,9 @@
 	=ModEnv_05 5
 	=ModEnv_06 6
 	=ModEnv_07 7
-}
-
-?DAC {
-	=nRst 0x80
+	=ModEnv_08 8
+	=ModEnv_09 9
+	=ModEnv_0A 0x0A
 }
 
 ?PWM {
