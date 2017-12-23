@@ -105,7 +105,7 @@ Contents:
 
         * If block - This function is used to run alternate code based on
           condition. If blocks can also contain only true condition. The symbol
-          for this operation is '¤'
+          for this operation is 'c'
 
         * Operation - This function allows you to fake operators without them
           actually outputting anything to the output file. Most useful in
@@ -114,7 +114,11 @@ Contents:
 
         * For loop - This operation can be used to loop for x amount of times.
           Useful in defining FM and PSG headers with variable length. The
-          symbol for this operation is '*'
+          symbol for this operation is 'f'
+
+        * While loop - This operation can be used to loop until condition is
+          false. The condition will be evaluate each time script inside is
+          completed processoring. The symbol for this operation is 'w'
 
         * Argument equate - This function will try to get an argument from the
           commandline and equate it to a lable. If it can not find equate at the
@@ -147,12 +151,6 @@ Contents:
           comments or with complex commands. You define absolute position
           ("a"), backwards jump ("b"), or forwards jump ("f") right after the
           operation symbol. The symbol for this operation is '>'
-
-        * Arbitary Lable - This operator is used to create a lable at specific
-          position inside the file. It is useful for creating arbitary lables
-          and letting the interpreter know where specific type of data is at.
-          You may control the lable name with a lable format. The symbol for
-          this operation is '^'
 
     *2.2.2 - Operators*
       There are some special operators that allow to better interact with
@@ -257,9 +255,9 @@ Contents:
         argument lables.
 
     *2.3.4 - If block*
-      ¤ <condition> {
-      ¤ .nw == 0x17D8 {
-      ¤ false {
+      c <condition> {
+      c .nw == 0x17D8 {
+      c false {
         <condition> defines on what basis the if block will evaluate when to run
         the true block (right after the line) or false block (after the first
         '}' if '{' is provided in same line). The script will be evaluated once
@@ -274,14 +272,20 @@ Contents:
         Operations are best used to skip bytes.
 
     *2.3.6 - For loop*
-      * <times> {
-      * \FMnum\ - 1 {
-      * 0xA {
+      f <times> {
+      f \FMnum\ - 1 {
+      f 0xA {
         <times> defines the amount of times the code block will be ran, which
         will be evaluated once the interpreter finds it. Most useful for
         defining variable size header fields, such as FM and PSG headers.
 
-    *2.3.7 - Argument equate*
+    *2.3.7 - While loop*
+      w <condition> {
+      w .nb != 0 {
+      w true {
+        <condition> defines whether the while will be executed or not.
+
+    *2.3.8 - Argument equate*
       @<lable> <argument> <text>
       @offset 0 "Please specify offset of this song in Z80 bank"
         <lable> will be the lable applied to the final evaluated equate when the
@@ -291,60 +295,54 @@ Contents:
         specified offset could not be found. The user will be promted with this
         string to enter an input to evaluate the equate.
 
-    *2.3.8 - Lable format*
-      ~<string>
-      ~£_PSG#
-      ~£_DAC
+    *2.3.9 - Lable format*
+      ~<string> <mode>
+      ~£_PSG? :0
+      ~£_DAC .of
         <string> is a string representing what the format for lable names will
         be. '£' is special character which will be replaced with the given name
-        of this project is. '#' is special character, which will be replaced
-        with the next available number, starting from 1. Any lable created by
-        the interpreter will be in this format until it is changed by the
+        of this project is. '?' is special character, which will be replaced
+        with the next available number, starting from 1. <mode> defines where
+        the label will be created at. It can be an operation, or it may also
+        refer to an argument much like an Argument modifier. Any lable created
+        by the interpreter will be in this format until it is changed by the
         script. Most used to change lable names for jumps, calls, and channel
         definitions, etc.
 
-      *2.3.9 - Subscript*
+      *2.3.10 - Subscript*
         ?<lable> {
         ?header {
           <lable> is used to identify this subscript by. This is used mostly to
           hold other functions, especially for system subscripts (for example
           coordination, header, note).
 
-        *2.3.9.1 - Subscript importing*
+        *2.3.10.1 - Subscript importing*
           ?<lable>;
           ?header;
             <lable> is used to identify the subscript to import. This is used
             to import functions or equates from another subscript.
 
-      *2.3.10 - Comment*
+      *2.3.11 - Comment*
         %<note>
         %; This is a comment!
         %; The actual value was {.lb}
           <note> is the string you want to notify user with. All the operations
           you use must be between { and } tags.
 
-      *2.3.11 - Print*
+      *2.3.12 - Print*
         +<note>
         +Hello World!
         +There is some error at {.pc}
           <note> is the string you want to notify user with. All the operations
           you use must be between { and } tags.
 
-      *2.3.12 - Go to*
+      *2.3.13 - Go to*
         ><type> <off>
         >a <dw>
         >b 10
           <type> is the type of the operation. 'a' is absolute address´, 'f' is
           forward via offset addition, 'b' is backward via offset substraction.
           <off> is the offset, evaluated once the interpreter finds the Go to.
-
-      *2.3.13 - Arbitary Lable*
-        ^ <offset>
-        ^ .pc
-        ^ .sz-10
-          <offset> is the calculated offset of the offset where the lable will
-          go at. This can contain any arbitary operators, except any that
-          create lables themselves.
 ================================================================================
 
 *3 - Inner functionality*

@@ -1,5 +1,5 @@
 ### RISTAR SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/08
-¤ (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
+c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
 	+Available types: Music, SFX, Voice
 	;
 }
@@ -7,13 +7,13 @@
 =endian 'big'
 =offset 0
 
-¤ \type\ == 'voice' {
+c \type\ == 'voice' {
 	~£_Patches .of
 	/ >patch
 	;
 }
 
-¤ \type\ == 'sfx' {
+c \type\ == 'sfx' {
 	/ >headersfx
 } {
 	/ >header
@@ -32,20 +32,20 @@
 	=PSGnum .nb
 	! > sHeaderCh: .lb, .db;
 	! > sHeaderTempo: .db, .db;
-	* 2 {
+	f 2 {
 		! > sHeaderDAC: .dw {
 			~£_DAC? :0
 		}
 		$ .sw
 	}
 
-	* \FMnum\ - 2 {
+	f \FMnum\ - 2 {
 		! > sHeaderFM: .dw, .db, .db {
 			~£_FM? :0
 		}
 	}
 
-	* \PSGnum\ {
+	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
 			~£_PSG? :0
 			:4 {
@@ -75,14 +75,14 @@
 	=trpd 0
 	=trpn 0
 
-	* \CHnum\ {
+	f \CHnum\ {
 		>f 1
 		=trpd .nb
 		>b 1
-		¤ (\trpd\ & 0x80) == 0 {
+		c (\trpd\ & 0x80) == 0 {
 			=trpn (\trpd\&3)+1
 
-			¤ (\trpd\ & 4) != 0 {
+			c (\trpd\ & 4) != 0 {
 				=trpn \trpn\+3
 			}
 
@@ -109,7 +109,7 @@
 	=b2 0
 	=b3 0
 	=b4 0
-	* (.an-.pc)/25 {
+	f (.an-.pc)/25 {
 		%\n\t; Patch {$2!\num\}\r\n\t; {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}
 		>b 25
 		! > spAlgorithm: .nb&0x7;
@@ -150,8 +150,8 @@
 		=num \num\+1
 	}
 
-	¤ (.an-.pc)==1 {
-		¤ .nb==0 {
+	c (.an-.pc)==1 {
+		c .nb==0 {
 			! > even:;
 			$ .sb;
 		}

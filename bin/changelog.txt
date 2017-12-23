@@ -144,7 +144,7 @@ MDMusicPlayer changelog
   * Frequency is now correctly shown
   * Fixed VolEnv and MovEnv ID's for games
   * Changed saDetune to ssDetune, the latter is what the actual function is
-  * For MegaPCM driver's, changed PSG 0-8 to VolEnv 1-9
+  * For MegaPCM driver, changed PSG 0-8 to VolEnv 1-9
   * Sonic3K VolEnv and ModEnv ID's corrected
   ~ Change old crash handler to Vladikcomper's crash handler
   ~ GEMS now builds with Z80 source code rather than bunch of fucking dc.b's

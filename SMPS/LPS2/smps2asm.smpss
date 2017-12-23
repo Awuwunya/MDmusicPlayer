@@ -1,12 +1,12 @@
 ### J LEAGUE PRO STRIKER 2 SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/09
-¤ (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
+c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
 	+Available types: Music, SFX, Voice
 	;
 }
 
 =endian 'little'
 
-¤ \type\ == 'voice' {
+c \type\ == 'voice' {
 	=offset 0
 	~£_Patches .of
 	/ >patch
@@ -15,7 +15,7 @@
 
 @offset 0 "Please specify offset of this song in Z80 bank"
 
-¤ \type\ == 'sfx' {
+c \type\ == 'sfx' {
 	/ >headersfx
 } {
 	/ >header
@@ -40,13 +40,13 @@
 	}
 
 	$ .sw
-	* \FMnum\ - 1 {
+	f \FMnum\ - 1 {
 		! > sHeaderFM: .dw, .db, .db {
 			~£_FM? :0
 		}
 	}
 
-	* \PSGnum\ {
+	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
 			~£_PSG? :0
 			:4 {
@@ -76,14 +76,14 @@
 	=trpd 0
 	=trpn 0
 
-	* \CHnum\ {
+	f \CHnum\ {
 		>f 1
 		=trpd .nb
 		>b 1
-		¤ (\trpd\ & 0x80) == 0 {
+		c (\trpd\ & 0x80) == 0 {
 			=trpn (\trpd\&3)+1
 
-			¤ (\trpd\ & 4) != 0 {
+			c (\trpd\ & 4) != 0 {
 				=trpn \trpn\+3
 			}
 
@@ -111,7 +111,7 @@
 	=b2 0
 	=b3 0
 	=b4 0
-	* (.an-.pc)/25 {
+	f (.an-.pc)/25 {
 		%\n\t; Patch {$2!\num\}\r\n\t; {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}
 		>b 25
 		! > spAlgorithm: .nb&0x7;
