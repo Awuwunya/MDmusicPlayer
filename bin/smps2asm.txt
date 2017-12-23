@@ -48,7 +48,7 @@ Contents:
 
   *1.4 - Special flags*
     The commandline supports you adding special flags to use different special
-    functions with SMPS2ASM. Currently the following flags are supported:
+    functions with SMPS2ASM/Nat. Currently the following flags are supported:
       * -d - Print debug information. This information provides an insight to
         what the interpreter sees during the whole execution. This file is
         stored as .asm.log file and is viewable by any text editor. This can be
@@ -74,89 +74,89 @@ Contents:
       program what type of function we want to execute. This is the whole
       backbone of the program, and determines what the rest of the line should
       be. Here is the types:
-        * Equate - Equates a symbol or value to a lable. The program may put the
-          result in the output file. The symbol for this operation is '='
+        * Equate - Equates a symbol or value to a lable. The symbol for this
+          function is '='
 
         * Macro - Macros are used to print just that; macros. Macros allow to
-          define one, multiple or no bytes that trigger the macro. The macro
-          is able to define arguments as well. The symbol for this operation
-          is '!'
+          define one, multiple, range of or no bytes that trigger the macro. The
+          macro is able to define arguments as well. The symbol for this
+          function is '!'
 
         * Script block start - This is used to start a script block or
           conditional script block, which may be used to run specific script
           after a function. This may be used to modify the output of the
           previous function or do something after it. The symbol is usually
-          used after the function line. The symbol for this operation is '{'
+          used after the function line. The symbol for this function is '{'
 
         * Script block end - Similar to script block start, but is used to end a
-          script block. Only to be used in a separate line. The symbol for this
-          operation is '}'
+          script block. Can only be placed in a separate line. The symbol for
+          this function is '}'
 
         * Subscript - This function is much like 'Script block start', but it is
-          its own function, over than extension of an existing function. Mostly
-          used to make a subscript of a specified type, which the interpreter
-          will use to define output file. You can also import a subscript into
-          another subscript or script block. The max depth of importing is 3.
-          The symbol for this operation is '?'
+          its own function, rather than an extension of existing function.
+          Mostly used to make a subscript of a specified type, which the
+          interpreter will use to define output file. You can also import a
+          subscript into another subscript or script block. The symbol for this
+          function is '?'
 
         * Argument modifier - This adds the functionality to modify an argument
-          of a macro. It can be defined it to one argument only, and will change
-          equated value to its lable. The symbol for this operation is ':'
+          of a macro. It holds a subscript, with equates for binding different
+          values into equate names. The symbol for this function is ':'
 
         * If block - This function is used to run alternate code based on
-          condition. If blocks can also contain only true condition. The symbol
-          for this operation is 'c'
+          condition. If blocks can also only contain the true condition. The
+          symbol for this function is 'c'
 
         * Operation - This function allows you to fake operators without them
           actually outputting anything to the output file. Most useful in
           skipping bytes (for example, DAC pointers two unused bytes). The
-          symbol for this operation is '$'
+          symbol for this function is '$'
 
-        * For loop - This operation can be used to loop for x amount of times.
+        * For loop - This function can be used to loop for x amount of times.
           Useful in defining FM and PSG headers with variable length. The
-          symbol for this operation is 'f'
+          symbol for this function is 'f'
 
-        * While loop - This operation can be used to loop until condition is
+        * While loop - This function can be used to loop until condition is
           false. The condition will be evaluate each time script inside is
-          completed processoring. The symbol for this operation is 'w'
+          completed processing. The symbol for this function is 'w'
 
         * Argument equate - This function will try to get an argument from the
           commandline and equate it to a lable. If it can not find equate at the
           requested offset, it will ask from the user with the given string.
-          Most used to get the offset of the song in Z80 bank. The symbol for
-          this operation is '@'
+          Useful for getting the offset of the song in Z80 bank. The symbol for
+          this function is '@'
 
         * Stop - This function is used to stop interpreting data at current
-          offset, and to return to the function which called this (usually
-          a jump or call). If no caller was present, parsing of the file will
-          stop and final file will be output. See further explanation in
-          chapter 3.3. The symbol for this operation is ';'
+          offset, and to return to the subscript which called this. If no caller
+          was present, parsing of the file will stop and final file will be
+          output. See further explanation in  chapter 3.3. The symbol for this
+          function is ';'
 
-        * Lable format - Is used to set the lable format used in different
-          operations. Mostly used by jumps, calls and header. The symbol for
-          this operation is '~'
+        * Lable format - Is used to set the lable format usedto create a lable
+          or for defining a lable for macro argument. Useful for jumps, calls
+          and header. The symbol for this function is '~'
 
-        * Comment - Is used to set a note in the asm file. Can also be used to
-          set custom operations when necessary. You can use operators inside
-          comments and they are set on a new line. If placed inside a macro,
+        * Comment - Is used to set a note in the output file. Can also be used
+          to put custom text when necessary. You can use operators inside
+          comments and they are put on a new line. If placed inside a macro,
           the comment will be appended after the macro itself. The symbol for
-          this operation is '%'
+          this function is '%'
 
         * Print - This can be used in order to print text to the command window.
-          This works almost like a Comment operation, but will not put anything
-          in the output file. The symbol for this operation is '+'
+          This works almost like a Comment function, but will not put anything
+          in the output file. The symbol for this function is '+'
 
         * Go to - This operator is used to go to file position, or advance
           specified amount of bytes forward or backward. Useful for writing
           comments or with complex commands. You define absolute position
           ("a"), backwards jump ("b"), or forwards jump ("f") right after the
-          operation symbol. The symbol for this operation is '>'
+          function symbol. The symbol for this function is '>'
 
     *2.2.2 - Operators*
       There are some special operators that allow to better interact with
       equates or bytes of the input file. The operator to interact with an
-      equate goes as follows: '\<str>\' where str is the name of the equate.
-      Other operators start with '/' and have 2-letter code;
+      equate goes as follows: '\<str>\' where <str> is the name of the equate.
+      Other operators start with '.' and have 2-letter code;
         * db - Data Byte; Reads a byte from the file on current cursor position,
           and then increments the cursor position by 1.
 
@@ -218,6 +218,9 @@ Contents:
           position. If no lable was found, the offset of the file will be
           returned.
 
+      If there is an operator you want me to add, do tell me and I will consider
+      adding it.
+
   *2.3 - Function format*
     *2.3.0 - Format*
       <format>
@@ -228,7 +231,7 @@ Contents:
     *2.3.1 - Equates*
       =<lable> <value>
       =nRst 0x80
-      =endian "little"
+      =endian 'little'
         <lable> is the lable of the equate, used to identify it. Having multiple
         equates with the same lable will likely break things. <value> is the
         value or statement evaluated to the string. The first time the equate is
@@ -236,9 +239,9 @@ Contents:
 
     *2.3.2 - Macro*
       !<flags> > <lable>: <arguments><end>
-      ! > smpsHeaderVoice: /aw;
-      !0xFF, 3 > smpsCopyData: /db, /db {
-      !0xFA > smpsModOff:;
+      ! > sHeaderPatch: .aw;
+      !0xFF, 7 > sCondJmp: .rw {
+      !0xE8 > sNoteTimeOut: .db;
         <flags> is none, one, or more bytes which define the data necessary to
         trigger this macro, which are separated by ','. <lable> is the lable
         used to identify this macro, and functions as the macro name. Having
@@ -266,10 +269,10 @@ Contents:
     *2.3.5 - Operation*
       $ <operation>
       $ .sb
-        <operation> will be the raw operation, typically consisting of operators
-        only. The operation will be evaluated once the interpreter finds it. The
-        operation may only contain operators or statements, not other functions.
-        Operations are best used to skip bytes.
+        <operation> says what the program will do, typically consisting of
+        operators only. The operation will be evaluated once the interpreter
+        sees it. The operation may only contain operators or statements, not
+        other functions. Operations are best used to skip bytes.
 
     *2.3.6 - For loop*
       f <times> {
@@ -283,7 +286,8 @@ Contents:
       w <condition> {
       w .nb != 0 {
       w true {
-        <condition> defines whether the while will be executed or not.
+        <condition> defines calculation to determine if the code block will be
+        ran or not. After code block is ran, execution will return at the while.
 
     *2.3.8 - Argument equate*
       @<lable> <argument> <text>
@@ -303,7 +307,7 @@ Contents:
         be. '£' is special character which will be replaced with the given name
         of this project is. '?' is special character, which will be replaced
         with the next available number, starting from 1. <mode> defines where
-        the label will be created at. It can be an operation, or it may also
+        the label will be created at. It can be an operator, or it may also
         refer to an argument much like an Argument modifier. Any lable created
         by the interpreter will be in this format until it is changed by the
         script. Most used to change lable names for jumps, calls, and channel
@@ -312,9 +316,8 @@ Contents:
       *2.3.10 - Subscript*
         ?<lable> {
         ?header {
-          <lable> is used to identify this subscript by. This is used mostly to
-          hold other functions, especially for system subscripts (for example
-          coordination, header, note).
+          <lable> is used to identify this subscript by. This is used especially
+          to hold functions needed more than once.
 
         *2.3.10.1 - Subscript importing*
           ?<lable>;
@@ -326,14 +329,14 @@ Contents:
         %<note>
         %; This is a comment!
         %; The actual value was {.lb}
-          <note> is the string you want to notify user with. All the operations
-          you use must be between { and } tags.
+          <note> is the string you want to put inside output file. All the
+          functions you use must be between { and } tags.
 
       *2.3.12 - Print*
         +<note>
         +Hello World!
         +There is some error at {.pc}
-          <note> is the string you want to notify user with. All the operations
+          <note> is the string you want to notify user with. All the functions
           you use must be between { and } tags.
 
       *2.3.13 - Go to*
@@ -350,49 +353,49 @@ Contents:
     Scripts are parsed line by line, tabs and carriage returns are ignored.
     The first letter of a line determines what type of function the line is
     assigned to do. Code blocks (including the entire script) is handle by a
-    stack of of Dic elements, which are an easier way to interact with a
-    Dictionary<?,?> in C#, as there is no implementation allowing you to
-    define Dictionary with ambigious attributes. Reflection API is used to
-    call functions within the Dictionary and then will be translated to
-    appropriate objects during runtime. The stack will get objects pushed into
-    it and popped from it by code block start and code block end respectively.
-    If Dictionary operations fail or stack underflows, an error will be
-    detected, the line number and error report is shown to the user and
-    parsing will stop. Similarly, if an illegal line is found, the program
-    attempts to warn the user as best as it can.
+    stack of of ScriptArray elements, which are a list of generic script items.
+    The stack will get objects pushed into it and popped from it by code block
+    start and code block end respectively. If stack underflows, or other issues
+    are present, an error will be reported, the line number and error is shown
+    to the user and parsing will stop.
 
-  *3.2 - Header parsing*
-    Header is sort of a special case, because parsing it differs fair bit from
-    parsing rest of the file. Unlike normal data, header field is read
-    fully, and usually consist only of operations that always happen. While in
-    header, equates are not treated as data, and data at offsets are not
-    followed to. Other than that header is treated like any normal code section.
+  *3.2 - Subscripts*
+    The program flow consists of subscripts. The entire script is technically
+    inside a subscript with a blank name. Subscripts are a way to categorize
+    different components needed for the program flow. While it is not necessary
+    to use them, they are really handy for optimizing the script. Subscripts can
+    be called by a command, and you can choose whether to run a subscript
+    sequentially, or to optimize it into an array. For the latter case, the
+    program will check with each byte, if it can be used like a macro or like an
+    equate, rather than having to run through each macro or equate separately in
+    order to figure out what to do. This feature has allowed SMPS2ASM/Nat to
+    gain massive speed up since last release.
 
-  *3.3 - Main data parsing*
-    Main data is parsed by jumping into the offsets of lables found during
-    header parsing or data parsing. The data will be parse until Stop token is
-    found, and then the interpreter will return to the previous caller. Whenever
-    Absolute Word or Offset Word operator is found, the address will be resolved
-    and called. The data will be interpreted until a Stop is met, after which
-    the caller will resume interpreting data. This can lead to duplicates of
-    same data being resolved, but if this data is the same it will be discarded
-    when the output file is written. The program will not at this stage check
-    for unused data. The prasing function consist of two or more Dictionaries,
-    which are related to coordination flags, DAC names or note names. The
-    coordination flags always take priority over other Dictionaries. Main loop
-    checks first if there is found a match in coordination flags. If so, the
-    parsing function will return a boolean value, if a stop statement was met.
-    If not, it will check if the byte offset changed during the parsing. If it
-    did, it will check coordination flags again. If not, it will check for note
-    or DAC equates. If even then it did not find a match, it will flag it as
-    data, increment byte offset, and do the loop again, until it reaches a stop
-    or end of the file.
+  *3.3 - Subscript parsing*
+    Whenever a command to parse a subscript is called, the calling subscript
+    will be temporarily suspended, in order to allow the called subscript be
+    parsed. In the case of sequential parsing, the subscript will go from top to
+    bottom, until the last statement. After everything is done, control is
+    returned for the calling subscript. If there are any stop statements during
+    parsing, this will also terminate parsing process and return to calling
+    subscript.
 
-  *3.4 - Parsing patches*
-    Patch parsing is also a special case, much like header. Instead however,
-    each 25 (as per SMPS standard, size can be changed to fit other standsrds)
-    bytes, the patch script is executed, until another lable or end of file is
-    met. Here, every operation is executed sequentially.
+    In the case of optimized subscripts, subscripts are parsed until a stop
+    statement. The subcript will be stored as an array (and if any other
+    subscripts were invoked at the same time, the optimized arrays are merged),
+    and the script will go through each byte and check the array for
+    translation. If nothing is found, a byte value will be written instead. If
+    EOF is met, the program will crash.
+
+  *3.4 - Parsing expressions*
+    SMPS2ASM/Nat uses Ncalc for dealing with expressions. Along with some custom
+    code for formatting, variables, mnemonics and dealing with hex numbers,
+    Ncalc helps dealing with nearly any math experssion. I did not want to write
+    code for this myself and dealing with professionally made expression
+    calculator has allowed me to quickly write up the program and deal with
+    what's really the most important. You can see on their website more info
+    about how it all works. If you need any specific functionality, talk to me
+    about it and I will consider adding it.
 
   *3.5 - Outputting to file*
     After the input file is fully parsed, the data will be written line by line
