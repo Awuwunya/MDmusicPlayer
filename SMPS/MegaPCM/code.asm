@@ -25,7 +25,7 @@ MegaPCM_update:
 		move.w	d6,4(a1)		; save it
 		add.w	$1C(a0),d6		; add mod freq
 
-		move.b	$1A(a0),d5		; get detune
+		move.b	$1E(a0),d5		; get detune
 		ext.w	d5			; extend to word
 		add.w	d5,d6			; add to mod freq
 		move.w	d6,6(a1)		; save it

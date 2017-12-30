@@ -44,8 +44,8 @@ ControlPrg:
 		lea	(a0,d6.w),a0		; get the DMA size
 
 		moveq	#4-1,d6			; text length
-		moveq	#12,d4			; text x-position
-		moveq	#24,d5			; text y-position
+		moveq	#14,d4			; text x-position
+		moveq	#22,d5			; text y-position
 		jsr	WriteString2.w		; display it
 
 .noA		lea	MusSelection.w,a5	; get music selection RAM to a5
@@ -73,8 +73,8 @@ ControlPrg:
 
 		move.w	(a5),d3			; get music selection to d2
 		lsr.w	#2,d3			; shift right twice (divide by 4)
-		moveq	#26,d5			; y-position
-		moveq	#12,d4			; x-position
+		moveq	#24,d5			; y-position
+		moveq	#14,d4			; x-position
 		bset	#15,d2			; to high plane
 		jsr	WriteNumberWord1.w	; write word to screen
 		jsr	WriteMusicString	; write music name string to screen
@@ -87,8 +87,8 @@ ControlPrg:
 		move.w	d3,d7			; copy sound driver to d7
 		lsr.w	#2,d3			; shift right twice (divide by 4)
 
-		moveq	#25,d5			; y-position
-		moveq	#19,d4			; x-position
+		moveq	#23,d5			; y-position
+		moveq	#21,d4			; x-position
 		jsr	WriteNumberWord1.w	; write word to screen
 		jsr	LoadSoundDriver		; load target sound driver
 		jmp	PlayMusicFile		; play music file

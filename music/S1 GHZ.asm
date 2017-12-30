@@ -40,9 +40,7 @@ GreenHill_Jump1:
 	dc.b nC6, $38
 	sCall		GreenHill_Call2
 	dc.b nC6, $08, $08, nE6
-	saTranspose	$0C
 	sPatFM		$06
-	saTranspose	$F4
 	dc.b nD6, $34, sHold, $34, nC6, $08, nD6, nE6
 	dc.b $38, sHold, $38, nC6, $08, nC6, nE6, nEb6
 	dc.b $34, sHold, $34, nC6, $08, nEb6, nD6, $1C

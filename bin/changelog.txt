@@ -148,15 +148,19 @@ MDMusicPlayer changelog
   * Sonic3K VolEnv and ModEnv ID's corrected
   ~ Change old crash handler to Vladikcomper's crash handler
   ~ GEMS now builds with Z80 source code rather than bunch of fucking dc.b's
+  ~ Made it more CRT friendly
   - Removed separate and unnecessary scripts for sfx and voices
   s. Rewrote the whole shitfest
   s+ Comments are now supported
   s+ You can now control the convesion flow
   s+ New operator allowing you to print stuff in the console
+  s+ New operator for doing while loops
   s+ Subscripts can be optimized into a look-up table for faster conversion
   s+ Now the program can run standalone scripts
   s+ Now you can select the type of script to run, script can decide actions according to it
   s* The program now correctly deals with tabs
   s* Tons of small bugs. Don't care to remember all of them.
+  s* Improvements into equate handling
   s~ Lables are now evaluated when macro is ran, instead of all the time
+  s~ The symbol for if is 'c', and the symbol for for is 'f'
   > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.0.5.7z

@@ -2,7 +2,7 @@
 ; Subroutine to clear onscreen info about songs
 ; ===========================================================================
 ResetChanText:
-	dmaFillVRAM 0,$C000,32*24*2
+	dmaFillVRAM 0,$C000,32*22*2
 		rts
 
 ; ===========================================================================
@@ -110,27 +110,27 @@ UDP_Dec:
 sDriverPropertyData:
 		dc.w 11-1		; d7
 		dc.w -1
-	vdpCoord $C000,0,2,WRITE
+	vdpCoord $C000,2,2,WRITE
 	asc2.w 0,"TEMPO $00  TICK MUL $00"
 
 		dc.w 2-1, sTempo	; d5/a4
-	propdat 0, $C000,7,2,WRITE
-	propdat 0, $C000,21,2,WRITE
+	propdat 0, $C000,9,2,WRITE
+	propdat 0, $C000,23,2,WRITE
 
 .fm =	1
 .dat =	sFM1
 	rept 6
 			dc.w .fm
-		vdpCoord $C000,0,(.fm+3),WRITE
+		vdpCoord $C000,2,(.fm+3),WRITE
 		asc2.w 0," FM\#.fm"
 
 			dc.w 6-1, .dat		; d5/a4
-		propdat 0, $C000,6,(.fm+3),WRITE
-		propdat 0, $C000,9,(.fm+3),WRITE
-		propdat 0, $C000,12,(.fm+3),WRITE
-		propdat 0, $C000,15,(.fm+3),WRITE
-		propdat UDP_Word-UDP_Byte, $C000,18,(.fm+3),WRITE
-		propdat UDP_Word-UDP_Byte, $C000,23,(.fm+3),WRITE
+		propdat 0, $C000,8,(.fm+3),WRITE
+		propdat 0, $C000,11,(.fm+3),WRITE
+		propdat 0, $C000,14,(.fm+3),WRITE
+		propdat 0, $C000,17,(.fm+3),WRITE
+		propdat UDP_Word-UDP_Byte, $C000,20,(.fm+3),WRITE
+		propdat UDP_Word-UDP_Byte, $C000,25,(.fm+3),WRITE
 .fm =	.fm+1
 .dat =	.dat-8
 	endr
@@ -138,57 +138,57 @@ sDriverPropertyData:
 .psg =	1
 	rept 3
 			dc.w .psg+6
-		vdpCoord $C000,0,(.psg+9),WRITE
+		vdpCoord $C000,2,(.psg+9),WRITE
 		asc2.w 0,"PSG\#.psg"
 
 			dc.w 6-1, .dat		; d5/a4
-		propdat 0, $C000,6,(.psg+9),WRITE
-		propdat 0, $C000,9,(.psg+9),WRITE
-		propdat 0, $C000,12,(.psg+9),WRITE
-		propdat 0, $C000,15,(.psg+9),WRITE
-		propdat UDP_Word-UDP_Byte, $C000,18,(.psg+9),WRITE
-		propdat UDP_Word-UDP_Byte, $C000,23,(.psg+9),WRITE
+		propdat 0, $C000,8,(.psg+9),WRITE
+		propdat 0, $C000,11,(.psg+9),WRITE
+		propdat 0, $C000,14,(.psg+9),WRITE
+		propdat 0, $C000,17,(.psg+9),WRITE
+		propdat UDP_Word-UDP_Byte, $C000,20,(.psg+9),WRITE
+		propdat UDP_Word-UDP_Byte, $C000,25,(.psg+9),WRITE
 .psg =	.psg+1
 .dat =	.dat-8
 	endr
 
 		dc.w 0
-	vdpCoord $C000,0,13,WRITE
+	vdpCoord $C000,2,13,WRITE
 	asc2.w 0," DAC"
 
 		dc.w 6-1, sDAC1		; d5/a4
-		propdat 0, $C000,6,13,WRITE
-		propdat 0, $C000,9,13,WRITE
-		propdat 0, $C000,12,13,WRITE
-		propdat 0, $C000,15,13,WRITE
-		propdat UDP_Word-UDP_Byte, $C000,18,13,WRITE
-		propdat UDP_Word-UDP_Byte, $C000,23,13,WRITE
+		propdat 0, $C000,8,13,WRITE
+		propdat 0, $C000,11,13,WRITE
+		propdat 0, $C000,14,13,WRITE
+		propdat 0, $C000,17,13,WRITE
+		propdat UDP_Word-UDP_Byte, $C000,20,13,WRITE
+		propdat UDP_Word-UDP_Byte, $C000,25,13,WRITE
 
 ; ===========================================================================
 sDualDriverPropertyData:
 		dc.w 12-1		; d7
 		dc.w -1
-	vdpCoord $C000,0,2,WRITE
+	vdpCoord $C000,2,2,WRITE
 	asc2.w 0,"TEMPO $00  TICK MUL $00"
 
 		dc.w 2-1, sTempo	; d5/a4
-	propdat 0, $C000,7,2,WRITE
-	propdat 0, $C000,21,2,WRITE
+	propdat 0, $C000,9,2,WRITE
+	propdat 0, $C000,23,2,WRITE
 
 .fm =	1
 .dat =	sFM1
 	rept 6
 			dc.w .fm+1
-		vdpCoord $C000,0,(.fm+3),WRITE
+		vdpCoord $C000,2,(.fm+3),WRITE
 		asc2.w 0," FM\#.fm"
 
 			dc.w 6-1, .dat		; d5/a4
-		propdat 0, $C000,6,(.fm+3),WRITE
-		propdat 0, $C000,9,(.fm+3),WRITE
-		propdat 0, $C000,12,(.fm+3),WRITE
-		propdat 0, $C000,15,(.fm+3),WRITE
-		propdat UDP_Word-UDP_Byte, $C000,18,(.fm+3),WRITE
-		propdat UDP_Word-UDP_Byte, $C000,23,(.fm+3),WRITE
+		propdat 0, $C000,8,(.fm+3),WRITE
+		propdat 0, $C000,11,(.fm+3),WRITE
+		propdat 0, $C000,14,(.fm+3),WRITE
+		propdat 0, $C000,17,(.fm+3),WRITE
+		propdat UDP_Word-UDP_Byte, $C000,20,(.fm+3),WRITE
+		propdat UDP_Word-UDP_Byte, $C000,25,(.fm+3),WRITE
 .fm =	.fm+1
 .dat =	.dat-8
 	endr
@@ -196,83 +196,83 @@ sDualDriverPropertyData:
 .psg =	1
 	rept 3
 			dc.w .psg+7
-		vdpCoord $C000,0,(.psg+9),WRITE
+		vdpCoord $C000,2,(.psg+9),WRITE
 		asc2.w 0,"PSG\#.psg"
 
 			dc.w 6-1, .dat		; d5/a4
-		propdat 0, $C000,6,(.psg+9),WRITE
-		propdat 0, $C000,9,(.psg+9),WRITE
-		propdat 0, $C000,12,(.psg+9),WRITE
-		propdat 0, $C000,15,(.psg+9),WRITE
-		propdat UDP_Word-UDP_Byte, $C000,18,(.psg+9),WRITE
-		propdat UDP_Word-UDP_Byte, $C000,23,(.psg+9),WRITE
+		propdat 0, $C000,8,(.psg+9),WRITE
+		propdat 0, $C000,11,(.psg+9),WRITE
+		propdat 0, $C000,14,(.psg+9),WRITE
+		propdat 0, $C000,17,(.psg+9),WRITE
+		propdat UDP_Word-UDP_Byte, $C000,20,(.psg+9),WRITE
+		propdat UDP_Word-UDP_Byte, $C000,25,(.psg+9),WRITE
 .psg =	.psg+1
 .dat =	.dat-8
 	endr
 
 		dc.w 0
-	vdpCoord $C000,0,13,WRITE
+	vdpCoord $C000,2,13,WRITE
 	asc2.w 0,"DAC1"
 
 		dc.w 6-1, sDAC1		; d5/a4
-		propdat 0, $C000,6,13,WRITE
-		propdat 0, $C000,9,13,WRITE
-		propdat 0, $C000,12,13,WRITE
-		propdat 0, $C000,15,13,WRITE
-		propdat UDP_Word-UDP_Byte, $C000,18,13,WRITE
-		propdat UDP_Word-UDP_Byte, $C000,23,13,WRITE
+		propdat 0, $C000,8,13,WRITE
+		propdat 0, $C000,11,13,WRITE
+		propdat 0, $C000,14,13,WRITE
+		propdat 0, $C000,17,13,WRITE
+		propdat UDP_Word-UDP_Byte, $C000,20,13,WRITE
+		propdat UDP_Word-UDP_Byte, $C000,25,13,WRITE
 
 		dc.w 1
-	vdpCoord $C000,0,14,WRITE
+	vdpCoord $C000,2,14,WRITE
 	asc2.w 0,"DAC2"
 
 		dc.w 6-1, sDAC2		; d5/a4
-		propdat 0, $C000,6,14,WRITE
-		propdat 0, $C000,9,14,WRITE
-		propdat 0, $C000,12,14,WRITE
-		propdat 0, $C000,15,14,WRITE
-		propdat UDP_Word-UDP_Byte, $C000,18,14,WRITE
-		propdat UDP_Word-UDP_Byte, $C000,23,14,WRITE
+		propdat 0, $C000,8,14,WRITE
+		propdat 0, $C000,11,14,WRITE
+		propdat 0, $C000,14,14,WRITE
+		propdat 0, $C000,17,14,WRITE
+		propdat UDP_Word-UDP_Byte, $C000,20,14,WRITE
+		propdat UDP_Word-UDP_Byte, $C000,25,14,WRITE
 
 ; ===========================================================================
 gDriverPropertyData:
 		dc.w 19-1		; d7
 		dc.w -1
-	vdpCoord $C000,0,2,WRITE
+	vdpCoord $C000,2,2,WRITE
 	asc2.w 0,"TEMPO "
 
 		dc.w 1-1, gTempo	; d5/a4
-	propdat UDP_Dec22-UDP_Byte, $C000,6,2,WRITE
+	propdat UDP_Dec22-UDP_Byte, $C000,8,2,WRITE
 
 		dc.w -1
-	vdpCoord $C000,12,2,WRITE
+	vdpCoord $C000,14,2,WRITE
 	asc2.w 0,"VOL "
 
 		dc.w 1-1, gVolume	; d5/a4
-	propdat 0, $C000,16,2,WRITE
+	propdat 0, $C000,18,2,WRITE
 
 		dc.w -1
-	vdpCoord $C000,22,2,WRITE
+	vdpCoord $C000,24,2,WRITE
 	asc2.w 0,"SEQ "
 
 		dc.w 1-1, gCurSeq	; d5/a4
-	propdat 0, $C000,26,2,WRITE
+	propdat 0, $C000,28,2,WRITE
 
 .ch =	0
 .dat =	gSeq
 	rept 16
 			dc.w .ch
-		vdpCoord $C000,0,(.ch+4),WRITE
+		vdpCoord $C000,2,(.ch+4),WRITE
 		asc2.w 0," CH\$.ch"
 
 			dc.w 7-1, .dat	; d5/a4
-		propdat 0, $C000,5,(.ch+4),WRITE
-		propdat 0, $C000,8,(.ch+4),WRITE
-		propdat 0, $C000,11,(.ch+4),WRITE
-		propdat 0, $C000,14,(.ch+4),WRITE
-		propdat 0, $C000,17,(.ch+4),WRITE
-		propdat 0, $C000,20,(.ch+4),WRITE
-		propdat 0, $C000,23,(.ch+4),WRITE
+		propdat 0, $C000,7,(.ch+4),WRITE
+		propdat 0, $C000,10,(.ch+4),WRITE
+		propdat 0, $C000,13,(.ch+4),WRITE
+		propdat 0, $C000,16,(.ch+4),WRITE
+		propdat 0, $C000,19,(.ch+4),WRITE
+		propdat 0, $C000,22,(.ch+4),WRITE
+		propdat 0, $C000,25,(.ch+4),WRITE
 .ch =	.ch+1
 .dat =	.dat+8
 	endr

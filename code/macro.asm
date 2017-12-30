@@ -83,7 +83,7 @@ dmaFillVRAM macro byte,addr,length,wait
 ; ===========================================================================
 ; allows you to declare string to be converted to character map or mappings
 asc2	macro	or, str
-	dc.W strlen(\str)-1
+	dc.w strlen(\str)-1
 	asc	\or, \str
     endm
 

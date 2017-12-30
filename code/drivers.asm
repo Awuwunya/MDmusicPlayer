@@ -27,11 +27,15 @@ DriverImageArrays:
 LoadSoundDriver:
 		move	#$2700,sr		; disable ints
 		lea	MusicFileArrays,a3	; get music file array
-		move.l	(a3,d7.w),a3		; get the music string data to a0
-		move.w	(a3),d0			; get string size to d0
-		addq.w	#2,d0			; skip string size and first letter
+		move.l	(a3,d7.w),a3		; get the music string data to a3
+
+	rept 2			; do this segment twice
+		move.w	(a3)+,d0		; get string size to d0
 		add.w	d0,d0			; double it
-		add.w	d0,a3			; add the string size to a0
+		addq.w	#2,d0			; skip first letter
+		add.w	d0,a3			; add the string size to a3
+	endr
+
 		move.w	(a3)+,d0		; get sound driver ID
 		move.w	d0,-(sp)		; store sound driver to stack
 		move.l	a3,-(sp)		; store music file address
@@ -296,20 +300,31 @@ MusicStop:
 ; a5 = pointer to MusPlaying flag
 ; ===========================================================================
 WriteMusicString:
-		moveq	#0,d4			; x-position
-		moveq	#27,d5			; y-position
+		moveq	#2,d4			; x-position
+		moveq	#25,d5			; y-position
 		jsr	SetupStringWrite.w	; set position to write to
+		bsr.s	.clear			; clear this line
 
-		moveq	#0,d5			; clear d5
-		moveq	#(32/2)-1,d4		; set repeat count
-.clr		move.l	d5,(a6)			; clear next 2 letters
-		dbf	d4,.clr			; keep clearing
+		moveq	#2,d4			; x-position
+		moveq	#26,d5			; y-position
+		jsr	SetupStringWrite.w	; set position to write to
+		bsr.s	.clear			; clear this line
 
 		move.w	(a5),d7			; get music ID
 		lea	MusicFileArrays,a0	; get music file array
 		move.l	(a0,d7.w),a0		; get the music string data to a0
 
-		moveq	#0,d4			; x-position
-		moveq	#27,d5			; y-position
+		moveq	#2,d4			; x-position
+		moveq	#25,d5			; y-position
+		jsr	WriteString1.w		; display it
+
+		moveq	#2,d4			; x-position
+		moveq	#26,d5			; y-position
 		jmp	WriteString1.w		; display it
+
+.clear		moveq	#0,d5			; clear d5
+		moveq	#(28/2)-1,d4		; set repeat count
+.clr		move.l	d5,(a6)			; clear next 2 letters
+		dbf	d4,.clr			; keep clearing
+		rts
 ; ===========================================================================

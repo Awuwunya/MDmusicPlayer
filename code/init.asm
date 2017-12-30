@@ -108,7 +108,11 @@ NullUpdateList:
 
 		dc.b $9F, $BF, $DF, $FF	; values for PSG channel volumes
 ; ===========================================================================
-SoundSelectStr:	asc2.w $8000,'DMA length:$00D0                Currently playing:$0000         Play music:$0000           Name:Stop music sfx'
+SoundSelectStr:	dc.w (ResetProgram-SoundSelectStr)/2-2
+	asc.w $8000,'  DMA length:$00D0              '
+	asc.w $8000,'  Currently playing:$0000       '
+	asc.w $8000,'  Play music:$0000         Name:'
+	asc.w $8000,'  Stop music sfx'
 ; ===========================================================================
 ResetProgram:
 		move.w	SetupValues+2(pc),d1	; get length
@@ -136,16 +140,15 @@ GameProgram:
 		move.w	#$4E75,Driver68K	; put RTS in 68k RAM
 		move.b	#-1,LoadedDriver.w	; no sound driver loaded
 		move.b	#TYPE_NULL,DriverType.w	;
-		move.l	#NullUpdateList,DisplayList.w
-	;	move.w	#$100,Z80_reset		; reset the Z80
+		move.l	#NullUpdateList,DisplayList.w; reset update list to no updates
 
-		; fill Plane A+B with 0
+	; fill Plane A+B with 0
 		dmaFillVRAM 0,$4000,$C000,0
 
 	; load system font
-		lea	SystemFont,a0			; get system font
-		lea	$FF0000,a1			; get start of RAM
-		jsr	KosDec				; decompress the art
+		lea	SystemFont,a0		; get system font
+		lea	$FF0000,a1		; get start of RAM
+		jsr	KosDec			; decompress the art
 
 		lea	VDP_control_port,a6
 .waitFillDone	move.w	(a6),d1
@@ -153,14 +156,14 @@ GameProgram:
 		bne.s	.waitFillDone
 		move.w	#$8F02,(a6) 		; VRAM pointer increment: $0002
 
-	dma68kToVDP $FF0000,$20,$BC0,VRAM		; DMA font art
-		move	#$2300,sr			; enable vertical interrupts
+	dma68kToVDP $FF0000,$20,$BC0,VRAM	; DMA font art
+		move	#$2300,sr		; enable vertical interrupts
 
 	; right here we initialize what you see onscreen
 		lea	SoundSelectStr(pc),a0	; get sound select string
-		moveq	#24,d5			; text y-position
+		moveq	#22,d5			; text y-position
 		moveq	#0,d4			; text x-position
 		jsr	WriteString1.w		; display it
 
-		; program start
+	; program start
 
