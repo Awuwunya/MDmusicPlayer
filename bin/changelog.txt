@@ -141,6 +141,8 @@ MDMusicPlayer changelog
   + Modulation Frequency is now shown
   + All sound drivers now have boilerplate voice and sfx types
   + You can now define per-driver chaninfo data
+  + Sonic 1 Boss theme
+  + Song name and origin are now in different lines
   * Frequency is now correctly shown
   * Fixed VolEnv and MovEnv ID's for games
   * Changed saDetune to ssDetune, the latter is what the actual function is
@@ -150,6 +152,7 @@ MDMusicPlayer changelog
   ~ GEMS now builds with Z80 source code rather than bunch of fucking dc.b's
   ~ Made it more CRT friendly
   - Removed separate and unnecessary scripts for sfx and voices
+  - GnG Level 4 music
   s. Rewrote the whole shitfest
   s+ Comments are now supported
   s+ You can now control the convesion flow

@@ -1,9 +1,17 @@
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Main loop of the entire program
+; ---------------------------------------------------------------------------
+
 MainProgramLoop:
-		jsr	VSync.w			; wait for next VBlank
+		stop	#$2300			; enable ints and stop CPU
 		bsr.s	ControlPrg		; routine which handles controller input
 		bsr.s	ChkForErrors		; ensures program continues execution without errors
 		bra.s	MainProgramLoop		; do next frame
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; Check for error conditions ánd cause a crash to happen if they are detected
+; ---------------------------------------------------------------------------
 
 ChkForErrors:
 		tst.l	StackUflowRAM.w		; check if underflow happened
@@ -16,6 +24,9 @@ ChkForErrors:
 
 .rts		rts
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; Routine for controlling the program
+; ---------------------------------------------------------------------------
 
 ControlPrg:
 		cmp.w	#-1,Ctrl0Held.w		; check if another code has taken control

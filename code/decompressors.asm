@@ -1,15 +1,17 @@
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; KOSINSKI DECOMPRESSION PROCEDURE
 ; (sometimes called KOZINSKI decompression)
 ;
-; ARGUMENTS:
-; a0 = source address
-; a1 = destination address
+; input:
+;   a0 = source address
+;   a1 = destination address
 ;
 ; For format explanation see http://info.sonicretro.org/Kosinski_compression
 ; New faster version by written by vladikcomper, with additional improvements by
 ; MarkeyJester and Flamewing
 ; ---------------------------------------------------------------------------
+
 _Kos_UseLUT = 1
 _Kos_LoopUnroll = 3
 _Kos_ExtremeUnrolling = 1
@@ -235,12 +237,11 @@ KosDec_ByteMap:
 	dc.b $07,$87,$47,$C7,$27,$A7,$67,$E7,$17,$97,$57,$D7,$37,$B7,$77,$F7
 	dc.b $0F,$8F,$4F,$CF,$2F,$AF,$6F,$EF,$1F,$9F,$5F,$DF,$3F,$BF,$7F,$FF
 	endif
-; ===========================================================================
 
 ; ==============================================================================
 ; ------------------------------------------------------------------------------
 ; Nemesis decompression routine
-; ------------------------------------------------------------------------------
+;
 ; Optimized by vladikcomper
 ; ------------------------------------------------------------------------------
 
@@ -264,7 +265,7 @@ NemDec_Main:
 	move.w	#$10,d6			; set initial shift value
 	bsr.s	NemDec2
 	rts
-
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Part of the Nemesis decompressor, processes the actual compressed data
 ; ---------------------------------------------------------------------------
@@ -327,7 +328,7 @@ NemDec_InlineData:
 	asl.w	#8,d5
 	move.b	(a0)+,d5
 	bra.s	NemDec_GetRepeatCount
-
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutines to output decompressed entry
 ; Selected depending on current decompression mode
@@ -366,7 +367,7 @@ NemDec_WriteRowToRAM_XOR:
 	move.w	a5,d4
 	bne.s	NemDec3
 	rts
-
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Part of the Nemesis decompressor, builds the code table (in RAM)
 ; ---------------------------------------------------------------------------
@@ -416,11 +417,10 @@ NemDec4:
 	move.w	d7,(a6)+		; ~~ store entry
 	dbf	d5,.ItemShortCodeLoop	; repeat for required number of entries
 	bra.s	.ItemLoop
-
 ; ===============================================================
 ; ---------------------------------------------------------------
 ; COMPER Decompressor
-; ---------------------------------------------------------------
+;
 ; INPUT:
 ;	a0	- Source Offset
 ;	a1	- Destination Offset
@@ -453,7 +453,7 @@ CompDec:
 	bra.s	.newblock		; start a new block
 
 .end	rts
-
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Enigma decompression algorithm
 ; input:
@@ -503,8 +503,6 @@ Eni_Loop:
 		lsr.w	#4,d1
 		add.w	d1,d1
 		jmp	EniDec_Index(pc,d1.w)
-; End of function EniDec
-
 ; ===========================================================================
 ; loc_1768:
 EniDec_00:
@@ -585,7 +583,7 @@ EniDec_Done:
 ; loc_17D6:
 .evenbyte:
 		rts
-
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Part of the Enigma decompressor
 ; Fetches an inline copy value and stores it in d1
@@ -693,5 +691,4 @@ EniDec_FetchByte:
 		move.b	(a0)+,d5
 .locret:
 		rts
-; End of function EniDec_FetchByte
 ; ===========================================================================

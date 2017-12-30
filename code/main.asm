@@ -1,7 +1,10 @@
+; ===========================================================================
 	include "code/macro.asm"
 	include "code/smps2asm.asm"
 	include "GEMS/__common/a"
 	include "GEMS/__common/macro.asm"
+; ===========================================================================
+
 Maincode	section org(0)
 
 StartOfRom:	dc.l Stack, EntryPoint, BusError, AddressError
@@ -35,8 +38,9 @@ Console:	dc.b 'SEGA MEGA DRIVE ' ; Hardware system ID
 		dc.b 'OPEN SOURCE SOFTWARE. YOU ARE WELCOME TO MAKE YOUR  '
 		dc.b 'JUE '
 		dc.b 'OWN MODIFICATIONS. PLEASE CREDIT WHEN USED'
-; ===========================================================================
 	even
+; ===========================================================================
+
 SystemPalette:
 	incbin  'code/main.pal'		; system main palette
 	even
@@ -51,6 +55,7 @@ SystemPalette:
 	include 'Code/drivers.asm'	; include all sound driver data
 	include 'Code/chaninfo.asm'	; Draws information about channels during VBlank
 ; ===========================================================================
+
 	include "GEMS/__common/load.asm"
 
 GEMS_Sound_68K:
@@ -62,14 +67,15 @@ GEMS_Sound_Z80:
 SystemFont:
 	incbin  'code/font.kos'		; System font - made by Bakayote
 ; ===========================================================================
+
 	align $8000	; NOTE: I am may try to find a better solution later.
 			; til then, basically fuck you and deal with this padding
 MusicOff:
 	incbin "_temp/music"		; include output from music tool
-; ===============================================================
-; ---------------------------------------------------------------
+; ===========================================================================
+; ---------------------------------------------------------------------------
 ; Error handling module
-; ---------------------------------------------------------------
+; ---------------------------------------------------------------------------
 
 BusError:	jsr	ErrorHandler(pc)
 		dc.b	"BUS ERROR",0			; text
@@ -143,5 +149,5 @@ StackOverflow:	jsr	ErrorHandler(pc)
 
 ErrorHandler:	incbin	"code/ErrorHandler.bin"
 ; ===========================================================================
-EndOfRom:
-		END
+
+EndOfRom:	END

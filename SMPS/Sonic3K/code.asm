@@ -1,3 +1,8 @@
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Play a song
+; ---------------------------------------------------------------------------
+
 Sonic3K_play:
 	stopZ80					; request z80 bus
 		lea	Z80_RAM+$1618,a5	; get this z80 address to a5
@@ -15,10 +20,23 @@ Sonic3K_play:
 		move.b	d7,(a5)+		; then low byte (68k order)
 		move.b	#1,$1C0A-$161A(a5)	; play music 1
 	startZ80				; return z80 bus
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Enable DMA
+; ---------------------------------------------------------------------------
 
 Sonic3K_dmaon:
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Disable DMA
+; ---------------------------------------------------------------------------
+
 Sonic3K_dmaoff:
 		rts
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Update driver data
+; ---------------------------------------------------------------------------
 
 Sonic3K_update:
 	stopZ80					; request z80 bus
@@ -66,6 +84,10 @@ Sonic3K_update:
 		dc.l Drv68Kmem+$1FC0,Z80_RAM+$1D30, Z80_RAM+$1D00
 		dc.l Z80_RAM+$1CD0, Z80_RAM+$1CA0, Z80_RAM+$1C70
 		dc.l Z80_RAM+$1C40
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Load SMPS sound driver
+; ---------------------------------------------------------------------------
 
 Sonic3K_load;
 		move.b	#TYPE_SMPS,DriverType.w
@@ -88,7 +110,10 @@ Sonic3K_load;
 
 	opt ae-		; each DAC setup entry is 5 bytes, and ae+ will screw us up
 ; ===========================================================================
-; creates Z80 bank ID from ROM address
+; ---------------------------------------------------------------------------
+; Creates Z80 bank ID from ROM address
+; ---------------------------------------------------------------------------
+
 MakeBankID	macro addr
 	rept narg
 		dc.b ((addr&$7F8000)/$8000)
@@ -96,15 +121,21 @@ MakeBankID	macro addr
 	endr
     endm
 ; ===========================================================================
-; macro to create multiple pointers with macro below
+; ---------------------------------------------------------------------------
+; Macro to create multiple pointers with macro below
+; ---------------------------------------------------------------------------
+
 Z80PtrROMBank	macro addr
 	rept narg
 		Z80PtrROM2 \addr
 		shift
 	endr
     endm
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Creates a single Z80 pointer (relative to bank) to a lable of choice
+; ---------------------------------------------------------------------------
 
-; creates a single Z80 pointer (relative to bank) to a lable of choice
 Z80PtrROM2	macro addr, lable
 	if narg>1
 \lable
@@ -112,15 +143,20 @@ Z80PtrROM2	macro addr, lable
 
 	dc.w	(((((addr-z80BankAddr)&$7FFF)+$8000)<<8)&$FF00)+((((addr-z80BankAddr)&$7FFF)+$8000)>>8)
     endm
-
 ; ===========================================================================
-; alignments possible to use with the macros
+; ---------------------------------------------------------------------------
+; Alignments possible to use with the macros
+; ---------------------------------------------------------------------------
+
 Z80BankAlign_None =	0
 Z80BankAlign_Start =	1
 Z80BankAlign_End =	2
 Z80BankAlign_Both =	3
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Declares start of a bank, and sets some variables
+; ---------------------------------------------------------------------------
 
-; declares start of a bank, and sets some variables
 Z80Bank_Start	macro	alignbits, name
 	if (\alignbits&Z80BankAlign_Start)<>0
 		align $8000
@@ -130,9 +166,12 @@ z80BankAddr =	(offset(*)&$FF8000)
 z80BankName 	equs \name
 z80BankAlign =	alignbits
     endm
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Macro to do everything needed for end of bank.
+; Also warns if the bank overflows.
+; ---------------------------------------------------------------------------
 
-; macro to do everything needed for end of bank.
-; also warns if the bank overflows
 Z80Bank_End	macro
 	if offset(*)>z80BankAddr+$8000
 		inform 1,"Z80 bank %s is too large! Its size is $%h, $%h bytes larger than max.", "\z80BankName", offset(*)-z80BankAddr, (offset(*)-z80BankAddr)-$8000
@@ -144,39 +183,50 @@ Z80Bank_End	macro
 		align $8000
 	endif
     endm
-
 ; ===========================================================================
-; simple macro to create little endian word values
+; ---------------------------------------------------------------------------
+;Ssimple macro to create little endian word values
+; ---------------------------------------------------------------------------
+
 littleEndian2	macro value, lable
 \lable equ 	(((value)<<8)&$FF00)|(((value)>>8)&$FF)
     endm
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Simple macro to put a Z80 pointer (relative to bank) to a lable of choice
+; ---------------------------------------------------------------------------
 
-; simple macro to put a Z80 pointer (relative to bank) to a lable of choice
 Z80PtrDo	macro addr, lable
 \lable =	(((((addr-z80BankAddr)&$7FFF)+$8000)<<8)&$FF00)+((((addr-z80BankAddr)&$7FFF)+$8000)>>8)
     endm
-
 ; ===========================================================================
-; macro used to set up a DAC definition (pitch, length, pointer)
+; ---------------------------------------------------------------------------
+; Macro used to set up a DAC definition (pitch, length, pointer)
+; ---------------------------------------------------------------------------
+
 DAC_Setup macro rate, dacptr
 	dc.b	\rate
 	dc.w	DAC_\dacptr\_Len
 	dc.w	DAC_\dacptr\_Ptr
     endm
-
 ; ===========================================================================
-; special macro for including a DAC. This not only includes the file,
-; but also creates the length and pointer information for later use in DAC_Setup
+; ---------------------------------------------------------------------------
+; Special macro for including a DAC. This not only includes the file,
+; But also creates the length and pointer information for later use in DAC_Setup
+; ---------------------------------------------------------------------------
+
 incDAC		macro name, ext
 DAC_\name\_Inc =	offset(*)
 	incbin 'SMPS/Sonic3K/DAC/\name\.\ext'
 		littleEndian2 offset(*)-DAC_\name\_Inc, DAC_\name\_Len
 		Z80PtrDo DAC_\name\_Inc, DAC_\name\_Ptr
     endm
-
 ; ===========================================================================
-; this macro lists the universal DAC list definitions for each bank
-; used to simplify the disassembly view.
+; ---------------------------------------------------------------------------
+; This macro lists the universal DAC list definitions for each bank
+; Used to simplify the disassembly view.
+; ---------------------------------------------------------------------------
+
 DACBank_Defs	macro	id
 	Z80Bank_Start Z80BankAlign_Start,"DACS3K0\id"
 	Z80PtrROMBank	DAC_81_Setup\id, DAC_82_Setup\id, DAC_83_Setup\id, DAC_84_Setup\id
@@ -271,8 +321,11 @@ DAC_9F_Setup\id:	DAC_Setup $0C,9F
 DAC_A0_Setup\id:	DAC_Setup $0C,A0
 DAC_A1_Setup\id:	DAC_Setup $0A,A1
     endm
-
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; DAC bank 0
+; ---------------------------------------------------------------------------
+
 	DACBank_Defs 0	; create ROM pointers and setup information about DACs
 	incDAC 86, bin
 	incDAC 81, bin
@@ -290,8 +343,11 @@ DAC_A1_Setup\id:	DAC_Setup $0A,A1
 	incDAC 9B, bin
 	incDAC B2_B3, bin
 	Z80Bank_End
-
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; DAC bank 1
+; ---------------------------------------------------------------------------
+
 	DACBank_Defs 1	; create ROM pointers and setup information about DACs
 	incDAC 9C, bin
 	incDAC 9D, bin
@@ -309,8 +365,11 @@ DAC_A1_Setup\id:	DAC_Setup $0A,A1
 	incDAC A9, bin
 	incDAC AA, bin
 	Z80Bank_End
-
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; DAC bank 2
+; ---------------------------------------------------------------------------
+
 	DACBank_Defs 2	; create ROM pointers and setup information about DACs
 	incDAC AB, bin
 	incDAC AC, bin
@@ -332,8 +391,11 @@ DAC_A1_Setup\id:	DAC_Setup $0A,A1
 	incDAC BF, bin
 	incDAC C0, bin
 	Z80Bank_End
-
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; Bank ID's for samples
+; ---------------------------------------------------------------------------
+
 S3KZ80DACBanks:
 	MakeBankID DAC_81_Inc, DAC_82_85_Inc, DAC_82_85_Inc, DAC_82_85_Inc
 	MakeBankID DAC_82_85_Inc, DAC_86_Inc, DAC_87_Inc, DAC_88_Inc

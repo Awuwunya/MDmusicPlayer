@@ -1,19 +1,24 @@
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Load the GEMS sound driver (v2.1 maybe)
+; ---------------------------------------------------------------------------
+
 GEMS_Load_Driver:
 		move.w	#$100,Z80_bus_request
 		move.w	#$100,Z80_reset
 
 		lea	GEMS_Sound_68K(pc),a0
-		lea	Driver68K,a1	; get 68k driver address
-		jsr	KosDec.w	; kosinski decompress
+		lea	Driver68K,a1		; get 68k driver address
+		jsr	KosDec.w		; kosinski decompress
 
 		lea	GEMS_Sound_Z80(pc),a0
-		lea	Z80_RAM,a1	; get z80 driver address
-		jsr	KosDec.w	; kosinski decompress
+		lea	Z80_RAM,a1		; get z80 driver address
+		jsr	KosDec.w		; kosinski decompress
 
-		move.w	#$2000,d0	; prepare RAM size
-		sub.w	a1,d0		; sub the address we decompressed to
-		subq.w	#1,d0		; sub 1 for dbf
-		bmi.s	.noclear	; if negative, do not clear
+		move.w	#$2000,d0		; prepare RAM size
+		sub.w	a1,d0			; sub the address we decompressed to
+		subq.w	#1,d0			; sub 1 for dbf
+		bmi.s	.noclear		; if negative, do not clear
 		moveq	#0,d1
 
 .clear		move.b	d1,(a1)+
@@ -24,12 +29,15 @@ GEMS_Load_Driver:
 		nop
 	endr
 		move.w	#$100,Z80_reset
-	startZ80			; return z80 bus
+	startZ80				; return z80 bus
 
 		move.b	#TYPE_GEMS,DriverType.w
 		move.l	#gDriverPropertyData,DisplayList.w
 		rts
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; Update GEMS status codes for the core
+; ---------------------------------------------------------------------------
 
 GEMS_Common_Update:
 		lea	gSeq.w,a1
@@ -46,7 +54,6 @@ GEMS_Common_Update:
 
 .loop		btst	#0,6(a0)		; CCBFLAGS - check if ch is active
 		beq.s	.next			; if not, branch
-
 		bset	d2,d1			; enable channel
 
 		move.b	14(a0),(a1)		; CCBSNUM
@@ -75,9 +82,10 @@ GEMS_Common_Update:
 		rts
 
 ; ===========================================================================
+; ---------------------------------------------------------------------------
 ; Subroutine to manipulate certain aspects of the GEMS driver, Can be used
 ; for testing purposes to just fucking with it randomly!
-; ===========================================================================
+; ---------------------------------------------------------------------------
 
 GEMSmanipulate:
 		move.w	Ctrl1Held.w,d7		; get player 1 controller input

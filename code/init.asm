@@ -1,3 +1,4 @@
+; ===========================================================================
 EntryPoint:
 		tst.l	HW_Port_1_Control-1	; test port A control
 		bne.s	PortA_Ok
@@ -75,6 +76,7 @@ PortC_Ok:
 		move.b	d0,HWVersion.w		; save into RAM
 		jsr	InitControllers		; initialize controllers
 		bra.w	GameProgram
+
 ; ===========================================================================
 SetupValues:	dc.w $8000		; XREF: PortA_Ok
 		dc.w $3FFF
@@ -107,13 +109,14 @@ NullUpdateList:
 		dc.l $40000010
 
 		dc.b $9F, $BF, $DF, $FF	; values for PSG channel volumes
-; ===========================================================================
+
 SoundSelectStr:	dc.w (ResetProgram-SoundSelectStr)/2-2
 	asc.w $8000,'  DMA length:$00D0              '
 	asc.w $8000,'  Currently playing:$0000       '
 	asc.w $8000,'  Play music:$0000         Name:'
 	asc.w $8000,'  Stop music sfx'
 ; ===========================================================================
+
 ResetProgram:
 		move.w	SetupValues+2(pc),d1	; get length
 		moveq	#0,d0			; get 0

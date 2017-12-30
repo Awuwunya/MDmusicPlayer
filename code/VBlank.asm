@@ -1,3 +1,8 @@
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Vertical interrupt handler
+; ---------------------------------------------------------------------------
+
 VBlank:
 		movem.l	d0-a6,-(sp)
 		bsr.s	ReadControllers		; read controller input
@@ -24,9 +29,11 @@ VBlank:
 	dma68kToVDP VScrollRAM, 0, 80,VSRAM	; DMA Vertical scrolling to VSRAM
 		bra.s	.draw
 
-.none		rts
-.drivercodes	dc.l .none, .none, GEMSmanipulate
+.drivercodes	dc.l DrvCode_RTS, DrvCode_RTS, GEMSmanipulate
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; Read controller status
+; ---------------------------------------------------------------------------
 
 ReadControllers:
 		lea	Ctrl1Held.w,a0		; get held buttons array
@@ -52,9 +59,13 @@ ReadControllers:
 		move.b	d0,(a0)+		; Put raw controller input (for held buttons) in F604/F606
 		and.b	d0,d1
 		move.b	d1,(a0)+		; Put pressed controller input in RAM
-		rts
 
+DrvCode_RTS:
+		rts
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; Init controller status
+; ---------------------------------------------------------------------------
 
 InitControllers:
 		moveq	#$40,d0
@@ -62,19 +73,17 @@ InitControllers:
 		move.b	d0,(HW_Port_2_Control).l
 		move.b	d0,(HW_Expansion_Control).l
 		rts
-
 ; ===========================================================================
-
-VSync:
-		stop	#$2300		; enable ints and stop CPU
-		rts			; return
-; ===========================================================================
+; ---------------------------------------------------------------------------
+; DMA everything
+; ---------------------------------------------------------------------------
 
 FakeDMA:
 	stopZ80				; stop z80 for the duration of the experiment
 		move.w	DMAlen.w,d0	; get DMA length setting
 		move.w	.offs(pc,d0.w),d1; get offset to the routine
 		jmp	.offs(pc,d1.w)	; jump to it
+
 ; ===========================================================================
 .offs	dc.w .0xD0-.offs
 	if extremeDMA=1

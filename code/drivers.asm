@@ -1,8 +1,11 @@
-	include "drv.asm"
+; ===========================================================================
+	include "drv.asm"			; include driver stuff
 
 ; ===========================================================================
+; ---------------------------------------------------------------------------
 ; This code gets the correct pointer in the drivers table.
-; ===========================================================================
+; ---------------------------------------------------------------------------
+
 GetDrvTableAddr:
 		moveq	#0,d0
 		move.b	LoadedDriver.w,d0	; get sound driver to d0
@@ -13,23 +16,26 @@ GetDrvTableAddr:
 .nope		addq.w	#4,sp
 		rts
 ; ===========================================================================
-; the following will construct all the drivers with the information needed.
+; ---------------------------------------------------------------------------
+; The following will construct all the drivers with the information needed.
 ; Do not touch this.
-; ===========================================================================
+; ---------------------------------------------------------------------------
+
 DriverImageArrays:
 	drvimg		; include pointers for all driver images
-
 ; ===========================================================================
-; this is the code to load a sound driver.
+; ---------------------------------------------------------------------------
+; This is the code to load a sound driver.
 ; input;
 ; d7 = music file ID
-; ===========================================================================
+; ---------------------------------------------------------------------------
+
 LoadSoundDriver:
 		move	#$2700,sr		; disable ints
 		lea	MusicFileArrays,a3	; get music file array
 		move.l	(a3,d7.w),a3		; get the music string data to a3
 
-	rept 2			; do this segment twice
+	rept 2					; do this segment twice
 		move.w	(a3)+,d0		; get string size to d0
 		add.w	d0,d0			; double it
 		addq.w	#2,d0			; skip first letter
@@ -65,7 +71,7 @@ LoadSoundDriver:
 		nop
 	endr
 		move.w	#$100,Z80_reset
-	startZ80			; return z80 bus
+	startZ80				; return z80 bus
 		move.b	5(sp),LoadedDriver.w	; set loaded driver
 		jsr	ResetChanText		; reset on-screen text
 
@@ -87,37 +93,37 @@ LoadSoundDriver:
 ; ===========================================================================
 
 .loadstop	move.b	#-1,LoadedDriver.w	; no sound driver loaded
-		move.b	#TYPE_NULL,DriverType.w
+		move.l	#NullUpdateList,DisplayList.w; reset update list to no updates
 		addq.w	#6,sp			; pop stack stuff
 
 		lea	$A04000,a0		; get faster access to RAM
 		move.w	#$100,Z80_bus_request
 		move.w	#$100,Z80_reset
 
-	; stop all the sound on FM channels
-		moveq	#2,d3		; 3 FM channels for each YM2612 parts
-		moveq	#$28,d0		; FM key on/off register
+	; silence all the sound on FM channels
+		moveq	#3-1,d3			; 3 FM channels for each YM2612 parts
+		moveq	#$28,d0			; FM key on/off register
 
-.noteoffloop	move.b	d3,d1
-		jsr	WriteFMI(pc)
-		addq.b	#4,d1		; Move to YM2612 part 1
-		jsr	WriteFMI(pc)
-		dbf	d3,.noteoffloop
+.keyoff		move.b	d3,d1			; copy value to d1
+		jsr	WriteFMI(pc)		; do part 1
+		addq.b	#4,d1			; Move to YM2612 part 1
+		jsr	WriteFMI(pc)		; do part 2
+		dbf	d3,.keyoff		; loop for all channels
 
-		moveq	#$40,d0		; Set TL on FM channels...
-		moveq	#$7F,d1		; ... to total attenuation...
-		moveq	#2,d4		; ... for all 3 channels...
-.channelloop	moveq	#3,d3		; ... for all operators on each channel...
+		moveq	#$40,d0			; TL operator
+		moveq	#$7F,d1			; set TL level to maximum (silence)
+		moveq	#3-1,d4			; do all 3 channels (per part)
 
-.channeltlloop	jsr	WriteFMI(pc)	; ... for part 0...
-		jsr	WriteFMII(pc)	; ... and part 1.
-		addq.w	#4,d0		; Next TL operator
-		dbf	d3,.channeltlloop
+.chloop		moveq	#4-1,d3			; and each operator
+.tlloop		jsr	WriteFMI(pc)		; do part 1
+		jsr	WriteFMII(pc)		; do part 2
 
-		subi.b	#$F,d0		; Move to TL operator 1 of next channel
-		dbf	d4,.channelloop
+		addq.w	#4,d0			; Next TL operator
+		dbf	d3,.tlloop		; do for all channels
+		subi.w	#$F,d0			; Move to TL operator 1 of next channel
+		dbf	d4,.chloop		; do chans
 
-	; stop all the sound on PSG channels
+	; silence all the sound on PSG channels
 		lea	PSG_input,a1
 		move.b	#$9F,(a1)	; Silence PSG 1
 		move.b	#$BF,(a1)	; Silence PSG 2
@@ -126,8 +132,9 @@ LoadSoundDriver:
 
 		bsr.w	.unloadDriver	; unload the sound driver
 
-		move.b	#$C3,Z80_RAM-$A04000(a0)
-		move.b	#$C3,(Z80_RAM+$38)-$A04000(a0)
+	; write HALT instructions to stop processing
+		move.b	#$76,Z80_RAM-$A04000(a0)
+		move.b	#$76,(Z80_RAM+$38)-$A04000(a0)
 		move.w	#0,Z80_reset
 	rept 4
 		nop
@@ -136,6 +143,10 @@ LoadSoundDriver:
 	startZ80				; return z80 bus
 		jmp	ResetChanText		; reset on-screen text
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; Subroutines for writing to FM1 and FM2, used for muting FM when
+; driver unloads
+; ---------------------------------------------------------------------------
 WriteFMI:
 ;	stopZ80
 	waitYM	a0
@@ -159,13 +170,18 @@ WriteFMII:
 		rts
 
 ; ===========================================================================
-; decompressing code for sound drivers
+; ---------------------------------------------------------------------------
+; Decompressing code for sound drivers
+; ---------------------------------------------------------------------------
+
 CompressionFormats:
 		dc.l DrvDecom_None, DrvDecom_Unc, DrvDecom_Kos
 		dc.l DrvDecom_Comp, DrvDecom_Nem, DrvDecom_Eni
-
 ; ===========================================================================
-; copy bytes to RAM
+; ---------------------------------------------------------------------------
+; Copy bytes to RAM
+; ---------------------------------------------------------------------------
+
 DrvDecom_Unc:
 		move.w	(a0)+,d6	; get length of copy
 		lea	Driver68K,a1	; get 68k driver address
@@ -181,9 +197,11 @@ DrvDecom_Unc:
 
 DrvDecom_None:
 		rts
-
 ; ===========================================================================
-; decompress from kosinski
+; ---------------------------------------------------------------------------
+; Decompress from kosinski
+; ---------------------------------------------------------------------------
+
 DrvDecom_Kos:
 		move.l	a2,-(sp)	; store a2
 		move.l	(a0)+,-(sp)	; store z80 pointer to stack
@@ -195,9 +213,11 @@ DrvDecom_Kos:
 		jsr	KosDec.w	; kosinski decompress
 		move.l	(sp)+,a2	; restore a2
 		rts
-
 ; ===========================================================================
-; decompress from comper
+; ---------------------------------------------------------------------------
+; Decompress from comper
+; ---------------------------------------------------------------------------
+
 DrvDecom_Comp:
 		move.l	a2,-(sp)	; store a2
 		move.l	(a0)+,-(sp)	; store z80 pointer to stack
@@ -209,11 +229,13 @@ DrvDecom_Comp:
 		jsr	CompDec.w	; kosinski decompress
 		move.l	(sp)+,a2	; restore a2
 		rts
-
 ; ===========================================================================
-; decompress from nemesis
+; ---------------------------------------------------------------------------
+; Decompress from nemesis
 ; WARNING: It is not suggested to use this compression method!
 ; Use at your own risk
+; ---------------------------------------------------------------------------
+
 DrvDecom_Nem:
 		move.l	a2,-(sp)	; store a2
 		move.l	(a0)+,-(sp)	; store z80 pointer to stack
@@ -225,11 +247,13 @@ DrvDecom_Nem:
 		jsr	NemDec_RAM.w	; kosinski decompress
 		move.l	(sp)+,a2	; restore a2
 		rts
-
 ; ===========================================================================
-; decompress from nemesis
+; ---------------------------------------------------------------------------
+; Decompress from nemesis
 ; WARNING: It is not suggested to use this compression method!
 ; Use at your own risk
+; ---------------------------------------------------------------------------
+
 DrvDecom_Eni:
 		move.l	a2,-(sp)	; store a2
 		moveq	#0,d0		; clear offset
@@ -242,12 +266,13 @@ DrvDecom_Eni:
 		jsr	EniDec.w	; kosinski decompress
 		move.l	(sp)+,a2	; restore a2
 		rts
-
 ; ===========================================================================
-; code to play a music file
+; ---------------------------------------------------------------------------
+; Code to play a music file
 ; input:
 ; d7 = music file address
-; ===========================================================================
+; ---------------------------------------------------------------------------
+
 PlayMusicFile:
 		jsr	GetDrvTableAddr(pc)	; get driver table address
 		move.l	-8(a1),a1		; get the right entry to a1
@@ -255,50 +280,58 @@ PlayMusicFile:
 		jsr	(a1)			; run play music code
 	startZ80				; return z80 bus
 		rts
-
 ; ===========================================================================
+; ---------------------------------------------------------------------------
 ; Code to update driver data
 ; input:
 ; d7 = music file address
-; ===========================================================================
+; ---------------------------------------------------------------------------
+
 DriverUpdate:
 		jsr	GetDrvTableAddr(pc)	; get driver table address
 		move.l	-4(a1),a1		; get the right entry to a1
 		jsr	(a1)			; run play music code
 		rts
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Code to enable DMA for the driver
+; ---------------------------------------------------------------------------
 
-; ===========================================================================
-; code to enable DMA for the driver (GEMS)
-; ===========================================================================
 DriverDMAon:
 		jsr	GetDrvTableAddr(pc)	; get driver table address
 		move.l	-20(a1),a1		; get the right entry to a1
 		jsr	(a1)			; run play music code
 		rts
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Code to disable DMA for the driver
+; ---------------------------------------------------------------------------
 
-; ===========================================================================
-; code to disable DMA for the driver (GEMS)
-; ===========================================================================
 DriverDMAoff:
 		jsr	GetDrvTableAddr(pc)	; get driver table address
 		move.l	-16(a1),a1		; get the right entry to a1
 		jsr	(a1)			; run play music code
 		rts
-
 ; ===========================================================================
+
 MusicFileArrays:
 	dc.l MusicStop
 	include "_temp/offs"	; and also the offsets, because we need em
 ; ===========================================================================
-; special entry to display info about stopping music.
+; ---------------------------------------------------------------------------
+; Special entry to display info about stopping music.
+; ---------------------------------------------------------------------------
+
 MusicStop:
-		asc2.w $8000,"Stop music sfx"
-		dc.w -1; stop sfx token
+	asc2.w $8000,"Stop music"
+	dc.w -1; stop token
 ; ===========================================================================
-; write music name string to screen
+; ---------------------------------------------------------------------------
+; Write music name string to screen
 ; input;
-; a5 = pointer to MusPlaying flag
-; ===========================================================================
+;   a5 = pointer to MusPlaying flag
+; ---------------------------------------------------------------------------
+
 WriteMusicString:
 		moveq	#2,d4			; x-position
 		moveq	#25,d5			; y-position
