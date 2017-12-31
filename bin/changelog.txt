@@ -129,7 +129,7 @@ MDMusicPlayer changelog
   > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.0.4.7z
 ================================================================================
 
-* v0.5
+* v1.0
   + Ristar sound driver
   + Z80 LANG macro support
   + J League Pro Striker 2 SMPS2ASM scripts
@@ -160,10 +160,12 @@ MDMusicPlayer changelog
   s+ New operator for doing while loops
   s+ Subscripts can be optimized into a look-up table for faster conversion
   s+ Now the program can run standalone scripts
-  s+ Now you can select the type of script to run, script can decide actions according to it
+  s+ Now you can select the type of script to run, script can decide actions
+    according to it
   s* The program now correctly deals with tabs
   s* Tons of small bugs. Don't care to remember all of them.
   s* Improvements into equate handling
   s~ Lables are now evaluated when macro is ran, instead of all the time
   s~ The symbol for if is 'c', and the symbol for for is 'f'
-  > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.0.5.7z
+  m+ Updated for the origin display
+  > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.1.0.7z
