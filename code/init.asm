@@ -114,7 +114,7 @@ SoundSelectStr:	dc.w (ResetProgram-SoundSelectStr)/2-2
 	asc.w $8000,'  DMA length:$00D0              '
 	asc.w $8000,'  Currently playing:$0000       '
 	asc.w $8000,'  Play music:$0000         Name:'
-	asc.w $8000,'  Stop music sfx'
+	asc.w $8000,'  Stop music'
 ; ===========================================================================
 
 ResetProgram:
