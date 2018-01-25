@@ -163,8 +163,8 @@ spTLMask1 set ((spAl=7)<<7)
 
 	dc.b (spDe1<<4)+spMu1, (spDe2<<4)+spMu2, (spDe3<<4)+spMu3, (spDe4<<4)+spMu4
 	dc.b (spRS1<<6)+spAR1, (spRS2<<6)+spAR2, (spRS3<<6)+spAR3, (spRS4<<6)+spAR4
-	dc.b (spAM1<<7)+spDR1, (spAM2<<7)+spDR2, (spAM3<<7)+spDR3, (spAM4<<7)+spDR4
-	dc.b spSR1,            spSR2,            spSR3,            spSR4
+	dc.b (spAM1<<7)+spSR1, (spAM2<<7)+spSR2, (spAM3<<7)+spSR3, (spAM4<<7)+spSR4
+	dc.b spDR1,            spDR2,            spDR3,            spDR4
 	dc.b (spSL1<<4)+spRR1, (spSL2<<4)+spRR2, (spSL3<<4)+spRR3, (spSL4<<4)+spRR4
 	dc.b spTL1|spTLMask1,  spTL2|spTLMask2,  spTL3|spTLMask3,  spTL4|spTLMask4
     endm

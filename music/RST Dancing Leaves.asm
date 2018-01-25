@@ -1208,9 +1208,9 @@ DancingLeaves_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0A, $08, $08, $09
-	spSustainRt	$0B, $0C, $0E, $0A
+	spSustainRt	$0A, $08, $08, $09
 	spSustainLv	$00, $00, $00, $00
+	spDecayRt	$0B, $0C, $0E, $0A
 	spReleaseRt	$0F, $0F, $0E, $0F
 	spTotalLv	$25, $20, $10, $00
 
@@ -1226,9 +1226,9 @@ DancingLeaves_Patches:
 	spRateScale	$01, $00, $01, $00
 	spAttackRt	$17, $15, $17, $15
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$05, $09, $05, $09
-	spSustainRt	$03, $06, $03, $06
+	spSustainRt	$05, $09, $05, $09
 	spSustainLv	$02, $02, $02, $02
+	spDecayRt	$03, $06, $03, $06
 	spReleaseRt	$08, $08, $08, $08
 	spTotalLv	$26, $20, $00, $00
 
@@ -1244,9 +1244,9 @@ DancingLeaves_Patches:
 	spRateScale	$01, $00, $00, $01
 	spAttackRt	$10, $0F, $15, $12
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$04, $0E, $0E, $0E
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$04, $0E, $0E, $0E
 	spSustainLv	$04, $00, $00, $00
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$08, $08, $08, $09
 	spTotalLv	$1C, $30, $43, $00
 
@@ -1262,9 +1262,9 @@ DancingLeaves_Patches:
 	spRateScale	$01, $01, $01, $01
 	spAttackRt	$1C, $1C, $18, $18
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0C, $0C, $0A, $0C
-	spSustainRt	$05, $05, $05, $05
+	spSustainRt	$0C, $0C, $0A, $0C
 	spSustainLv	$0F, $0D, $0E, $0E
+	spDecayRt	$05, $05, $05, $05
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$2B, $31, $00, $00
 
@@ -1280,9 +1280,9 @@ DancingLeaves_Patches:
 	spRateScale	$02, $02, $03, $03
 	spAttackRt	$16, $17, $19, $19
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$1C, $12, $06, $04
-	spSustainRt	$01, $01, $01, $01
+	spSustainRt	$1C, $12, $06, $04
 	spSustainLv	$0A, $0E, $02, $01
+	spDecayRt	$01, $01, $01, $01
 	spReleaseRt	$07, $07, $07, $07
 	spTotalLv	$28, $1E, $0A, $00
 
@@ -1298,9 +1298,9 @@ DancingLeaves_Patches:
 	spRateScale	$03, $03, $03, $02
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$07, $04, $04, $0D
-	spSustainRt	$04, $04, $04, $03
+	spSustainRt	$07, $04, $04, $0D
 	spSustainLv	$0F, $0F, $0F, $00
+	spDecayRt	$04, $04, $04, $03
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$29, $2B, $23, $00
 
@@ -1316,9 +1316,9 @@ DancingLeaves_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$0D, $15, $15, $17
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$04, $04, $05, $03
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$04, $04, $05, $03
 	spSustainLv	$00, $01, $00, $00
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$07, $07, $07, $07
 	spTotalLv	$1B, $1F, $47, $00
 
@@ -1334,9 +1334,9 @@ DancingLeaves_Patches:
 	spRateScale	$01, $01, $00, $00
 	spAttackRt	$0C, $10, $17, $19
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0B, $01, $05, $02
-	spSustainRt	$01, $00, $00, $00
+	spSustainRt	$0B, $01, $05, $02
 	spSustainLv	$02, $02, $02, $01
+	spDecayRt	$01, $00, $00, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$1D, $06, $00, $00
 
@@ -1352,8 +1352,8 @@ DancingLeaves_Patches:
 	spRateScale	$01, $01, $00, $00
 	spAttackRt	$1C, $17, $17, $19
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0B, $01, $05, $02
-	spSustainRt	$01, $00, $00, $00
+	spSustainRt	$0B, $01, $05, $02
 	spSustainLv	$02, $02, $02, $01
+	spDecayRt	$01, $00, $00, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$1D, $06, $00, $00

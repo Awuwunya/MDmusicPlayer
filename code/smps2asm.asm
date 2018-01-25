@@ -211,14 +211,6 @@ spAM3	= op3
 spAM4	= op4
     endm
 
-; Patches - Decay Rate
-spDecayRt macro op1,op2,op3,op4
-spDR1	= op1
-spDR2	= op2
-spDR3	= op3
-spDR4	= op4
-    endm
-
 ; Patches - Sustain Rate
 spSustainRt macro op1,op2,op3,op4
 spSR1	= op1
@@ -233,6 +225,14 @@ spSL1	= op1
 spSL2	= op2
 spSL3	= op3
 spSL4	= op4
+    endm
+
+; Patches - Decay Rate
+spDecayRt macro op1,op2,op3,op4
+spDR1	= op1
+spDR2	= op2
+spDR3	= op3
+spDR4	= op4
     endm
 
 ; Patches - Release Rate

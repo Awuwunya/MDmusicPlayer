@@ -505,9 +505,9 @@ GreenHill_Patches:
 	spRateScale	$00, $01, $00, $01
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$12, $0A, $0E, $0A
-	spSustainRt	$00, $04, $04, $03
+	spSustainRt	$12, $0A, $0E, $0A
 	spSustainLv	$02, $02, $02, $02
+	spDecayRt	$00, $04, $04, $03
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$24, $13, $2D, $00
 
@@ -523,9 +523,9 @@ GreenHill_Patches:
 	spRateScale	$03, $02, $03, $02
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$07, $09, $06, $06
-	spSustainRt	$07, $06, $06, $08
+	spSustainRt	$07, $09, $06, $06
 	spSustainLv	$02, $01, $01, $0F
+	spDecayRt	$07, $06, $06, $08
 	spReleaseRt	$00, $00, $00, $08
 	spTotalLv	$19, $13, $37, $00
 
@@ -541,9 +541,9 @@ GreenHill_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$12, $0E, $11, $00
-	spSustainRt	$00, $07, $0A, $09
+	spSustainRt	$12, $0E, $11, $00
 	spSustainLv	$0F, $01, $00, $00
+	spDecayRt	$00, $07, $0A, $09
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$18, $00, $00, $00
 
@@ -559,9 +559,9 @@ GreenHill_Patches:
 	spRateScale	$00, $02, $00, $00
 	spAttackRt	$14, $0C, $0E, $0E
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$08, $02, $05, $05
-	spSustainRt	$00, $0D, $0D, $0D
+	spSustainRt	$08, $02, $05, $05
 	spSustainLv	$01, $01, $01, $01
+	spDecayRt	$00, $0D, $0D, $0D
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$1A, $00, $00, $00
 
@@ -577,9 +577,9 @@ GreenHill_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $12, $12
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$00, $00, $0A, $0A
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$00, $00, $0A, $0A
 	spSustainLv	$00, $00, $01, $01
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$16, $17, $00, $00
 
@@ -595,9 +595,9 @@ GreenHill_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $12, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$00, $00, $00, $00
-	spSustainRt	$00, $00, $01, $01
+	spSustainRt	$00, $00, $00, $00
 	spSustainLv	$00, $00, $03, $03
+	spDecayRt	$00, $00, $01, $01
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$16, $17, $00, $00
 
@@ -613,9 +613,9 @@ GreenHill_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$12, $12, $12, $12
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$00, $00, $08, $08
 	spSustainRt	$00, $00, $08, $08
 	spSustainLv	$00, $00, $01, $01
+	spDecayRt	$00, $00, $08, $08
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$23, $23, $00, $00
 
@@ -631,9 +631,9 @@ GreenHill_Patches:
 	spRateScale	$00, $01, $01, $01
 	spAttackRt	$10, $10, $10, $10
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$07, $08, $08, $08
-	spSustainRt	$01, $00, $00, $00
+	spSustainRt	$07, $08, $08, $08
 	spSustainLv	$02, $01, $01, $01
+	spDecayRt	$01, $00, $00, $00
 	spReleaseRt	$00, $07, $07, $07
 	spTotalLv	$1C, $00, $00, $00
 
@@ -649,8 +649,8 @@ GreenHill_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $12, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$00, $00, $07, $07
 	spSustainRt	$00, $00, $07, $07
 	spSustainLv	$00, $00, $03, $03
+	spDecayRt	$00, $00, $07, $07
 	spReleaseRt	$00, $00, $08, $08
 	spTotalLv	$16, $17, $00, $00

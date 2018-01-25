@@ -539,9 +539,9 @@ Magicians_Hall_Patches:
 	spRateScale	$01, $01, $02, $00
 	spAttackRt	$1B, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$04, $07, $07, $08
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$04, $07, $07, $08
 	spSustainLv	$0F, $0E, $0F, $0F
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$23, $29, $00, $07
 
@@ -557,9 +557,9 @@ Magicians_Hall_Patches:
 	spRateScale	$01, $01, $02, $00
 	spAttackRt	$1B, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$04, $07, $07, $08
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$04, $07, $07, $08
 	spSustainLv	$0F, $0E, $0F, $0F
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$23, $29, $00, $07
 
@@ -575,9 +575,9 @@ Magicians_Hall_Patches:
 	spRateScale	$00, $01, $01, $01
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$13, $0D, $12, $08
-	spSustainRt	$0C, $0F, $0F, $0C
+	spSustainRt	$13, $0D, $12, $08
 	spSustainLv	$08, $07, $08, $04
+	spDecayRt	$0C, $0F, $0F, $0C
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$28, $20, $27, $06
 
@@ -593,9 +593,9 @@ Magicians_Hall_Patches:
 	spRateScale	$02, $02, $02, $02
 	spAttackRt	$14, $14, $19, $19
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$08, $08, $0A, $0A
-	spSustainRt	$00, $00, $05, $05
+	spSustainRt	$08, $08, $0A, $0A
 	spSustainLv	$03, $03, $04, $04
+	spDecayRt	$00, $00, $05, $05
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$1E, $19, $00, $00
 
@@ -611,9 +611,9 @@ Magicians_Hall_Patches:
 	spRateScale	$02, $02, $02, $02
 	spAttackRt	$14, $14, $19, $19
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$08, $08, $0A, $0A
-	spSustainRt	$00, $00, $05, $05
+	spSustainRt	$08, $08, $0A, $0A
 	spSustainLv	$03, $03, $04, $04
+	spDecayRt	$00, $00, $05, $05
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$1E, $19, $00, $00
 
@@ -629,8 +629,8 @@ Magicians_Hall_Patches:
 	spRateScale	$02, $02, $02, $02
 	spAttackRt	$14, $14, $19, $19
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$08, $08, $0A, $0A
-	spSustainRt	$00, $00, $05, $05
+	spSustainRt	$08, $08, $0A, $0A
 	spSustainLv	$03, $03, $04, $04
+	spDecayRt	$00, $00, $05, $05
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$1E, $19, $00, $00

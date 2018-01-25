@@ -277,9 +277,9 @@ SkySanctuary_Patches:
 	spRateScale	$00, $00, $01, $01
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0E, $12, $00, $00
-	spSustainRt	$00, $02, $08, $08
+	spSustainRt	$0E, $12, $00, $00
 	spSustainLv	$04, $04, $00, $00
+	spDecayRt	$00, $02, $08, $08
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$12, $12, $00, $00
 
@@ -295,9 +295,9 @@ SkySanctuary_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1C, $18, $18, $1B
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$06, $04, $05, $05
-	spSustainRt	$06, $06, $05, $06
+	spSustainRt	$06, $04, $05, $05
 	spSustainLv	$06, $05, $08, $07
+	spDecayRt	$06, $06, $05, $06
 	spReleaseRt	$00, $09, $09, $09
 	spTotalLv	$18, $00, $00, $00
 
@@ -313,9 +313,9 @@ SkySanctuary_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1C, $18, $18, $1B
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$06, $04, $05, $05
-	spSustainRt	$06, $06, $05, $06
+	spSustainRt	$06, $04, $05, $05
 	spSustainLv	$06, $05, $08, $07
+	spDecayRt	$06, $06, $05, $06
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$18, $08, $08, $08
 
@@ -331,8 +331,8 @@ SkySanctuary_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$13, $13, $10, $10
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$06, $06, $0C, $0C
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$06, $06, $0C, $0C
 	spSustainLv	$04, $04, $02, $02
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$18, $18, $10, $10

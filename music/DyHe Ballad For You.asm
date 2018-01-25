@@ -637,9 +637,9 @@ Ballad_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $12, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$00, $00, $0F, $0F
-	spSustainRt	$00, $00, $01, $01
+	spSustainRt	$00, $00, $0F, $0F
 	spSustainLv	$00, $00, $03, $03
+	spDecayRt	$00, $00, $01, $01
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$1A, $11, $09, $00
 
@@ -655,9 +655,9 @@ Ballad_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $12, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$00, $00, $0F, $0F
-	spSustainRt	$00, $00, $09, $09
+	spSustainRt	$00, $00, $0F, $0F
 	spSustainLv	$00, $00, $03, $03
+	spDecayRt	$00, $00, $09, $09
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$21, $18, $10, $07
 
@@ -673,9 +673,9 @@ Ballad_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $12, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$00, $00, $0F, $0F
-	spSustainRt	$00, $00, $09, $09
+	spSustainRt	$00, $00, $0F, $0F
 	spSustainLv	$00, $00, $03, $03
+	spDecayRt	$00, $00, $09, $09
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$15, $14, $00, $00
 
@@ -691,9 +691,9 @@ Ballad_Patches:
 	spRateScale	$02, $01, $02, $02
 	spAttackRt	$1C, $1D, $16, $0F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$04, $04, $09, $07
-	spSustainRt	$00, $03, $01, $00
+	spSustainRt	$04, $04, $09, $07
 	spSustainLv	$01, $01, $01, $0A
+	spDecayRt	$00, $03, $01, $00
 	spReleaseRt	$05, $06, $02, $05
 	spTotalLv	$25, $25, $2F, $00
 
@@ -709,8 +709,8 @@ Ballad_Patches:
 	spRateScale	$01, $01, $02, $02
 	spAttackRt	$1F, $1F, $19, $14
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$05, $05, $05, $07
-	spSustainRt	$02, $02, $02, $02
+	spSustainRt	$05, $05, $05, $07
 	spSustainLv	$01, $01, $01, $07
+	spDecayRt	$02, $02, $02, $02
 	spReleaseRt	$01, $01, $01, $02
 	spTotalLv	$23, $26, $2D, $00

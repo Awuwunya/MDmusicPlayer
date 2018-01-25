@@ -141,17 +141,17 @@ c \type\ == 'sfx' {
 		=b2 .db
 		=b4 .db
 		! > spAmpMod: (\b1\&0x80)>>7, (\b2\&0x80)>>7, (\b3\&0x80)>>7, (\b4\&0x80)>>7;
-		! > spDecayRt: \b1\&0x1F, \b2\&0x1F, \b3\&0x1F, \b4\&0x1F;
-		=b1 .db
-		=b3 .db
-		=b2 .db
-		=b4 .db
-		! > spSustainRt: \b1\, \b2\, \b3\, \b4\;
+		! > spSustainRt: \b1\&0x1F, \b2\&0x1F, \b3\&0x1F, \b4\&0x1F;
+		=d1 .db
+		=d3 .db
+		=d2 .db
+		=d4 .db
 		=b1 .db
 		=b3 .db
 		=b2 .db
 		=b4 .db
 		! > spSustainLv: (\b1\&0xF0)>>4, (\b2\&0xF0)>>4, (\b3\&0xF0)>>4, (\b4\&0xF0)>>4;
+		! > spDecayRt: \d1\, \d2\, \d3\, \d4\;
 		! > spReleaseRt: \b1\&0xF, \b2\&0xF, \b3\&0xF, \b4\&0xF;
 		=b1 .db
 		=b3 .db

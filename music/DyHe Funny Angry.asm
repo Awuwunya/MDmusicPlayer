@@ -1333,9 +1333,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$15, $16, $13, $12
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0C, $0B, $0A, $0B
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$0C, $0B, $0A, $0B
 	spSustainLv	$00, $00, $00, $00
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$07, $07, $07, $08
 	spTotalLv	$1F, $2D, $16, $00
 
@@ -1351,9 +1351,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$12, $14, $14, $0F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0A, $05, $05, $05
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$0A, $05, $05, $05
 	spSustainLv	$02, $02, $02, $01
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$06, $08, $08, $08
 	spTotalLv	$19, $00, $00, $00
 
@@ -1369,9 +1369,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$14, $0F, $0F, $0F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$14, $05, $05, $00
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$14, $05, $05, $00
 	spSustainLv	$0F, $00, $0F, $00
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$06, $06, $06, $07
 	spTotalLv	$23, $32, $28, $00
 
@@ -1387,9 +1387,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0A, $0C, $08, $0A
-	spSustainRt	$07, $07, $0A, $05
+	spSustainRt	$0A, $0C, $08, $0A
 	spSustainLv	$02, $0A, $0A, $05
+	spDecayRt	$07, $07, $0A, $05
 	spReleaseRt	$05, $07, $07, $05
 	spTotalLv	$14, $0A, $05, $00
 
@@ -1405,9 +1405,9 @@ FunnyAngry_Patches:
 	spRateScale	$01, $00, $03, $01
 	spAttackRt	$1F, $08, $0F, $19
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0C, $0C, $02, $05
-	spSustainRt	$04, $04, $04, $07
+	spSustainRt	$0C, $0C, $02, $05
 	spSustainLv	$01, $00, $01, $02
+	spDecayRt	$04, $04, $04, $07
 	spReleaseRt	$06, $05, $05, $06
 	spTotalLv	$1D, $0B, $36, $00
 
@@ -1423,9 +1423,9 @@ FunnyAngry_Patches:
 	spRateScale	$02, $02, $01, $00
 	spAttackRt	$0D, $1F, $12, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$09, $00, $00, $0D
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$09, $00, $00, $0D
 	spSustainLv	$02, $00, $00, $0F
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$03, $02, $08, $07
 	spTotalLv	$15, $1D, $00, $07
 
@@ -1441,9 +1441,9 @@ FunnyAngry_Patches:
 	spRateScale	$02, $01, $02, $01
 	spAttackRt	$0F, $0F, $0F, $0D
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$09, $00, $09, $03
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$09, $00, $09, $03
 	spSustainLv	$01, $00, $0F, $00
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$05, $05, $05, $08
 	spTotalLv	$19, $19, $1F, $00
 
@@ -1459,9 +1459,9 @@ FunnyAngry_Patches:
 	spRateScale	$02, $03, $03, $03
 	spAttackRt	$1E, $1C, $18, $1C
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0E, $04, $0A, $05
-	spSustainRt	$08, $08, $08, $08
+	spSustainRt	$0E, $04, $0A, $05
 	spSustainLv	$0B, $0B, $0B, $0B
+	spDecayRt	$08, $08, $08, $08
 	spReleaseRt	$06, $06, $06, $06
 	spTotalLv	$14, $12, $2C, $00
 
@@ -1477,9 +1477,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1E, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0A, $0B, $0A, $0A
-	spSustainRt	$05, $0A, $07, $08
+	spSustainRt	$0A, $0B, $0A, $0A
 	spSustainLv	$0A, $09, $08, $07
+	spDecayRt	$05, $0A, $07, $08
 	spReleaseRt	$04, $06, $05, $07
 	spTotalLv	$21, $28, $25, $00
 
@@ -1495,9 +1495,9 @@ FunnyAngry_Patches:
 	spRateScale	$01, $01, $01, $01
 	spAttackRt	$19, $19, $19, $0A
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$03, $03, $03, $05
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$03, $03, $03, $05
 	spSustainLv	$02, $02, $02, $02
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$02, $02, $02, $07
 	spTotalLv	$1E, $25, $20, $00
 
@@ -1513,9 +1513,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $03, $01, $01
 	spAttackRt	$19, $19, $19, $19
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$02, $02, $06, $0C
-	spSustainRt	$0A, $09, $0A, $0F
+	spSustainRt	$02, $02, $06, $0C
 	spSustainLv	$01, $00, $01, $0A
+	spDecayRt	$0A, $09, $0A, $0F
 	spReleaseRt	$04, $02, $05, $05
 	spTotalLv	$14, $1A, $00, $00
 
@@ -1531,9 +1531,9 @@ FunnyAngry_Patches:
 	spRateScale	$01, $01, $01, $01
 	spAttackRt	$1F, $1F, $1F, $0F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$03, $03, $03, $07
-	spSustainRt	$00, $00, $00, $04
+	spSustainRt	$03, $03, $03, $07
 	spSustainLv	$02, $02, $02, $02
+	spDecayRt	$00, $00, $00, $04
 	spReleaseRt	$03, $02, $02, $07
 	spTotalLv	$1F, $25, $20, $00
 
@@ -1549,9 +1549,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $01, $01, $01
 	spAttackRt	$10, $10, $10, $10
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$07, $08, $08, $08
-	spSustainRt	$01, $00, $00, $00
+	spSustainRt	$07, $08, $08, $08
 	spSustainLv	$02, $01, $01, $01
+	spDecayRt	$01, $00, $00, $00
 	spReleaseRt	$04, $08, $08, $08
 	spTotalLv	$1C, $09, $09, $09
 
@@ -1567,9 +1567,9 @@ FunnyAngry_Patches:
 	spRateScale	$03, $03, $00, $00
 	spAttackRt	$0F, $0F, $0D, $0C
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$00, $00, $04, $04
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$00, $00, $04, $04
 	spSustainLv	$00, $00, $03, $03
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$02, $02, $07, $08
 	spTotalLv	$1E, $1F, $00, $00
 
@@ -1585,9 +1585,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $03, $02
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0C, $0C, $02, $05
-	spSustainRt	$04, $04, $04, $07
+	spSustainRt	$0C, $0C, $02, $05
 	spSustainLv	$01, $00, $0F, $02
+	spDecayRt	$04, $04, $04, $07
 	spReleaseRt	$0A, $06, $06, $07
 	spTotalLv	$1D, $1B, $36, $00
 
@@ -1603,9 +1603,9 @@ FunnyAngry_Patches:
 	spRateScale	$01, $01, $03, $02
 	spAttackRt	$1E, $1F, $1F, $1C
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0F, $0F, $04, $0A
-	spSustainRt	$02, $05, $02, $05
+	spSustainRt	$0F, $0F, $04, $0A
 	spSustainLv	$0A, $0F, $0A, $0F
+	spDecayRt	$02, $05, $02, $05
 	spReleaseRt	$07, $0A, $02, $06
 	spTotalLv	$28, $23, $00, $00
 
@@ -1621,9 +1621,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$0D, $0E, $1F, $1F
 	spAmpMod	$00, $01, $00, $00
-	spDecayRt	$0A, $00, $0A, $04
-	spSustainRt	$00, $00, $00, $05
+	spSustainRt	$0A, $00, $0A, $04
 	spSustainLv	$05, $01, $0A, $0A
+	spDecayRt	$00, $00, $00, $05
 	spReleaseRt	$03, $05, $00, $09
 	spTotalLv	$26, $11, $1D, $00
 
@@ -1639,9 +1639,9 @@ FunnyAngry_Patches:
 	spRateScale	$03, $03, $02, $01
 	spAttackRt	$09, $09, $0E, $0E
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$03, $03, $05, $05
-	spSustainRt	$01, $01, $00, $00
+	spSustainRt	$03, $03, $05, $05
 	spSustainLv	$02, $02, $02, $02
+	spDecayRt	$01, $01, $00, $00
 	spReleaseRt	$02, $02, $06, $07
 	spTotalLv	$11, $10, $03, $00
 
@@ -1657,9 +1657,9 @@ FunnyAngry_Patches:
 	spRateScale	$01, $01, $01, $01
 	spAttackRt	$19, $19, $0A, $0A
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$03, $03, $05, $05
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$03, $03, $05, $05
 	spSustainLv	$02, $02, $02, $02
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$02, $02, $07, $07
 	spTotalLv	$1C, $19, $05, $00
 
@@ -1675,9 +1675,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $1E, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0F, $11, $0E, $10
-	spSustainRt	$13, $11, $0F, $0E
+	spSustainRt	$0F, $11, $0E, $10
 	spSustainLv	$02, $01, $00, $00
+	spDecayRt	$13, $11, $0F, $0E
 	spReleaseRt	$04, $07, $07, $08
 	spTotalLv	$10, $0B, $00, $00
 
@@ -1693,9 +1693,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $01, $02, $01
 	spAttackRt	$0A, $0C, $0C, $12
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$00, $00, $00, $00
-	spSustainRt	$01, $01, $00, $00
+	spSustainRt	$00, $00, $00, $00
 	spSustainLv	$00, $02, $00, $00
+	spDecayRt	$01, $01, $00, $00
 	spReleaseRt	$03, $06, $05, $06
 	spTotalLv	$3D, $00, $05, $10
 
@@ -1711,9 +1711,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $01, $03, $02
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0C, $0C, $0A, $0F
-	spSustainRt	$04, $04, $04, $0B
+	spSustainRt	$0C, $0C, $0A, $0F
 	spSustainLv	$01, $00, $0F, $03
+	spDecayRt	$04, $04, $04, $0B
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$1E, $0C, $31, $00
 
@@ -1729,9 +1729,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$15, $16, $13, $12
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0C, $0B, $0A, $0B
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$0C, $0B, $0A, $0B
 	spSustainLv	$00, $00, $00, $00
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$07, $07, $07, $08
 	spTotalLv	$1F, $2D, $16, $00
 
@@ -1747,9 +1747,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$0C, $12, $14, $14
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0C, $0E, $00, $02
-	spSustainRt	$0E, $09, $09, $01
+	spSustainRt	$0C, $0E, $00, $02
 	spSustainLv	$04, $05, $00, $03
+	spDecayRt	$0E, $09, $09, $01
 	spReleaseRt	$06, $04, $03, $0A
 	spTotalLv	$1C, $1D, $18, $00
 
@@ -1765,9 +1765,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$07, $09, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$05, $0C, $02, $1F
-	spSustainRt	$00, $00, $04, $00
+	spSustainRt	$05, $0C, $02, $1F
 	spSustainLv	$03, $03, $00, $00
+	spDecayRt	$00, $00, $04, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$0B, $3A, $10, $00
 
@@ -1783,9 +1783,9 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$00, $00, $18, $00
-	spSustainRt	$00, $0F, $0F, $0F
+	spSustainRt	$00, $00, $18, $00
 	spSustainLv	$02, $00, $09, $00
+	spDecayRt	$00, $0F, $0F, $0F
 	spReleaseRt	$00, $0C, $0A, $04
 	spTotalLv	$00, $00, $00, $00
 
@@ -1801,8 +1801,8 @@ FunnyAngry_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$12, $1A, $14, $0F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0A, $07, $07, $07
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$0A, $07, $07, $07
 	spSustainLv	$02, $02, $02, $01
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$0B, $0B, $0B, $08
 	spTotalLv	$19, $00, $00, $00

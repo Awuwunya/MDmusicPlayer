@@ -142,9 +142,9 @@ Boss_Patches:
 	spRateScale	$00, $01, $00, $01
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$12, $0A, $0E, $0A
-	spSustainRt	$00, $04, $04, $03
+	spSustainRt	$12, $0A, $0E, $0A
 	spSustainLv	$02, $02, $02, $02
+	spDecayRt	$00, $04, $04, $03
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$24, $13, $2D, $00
 
@@ -160,9 +160,9 @@ Boss_Patches:
 	spRateScale	$02, $02, $02, $01
 	spAttackRt	$0E, $0D, $0E, $13
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0E, $0E, $0E, $03
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$0E, $0E, $0E, $03
 	spSustainLv	$01, $01, $0F, $00
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$18, $27, $28, $00
 
@@ -178,9 +178,9 @@ Boss_Patches:
 	spRateScale	$00, $02, $00, $00
 	spAttackRt	$14, $0C, $0E, $0E
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$08, $02, $05, $05
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$08, $02, $05, $05
 	spSustainLv	$01, $01, $01, $01
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$1A, $27, $12, $00
 
@@ -196,9 +196,9 @@ Boss_Patches:
 	spRateScale	$02, $03, $03, $03
 	spAttackRt	$1E, $1C, $18, $1C
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0E, $04, $0A, $05
-	spSustainRt	$08, $08, $08, $08
+	spSustainRt	$0E, $04, $0A, $05
 	spSustainLv	$0B, $0B, $0B, $0B
+	spDecayRt	$08, $08, $08, $08
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$14, $14, $3C, $00
 
@@ -214,9 +214,9 @@ Boss_Patches:
 	spRateScale	$00, $01, $01, $01
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$10, $09, $11, $09
-	spSustainRt	$07, $00, $00, $00
+	spSustainRt	$10, $09, $11, $09
 	spSustainLv	$02, $02, $02, $01
+	spDecayRt	$07, $00, $00, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$20, $20, $22, $00
 
@@ -232,9 +232,9 @@ Boss_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $12, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$04, $04, $02, $0A
-	spSustainRt	$01, $02, $01, $0B
+	spSustainRt	$04, $04, $02, $0A
 	spSustainLv	$01, $01, $01, $01
+	spDecayRt	$01, $02, $01, $0B
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$1A, $19, $16, $00
 	even

@@ -1016,9 +1016,9 @@ RinkRink_Patches:
 	spRateScale	$00, $00, $02, $00
 	spAttackRt	$1F, $1F, $15, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0E, $05, $0F, $0C
-	spSustainRt	$07, $06, $06, $07
+	spSustainRt	$0E, $05, $0F, $0C
 	spSustainLv	$02, $01, $04, $05
+	spDecayRt	$07, $06, $06, $07
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$21, $30, $12, $00
 
@@ -1034,9 +1034,9 @@ RinkRink_Patches:
 	spRateScale	$03, $01, $00, $01
 	spAttackRt	$1F, $1F, $0F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$12, $12, $12, $12
-	spSustainRt	$03, $06, $04, $07
+	spSustainRt	$12, $12, $12, $12
 	spSustainLv	$02, $04, $03, $05
+	spDecayRt	$03, $06, $04, $07
 	spReleaseRt	$0C, $0A, $0B, $09
 	spTotalLv	$15, $00, $00, $00
 
@@ -1052,9 +1052,9 @@ RinkRink_Patches:
 	spRateScale	$01, $02, $02, $02
 	spAttackRt	$1F, $1E, $1B, $1E
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0F, $0F, $07, $08
-	spSustainRt	$06, $0B, $0A, $0A
+	spSustainRt	$0F, $0F, $07, $08
 	spSustainLv	$01, $0F, $08, $0F
+	spDecayRt	$06, $0B, $0A, $0A
 	spReleaseRt	$08, $08, $08, $08
 	spTotalLv	$39, $39, $03, $03
 
@@ -1070,9 +1070,9 @@ RinkRink_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1D, $1C, $1A, $18
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0C, $0F, $0A, $0B
-	spSustainRt	$09, $03, $06, $07
+	spSustainRt	$0C, $0F, $0A, $0B
 	spSustainLv	$00, $01, $00, $03
+	spDecayRt	$09, $03, $06, $07
 	spReleaseRt	$08, $09, $08, $0A
 	spTotalLv	$32, $26, $13, $00
 
@@ -1088,9 +1088,9 @@ RinkRink_Patches:
 	spRateScale	$01, $00, $00, $01
 	spAttackRt	$10, $0E, $10, $12
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$04, $1F, $1F, $1F
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$04, $1F, $1F, $1F
 	spSustainLv	$04, $00, $00, $00
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$08, $08, $08, $09
 	spTotalLv	$1C, $30, $45, $00
 
@@ -1106,9 +1106,9 @@ RinkRink_Patches:
 	spRateScale	$00, $00, $00, $01
 	spAttackRt	$13, $0F, $0F, $0F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$06, $10, $12, $12
-	spSustainRt	$03, $00, $03, $03
+	spSustainRt	$06, $10, $12, $12
 	spSustainLv	$00, $04, $05, $02
+	spDecayRt	$03, $00, $03, $03
 	spReleaseRt	$0A, $09, $0A, $09
 	spTotalLv	$00, $27, $30, $00
 
@@ -1124,9 +1124,9 @@ RinkRink_Patches:
 	spRateScale	$00, $00, $02, $00
 	spAttackRt	$1F, $1F, $15, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0E, $05, $0F, $0C
-	spSustainRt	$07, $06, $06, $07
+	spSustainRt	$0E, $05, $0F, $0C
 	spSustainLv	$02, $01, $04, $05
+	spDecayRt	$07, $06, $06, $07
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$21, $28, $12, $04
 
@@ -1142,9 +1142,9 @@ RinkRink_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1D, $1C, $1A, $18
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0C, $0B, $0A, $08
-	spSustainRt	$09, $03, $06, $07
+	spSustainRt	$0C, $0B, $0A, $08
 	spSustainLv	$00, $01, $00, $03
+	spDecayRt	$09, $03, $06, $07
 	spReleaseRt	$08, $0A, $08, $0A
 	spTotalLv	$12, $46, $23, $00
 	even

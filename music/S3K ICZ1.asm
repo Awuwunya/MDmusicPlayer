@@ -423,9 +423,9 @@ IceCap_Patches:
 	spRateScale	$03, $02, $03, $02
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$07, $08, $08, $0A
-	spSustainRt	$07, $0A, $0E, $11
+	spSustainRt	$07, $08, $08, $0A
 	spSustainLv	$02, $01, $01, $01
+	spDecayRt	$07, $0A, $0E, $11
 	spReleaseRt	$00, $0F, $0F, $0F
 	spTotalLv	$22, $14, $37, $00
 
@@ -441,9 +441,9 @@ IceCap_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$10, $0C, $0A, $0E
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$07, $04, $04, $04
-	spSustainRt	$01, $0A, $0A, $0A
+	spSustainRt	$07, $04, $04, $04
 	spSustainLv	$02, $01, $01, $01
+	spDecayRt	$01, $0A, $0A, $0A
 	spReleaseRt	$08, $0B, $0B, $0B
 	spTotalLv	$1D, $0D, $0E, $0E
 
@@ -459,9 +459,9 @@ IceCap_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$10, $10, $10, $10
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$07, $08, $08, $08
-	spSustainRt	$01, $05, $05, $05
+	spSustainRt	$07, $08, $08, $08
 	spSustainLv	$02, $01, $01, $01
+	spDecayRt	$01, $05, $05, $05
 	spReleaseRt	$08, $0B, $0B, $0B
 	spTotalLv	$20, $06, $06, $09
 
@@ -477,9 +477,9 @@ IceCap_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0F, $0F, $0F, $0F
-	spSustainRt	$0D, $11, $12, $10
+	spSustainRt	$0F, $0F, $0F, $0F
 	spSustainLv	$01, $01, $00, $00
+	spDecayRt	$0D, $11, $12, $10
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$1D, $16, $04, $00
 
@@ -495,9 +495,9 @@ IceCap_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$1F, $1D, $1D, $1D
-	spSustainRt	$05, $16, $06, $00
+	spSustainRt	$1F, $1D, $1D, $1D
 	spSustainLv	$00, $01, $01, $01
+	spDecayRt	$05, $16, $06, $00
 	spReleaseRt	$09, $0F, $0F, $0F
 	spTotalLv	$34, $07, $0D, $06
 
@@ -513,8 +513,8 @@ IceCap_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0E, $16, $1C, $02
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$0E, $16, $1C, $02
 	spSustainLv	$06, $04, $06, $03
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$00, $00, $00, $09
 	spTotalLv	$05, $18, $04, $00

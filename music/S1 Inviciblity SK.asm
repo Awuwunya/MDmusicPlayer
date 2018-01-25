@@ -176,9 +176,9 @@ InvinciblityK_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $18, $18, $1B
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$04, $01, $02, $02
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$04, $01, $02, $02
 	spSustainLv	$05, $03, $04, $04
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$17, $00, $00, $00
 
@@ -194,9 +194,9 @@ InvinciblityK_Patches:
 	spRateScale	$00, $00, $00, $00
 	spAttackRt	$1F, $1F, $1F, $1F
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0B, $00, $09, $0B
-	spSustainRt	$00, $00, $00, $00
+	spSustainRt	$0B, $00, $09, $0B
 	spSustainLv	$0F, $0F, $0F, $0F
+	spDecayRt	$00, $00, $00, $00
 	spReleaseRt	$0F, $0F, $0F, $0F
 	spTotalLv	$0C, $10, $10, $10
 	; Patch $02
@@ -211,8 +211,8 @@ InvinciblityK_Patches:
 	spRateScale	$02, $00, $00, $00
 	spAttackRt	$14, $19, $19, $19
 	spAmpMod	$00, $00, $00, $00
-	spDecayRt	$0F, $0D, $0D, $0D
-	spSustainRt	$07, $04, $04, $04
+	spSustainRt	$0F, $0D, $0D, $0D
 	spSustainLv	$02, $01, $01, $01
+	spDecayRt	$07, $04, $04, $04
 	spReleaseRt	$05, $0A, $0A, $0A
 	spTotalLv	$10, $04, $04, $04
