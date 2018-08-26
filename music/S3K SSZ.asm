@@ -9,9 +9,9 @@ SkySanctuary_Header:
 	sHeaderFM	SkySanctuary_FM3, $00, $17
 	sHeaderFM	SkySanctuary_FM4, $00, $1C
 	sHeaderFM	SkySanctuary_FM5, $00, $15
-	sHeaderPSG	SkySanctuary_PSG1, $F4, $05, $00, VolEnv_00
-	sHeaderPSG	SkySanctuary_PSG2, $F4, $05, $00, VolEnv_00
-	sHeaderPSG	SkySanctuary_PSG3, $00, $02, $00, VolEnv_00
+	sHeaderPSG	SkySanctuary_PSG1, $F4, $05, $00, v00
+	sHeaderPSG	SkySanctuary_PSG2, $F4, $05, $00, v00
+	sHeaderPSG	SkySanctuary_PSG3, $00, $02, $00, v00
 
 SkySanctuary_FM1:
 	sPatFM		$00
@@ -192,7 +192,7 @@ SkySanctuary_FM4:
 	dc.b $F2	; Unused
 
 SkySanctuary_PSG1:
-	sVolEnvPSG	VolEnv_04
+	sVolEnvPSG	v04
 
 SkySanctuary_Loop12:
 	dc.b nG4, $06, nF4, nC4, nF4
@@ -231,20 +231,20 @@ SkySanctuary_PSG3:
 	sNoisePSG	$E7
 
 SkySanctuary_Jump3:
-	sVolEnvPSG	VolEnv_01
+	sVolEnvPSG	v01
 	dc.b nB6, $06, nB6
-	sVolEnvPSG	VolEnv_04
+	sVolEnvPSG	v04
 	dc.b nB6, $0C
 	sJump		SkySanctuary_Jump3
 	dc.b $F2	; Unused
 
 SkySanctuary_DAC:
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst, $60, nRst, nRst, nRst, $17, nRst, $0C
 	dc.b dSnare, nRst, dSnare, nRst, dKick, $06, dKick
 
 SkySanctuary_Loop15:
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b dKick, $05, dKick, dKick, $0E, nRst, $0C, dMuffledSnare
 	dc.b $05, dMuffledSnare, dMuffledSnare, $0E, dMuffledSnare, $0C, nRst, dKick
 	dc.b $06, dKick, dKick, $0C, dKick, nRst, dMuffledSnare, $05
@@ -252,11 +252,11 @@ SkySanctuary_Loop15:
 	dc.b $0C, dKick, nRst, dMuffledSnare, $05, dMuffledSnare, dMuffledSnare, $0E
 	dc.b dMuffledSnare, $0C, nRst, dKick, $06, dKick, dKick, $0C
 	dc.b dKick, nRst, dMuffledSnare, $05, dMuffledSnare, dMuffledSnare, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b dElectricMidTom, $06, dElectricMidTom, dElectricMidTom
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b dElectricLowTom, dElectricLowTom
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b dElectricFloorTom, nRst
 	sLoop		$00, $08, SkySanctuary_Loop15
 	dc.b nRst, $01

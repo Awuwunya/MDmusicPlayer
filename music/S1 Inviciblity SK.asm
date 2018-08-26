@@ -3,7 +3,7 @@
 ; If you want to make it better, copy volume envelope 0A from S3K to Sonic 1.
 ; It is the file "S3K_SMPS\VolEnv\0A.bin", and must be copied to folder "S1_SMPS\VolEnv\".
 ; You must then include it after "VolEnv_09" in Sonic 1's 68k.asm and add to the array as "VolEnv_0A".
-; Then you must change each VolEnv_03 to VolEnv_0A in this file!
+; Then you must change each v03 to v0A in this file!
 InvinciblityK_Header:
 	sHeaderInit
 	sHeaderPatch	InvinciblityK_Patches
@@ -15,14 +15,14 @@ InvinciblityK_Header:
 	sHeaderFM	InvinciblityK_FM3, $00, $1F
 	sHeaderFM	InvinciblityK_FM4, $00, $13
 	sHeaderFM	InvinciblityK_FM5, $00, $13
-	sHeaderPSG	InvinciblityK_PSG1, $00, $05, ModEnv_00, VolEnv_00
-	sHeaderPSG	InvinciblityK_PSG2, $00, $05, ModEnv_00, VolEnv_00
-	sHeaderPSG	InvinciblityK_PSG3, $E8, $01, ModEnv_00, VolEnv_00
+	sHeaderPSG	InvinciblityK_PSG1, $00, $05, $00, v00
+	sHeaderPSG	InvinciblityK_PSG2, $00, $05, $00, v00
+	sHeaderPSG	InvinciblityK_PSG3, $E8, $01, $00, v00
 
 InvinciblityK_FM1:
 	ssMod68k	$14, $01, $06, $06
 	ssDetune	$FE
-	sPan		spCenter, $00
+	sPan		spCenter
 
 InvinciblityK_Jump4:
 	sPatFM		$00
@@ -63,13 +63,13 @@ InvinciblityK_FM3:
 	dc.b nRst, $0B
 	ssDetune	$02
 	ssMod68k	$14, $01, $05, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	sJump		InvinciblityK_Jump4
 	; Unused
 	sStop
 
 InvinciblityK_FM4:
-	sPan		spRight, $00
+	sPan		spRight
 	sPatFM		$02
 	dc.b nRst, $18
 
@@ -88,7 +88,7 @@ InvinciblityK_Jump5:
 	sStop
 
 InvinciblityK_FM5:
-	sPan		spLeft, $00
+	sPan		spLeft
 	sPatFM		$02
 	dc.b nRst, $18
 
@@ -108,7 +108,7 @@ InvinciblityK_Jump6:
 
 InvinciblityK_PSG1:
 	dc.b nRst, $18
-	sVolEnvPSG	VolEnv_03
+	sVolEnvPSG	v03
 
 InvinciblityK_Jump7:
 	dc.b nE4, $06, nB3, nE4, nB3, nE4, nB3, nE4
@@ -126,7 +126,7 @@ InvinciblityK_Jump7:
 
 InvinciblityK_PSG2:
 	dc.b nRst, $18
-	sVolEnvPSG	VolEnv_03
+	sVolEnvPSG	v03
 	dc.b nRst, $03
 
 InvinciblityK_Jump8:
@@ -144,7 +144,7 @@ InvinciblityK_Jump8:
 	sStop
 
 InvinciblityK_PSG3:
-	sVolEnvPSG	VolEnv_03
+	sVolEnvPSG	v03
 	ssMod68k	$14, $01, $02, $06
 	dc.b nRst, $18
 	sJump		InvinciblityK_Jump2

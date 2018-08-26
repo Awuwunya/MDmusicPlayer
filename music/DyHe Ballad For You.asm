@@ -10,9 +10,9 @@ Ballad_Header:
 	sHeaderFM	Ballad_FM4, $FE, $0E
 	sHeaderFM	Ballad_FM5, $FE, $0E
 	sHeaderFM	Ballad_FM6, $FE, $0D
-	sHeaderPSG	Ballad_PSG1, $DA, $04, $00, VolEnv_00
-	sHeaderPSG	Ballad_PSG2, $DA, $02, $00, VolEnv_00
-	sHeaderPSG	Ballad_PSG3, $DA, $02, $00, VolEnv_03
+	sHeaderPSG	Ballad_PSG1, $DA, $04, $00, v00
+	sHeaderPSG	Ballad_PSG2, $DA, $02, $00, v00
+	sHeaderPSG	Ballad_PSG3, $DA, $02, $00, v03
 
 Ballad_PSG2:
 	sStop
@@ -602,7 +602,7 @@ Ballad_PSG1:
 	dc.b nRst, $30
 
 Ballad_Jump7:
-	sVolEnvPSG	VolEnv_09
+	sVolEnvPSG	v09
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, nRst, nRst, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, nRst, nRst, nRst, nRst

@@ -99,9 +99,9 @@ Contents:
           subscript into another subscript or script block. The symbol for this
           function is '?'
 
-        * Argument modifier - This adds the functionality to modify an argument
-          of a macro. It holds a subscript, with equates for binding different
-          values into equate names. The symbol for this function is ':'
+        * Argument modifier - This function is used for modifying arguments of a
+          macro. You can modify the text representation of macro values, or
+          remove arguments completely. The symbol for this function is ':'
 
         * If block - This function is used to run alternate code based on
           condition. If blocks can also only contain the true condition. The
@@ -151,6 +151,9 @@ Contents:
           comments or with complex commands. You define absolute position
           ("a"), backwards jump ("b"), or forwards jump ("f") right after the
           function symbol. The symbol for this function is '>'
+
+        * Special - This operator is evaluated during script execution. It is
+          used for executing various macros. The symbol for this function is 's'
 
     *2.2.2 - Operators*
       There are some special operators that allow to better interact with
@@ -218,6 +221,13 @@ Contents:
           position. If no lable was found, the offset of the file will be
           returned.
 
+        * a0-a7 - Argument #: Returns the value for argument number # (0-index).
+          If no argument is defined for this offset, empty string is returned.
+
+        * n0-n7 - Argument #: Returns the value for argument number # (0-index),
+          converted into a number. If argument is not numeric, NaN is returned.
+          If no argument is defined for this offset, NaN is returned.
+
       If there is an operator you want me to add, do tell me and I will consider
       adding it.
 
@@ -251,11 +261,15 @@ Contents:
         not need additional code block. If you do, you use '{' instead.
 
     *2.3.3 - Argument modifier*
-      :<num> {
-      :4 {
-        <num> is a 0-based offset of the argument that will be modified. This
-        function always starts a new code block which define the possible
-        argument lables.
+      :<type><num> <end>
+      :?4 {
+      :-1
+        <num> is a 0-based offset of the argument that will be modified. The
+        command has few modes for manipulation: Modify mode ("?"), where you can
+        edit the argument <num> based on a list of equates inside another
+        subscript. Set mode ("=") allows you to set argument to a value. <end>
+        will contain the value to be set. Delete mode ("-") allows you to remove
+        argument <num> from the list completely.
 
     *2.3.4 - If block*
       c <condition> {
@@ -346,6 +360,15 @@ Contents:
           <type> is the type of the operation. 'a' is absolute address´, 'f' is
           forward via offset addition, 'b' is backward via offset substraction.
           <off> is the offset, evaluated once the interpreter finds the Go to.
+
+      *2.3.14 - Special*
+        s<macro> <args>
+        sinc "file/p.ath"
+          <macro> defines one of the macros in the list below, and <args> will
+          be any arguments specific to <macro>:
+            * inc - Include another file at the end of the current script.
+              <args> will contain the file path of the included file.
+
 ================================================================================
 
 *3 - Inner functionality*

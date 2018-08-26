@@ -1,12 +1,13 @@
 ### CHAOTIX SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
-c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
+c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
 	+Available types: Music, SFX, Voice
+	$.cc
 	;
 }
 
 =endian 'little'
 
-c \type\ == 'voice' {
+c '\type\' == 'voice' {
 	=offset 0
 	~£_Patches .of
 	/ >patch
@@ -15,7 +16,7 @@ c \type\ == 'voice' {
 
 @offset 0 "Please specify offset of this song in Z80 bank"
 
-c \type\ == 'sfx' {
+c '\type\' == 'sfx' {
 	/ >headersfx
 } {
 	/ >header
@@ -43,7 +44,7 @@ c \type\ == 'sfx' {
 	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
 			~£_PSG? :0
-			:4 {
+			:?4 {
 				?volenv;
 			}
 		}
@@ -154,35 +155,35 @@ c \type\ == 'sfx' {
 }
 
 ?volenv {
-	=VolEnv_00 0
-	=VolEnv_01 1
-	=VolEnv_02 2
-	=VolEnv_03 3
-	=VolEnv_04 4
-	=VolEnv_05 5
-	=VolEnv_06 6
-	=VolEnv_07 7
-	=VolEnv_08 8
-	=VolEnv_09 9
-	=VolEnv_0A 0x0A
-	=VolEnv_0B 0x0B
-	=VolEnv_0C 0x0C
-	=VolEnv_0D 0x0D
-	=VolEnv_0E 0x0E
+	=v00 0
+	=v01 1
+	=v02 2
+	=v03 3
+	=v04 4
+	=v05 5
+	=v06 6
+	=v07 7
+	=v08 8
+	=v09 9
+	=v0A 0x0A
+	=v0B 0x0B
+	=v0C 0x0C
+	=v0D 0x0D
+	=v0E 0x0E
 }
 
 ?modenv {
-	=ModEnv_00 0
-	=ModEnv_01 1
-	=ModEnv_02 2
-	=ModEnv_03 3
-	=ModEnv_04 4
-	=ModEnv_05 5
-	=ModEnv_06 6
-	=ModEnv_07 7
-	=ModEnv_08 8
-	=ModEnv_09 9
-	=ModEnv_0A 0x0A
+	=m00 0
+	=m01 1
+	=m02 2
+	=m03 3
+	=m04 4
+	=m05 5
+	=m06 6
+	=m07 7
+	=m08 8
+	=m09 9
+	=m0A 0x0A
 }
 
 ?PWM {
@@ -210,112 +211,19 @@ c \type\ == 'sfx' {
 	=p95 0x95
 }
 
-?note {
-	=nRst 0x80
-	=nC0 0x81
-	=nCs0 0x82
-	=nD0 0x83
-	=nEb0 0x84
-	=nE0 0x85
-	=nF0 0x86
-	=nFs0 0x87
-	=nG0 0x88
-	=nAb0 0x89
-	=nA0 0x8A
-	=nBb0 0x8B
-	=nB0 0x8C
-	=nC1 0x8D
-	=nCs1 0x8E
-	=nD1 0x8F
-	=nEb1 0x90
-	=nE1 0x91
-	=nF1 0x92
-	=nFs1 0x93
-	=nG1 0x94
-	=nAb1 0x95
-	=nA1 0x96
-	=nBb1 0x97
-	=nB1 0x98
-	=nC2 0x99
-	=nCs2 0x9A
-	=nD2 0x9B
-	=nEb2 0x9C
-	=nE2 0x9D
-	=nF2 0x9E
-	=nFs2 0x9F
-	=nG2 0xA0
-	=nAb2 0xA1
-	=nA2 0xA2
-	=nBb2 0xA3
-	=nB2 0xA4
-	=nC3 0xA5
-	=nCs3 0xA6
-	=nD3 0xA7
-	=nEb3 0xA8
-	=nE3 0xA9
-	=nF3 0xAA
-	=nFs3 0xAB
-	=nG3 0xAC
-	=nAb3 0xAD
-	=nA3 0xAE
-	=nBb3 0xAF
-	=nB3 0xB0
-	=nC4 0xB1
-	=nCs4 0xB2
-	=nD4 0xB3
-	=nEb4 0xB4
-	=nE4 0xB5
-	=nF4 0xB6
-	=nFs4 0xB7
-	=nG4 0xB8
-	=nAb4 0xB9
-	=nA4 0xBA
-	=nBb4 0xBB
-	=nB4 0xBC
-	=nC5 0xBD
-	=nCs5 0xBE
-	=nD5 0xBF
-	=nEb5 0xC0
-	=nE5 0xC1
-	=nF5 0xC2
-	=nFs5 0xC3
-	=nG5 0xC4
-	=nAb5 0xC5
-	=nA5 0xC6
-	=nBb5 0xC7
-	=nB5 0xC8
-	=nC6 0xC9
-	=nCs6 0xCA
-	=nD6 0xCB
-	=nEb6 0xCC
-	=nE6 0xCD
-	=nF6 0xCE
-	=nFs6 0xCF
-	=nG6 0xD0
-	=nAb6 0xD1
-	=nA6 0xD2
-	=nBb6 0xD3
-	=nB6 0xD4
-	=nC7 0xD5
-	=nCs7 0xD6
-	=nD7 0xD7
-	=nEb7 0xD8
-	=nE7 0xD9
-	=nF7 0xDA
-	=nFs7 0xDB
-	=nG7 0xDC
-	=nAb7 0xDD
-	=nA7 0xDE
-	=nBb7 0xDF
-}
+	sinc "..\SMPS\SMPS default notes.smpss"
 
 ?comm {
 	!0xE0 > sPan: .db & 0xC0, .lb & 0x3F {
-		:0 {
+		:?0 {
 			=spNone 0x00
 			=spRight 0x40
 			=spLeft 0x80
 			=spCenter 0xC0
+		}
+
+		c .n1 == 0 {
+			:-1
 		}
 	}
 	!0xE1 > ssDetune: .db;
@@ -325,7 +233,7 @@ c \type\ == 'sfx' {
 	}
 	!0xE4, 0 > sPanAni:;
 	!0xE4, 1-0xFF > sPanAni: .lb, .db, .db, .db, .db;
-	!0xE5 > saVolFM: .db, .db;
+	!0xE5 > saVolFMP: .db, .db;
 	!0xE6 > saVolFM: .db;
 	=sHold 0xE7
 	!0xE8 > sNoteTimeOut: .db;
@@ -340,7 +248,10 @@ c \type\ == 'sfx' {
 	!0xEF > sPatFM: .db;
 	!0xF0 > ssModZ80: .db, .db, .db, .db;
 	!0xF1 > sModEnv: .db, .db {
-		:0 {
+		:?0 {
+			?modenv;
+		}
+		:?1 {
 			?modenv;
 		}
 	}
@@ -349,12 +260,12 @@ c \type\ == 'sfx' {
 	}
 	!0xF3 > sNoisePSG: .db;
 	!0xF4 > sModEnv: .db {
-		:0 {
+		:?0 {
 			?modenv;
 		}
 	}
 	!0xF5 > sVolEnvPSG: .db {
-		:0 {
+		:?0 {
 			?volenv;
 		}
 	}
@@ -385,6 +296,14 @@ c \type\ == 'sfx' {
 		%; No song should ever use this command. It may good idea to remove it.
 	}
 	!0xFF, 4 > ssTickMul: .db;
-	!0xFF, 5 > sSSGEG: .db, .db, .db, .db;
-	!0xFF, 6 > sVolEnvFM: .db, .db;
+	!0xFF, 5 > sSSGEG: .db, .db, .db, .db {
+		=op2 .a2
+		:=2 .a1
+		:=1 \op2\
+	}
+	!0xFF, 6 > sVolEnvFM: .db, .db {
+		:?0 {
+			?volenv;
+		}
+	}
 }

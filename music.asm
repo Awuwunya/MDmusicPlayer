@@ -12,7 +12,7 @@ GEMS $14 Aladdin "Aladdin" "Arab Rock"
 
 ; Sonic 3 & Knuckles sound driver music
 SMPS asm Sonic3K "S3K SSZ" "Sonic 3 & Knuckles" "Sky Sanctuary Zone" z80
-SMPS asm Sonic3K "S3K ICZ1" "Sonic 3 & Knuckles" "Ice Cap Zone 1" z80
+SMPS asm Sonic3K "S3K LBZ2" "Sonic 3 & Knuckles" "Launch Base Zone 2" z80
 SMPS asm Sonic3K "S3K Data Select" "Sonic 3 & Knuckles" "Data Select" z80
 
 ; Sonic 1 MegaPCM sound driver music

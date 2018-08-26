@@ -1,12 +1,13 @@
 ### QUACKSHOT SMPS2ASM SCRIPT MADE BY NATSUMI 17/12/21
-c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
+c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
 	+Available types: Music, SFX, Voice
+	$.cc
 	;
 }
 
 =endian 'little'
 
-c \type\ == 'voice' {
+c '\type\' == 'voice' {
 	=offset 0
 	~£_Patches .of
 	/ >patch
@@ -15,7 +16,7 @@ c \type\ == 'voice' {
 
 @offset 0 "Please specify offset of this song in Z80 bank"
 
-c \type\ == 'sfx' {
+c '\type\' == 'sfx' {
 	/ >headersfx
 } {
 	/ >header
@@ -52,7 +53,7 @@ c \type\ == 'sfx' {
 	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
 			~£_PSG? :0
-			:4 {
+			:?4 {
 				?volenv;
 			}
 		}
@@ -157,11 +158,11 @@ c \type\ == 'sfx' {
 }
 
 ?volenv {
-	=VolEnv_00 0
+	=v00 0
 }
 
 ?modenv {
-	=ModEnv_00 0
+	=m00 0
 }
 
 ?DAC {
@@ -285,11 +286,15 @@ c \type\ == 'sfx' {
 ?comm {
 	!0xD0-0xDF > ssVolQuick: .lb&0xF;
 	!0xE0 > sPan: .db & 0xC0, .lb & 0x3F {
-		:0 {
+		:?0 {
 			=spNone 0x00
 			=spRight 0x40
 			=spLeft 0x80
 			=spCenter 0xC0
+		}
+
+		c .n1 == 0 {
+			:-1
 		}
 	}
 	!0xE1 > ssDetune: .db;
@@ -302,7 +307,7 @@ c \type\ == 'sfx' {
 	=sHold 0xE7
 	!0xE8 > sNoteTimeOut: .db;
 	!0xE9 > ssLFO: .db, .db;
-	!0xEA > sTimerA: .dw;
+	!0xEA > ssTimerAQu: .dw;
 	!0xEB > sNop: .db;
 	!0xEC > saVolPSG: .db;
 	# Same as E2 and E3, but also sets HOLD
@@ -316,12 +321,12 @@ c \type\ == 'sfx' {
 	}
 	!0xF3 > sNoisePSG: .db;
 	!0xF4 > sModEnv: .db {
-		:0 {
+		:?0 {
 			?modenv;
 		}
 	}
 	!0xF5 > sVolEnvPSG: .db {
-		:0 {
+		:?0 {
 			?volenv;
 		}
 	}

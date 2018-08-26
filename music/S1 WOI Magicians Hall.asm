@@ -10,15 +10,15 @@ Magicians_Hall_Header:
 	sHeaderFM	Magicians_Hall_FM4, $00, $1D
 	sHeaderFM	Magicians_Hall_FM5, $00, $1D
 	sHeaderFM	Magicians_Hall_FM6, $00, $1C
-	sHeaderPSG	Magicians_Hall_PSG1, $DC, $02, $00, VolEnv_00
-	sHeaderPSG	Magicians_Hall_PSG2, $DC, $02, $00, VolEnv_00
-	sHeaderPSG	Magicians_Hall_PSG3, $DC, $02, $00, VolEnv_00
+	sHeaderPSG	Magicians_Hall_PSG1, $DC, $02, $00, v00
+	sHeaderPSG	Magicians_Hall_PSG2, $DC, $02, $00, v00
+	sHeaderPSG	Magicians_Hall_PSG3, $DC, $02, $00, v00
 
 Magicians_Hall_FM1:
 	dc.b nRst, $06
 
 Magicians_Hall_Jump1:
-	sPan		spCenter, $00
+	sPan		spCenter
 	sPatFM		$00
 	dc.b nAb2, $04, nEb3, nAb3, nA3, nB3, nEb4, nAb4
 	dc.b nA4, nB4, nEb5, nA5, nB5, nA5, nFs5, nCs5
@@ -60,7 +60,7 @@ Magicians_Hall_Jump1:
 	sJump		Magicians_Hall_Jump1
 
 Magicians_Hall_FM2:
-	sPan		spCenter, $00
+	sPan		spCenter
 	sPatFM		$00
 	dc.b nAb2, $04, nEb3, nAb3, nA3, nB3, nEb4, nAb4
 	dc.b nA4, nB4, nEb5, nA5, nB5, nA5, nFs5, nCs5
@@ -102,7 +102,7 @@ Magicians_Hall_FM2:
 	sJump		Magicians_Hall_FM2
 
 Magicians_Hall_FM3:
-	sPan		spCenter, $00
+	sPan		spCenter
 	sPatFM		$01
 	dc.b nAb1, $10, nEb2, nB2, nA2, nCs2, nFs1, nAb1
 	dc.b nEb2, nB2, nFs2, nCs2, nFs1, nAb1, nEb2, nB2
@@ -117,110 +117,110 @@ Magicians_Hall_FM3:
 	sJump		Magicians_Hall_FM3
 
 Magicians_Hall_FM4:
-	sPan		spRight, $00
+	sPan		spRight
 	sPatFM		$02
 	dc.b nEb4, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nEb5, $08, $08, nB4, $08, $08, nCs5
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nE5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs5, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nB4, $08, $08, nAb4, $08, $08, nA4
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nEb4, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nEb5, $08, $08, nB4, $08, $08, nCs5
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nE5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs5, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nAb5, $08, $08, nFs5, $08, $08, nE5
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nEb5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs5, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb4, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nEb5, $08, $08, nB4, $08, $08, nCs5
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nE5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs5, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nB4, $08, $08, nAb4, $08, $08, nA4
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nEb4, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nEb5, $08, $08, nB4, $08, $08, nCs5
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nE5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs5, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nAb5, $08, $08, nFs5, $08, $08, nA5
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, $08, $08, $08, $08, nCs5, $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nD5, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, $08, $08, $08, $08, nCs5, $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nD5, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, $08, $08, $08, $08, nCs5, $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nD5, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, $08, $08, $08, $08, nCs5, $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nD5, $08, $08
 	sJump		Magicians_Hall_FM4
 
@@ -228,114 +228,114 @@ Magicians_Hall_FM5:
 	dc.b nRst, $06
 
 Magicians_Hall_Jump2:
-	sPan		spRight, $00
+	sPan		spRight
 	sPatFM		$02
 	dc.b nEb4, $04
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb3, nEb4, nEb3, nEb5, nEb4, nEb5, nEb4, nB4
 	dc.b nB3, nB4, nB3, nCs5, nCs4, nCs5, nCs4
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nE5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nE4, nE5, nE4, nCs5, nCs4, nCs5, nCs4
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb4, nEb5, nEb4, nB4, nB3, nB4, nB3, nAb4
 	dc.b nAb3, nAb4, nAb3, nA4, nA3, nA4, nA3
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nEb4
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb3, nEb4, nEb3, nEb4, nEb3, nEb4, nEb3
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb4
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb3, nEb4, nEb3, nEb5, nEb4, nEb5, nEb4, nB4
 	dc.b nB3, nB4, nB3, nCs5, nCs4, nCs5, nCs4
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nE5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nE4, nE5, nE4, nCs5, nCs4, nCs5, nCs4
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb4, nEb5, nEb4, nAb5, nAb4, nAb5, nAb4, nFs5
 	dc.b nFs4, nFs5, nFs4, nE5, nE4, nE5, nE4
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nEb5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb4, nEb5, nEb4, nCs5, nCs4, nCs5, nCs4
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb4
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb3, nEb4, nEb3, nEb5, nEb4, nEb5, nEb4, nB4
 	dc.b nB3, nB4, nB3, nCs5, nCs4, nCs5, nCs4
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nE5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nE4, nE5, nE4, nCs5, nCs4, nCs5, nCs4
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb4, nEb5, nEb4, nB4, nB3, nB4, nB3, nAb4
 	dc.b nAb3, nAb4, nAb3, nA4, nA3, nA4, nA3
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nEb4
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb3, nEb4, nEb3, nEb4, nEb3, nEb4, nEb3
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb4
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb3, nEb4, nEb3, nEb5, nEb4, nEb5, nEb4, nB4
 	dc.b nB3, nB4, nB3, nCs5, nCs4, nCs5, nCs4
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nE5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nE4, nE5, nE4, nCs5, nCs4, nCs5, nCs4
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb4, nEb5, nEb4, nAb5, nAb4, nAb5, nAb4, nFs5
 	dc.b nFs4, nFs5, nFs4, nA5, nA4, nA5, nA4
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nA5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nA4, nA5, nA4, nA5, nA4, nA5, nA4
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb4, nEb5, nEb4, nEb5, nEb4, nEb5, nEb4, nEb5
 	dc.b nEb4, nEb5, nEb4, nCs5, nCs4, nCs5, nCs4
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nCs5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nCs4, nCs5, nCs4, nD5, nD4, nD5, nD4
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb4, nEb5, nEb4, nEb5, nEb4, nEb5, nEb4, nEb5
 	dc.b nEb4, nEb5, nEb4, nCs5, nCs4, nCs5, nCs4
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nCs5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nCs4, nCs5, nCs4, nD5, nD4, nD5, nD4
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb4, nEb5, nEb4, nEb5, nEb4, nEb5, nEb4, nEb5
 	dc.b nEb4, nEb5, nEb4, nCs5, nCs4, nCs5, nCs4
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nCs5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nCs4, nCs5, nCs4, nD5, nD4, nD5, nD4
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nEb4, nEb5, nEb4, nEb5, nEb4, nEb5, nEb4, nEb5
 	dc.b nEb4, nEb5, nEb4, nCs5, nCs4, nCs5, nCs4
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nCs5
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nCs4, nCs5, nCs4, nD5, nD4, nD5, $08
 	sJump		Magicians_Hall_Jump2
 
@@ -343,117 +343,117 @@ Magicians_Hall_FM6:
 	dc.b nRst, $04
 
 Magicians_Hall_Jump3:
-	sPan		spCenter, $00
+	sPan		spCenter
 	sPatFM		$02
 	dc.b nEb3, $08, $08, nEb4, $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nB3, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nE4, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08, nEb4, $08, $08, nB3
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nAb3, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nA3, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb3, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, $08, $08, $08, $08, nEb4, $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nB3, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nE4, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08, nEb4, $08, $08, nAb4
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nFs4, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nE4, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb4, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08, nEb3, $08, $08, nEb4
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nB3, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nE4, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08, nEb4, $08, $08, nB3
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nAb3, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nA3, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nEb3, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, $08, $08, $08, $08, nEb4, $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nB3, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nE4, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08, nEb4, $08, $08, nAb4
 	dc.b $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nFs4, $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nA4, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, $08, $08, nEb4, $08, $08, $08, $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nD4, $08, $08, nEb4, $08, $08, $08
 	dc.b $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nD4, $08, $08, nEb4, $08, $08, $08
 	dc.b $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nD4, $08, $08, nEb4, $08, $08, $08
 	dc.b $08
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nCs4, $08, $08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b $08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b $08, nD4, $08, $08
 	sJump		Magicians_Hall_Jump3
 
 Magicians_Hall_PSG1:
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	dc.b nEb4, $30, nCs4, $20, nE4, $10, nEb4, $30
 	dc.b nE4, $10, nFs4, nE4, nEb4, $30, nCs4, $20
 	dc.b nE4, $10, nEb4, $30, nE4, $10, nFs4, nE4
@@ -476,7 +476,7 @@ Magicians_Hall_PSG1:
 	sJump		Magicians_Hall_PSG1
 
 Magicians_Hall_PSG2:
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	dc.b nAb4, $30, nFs4, $20, nA4, $10, nAb4, $30
 	dc.b nA4, $10, nB4, nA4, nAb4, $30, nFs4, $20
 	dc.b nA4, $10, nAb4, $30, nA4, $10, nB4, nA4
@@ -501,7 +501,7 @@ Magicians_Hall_PSG3:
 	dc.b nRst, $06
 
 Magicians_Hall_Jump4:
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	dc.b nAb4, $30, nFs4, $20, nA4, $10, nAb4, $30
 	dc.b nA4, $10, nB4, nA4, nAb4, $30, nFs4, $20
 	dc.b nA4, $10, nAb4, $30, nA4, $10, nB4, nA4

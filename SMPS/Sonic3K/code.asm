@@ -397,6 +397,7 @@ DAC_A1_Setup\id:	DAC_Setup $0A,A1
 ; ---------------------------------------------------------------------------
 
 S3KZ80DACBanks:
+	MakeBankID DAC_81_Inc	; table is 0-index
 	MakeBankID DAC_81_Inc, DAC_82_85_Inc, DAC_82_85_Inc, DAC_82_85_Inc
 	MakeBankID DAC_82_85_Inc, DAC_86_Inc, DAC_87_Inc, DAC_88_Inc
 	MakeBankID DAC_89_Inc, DAC_8A_8B_Inc, DAC_8A_8B_Inc, DAC_8C_Inc

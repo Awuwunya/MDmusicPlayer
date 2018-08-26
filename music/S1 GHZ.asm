@@ -9,26 +9,26 @@ GreenHill_Header:
 	sHeaderFM	GreenHill_FM3, $F4, $14
 	sHeaderFM	GreenHill_FM4, $F4, $08
 	sHeaderFM	GreenHill_FM5, $F4, $20
-	sHeaderPSG	GreenHill_PSG1, $D0, $01, $00, VolEnv_03
-	sHeaderPSG	GreenHill_PSG2, $D0, $03, $00, VolEnv_06
-	sHeaderPSG	GreenHill_PSG3, $00, $03, $00, VolEnv_04
+	sHeaderPSG	GreenHill_PSG1, $D0, $01, $00, v03
+	sHeaderPSG	GreenHill_PSG2, $D0, $03, $00, v06
+	sHeaderPSG	GreenHill_PSG3, $00, $03, $00, v04
 
 GreenHill_FM1:
 	sPatFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	sCall		GreenHill_Call1
-	sPan		spCenter, $00
+	sPan		spCenter
 
 GreenHill_Loop1:
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nE7, $04
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nC7
 	saVolFM		$01
 	sLoop		$00, $0D, GreenHill_Loop1
 	dc.b nE7, $04, nRst, $14
 	saVolFM		$EB
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst, $40, nRst, nRst, nRst, nRst, nRst
 
 GreenHill_Jump1:
@@ -40,7 +40,9 @@ GreenHill_Jump1:
 	dc.b nC6, $38
 	sCall		GreenHill_Call2
 	dc.b nC6, $08, $08, nE6
+	saTranspose	$0C
 	sPatFM		$06
+	saTranspose	$F4
 	dc.b nD6, $34, sHold, $34, nC6, $08, nD6, nE6
 	dc.b $38, sHold, $38, nC6, $08, nC6, nE6, nEb6
 	dc.b $34, sHold, $34, nC6, $08, nEb6, nD6, $1C
@@ -158,10 +160,10 @@ GreenHill_Call4:
 
 GreenHill_FM3:
 	sPatFM		$02
-	sPan		spLeft, $00
+	sPan		spLeft
 	sCall		GreenHill_Call1
 	sPatFM		$08
-	sPan		spCenter, $00
+	sPan		spCenter
 	saTranspose	$E8
 	saVolFM		$FE
 	dc.b nRst, $01
@@ -212,7 +214,7 @@ GreenHill_Jump3:
 	dc.b $04, nRst, nC7, nRst, nE7, nRst
 	saTranspose	$18
 	sPatFM		$07
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$1E
 	saVolFM		$06
 	dc.b nF5, $18, $18, $18, $18, $08, nRst, nF5
@@ -239,7 +241,7 @@ GreenHill_Call6:
 GreenHill_FM4:
 	sPatFM		$08
 	dc.b nRst, $20, nRst
-	sPan		spLeft, $00
+	sPan		spLeft
 	saTranspose	$E8
 	saVolFM		$0A
 
@@ -268,7 +270,7 @@ GreenHill_Jump4:
 	sPatFM		$05
 	saTranspose	$E8
 	saVolFM		$18
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$FD
 	sCall		GreenHill_Call7
 	dc.b nD5, nD5, nE5, nE5, nC5, nC5, nA4, nA4
@@ -292,7 +294,7 @@ GreenHill_Jump4:
 	saVolFM		$E8
 	sPatFM		$07
 	sNoteTimeOut	$1E
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$12
 	dc.b nD5, $18, $18, $18, $18, $08, nRst, nD5
 	dc.b nRst, nC5, $18, $18, $18, $18, $08, nRst
@@ -312,7 +314,7 @@ GreenHill_FM5:
 	sPatFM		$03
 	dc.b nRst, $20, nRst
 	sPatFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	saTranspose	$E8
 	saVolFM		$F2
 
@@ -339,7 +341,7 @@ GreenHill_Loop9:
 GreenHill_Jump5:
 	sPatFM		$05
 	saTranspose	$E8
-	sPan		spRight, $00
+	sPan		spRight
 	saVolFM		$FD
 	sCall		GreenHill_Call8
 	dc.b nD5, nD5, nE5, nE5, nC5, nC5, nA4, nA4
@@ -391,7 +393,7 @@ GreenHill_Call8:
 	sRet
 
 GreenHill_PSG1:
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	ssMod68k	$0E, $01, $01, $03
 	dc.b nRst, $40
 	sNoteTimeOut	$10
@@ -407,7 +409,7 @@ GreenHill_PSG1:
 	sModOff
 
 GreenHill_Loop15:
-	sVolEnvPSG	VolEnv_01
+	sVolEnvPSG	v01
 
 GreenHill_Loop14:
 	dc.b nRst, $10, nC6, $04, nRst, $14, nC6, $08
@@ -418,7 +420,7 @@ GreenHill_Loop14:
 	dc.b nRst, $20, nG5, $04, nRst, $14, nG5, $08
 	dc.b nRst, $10
 	sLoop		$00, $02, GreenHill_Loop15
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	dc.b nBb6, $18, nA6, nG6, nF6, nE6, $08, nRst
 	dc.b nD6, nRst, nA5, $18, nB5, nC6, nD6, nE6
 	dc.b $08, nRst, nA6, nRst, nAb6, $18, nG6, nF6
@@ -427,7 +429,7 @@ GreenHill_Loop14:
 	saVolPSG	$01
 	dc.b nA5, $18, $08, nRst, nA5, nRst
 	saVolPSG	$FF
-	sVolEnvPSG	VolEnv_03
+	sVolEnvPSG	v03
 	sJump		GreenHill_Loop15
 
 GreenHill_PSG2:
@@ -442,7 +444,7 @@ GreenHill_Loop16:
 	sNoteTimeOut	$00
 
 GreenHill_Loop18:
-	sVolEnvPSG	VolEnv_01
+	sVolEnvPSG	v01
 
 GreenHill_Loop17:
 	dc.b nRst, $10, nE6, $04, nRst, $14, nE6, $08
@@ -456,10 +458,10 @@ GreenHill_Loop17:
 	dc.b nD6, $34, sHold, $34, nC6, $08, nD6, nE6
 	dc.b $38, sHold, $38, nC6, $08, nC6, nE6, nEb6
 	dc.b $34, sHold, $34, nC6, $08, nEb6, nD6
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	dc.b nC5, $18, $18, $18, $18, $08, nRst, nC5
 	dc.b nRst
-	sVolEnvPSG	VolEnv_03
+	sVolEnvPSG	v03
 	sJump		GreenHill_Loop18
 
 GreenHill_PSG3:

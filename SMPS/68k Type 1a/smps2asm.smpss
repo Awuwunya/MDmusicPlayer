@@ -1,19 +1,25 @@
-### DYNAMITE HEADDY SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/08
+### 68K TYPE 1A GENERIC SMPS2ASM SCRIPT MADE BY NATSUMI 18/08/25
+
+# check for valid script parse type
 c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
 	+Available types: Music, SFX, Voice
+	# wait for user to press a key before exit
 	$.cc
 	;
 }
 
+# set necessary parse variables
 =endian 'big'
 =offset 0
 
+# if this is a voice, just go straight to parsing them
 c '\type\' == 'voice' {
 	~£_Patches .of
 	/ >patch
 	;
 }
 
+# determine parse routine
 c '\type\' == 'sfx' {
 	/ >headersfx
 } {
@@ -21,29 +27,37 @@ c '\type\' == 'sfx' {
 }
 
 ?header {
+	# this line will initialize SMPS2ASM assembly
 	! > sHeaderInit: {
 		~£_Header .of
 	}
 
+	# pointer to voice table
 	! > sHeaderPatch: .dw {
 		~£_Patches :0
 	}
 
+	# load number of channels into variables
 	=FMnum .db
 	=PSGnum .nb
 	! > sHeaderCh: .lb, .db;
+
+	# prepare tempo and DAC header
 	! > sHeaderTempo: .db, .db;
 	! > sHeaderDAC: .dw {
 		~£_DAC :0
 	}
 
 	$ .sw
+
+	# process each FM channel
 	f \FMnum\ - 1 {
 		! > sHeaderFM: .dw, .db, .db {
 			~£_FM? :0
 		}
 	}
 
+	# process each PSG channel
 	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
 			~£_PSG? :0
@@ -53,6 +67,7 @@ c '\type\' == 'sfx' {
 		}
 	}
 
+	# disassemble all smps data
 	/£_FM? ?note ?comm
 	/£_PSG? ?note ?comm
 	/£_DAC ?DAC ?comm
@@ -60,35 +75,46 @@ c '\type\' == 'sfx' {
 }
 
 ?headersfx {
+	# this line will initialize SMPS2ASM assembly
 	! > sHeaderInit: {
 		~£_Header .of
 	}
+
+	# pointer to voice table
 	! > sHeaderPatch: .dw {
 		~£_Patches :0
 	}
 
+	# load tick count and channel count
 	! > sHeaderTick: .db;
 	=CHnum .db
 	! > sHeaderCh: \CHnum\;
 	=trpd 0
 	=trpn 0
 
+	# repeat this monstrocity for each channel
 	f \CHnum\ {
+		# load the channel type parameter
 		>f 1
 		=trpd .nb
 		>b 1
+
+		# check if FM or PSG channel
 		c (\trpd\ & 0x80) == 0 {
 			=trpn (\trpd\&3)+1
 
+			# if this is a part 2 channel, we need special calculation
 			c (\trpd\ & 4) != 0 {
 				=trpn \trpn\+3
 			}
 
+			# initialize FM channel
 			! > sHeaderSFX: .db, .db, .dw, .db, .db {
 				~£_FM\trpn\ :2
 			}
 
 		} {
+			# initialize PSG channel
 			=trpn ((\trpd\&0x60)>>5)+1
 			! > sHeaderSFX: .db, .db, .dw, .db, .db {
 				~£_PSG\trpn\ :2
@@ -97,20 +123,28 @@ c '\type\' == 'sfx' {
 
 	}
 
+	# disassemble all smps data
 	/£_FM? ?note ?comm
 	/£_PSG? ?note ?comm
 	/£_Patches >patch
 }
 
 ?patch {
+	# reset variables
 	=num 0
 	=b1 0
 	=b2 0
 	=b3 0
 	=b4 0
+
+	# repeat until the next lable (this may disassemble too much data!)
 	f (.an-.pc)/25 {
+		# prepare the comment describing the voice
 		%\n\t; Patch {$2!\num\}\r\n\t; {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}
+		# fix the cursor position
 		>b 25
+
+		# this long ass code just disassembles each part of the voice into correct macros
 		! > spAlgorithm: .nb&0x7;
 		! > spFeedback: (.db&0x38)>>3;
 		=b1 .db
@@ -149,131 +183,22 @@ c '\type\' == 'sfx' {
 		=num \num\+1
 	}
 
+	# check if there is still 1 byte left
 	c (.an-.pc)==1 {
+		# if next byte is 0, then use the assembler macro 'even'!
 		!0 > even:;
 	}
 }
 
-?volenv {
-	=v00 0
-	=v01 1
-	=v02 2
-	=v03 3
-	=v04 4
-	=v05 5
-	=v06 6
-	=v07 7
-	=v08 8
-	=v09 9
-	=v0A 0x0A
-	=v0B 0x0B
-	=v0C 0x0C
-	=v0D 0x0D
-	=v0E 0x0E
-	=v0F 0x0F
-	=v10 0x10
-	=v11 0x11
-	=v12 0x12
-	=v13 0x13
-	=v14 0x14
-	=v15 0x15
-	=v16 0x16
-	=v17 0x17
-}
-
-?modenv {
-	=m00 0
-	=m01 1
-	=m02 2
-	=m03 3
-	=m04 4
-	=m05 5
-	=m06 6
-	=m07 7
-	=m08 8
-	=m09 9
-}
-
-?DAC {
-	=nRst 0x80
-	=d81 0x81
-	=d82 0x82
-	=d83 0x83
-	=d84 0x84
-	=d85 0x85
-	=d86 0x86
-	=d87 0x87
-	=d88 0x88
-	=d89 0x89
-	=d8A 0x8A
-	=d8B 0x8B
-	=d8C 0x8C
-	=d8D 0x8D
-	=d8E 0x8E
-	=d8F 0x8F
-	=d90 0x90
-	=d91 0x91
-	=d92 0x92
-	=d93 0x93
-	=d94 0x94
-	=d95 0x95
-	=d96 0x96
-	=d97 0x97
-	=d98 0x98
-	=d99 0x99
-	=d9A 0x9A
-	=d9B 0x9B
-	=d9C 0x9C
-	=d9D 0x9D
-	=d9E 0x9E
-	=d9F 0x9F
-	=dA0 0xA0
-	=dA1 0xA1
-	=dA2 0xA2
-	=dA3 0xA3
-	=dA4 0xA4
-	=dA5 0xA5
-	=dA6 0xA6
-	=dA7 0xA7
-	=dA8 0xA8
-	=dA9 0xA9
-	=dAA 0xAA
-	=dAB 0xAB
-	=dAC 0xAC
-	=dAD 0xAD
-	=dAE 0xAE
-	=dAF 0xAF
-	=dB0 0xB0
-	=dB1 0xB1
-	=dB2 0xB2
-	=dB3 0xB3
-	=dB4 0xB4
-	=dB5 0xB5
-	=dB6 0xB6
-	=dB7 0xB7
-	=dB8 0xB8
-	=dB9 0xB9
-	=dBA 0xBA
-	=dBB 0xBB
-	=dBC 0xBC
-	=dBD 0xBD
-	=dBE 0xBE
-	=dBF 0xBF
-	=dC0 0xC0
-	=dC1 0xC1
-	=dC2 0xC2
-	=dC3 0xC3
-	=dC4 0xC4
-	=dC5 0xC5
-	=dC6 0xC6
-	=dC7 0xC7
-	=dC8 0xC8
-}
-
+	# include bunch of important files
+	sinc "..\SMPS\SMPS full VolEnv set.smpss"
+	sinc "..\SMPS\SMPS full DAC set.smpss"
 	sinc "..\SMPS\SMPS default notes.smpss"
 
 ?comm {
+	# PANAFMS 	PAFMS_PAN
 	!0xE0 > sPan: .db & 0xC0, .lb & 0x3F {
+		# first argument is one of the following
 		:?0 {
 			=spNone 0x00
 			=spRight 0x40
@@ -281,77 +206,125 @@ c '\type\' == 'sfx' {
 			=spCenter 0xC0
 		}
 
+		# if the second argument would be 0, delete it
 		c .n1 == 0 {
 			:-1
 		}
+	}
 
-	}
+	# DETUNE
 	!0xE1 > ssDetune: .db;
+
+	# SET_COMM
 	!0xE2 > sComm: .db;
-	!0xE3 > sMuteStopFM:{
-		;
-	}
+
+	# IGNORE
+	#!0xE3 > <unknown>:;
+
+	# PAN_ANIM
+	# pan animation has 2 modes; if first arg is 0, it will end it. Otherwise, more args will be used
 	!0xE4, 0 > sPanAni:;
 	!0xE4, 1-0xFF > sPanAni: .lb, .db, .db, .db, .db;
+
+	# VOLUME  	VOL_NN_FMP
 	!0xE5 > saVolFMP: .db, .db;
+
+	# VOLUME  	VOL_NN_FM
 	!0xE6 > saVolFM: .db;
+
+	# HOLD
+	# hold is a special flag, which is not used like a macro, but embedded into the note data!
 	=sHold 0xE7
+
+	# NOTE_STOP	NSTOP_NORMAL
 	!0xE8 > sNoteTimeOut: .db;
+
+	# SET_LFO 	LFO_AMSEN
 	!0xE9 > ssLFO: .db, .db;
+
+	# TEMPO   	TEMPO_ADD
 	!0xEA > ssTempo: .db;
+
+	# SND_CMD
 	!0xEB > sPlaySound: .db;
+
+	# VOLUME  	VOL_NN_PSG
 	!0xEC > saVolPSG: .db;
+
+	# FM_COMMAND	FMW_CHN
 	!0xED > sYMcmd: .db, .db;
+
+	# FM_COMMAND	FMW_FM1
 	!0xEE > sYM1cmd: .db, .db;
+
+	# INSTRUMENT	INS_N_FM
 	!0xEF > sPatFM: .db;
+
+	# MOD_SETUP
 	!0xF0 > ssMod68k: .db, .db, .db, .db;
-	!0xF1 > sModEnv: .db, .db {
-		:?0 {
-			?modenv;
-		}
-		:?1 {
-			?modenv;
-		}
-	}
+
+	# MOD_SET 	MODS_ON
+	!0xF1 > sModOn:;
+
+	# TRK_END 	TEND_MUTE
 	!0xF2 > sStop:{
 		;
 	}
+
+	# PSG_NOISE	PNOIS_SET
 	!0xF3 > sNoisePSG: .db;
-	!0xF4 > sModEnv: .db {
-		:?0 {
-			?modenv;
-		}
-	}
+
+	# MOD_SET 	MODS_OFF
+	!0xF4 > sModOff:;
+
+	# INSTRUMENT	INS_N_PSG
 	!0xF5 > sVolEnvPSG: .db {
 		:?0 {
 			?volenv;
 		}
 	}
+
+	# GOTO
 	!0xF6 > sJump: .ow {
 		~£_Jump? :0
 		;
 	}
+
+	# LOOP
 	!0xF7 > sLoop: .db, .db, .ow {
 		~£_Loop? :2
 	}
+
+	# GOSUB
 	!0xF8 > sCall: .ow {
 		~£_Call? :0
 	}
+
+	# RETURN
 	!0xF9 > sRet:{
 		;
 	}
+
+	# TICK_MULT	TMULT_CUR
 	!0xFA > ssTickMulCh: .db;
+
+	# TRANSPOSE	TRNSP_ADD
 	!0xFB > saTranspose: .db;
-	!0xFC > sModOn:;
-	!0xFD > sModOff:;
-	!0xFE > sSpecFM3: .db, .db, .db, .db;
-	!0xFF, 0 > sSSGEG: .db, .db, .db, .db {
+
+	# TICK_MULT	TMULT_ALL
+	!0xFC > ssTickMul: .db;
+
+	# SSG_EG  	SEG_FULLATK
+	!0xFD > sSSGEG: .db, .db, .db, .db {
+		# swap op2 and op3
 		=op2 .a2
 		:=2 .a1
 		:=1 \op2\
 	}
-	!0xFF, 1 > sMusPause: .db;
-	!0xFF, 2 > ssTickMul: .db;
-	!0xFF, 3 > sFadeSpec: .db, .db;
-	!0xFF, 4 > sFadeSpec:;
+
+	# SPC_FM3
+	!0xFE > sSpecFM3: .db, .db, .db, .db;
+
+	# MUS_PAUSE	MUSP_68K	[META]
+	!0xFF, 0 > sMusPause: .db;
 }

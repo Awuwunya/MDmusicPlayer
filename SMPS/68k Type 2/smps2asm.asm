@@ -1,29 +1,47 @@
+; =============================================================================================
+; ---------------------------------------------------------------------------------------------
+; Example SMPS2ASM macro file for 68k type 2; Mean to be derived from, when
+; creating game-specific definitions
+; ---------------------------------------------------------------------------------------------
 smpsIsZ80 =	0
+
+; E7 - Do not attack of next note (HOLD)
 sHold =		$E7
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
-	enum $00,   v00,v01,v02,v03,v04,v05,v06
-	enum v06+1, v07,v08,v09,v0A,v0B,v0C,v0D
-	enum v0D+1, v0E,v0F,v10,v11,v12,v13,v14
-	enum v14+1, v15,v16,v17
+	enum $00,   v00,v01,v02,v03,v04,v05,v06,v07
+	enum v07+1, v08,v09,v0A,v0B,v0C,v0D,v0E,v0F
+	enum v0F+1, v10,v11,v12,v13,v14,v15,v16,v17
+	enum v17+1, v18,v19,v1A,v1B,v1C,v1D,v1E,v1F
+	enum v1F+1, v20,v21,v22,v23,v24,v25,v26,v27
+	enum v27+1, v28,v29,v2A,v2B,v2C,v2D,v2E,v2F
+	enum v2F+1, v30,v31,v32,v33,v34,v35,v36,v37
+	enum v37+1, v38,v39,v3A,v3B,v3C,v3D,v3E,v3F
 ; ---------------------------------------------------------------------------------------------
 ; PSG modulation envelope equates
-	enum $00,   m00,m01,m02,m03,m04,m05,m06
-	enum m06+1, m07,m08,m09
+	enum $00,   m00,m01,m02,m03,m04,m05,m06,m07
+	enum m07+1, m08,m09,m0A,m0B,m0C,m0D,m0E,m0F
+	enum m0F+1, m10,m11,m12,m13,m14,m15,m16,m17
+	enum m17+1, m18,m19,m1A,m1B,m1C,m1D,m1E,m1F
+	enum m1F+1, m20,m21,m22,m23,m24,m25,m26,m27
+	enum m27+1, m28,m29,m2A,m2B,m2C,m2D,m2E,m2F
+	enum m2F+1, m30,m31,m32,m33,m34,m35,m36,m37
+	enum m37+1, m38,m39,m3A,m3B,m3C,m3D,m3E,m3F
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
-	enum $81, d81,d82,d83,d84,d85,d86,d87,d88,d89,d8A,d8B,d8C,d8D,d8E,d8F
-	enum $90, d90,d91,d92,d93,d94,d95,d96,d97,d98,d99,d9A,d9B,d9C,d9D,d9E,d9F
-	enum $A0, dA0,dA1,dA2,dA3,dA4,dA5,dA6,dA7,dA8,dA9,dAA,dAB,dAC,dAD,dAE,dAF
-	enum $B0, dB0,dB1,dB2,dB3,dB4,dB5,dB6,dB7,dB8,dB9,dBA,dBB,dBC,dBD,dBE,dBF
-	enum $C0, dC0,dC1,dC2,dC3,dC4,dC5,dC6,dC7,dC8
+	enum $81,	d81,d82,d83,d84,d85,d86,d87,d88,d89,d8A,d8B,d8C,d8D,d8E,d8F
+	enum d8F+1, d90,d91,d92,d93,d94,d95,d96,d97,d98,d99,d9A,d9B,d9C,d9D,d9E,d9F
+	enum d9F+1, dA0,dA1,dA2,dA3,dA4,dA5,dA6,dA7,dA8,dA9,dAA,dAB,dAC,dAD,dAE,dAF
+	enum dAF+1, dB0,dB1,dB2,dB3,dB4,dB5,dB6,dB7,dB8,dB9,dBA,dBB,dBC,dBD,dBE,dBF
+	enum dBF+1, dC0,dC1,dC2,dC3,dC4,dC5,dC6,dC7,dC8,dC9,dCA,dCB,dCC,dCD,dCE,dCF
+	enum dCF+1, dD0,dD1,dD2,dD3,dD4,dD5,dD6,dD7,dD8,dD9,dDA,dDB,dDC,dDD,dDE,dDF
 ; ---------------------------------------------------------------------------------------------
 ; SMPS commands
 
-; E0xx - Panning, AMS, FMS (PANAFMS - PAFMS_PAN)
+; E0xx - Set channel Panning, AMS & FMS (PANAFMS - PAFMS_PAN)
 sPan	macro dir,amsfms
 	if narg=2
-		dc.b $E0,\dir+\amsfms
+		dc.b $E0,\dir|\amsfms
 	else
 		dc.b $E0,\dir
 	endif
@@ -39,11 +57,13 @@ sComm		macro val
 	dc.b $E2,\val
     endm
 
-; E3 - Stop FM (TRK_END - TEND_MUTE)
+; E3 - Mute/Stop FM (TRK_END - TEND_MUTE)
 sMuteStopFM	macro
 	dc.b $E3
     endm
 
+; E400 - Disable pan animation (PAN_ANIM)
+; E4vvwwxxyyzz - Enable pan animation (todo: Checkout what params do) (PAN_ANIM)
 sPanAni		macro v1, v2, v3, v4, v5
 	dc.b $E4
 	if narg=0
@@ -53,13 +73,14 @@ sPanAni		macro v1, v2, v3, v4, v5
 	endif
     endm
 
-; E5yyxx or E6xx - Add xx to volume. yy is broken/ignored (VOLUME - VOL_NN_FMP / VOL_NN_FM)
-saVolFM		macro val1,val2
-	if narg=2
-		dc.b $E5,\val1,\val2
-	else
-		dc.b $E6,\val1
-	endif
+; E5yyxx - For FM channels, add xx to channel volume. For PSG, add yy (VOLUME - VOL_CC_FMP)
+saVolFMP	macro psg,fm
+	dc.b $E5,\psg,\fm
+    endm
+
+; E6xx - Add xx to volume. (VOLUME - VOL_CC_FM)
+saVolFM		macro vol
+	dc.b $E6,\vol
     endm
 
 ; E8xx - Stop note after xx ticks (NOTE_STOP - NSTOP_MULT)
@@ -68,8 +89,8 @@ sNoteTimeOut	macro val
     endm
 
 ; E9xxyy - Set LFO speed to xx and amplitude vibrate to yy (SET_LFO - LFO_AMSEN)
-ssLFO		macro val1, val2
-	dc.b $E9,\val1,\val2
+ssLFO		macro speed, vibrate
+	dc.b $E9,\speed,\vibrate
     endm
 
 ; EAxx - Set music tempo to xx (TEMPO - TEMPO_SET)
@@ -112,13 +133,13 @@ ssMod68k	macro wait,speed,change,step
 	dc.b $F0,\wait,\speed,\change,\step
     endm
 
-; F1xx[yy] - ?? (MOD_ENV - MENV_FMP)
-; F4xx[yy] - ?? (MOD_ENV - MENV_GEN)
-sModEnv		macro val1,val1
+; F1yyxx - For FM channels, set channel modulation envelope to xx. For PSG, use yy (MOD_ENV - MENV_FMP)
+; F4xx - Set channel modulation envelope to xx  (MOD_ENV - MENV_GEN)
+sModEnv		macro psg,fm
 	if narg=1
-		dc.b $F4,\val
+		dc.b $F4,\psg
 	else
-		dc.b $F1,\val1,\val2
+		dc.b $F1,\psg,\fm
 	endif
     endm
 
@@ -133,8 +154,8 @@ sNoisePSG		macro val
     endm
 
 ; F5xx - PSG volume envelope to xx (INSTRUMENT - INS_C_PSG)
-sVolEnvPSG	macro voice
-	dc.b $F5,voice
+sVolEnvPSG	macro env
+	dc.b $F5,\env
     endm
 
 ; F6xxxx - Jump to xxxx (GOTO)
@@ -170,17 +191,17 @@ saTranspose	macro val
 	dc.b $FB,\val
     endm
 
-; FC - Turn on Modulation (MOD_SET - MODS_ON)
+; FC - Turn on Frequency Modulation (MOD_SET - MODS_ON)
 sModOn		macro
 	dc.b $FC
     endm
 
-; FD - Turn off Modulation (MOD_SET - MODS_OFF)
+; FD - Turn off Frequency Modulation (MOD_SET - MODS_OFF)
 sModOff		macro
 	dc.b $FD
     endm
 
-; FEwwxxyyzz - Enable special FM3 mode (broken?) (SPC_FM3)
+; FEwwxxyyzz - Enable special FM3 mode  (SPC_FM3)
 sSpecFM3	macro ind1,ind2,ind3,ind4
 	dc.b $FE,\ind1,\ind2,\ind3,\ind4
     endm
@@ -200,8 +221,8 @@ ssTickMul	macro tmul
 	dc.b $FF,$02,\tmul
     endm
 
-; FF03xxyy - Enable special fade (todo: Checkout what it does)
-; FF04 - Disable special fade
+; FF03xxyy - Enable special fade (todo: Checkout what it does) (FADE_SPC - FDSPC_FMPSG)
+; FF04 - Disable special fade (FADE_SPC - FDSPC_STOP)
 sFadeSpec	macro val1, val2
 	dc.b $FF
 	if narg=0

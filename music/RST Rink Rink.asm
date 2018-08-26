@@ -10,9 +10,9 @@ RinkRink_Header:
 	sHeaderFM	RinkRink_FM3, $00, $1A
 	sHeaderFM	RinkRink_FM4, $00, $1A
 	sHeaderFM	RinkRink_FM5, $0C, $11
-	sHeaderPSG	RinkRink_PSG1, $DC, $04, $00, VolEnv_00
-	sHeaderPSG	RinkRink_PSG2, $E8, $04, $00, VolEnv_00
-	sHeaderPSG	RinkRink_PSG3, $E8, $04, $00, VolEnv_00
+	sHeaderPSG	RinkRink_PSG1, $DC, $04, $00, v00
+	sHeaderPSG	RinkRink_PSG2, $E8, $04, $00, v00
+	sHeaderPSG	RinkRink_PSG3, $E8, $04, $00, v00
 
 RinkRink_FM1:
 	ssPalTempo	$3F
@@ -164,7 +164,7 @@ RinkRink_Loop10:
 	sLoop		$02, $02, RinkRink_Loop11
 	saVolFM		$FE
 	sPatFM		$04
-	sPan		spLeft, $00
+	sPan		spLeft
 	sCall		RinkRink_Call11
 	saVolFM		$F1
 	dc.b nC5, $06, $0C, nC4, nC4, $06
@@ -202,7 +202,7 @@ RinkRink_Loop13:
 	dc.b nC6, $0C, sHold, $30, sHold, $0B, nRst, $01
 	dc.b nF6, $18, nE6, $0C
 	saVolFM		$02
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$0F
 	sPatFM		$03
 
@@ -272,7 +272,7 @@ RinkRink_FM5:
 	sPatFM		$01
 	dc.b nRst, $09
 	saVolFM		$09
-	sPan		spLeft, $00
+	sPan		spLeft
 
 RinkRink_Loop21:
 	dc.b nF4, $18, nC4, nD4, nA3
@@ -291,32 +291,32 @@ RinkRink_Jump2:
 	sNoteTimeOut	$00
 	dc.b nG3, $0B, nRst, $01, nF3, $06, nE3, $03
 	saVolFM		$F7
-	sPan		spCenter, $00
+	sPan		spCenter
 	sPatFM		$01
 	sCall		RinkRink_Call16
 	dc.b nF4, $12
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$06
 	dc.b nF4, $06
 	saVolFM		$FA
 	saVolFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nC4, $12
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$06
 	dc.b nC4, $06
 	saVolFM		$FA
 	saVolFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nD4, $12
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$06
 	dc.b nD4, $06
 	saVolFM		$FA
 	saVolFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nA3, $15
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$F2
 	saVolFM		$09
 	sPatFM		$05
@@ -325,35 +325,35 @@ RinkRink_Jump2:
 	dc.b nF4, nE4
 	sNoteTimeOut	$00
 	dc.b nD4, $03
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$F7
 	sPatFM		$01
 	sCall		RinkRink_Call16
 	dc.b nF4, $12
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$06
 	dc.b nF4, $06
 	saVolFM		$FA
 	saVolFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nC4, $12
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$06
 	dc.b nC4, $06
 	saVolFM		$FA
 	saVolFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nD4, $12
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$06
 	dc.b nD4, $06
 	saVolFM		$FA
 	saVolFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nA4, $0F
 	saVolFM		$F2
 	sPatFM		$04
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$F8
 	saTranspose	$F4
 	sCall		RinkRink_Call12
@@ -405,7 +405,7 @@ RinkRink_Loop23:
 	saVolFM		$08
 	saTranspose	$0C
 	dc.b nRst, $0F
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0C
 	sPatFM		$05
 	ssMod68k	$09, $01, $04, $03
@@ -418,7 +418,7 @@ RinkRink_Loop23:
 	sJump		RinkRink_Jump2
 
 RinkRink_PSG1:
-	sVolEnvPSG	VolEnv_08
+	sVolEnvPSG	v08
 	saVolPSG	$08
 
 RinkRink_Loop24:
@@ -471,7 +471,7 @@ RinkRink_Loop29:
 	sJump		RinkRink_Loop25
 
 RinkRink_PSG2:
-	sVolEnvPSG	VolEnv_19
+	sVolEnvPSG	v19
 	ssMod68k	$20, $02, $01, $02
 	dc.b nC5, $30, sHold, $30, sHold, $30, sHold, $30
 	dc.b sHold, $30, sHold, $30, sHold, $30, nRst, $18
@@ -485,7 +485,7 @@ RinkRink_Jump3:
 	dc.b $18, nBb4, nC5, $30, sHold, $30, sHold, $24
 	dc.b nF5, nE5, $18, nC6, $30, sHold, $30, sHold
 	dc.b $30, sHold, $0C, nRst, $07
-	sVolEnvPSG	VolEnv_08
+	sVolEnvPSG	v08
 	sCall		RinkRink_Call6
 	dc.b nC3, $0C, nF3, nE3
 	sNoteTimeOut	$00
@@ -512,7 +512,7 @@ RinkRink_Jump3:
 	dc.b nRst, $06, nC4, nD4, nC4, nF4, nE4, nD4
 	dc.b $05
 	sNoteTimeOut	$00
-	sVolEnvPSG	VolEnv_19
+	sVolEnvPSG	v19
 	dc.b nF4, $30, sHold, $30, sHold, $30, sHold, $30
 	dc.b sHold, $30, sHold, $30, sHold, $30, sHold, $18
 	dc.b nC4, $18, nC5, $30, sHold, $30, sHold, $30
@@ -521,7 +521,7 @@ RinkRink_Jump3:
 	sJump		RinkRink_Jump3
 
 RinkRink_PSG3:
-	sVolEnvPSG	VolEnv_19
+	sVolEnvPSG	v19
 	dc.b nRst, $0A, nC5, $30, sHold, $30, sHold, $30
 	dc.b sHold, $30, sHold, $30, sHold, $30, sHold, $30
 	dc.b nRst, $18, nC4
@@ -609,34 +609,34 @@ RinkRink_Call8:
 	sNoteTimeOut	$05
 	dc.b nRst, $0C, nC4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nC4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	dc.b nC4, $11, nRst, $01
 	sNoteTimeOut	$05
 	dc.b nC4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nC4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	dc.b nC4, $11, nRst, $01
 	sNoteTimeOut	$05
 	dc.b nC4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nC4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nC4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nC4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	sRet
 
@@ -645,34 +645,34 @@ RinkRink_Call17:
 	sNoteTimeOut	$05
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	dc.b nF4, $11, nRst, $01
 	sNoteTimeOut	$05
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	dc.b nF4, $11, nRst, $01
 	sNoteTimeOut	$05
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nE4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nE4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	sRet
 
@@ -681,34 +681,34 @@ RinkRink_Call18:
 	sNoteTimeOut	$05
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	dc.b nF4, $11, nRst, $01
 	sNoteTimeOut	$05
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	dc.b nF4, $11, nRst, $01
 	sNoteTimeOut	$05
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	sRet
 
@@ -717,34 +717,34 @@ RinkRink_Call13:
 	sNoteTimeOut	$05
 	dc.b nA4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nA4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	dc.b nBb4, $11, nRst, $01
 	sNoteTimeOut	$05
 	dc.b nA4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nA4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	dc.b nBb4, $11, nRst, $01
 	sNoteTimeOut	$05
 	dc.b nA4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nA4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nG4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nG4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	sRet
 
@@ -753,34 +753,34 @@ RinkRink_Call14:
 	sNoteTimeOut	$05
 	dc.b nA4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nA4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	dc.b nBb4, $11, nRst, $01
 	sNoteTimeOut	$05
 	dc.b nA4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nA4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	dc.b nBb4, $11, nRst, $01
 	sNoteTimeOut	$05
 	dc.b nA4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nA4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nBb4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nBb4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	sRet
 
@@ -788,16 +788,16 @@ RinkRink_Call9:
 	sNoteTimeOut	$05
 	dc.b nC4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nC4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst, nC4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nC4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst
 	sNoteTimeOut	$00
 	dc.b nC4, $30, sHold, $0B, nRst, $01
@@ -807,16 +807,16 @@ RinkRink_Call15:
 	sNoteTimeOut	$05
 	dc.b nA4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nA4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst, nG4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nG4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst
 	sNoteTimeOut	$00
 	dc.b nG4, $30, sHold, $0B, nRst, $01
@@ -826,16 +826,16 @@ RinkRink_Call19:
 	sNoteTimeOut	$05
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst, nE4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nE4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst
 	sNoteTimeOut	$00
 	dc.b nE4, $30, sHold, $0B, nRst, $01
@@ -848,42 +848,42 @@ RinkRink_Call10:
 RinkRink_Loop9:
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst
 	sLoop		$00, $06, RinkRink_Loop9
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst, nF4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nG4, $06
 	saVolFM		$08
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nG4
 	saVolFM		$F8
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$00
 	sRet
 
@@ -909,35 +909,35 @@ RinkRink_Call4:
 	sRet
 
 RinkRink_Call16:
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nF4, $12
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$06
 	dc.b nF4, $06
 	saVolFM		$FA
 	saVolFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nC4, $12
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$06
 	dc.b nC4, $06
 	saVolFM		$FA
 	saVolFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nD4, $12
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$06
 	dc.b nD4, $06
 	saVolFM		$FA
 	saVolFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nA3, $12
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$06
 	dc.b nA3, $06
 	saVolFM		$FA
 	saVolFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	sRet
 
 RinkRink_Call7:

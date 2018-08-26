@@ -9,9 +9,9 @@ Izayoi_Header:
 	sHeaderFM	Izayoi_FM3, $00, $0E
 	sHeaderFM	Izayoi_FM4, $00, $10
 	sHeaderFM	Izayoi_FM5, $00, $15
-	sHeaderPSG	Izayoi_PSG1, $DC, $06, $00, VolEnv_08
-	sHeaderPSG	Izayoi_PSG2, $DC, $09, $00, VolEnv_08
-	sHeaderPSG	Izayoi_PSG3, $00, $01, $00, VolEnv_02
+	sHeaderPSG	Izayoi_PSG1, $DC, $06, $00, v08
+	sHeaderPSG	Izayoi_PSG2, $DC, $09, $00, v08
+	sHeaderPSG	Izayoi_PSG3, $00, $01, $00, v02
 
 Izayoi_FM1:
 	dc.b nRst, $30, nRst, $0F
@@ -51,7 +51,7 @@ Izayoi_Jump1:
 	dc.b sHold, $18
 	saVolFM		$07
 	saTranspose	$F4
-	sPan		spCenter, $00
+	sPan		spCenter
 	sPatFM		$41
 	dc.b nA2, $04, nG2, nA2, nB2, nA2, nB2, nC3
 	dc.b nB2, nC3, nD3, nC3, nD3
@@ -62,7 +62,7 @@ Izayoi_Jump1:
 	dc.b nEb3, sHold, nD3, sHold, nCs3, sHold, nC3, sHold
 	dc.b nB2, sHold, nBb2, sHold, nA2, sHold, nAb2, sHold
 	dc.b nG2
-	sPan		spRight, $00
+	sPan		spRight
 	saVolFM		$01
 	sCall		Izayoi_Call3
 	sCall		Izayoi_Call4
@@ -70,7 +70,7 @@ Izayoi_Jump1:
 
 Izayoi_Call1:
 	sPatFM		$41
-	sPan		spRight, $00
+	sPan		spRight
 	ssMod68k	$0F, $01, $04, $05
 	saVolFM		$FA
 	sNoteTimeOut	$02
@@ -113,7 +113,7 @@ Izayoi_Call1:
 Izayoi_Call2:
 	saVolFM		$04
 	sPatFM		$06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nA4, $06, nC5, nE5, nG5, $06, sHold, $18
 	dc.b sHold, $30, nA4, $06, nC5, nE5, nG5, $0C
 	dc.b nFs5, $06, nD5, nFs5, $0C, nE5, $06, nC5
@@ -124,7 +124,7 @@ Izayoi_Call2:
 	dc.b nC6, $06, nAb5, $0C
 	saVolFM		$FC
 	sPatFM		$41
-	sPan		spRight, $00
+	sPan		spRight
 	saTranspose	$0C
 	ssMod68k	$1C, $01, $0A, $04
 	saVolFM		$F9
@@ -198,24 +198,24 @@ Izayoi_Loop1:
 
 Izayoi_Call4:
 	sPatFM		$42
-	sPan		spRight, $00
+	sPan		spRight
 	saTranspose	$0C
 	ssMod68k	$1C, $01, $0A, $04
 	saVolFM		$FD
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nBb2, $06, nE4, $0C, nBb2, $06, nFs4, $18
 	dc.b sHold, $30, nG4, $06, nFs4, nE4, nD4, nE3
 	dc.b nC4, nRst, nD4
 	sPatFM		$41
 	saVolFM		$FB
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nB3, $03, nC4, nB3, nC4, nB3, $0C
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nC4, $03, nB3, nA3, nG3, nFs3, nE3, nEb3
 	dc.b nD3
 	saVolFM		$05
 	sPatFM		$42
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nBb2, $06, nE4, $0C, nBb2, $06, nFs4, $18
 	dc.b sHold, $30, nG4, $06, nFs4, nE4, nD4, nE3
 	dc.b nC4, nRst, nD4
@@ -224,20 +224,20 @@ Izayoi_Call4:
 	dc.b nD5, nB4, nF5, $03, nBb4, nCs5, nBb4, nE5
 	dc.b $03, nA4, nC5, nA4
 	saVolFM		$02
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nBb2, $06, nE4, $0C, nBb2, $06, nFs4, $18
 	dc.b sHold, $30, nG4, $06, nFs4, nE4, nD4, nE3
 	dc.b nC4, nRst, nD4
 	sPatFM		$41
 	saVolFM		$FB
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nB3, $03, nC4, nB3, nC4, nB3, $0C
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nC4, $03, nB3, nA3, nG3, nFs3, nE3, nEb3
 	dc.b nD3
 	saVolFM		$05
 	sPatFM		$42
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nBb2, $06, nE4, $0C, nBb2, $06, nFs4, $0C
 	dc.b nC3, $06, nG4, $0C, nC3, $06, nA4, $0C
 	dc.b nEb3, $06, nBb4, $0C, nEb3, $06, nC5, $30
@@ -567,7 +567,7 @@ Izayoi_Jump3:
 	sCall		Izayoi_Call8
 	saVolFM		$03
 	saTranspose	$F4
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolFM		$FF
 	sPatFM		$41
 	dc.b nC3, $04, nB2, nC3, nD3, nC3, nD3, nE3
@@ -588,7 +588,7 @@ Izayoi_Jump3:
 
 Izayoi_Call5:
 	sPatFM		$42
-	sPan		spLeft, $00
+	sPan		spLeft
 	ssMod68k	$0C, $01, $05, $03
 	saVolFM		$FA
 	saTranspose	$0C
@@ -624,7 +624,7 @@ Izayoi_Call5:
 
 Izayoi_Call6:
 	sPatFM		$42
-	sPan		spLeft, $00
+	sPan		spLeft
 	ssMod68k	$0C, $01, $05, $03
 	saVolFM		$FA
 	saTranspose	$0C
@@ -660,7 +660,7 @@ Izayoi_Call6:
 
 Izayoi_Call7:
 	sPatFM		$41
-	sPan		spRight, $00
+	sPan		spRight
 	ssMod68k	$0F, $01, $04, $05
 	saVolFM		$FB
 
@@ -711,7 +711,7 @@ Izayoi_Loop11:
 
 Izayoi_Call8:
 	sPatFM		$42
-	sPan		spLeft, $00
+	sPan		spLeft
 	saTranspose	$0C
 	ssMod68k	$1C, $01, $0A, $04
 	saVolFM		$FC
@@ -798,7 +798,7 @@ Izayoi_Call8:
 
 Izayoi_Call9:
 	sPatFM		$41
-	sPan		spLeft, $00
+	sPan		spLeft
 	ssMod68k	$1C, $01, $0A, $04
 	saVolFM		$F8
 
@@ -814,18 +814,18 @@ Izayoi_Loop12:
 	dc.b sHold, $24, sHold, $06, nD5, $06, sHold, $24
 	dc.b sHold, $06, nCs5, $06, sHold, $30
 	saVolFM		$08
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst, $06, nC4, $0C, nRst, $06, nD4, $18
 	dc.b sHold, $30, nEb4, $06, nD4, nC4, nA3, nC4
 	dc.b nG3, nRst, nA3
 	saVolFM		$FA
 	sPatFM		$42
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nFs4, $03, nG4, nFs4, nG4, nFs4, $0C
 	saVolFM		$06
 	dc.b nRst, $18
 	sPatFM		$41
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst, $06, nC4, $0C, nRst, $06, nD4, $18
 	dc.b sHold, $30, nEb4, $06, nD4, nC4, nA3, nC4
 	dc.b nG3, nRst, nA3, nRst, $30, nRst, $06, nC4
@@ -833,12 +833,12 @@ Izayoi_Loop12:
 	dc.b $06, nD4, nC4, nA3, nC4, nG3, nRst, nA3
 	saVolFM		$FA
 	sPatFM		$42
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nFs4, $03, nG4, nFs4, nG4, nFs4, $0C
 	saVolFM		$06
 	dc.b nRst, $18
 	sPatFM		$41
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nRst, $06, nC4, $0C, nRst, $06, nD4, $0C
 	dc.b nRst, $06, nEb4, $0C, nRst, $06, nF4, $0C
 	dc.b nRst, $06, nFs4, $0C, nRst, $06, nAb4, $30
@@ -950,7 +950,7 @@ Izayoi_Call10:
 
 Izayoi_Call11:
 	sPatFM		$41
-	sPan		spLeft, $00
+	sPan		spLeft
 	ssMod68k	$0F, $01, $04, $05
 	saVolFM		$F9
 
@@ -1001,7 +1001,7 @@ Izayoi_Loop13:
 
 Izayoi_Call12:
 	sPatFM		$42
-	sPan		spCenter, $00
+	sPan		spCenter
 	saTranspose	$0C
 	ssMod68k	$1C, $01, $0A, $04
 	dc.b nD3, $30
@@ -1100,7 +1100,7 @@ Izayoi_Call14:
 
 Izayoi_FM5:
 	dc.b nRst, $12
-	sPan		spCenter, $00
+	sPan		spCenter
 	sJump		Izayoi_FM1
 	dc.b $F2	; Unused
 
@@ -1125,7 +1125,7 @@ Izayoi_Jump5:
 Izayoi_Call15:
 	saTranspose	$0C
 	ssMod68k	$0C, $02, $02, $03
-	sVolEnvPSG	VolEnv_08
+	sVolEnvPSG	v08
 	dc.b nRst, $30, nRst, nRst, $30, nRst, nRst, $30
 	dc.b nRst, nRst, $30, nRst, nRst
 	saTranspose	$F4
@@ -1134,7 +1134,7 @@ Izayoi_Call15:
 Izayoi_Call16:
 	saTranspose	$0C
 	ssMod68k	$0C, $02, $02, $03
-	sVolEnvPSG	VolEnv_08
+	sVolEnvPSG	v08
 	dc.b nRst, $30, nRst, nRst, $30, nRst, nRst, $30
 	dc.b nRst, nRst, $30, nRst, nRst, $30, nRst
 	saTranspose	$F4
@@ -1145,7 +1145,7 @@ Izayoi_Call17:
 	ssMod68k	$0C, $02, $02, $03
 
 Izayoi_Loop14:
-	sVolEnvPSG	VolEnv_08
+	sVolEnvPSG	v08
 	sNoteTimeOut	$05
 	saVolPSG	$FE
 	dc.b nE3, $06
@@ -1193,7 +1193,7 @@ Izayoi_Loop14:
 Izayoi_Call18:
 	saTranspose	$0C
 	ssMod68k	$0C, $02, $02, $03
-	sVolEnvPSG	VolEnv_08
+	sVolEnvPSG	v08
 	dc.b nD3, $30
 	sNoteTimeOut	$01
 	dc.b nD3, $06
@@ -1256,7 +1256,7 @@ Izayoi_Call19:
 	ssMod68k	$1C, $02, $03, $02
 	saTranspose	$0C
 	saVolPSG	$FD
-	sVolEnvPSG	VolEnv_00
+	sVolEnvPSG	v00
 
 Izayoi_Loop15:
 	dc.b nE4, $06, sHold, $24, sHold, $06, nG4, $06
@@ -1296,33 +1296,33 @@ Izayoi_Jump6:
 	dc.b nRst, $30, nRst, nRst, nRst
 
 Izayoi_Loop16:
-	sVolEnvPSG	VolEnv_01
+	sVolEnvPSG	v01
 	sNoteTimeOut	$02
 	dc.b nA5, $06, nA5, nA5, nA5
 	sLoop		$00, $1D, Izayoi_Loop16
 
 Izayoi_Loop17:
-	sVolEnvPSG	VolEnv_01
+	sVolEnvPSG	v01
 	sNoteTimeOut	$14
 	dc.b nA5, $0C, nA5, nA5, nA5
 	sLoop		$00, $09, Izayoi_Loop17
 	dc.b nRst, $30
 
 Izayoi_Loop18:
-	sVolEnvPSG	VolEnv_01
+	sVolEnvPSG	v01
 	sNoteTimeOut	$02
 	dc.b nA5, $06, nA5, nA5, nA5
 	sLoop		$00, $10, Izayoi_Loop18
 
 Izayoi_Loop19:
-	sVolEnvPSG	VolEnv_01
+	sVolEnvPSG	v01
 	sNoteTimeOut	$14
 	dc.b nA5, $0C, nA5, nA5, nA5
 	sLoop		$00, $0B, Izayoi_Loop19
 	dc.b nRst, $18
 
 Izayoi_Loop20:
-	sVolEnvPSG	VolEnv_01
+	sVolEnvPSG	v01
 	sNoteTimeOut	$0F
 	dc.b nA5, $18
 	sLoop		$00, $18, Izayoi_Loop20
@@ -1333,7 +1333,7 @@ Izayoi_Loop21:
 	sLoop		$00, $08, Izayoi_Loop21
 
 Izayoi_Loop22:
-	sVolEnvPSG	VolEnv_01
+	sVolEnvPSG	v01
 	sNoteTimeOut	$14
 	dc.b nA5, $0C, nA5, nA5, nA5
 	sLoop		$00, $10, Izayoi_Loop22

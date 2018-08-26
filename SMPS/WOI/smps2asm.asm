@@ -2,13 +2,13 @@ smpsIsZ80 =		1
 smpsNoAttack =		$E7
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
-	enum $00,	  VolEnv_00,VolEnv_01,VolEnv_02,VolEnv_03,VolEnv_04,VolEnv_05
-	enum VolEnv_05+1, VolEnv_06,VolEnv_07,VolEnv_08,VolEnv_09,VolEnv_0A,VolEnv_0B
-	enum VolEnv_0B+1, VolEnv_0C,VolEnv_0D,VolEnv_0E,VolEnv_0F,VolEnv_10,VolEnv_11
-	enum VolEnv_11+1, VolEnv_12,VolEnv_13,VolEnv_14,VolEnv_15,VolEnv_16,VolEnv_17
+	enum $00,   v00,v01,v02,v03,v04,v05
+	enum v05+1, v06,v07,v08,v09,v0A,v0B
+	enum v0B+1, v0C,v0D,v0E,v0F,v10,v11
+	enum v11+1, v12,v13,v14,v15,v16,v17
 ; ---------------------------------------------------------------------------------------------
 ; PSG modulation envelope equates
-	enum $00, 	  ModEnv_00
+	enum $00,   m00
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
 ; ---------------------------------------------------------------------------------------------
@@ -175,9 +175,9 @@ saTranspose	macro val
 	dc.b $FB,\val
     endm
 
-; FCxx - Enable pitch slide (PITCH_SLIDE)
+; FCxx - Enable or disable pitch slide (PITCH_SLIDE)
 sPitchSlide	macro val
-	dc.b $FC,val
+	dc.b $FC,\val
     endm
 
 ; FDxx - Enable raw frequency mode (RAW_FREQ)

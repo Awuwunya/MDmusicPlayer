@@ -1,7 +1,24 @@
 ### YUU YUU HAKUSHO SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/08
-=endian "big"
+c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
+	+Available types: Music, SFX, Voice
+	$.cc
+	;
+}
+
+=endian 'big'
 =offset 0
-/ >header
+
+c '\type\' == 'voice' {
+	~£_Patches .of
+	/ >patch
+	;
+}
+
+c '\type\' == 'sfx' {
+	/ >headersfx
+} {
+	/ >header
+}
 
 ?header {
 	! > sHeaderInit: {
@@ -21,16 +38,16 @@
 	}
 
 	$ .sw
-	* \FMnum\ - 1 {
+	f \FMnum\ - 1 {
 		! > sHeaderFM: .dw, .db, .db {
 			~£_FM? :0
 		}
 	}
 
-	* \PSGnum\ {
+	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
 			~£_PSG? :0
-			:4 {
+			:?4 {
 				?volenv;
 			}
 		}
@@ -42,13 +59,56 @@
 	/£_Patches >patch
 }
 
+?headersfx {
+	! > sHeaderInit: {
+		~£_Header .of
+	}
+	! > sHeaderPatch: .dw {
+		~£_Patches :0
+	}
+
+	! > sHeaderTick: .db;
+	=CHnum .db
+	! > sHeaderCh: \CHnum\;
+	=trpd 0
+	=trpn 0
+
+	f \CHnum\ {
+		>f 1
+		=trpd .nb
+		>b 1
+		c (\trpd\ & 0x80) == 0 {
+			=trpn (\trpd\&3)+1
+
+			c (\trpd\ & 4) != 0 {
+				=trpn \trpn\+3
+			}
+
+			! > sHeaderSFX: .db, .db, .dw, .db, .db {
+				~£_FM\trpn\ :2
+			}
+
+		} {
+			=trpn ((\trpd\&0x60)>>5)+1
+			! > sHeaderSFX: .db, .db, .dw, .db, .db {
+				~£_PSG\trpn\ :2
+			}
+		}
+
+	}
+
+	/£_FM? ?note ?comm
+	/£_PSG? ?note ?comm
+	/£_Patches >patch
+}
+
 ?patch {
 	=num 0
 	=b1 0
 	=b2 0
 	=b3 0
 	=b4 0
-	* (.an-.pc)/25 {
+	f (.an-.pc)/25 {
 		%\n\t; Patch {$2!\num\}\r\n\t; {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}
 		>b 25
 		! > spAlgorithm: .nb&0x7;
@@ -89,27 +149,24 @@
 		=num \num\+1
 	}
 
-	¤ (.an-.pc)==1 {
-		¤ .nb==0 {
-			! > even:;
-			$ .sb;
-		}
+	c (.an-.pc)==1 {
+		!0 > even:;
 	}
 }
 
 ?volenv {
-	=VolEnv_00 0
-	=VolEnv_01 1
-	=VolEnv_02 2
-	=VolEnv_03 3
-	=VolEnv_04 4
-	=VolEnv_05 5
-	=VolEnv_06 6
-	=VolEnv_07 7
-	=VolEnv_08 8
-	=VolEnv_09 9
-	=VolEnv_0A 10
-	=VolEnv_0B 11
+	=v00 0
+	=v01 1
+	=v02 2
+	=v03 3
+	=v04 4
+	=v05 5
+	=v06 6
+	=v07 7
+	=v08 8
+	=v09 9
+	=v0A 10
+	=v0B 11
 }
 
 ?DAC {
@@ -141,112 +198,19 @@
 	=d99 0x99
 }
 
-?note {
-	=nRst 0x80
-	=nC0 0x81
-	=nCs0 0x82
-	=nD0 0x83
-	=nEb0 0x84
-	=nE0 0x85
-	=nF0 0x86
-	=nFs0 0x87
-	=nG0 0x88
-	=nAb0 0x89
-	=nA0 0x8A
-	=nBb0 0x8B
-	=nB0 0x8C
-	=nC1 0x8D
-	=nCs1 0x8E
-	=nD1 0x8F
-	=nEb1 0x90
-	=nE1 0x91
-	=nF1 0x92
-	=nFs1 0x93
-	=nG1 0x94
-	=nAb1 0x95
-	=nA1 0x96
-	=nBb1 0x97
-	=nB1 0x98
-	=nC2 0x99
-	=nCs2 0x9A
-	=nD2 0x9B
-	=nEb2 0x9C
-	=nE2 0x9D
-	=nF2 0x9E
-	=nFs2 0x9F
-	=nG2 0xA0
-	=nAb2 0xA1
-	=nA2 0xA2
-	=nBb2 0xA3
-	=nB2 0xA4
-	=nC3 0xA5
-	=nCs3 0xA6
-	=nD3 0xA7
-	=nEb3 0xA8
-	=nE3 0xA9
-	=nF3 0xAA
-	=nFs3 0xAB
-	=nG3 0xAC
-	=nAb3 0xAD
-	=nA3 0xAE
-	=nBb3 0xAF
-	=nB3 0xB0
-	=nC4 0xB1
-	=nCs4 0xB2
-	=nD4 0xB3
-	=nEb4 0xB4
-	=nE4 0xB5
-	=nF4 0xB6
-	=nFs4 0xB7
-	=nG4 0xB8
-	=nAb4 0xB9
-	=nA4 0xBA
-	=nBb4 0xBB
-	=nB4 0xBC
-	=nC5 0xBD
-	=nCs5 0xBE
-	=nD5 0xBF
-	=nEb5 0xC0
-	=nE5 0xC1
-	=nF5 0xC2
-	=nFs5 0xC3
-	=nG5 0xC4
-	=nAb5 0xC5
-	=nA5 0xC6
-	=nBb5 0xC7
-	=nB5 0xC8
-	=nC6 0xC9
-	=nCs6 0xCA
-	=nD6 0xCB
-	=nEb6 0xCC
-	=nE6 0xCD
-	=nF6 0xCE
-	=nFs6 0xCF
-	=nG6 0xD0
-	=nAb6 0xD1
-	=nA6 0xD2
-	=nBb6 0xD3
-	=nB6 0xD4
-	=nC7 0xD5
-	=nCs7 0xD6
-	=nD7 0xD7
-	=nEb7 0xD8
-	=nE7 0xD9
-	=nF7 0xDA
-	=nFs7 0xDB
-	=nG7 0xDC
-	=nAb7 0xDD
-	=nA7 0xDE
-	=nBb7 0xDF
-}
+	sinc "..\SMPS\SMPS default notes.smpss"
 
 ?comm {
 	!0xE0 > sPan: .db & 0xC0, .lb & 0x3F {
-		:0 {
+		:?0 {
 			=spNone 0x00
 			=spRight 0x40
 			=spLeft 0x80
 			=spCenter 0xC0
+		}
+
+		c .n1 == 0 {
+			:-1
 		}
 	}
 	!0xE1 > ssDetune: .db;
@@ -256,7 +220,7 @@
 	}
 	!0xE4, 0 > sPanAni:;
 	!0xE4, 1-0xFF > sPanAni: .lb, .db, .db, .db, .db;
-	!0xE5 > saVolFM: .db, .db;
+	!0xE5 > saVolFMP: .db, .db;
 	!0xE6 > saVolFM: .db;
 	=sHold 0xE7
 	!0xE8 > sNoteTimeOut: .db;
@@ -268,14 +232,25 @@
 	!0xEE > sYM1cmd: .db, .db;
 	!0xEF > sPatFM: .db;
 	!0xF0 > ssMod68k: .db, .db, .db, .db;
-	!0xF1 > sModEnv: .db, .db;
+	!0xF1 > sModEnv: .db, .db {
+		:?0 {
+			?modenv;
+		}
+		:?1 {
+			?modenv;
+		}
+	}
 	!0xF2 > sStop:{
 		;
 	}
 	!0xF3 > sNoisePSG: .db;
-	!0xF4 > sModEnv: .db;
+	!0xF4 > sModEnv: .db {
+		:?0 {
+			?modenv;
+		}
+	}
 	!0xF5 > sVolEnvPSG: .db {
-		:0 {
+		:?0 {
 			?volenv;
 		}
 	}
@@ -297,9 +272,13 @@
 	!0xFC > sModOn:;
 	!0xFD > sModOff:;
 	!0xFE > sSpecFM3: .db, .db, .db, .db;
-	!0xFF, 0 > sSSGEG: .db, .db, .db, .db;
+	!0xFF, 0 > sSSGEG: .db, .db, .db, .db {
+		=op2 .a2
+		:=2 .a1
+		:=1 \op2\
+	}
 	!0xFF, 1 > sMusPause: .db;
 	!0xFF, 2 > ssTickMul: .db;
-	!0xFF, 3 > sFadeSPCTRS: .db, .db;
-	!0xFF, 4 > sFadeSPCTRS:;
+	!0xFF, 3 > sFadeSpec: .db, .db;
+	!0xFF, 4 > sFadeSpec:;
 }

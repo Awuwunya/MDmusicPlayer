@@ -75,10 +75,10 @@ ssLFO		macro val1, val2
 	dc.b $E9,\val1,\val2
     endm
 
-; EAxxxx - Set timer A to xxxx (bit7 clear) (TIMING - TIME_SET)
-sTimerA		macro timer
+; EAxxxx - Set Timer A to xxxx (TIMING - TIME_SET)
+ssTimerAQu	macro timer
 	dc.b $EA
-	dw \timer
+	littleEndian \timer
     endm
 
 ; EBxx - Ignore ignore ignore (IGNORE)

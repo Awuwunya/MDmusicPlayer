@@ -10,9 +10,9 @@ DancingLeaves_Header:
 	sHeaderFM	DancingLeaves_FM3, $F6, $12
 	sHeaderFM	DancingLeaves_FM4, $F6, $12
 	sHeaderFM	DancingLeaves_FM5, $F6, $12
-	sHeaderPSG	DancingLeaves_PSG1, $D2, $03, $00, VolEnv_00
-	sHeaderPSG	DancingLeaves_PSG2, $D2, $03, $00, VolEnv_00
-	sHeaderPSG	DancingLeaves_PSG3, $00, $02, $00, VolEnv_00
+	sHeaderPSG	DancingLeaves_PSG1, $D2, $03, $00, v00
+	sHeaderPSG	DancingLeaves_PSG2, $D2, $03, $00, v00
+	sHeaderPSG	DancingLeaves_PSG3, $00, $02, $00, v00
 
 DancingLeaves_FM1:
 	ssPalTempo	$2D
@@ -353,7 +353,7 @@ DancingLeaves_Loop8:
 	dc.b nG4, $30, sHold, $12, nRst, $0A
 	saTranspose	$F4
 	saVolFM		$F6
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$FC
 	sPatFM		$08
 	sNoteTimeOut	$04
@@ -377,7 +377,7 @@ DancingLeaves_Loop8:
 	dc.b nG4, $20
 	saVolFM		$ED
 	dc.b nRst, $10
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nG4, $04
 	saVolFM		$13
 	dc.b nG4, $08
@@ -396,7 +396,7 @@ DancingLeaves_Loop8:
 	sNoteTimeOut	$00
 	sPatFM		$07
 	saVolFM		$04
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nBb4, $04, nRst, $0C, nA4, $28, nRst, $08
 	dc.b nAb4, $28, nRst, $08, nG4, $30, sHold, $0C
 	saVolFM		$FC
@@ -422,7 +422,7 @@ DancingLeaves_FM4:
 
 DancingLeaves_Jump4:
 	sPatFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	ssMod68k	$0C, $01, $02, $05
 	sCall		DancingLeaves_Call1
 	sNoteTimeOut	$04
@@ -454,14 +454,14 @@ DancingLeaves_Jump4:
 	dc.b nD7, $08, nC7, $09
 	saVolFM		$ED
 	sNoteTimeOut	$00
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nG6, $30, sHold, $30, nRst, $30, nRst, nRst
 	dc.b nRst, nRst, nRst, $18, nRst, $09
 	saVolFM		$0E
 	ssMod68k	$01, $01, $00, $00
 	saVolFM		$FC
 	sPatFM		$05
-	sPan		spLeft, $00
+	sPan		spLeft
 	sCall		DancingLeaves_Call2
 	saVolFM		$F2
 	dc.b nG5, $1B
@@ -476,7 +476,7 @@ DancingLeaves_Jump4:
 	sCall		DancingLeaves_Call7
 	saVolFM		$04
 	sPatFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	ssMod68k	$14, $01, $EC, $EF
 	saVolFM		$13
 	dc.b nRst, $07, nC7, $24
@@ -491,7 +491,7 @@ DancingLeaves_Jump4:
 	dc.b nRst, $02
 	saVolFM		$FB
 	sPatFM		$03
-	sPan		spLeft, $00
+	sPan		spLeft
 	saTranspose	$F4
 	sNoteTimeOut	$07
 	dc.b nG4, $04, nA4, $08, nB4, $04, nC5, $08
@@ -535,13 +535,13 @@ DancingLeaves_Loop10:
 	dc.b nRst, $24
 	ssMod68k	$01, $01, $00, $00
 	saVolFM		$04
-	sPan		spCenter, $00
+	sPan		spCenter
 	saTranspose	$0C
 	sPatFM		$02
 	ssMod68k	$14, $01, $EC, $EF
 	dc.b nC6, $18
 	ssMod68k	$01, $01, $00, $00
-	sPan		spLeft, $00
+	sPan		spLeft
 	saTranspose	$F4
 	dc.b nRst, $09
 	saVolFM		$0E
@@ -609,7 +609,7 @@ DancingLeaves_Loop12:
 	saVolFM		$FC
 	ssMod68k	$0C, $01, $02, $05
 	sPatFM		$02
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nAb6, $07, nRst, $01
 	sNoteTimeOut	$04
 	dc.b nB6, $0C, $04, nRst, $0C, nB6, $08
@@ -646,7 +646,7 @@ DancingLeaves_FM5:
 
 DancingLeaves_Jump5:
 	ssMod68k	$0C, $01, $02, $05
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$13
 	dc.b nRst, $07
 	sPatFM		$02
@@ -679,7 +679,7 @@ DancingLeaves_Jump5:
 	sNoteTimeOut	$05
 	dc.b nG6, $08, nG6, $09
 	saVolFM		$ED
-	sPan		spCenter, $00
+	sPan		spCenter
 	sNoteTimeOut	$04
 	ssMod68k	$01, $01, $00, $00
 	dc.b nRst, $01
@@ -767,7 +767,7 @@ DancingLeaves_PSG1:
 DancingLeaves_Jump6:
 	dc.b nRst, $07, nRst, $24, nRst, $30, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst
-	sVolEnvPSG	VolEnv_04
+	sVolEnvPSG	v04
 	sNoteTimeOut	$04
 
 DancingLeaves_Loop14:
@@ -791,7 +791,7 @@ DancingLeaves_Loop16:
 	saVolPSG	$03
 	saVolPSG	$FD
 	sNoteTimeOut	$00
-	sVolEnvPSG	VolEnv_1B
+	sVolEnvPSG	v1B
 	ssMod68k	$08, $02, $05, $02
 	dc.b nE5, $30, sHold, $18, nRst, $08, nE5, $04
 	dc.b nRst, $0C, nE5, $30, sHold, $18, nRst, $08
@@ -816,7 +816,7 @@ DancingLeaves_PSG2:
 DancingLeaves_Jump7:
 	dc.b nRst, $06, nRst, $24, nRst, $30, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst
-	sVolEnvPSG	VolEnv_04
+	sVolEnvPSG	v04
 	dc.b nRst, $01
 	sNoteTimeOut	$04
 
@@ -843,7 +843,7 @@ DancingLeaves_Loop19:
 	saVolPSG	$03
 	sNoteTimeOut	$00
 	saVolPSG	$FD
-	sVolEnvPSG	VolEnv_1B
+	sVolEnvPSG	v1B
 	ssMod68k	$0C, $02, $05, $02
 	dc.b nC5, $30, sHold, $18, nRst, $08, nC5, $04
 	dc.b nRst, $0C, nCs5, $30, sHold, $18, nRst, $08
@@ -870,25 +870,25 @@ DancingLeaves_PSG3:
 	sNoisePSG	$E7
 
 DancingLeaves_Jump8:
-	sVolEnvPSG	VolEnv_10
+	sVolEnvPSG	v10
 	dc.b nB6, $2C, $0C, $28, $18, $14, $0C, $18
 	dc.b $10, $2C, $0C, $28, nB6, $0C
-	sVolEnvPSG	VolEnv_18
+	sVolEnvPSG	v18
 	dc.b nC7, $08, $04
-	sVolEnvPSG	VolEnv_10
+	sVolEnvPSG	v10
 	dc.b nB6, $0C
-	sVolEnvPSG	VolEnv_18
+	sVolEnvPSG	v18
 	dc.b nC7, $08, $04
-	sVolEnvPSG	VolEnv_10
+	sVolEnvPSG	v10
 	dc.b nB6, $0C, nB6, nB6, nB6
 
 DancingLeaves_Loop20:
-	sVolEnvPSG	VolEnv_10
+	sVolEnvPSG	v10
 	dc.b nB6, $0C
-	sVolEnvPSG	VolEnv_18
+	sVolEnvPSG	v18
 	dc.b nC7, $08, $04
 	sLoop		$00, $3E, DancingLeaves_Loop20
-	sVolEnvPSG	VolEnv_10
+	sVolEnvPSG	v10
 
 DancingLeaves_Loop21:
 	dc.b nB6, $0C
@@ -896,12 +896,12 @@ DancingLeaves_Loop21:
 	sLoop		$00, $04, DancingLeaves_Loop21
 
 DancingLeaves_Loop22:
-	sVolEnvPSG	VolEnv_10
+	sVolEnvPSG	v10
 	dc.b nB6, $0C
-	sVolEnvPSG	VolEnv_18
+	sVolEnvPSG	v18
 	dc.b nC7, $08, $04
 	sLoop		$00, $0E, DancingLeaves_Loop22
-	sVolEnvPSG	VolEnv_10
+	sVolEnvPSG	v10
 
 DancingLeaves_Loop23:
 	dc.b nB6, $0C
@@ -909,9 +909,9 @@ DancingLeaves_Loop23:
 	sLoop		$00, $04, DancingLeaves_Loop23
 
 DancingLeaves_Loop24:
-	sVolEnvPSG	VolEnv_10
+	sVolEnvPSG	v10
 	dc.b nB6, $0C
-	sVolEnvPSG	VolEnv_18
+	sVolEnvPSG	v18
 	dc.b nC7, $08, $04
 	sLoop		$00, $40, DancingLeaves_Loop24
 	sJump		DancingLeaves_Jump8
@@ -1015,159 +1015,159 @@ DancingLeaves_Call2:
 
 DancingLeaves_Call3:
 	sNoteTimeOut	$06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nE6, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nE6, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nF6, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nF6, $05
 	saVolFM		$F2
 	dc.b nRst, $0C
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nG6, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nG6, $01
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nG6, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nG6, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nG6, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nG6, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nG6, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nG6, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nG6, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nG6, $05
 	saVolFM		$F2
 	sNoteTimeOut	$00
 	dc.b nG6, $04
 	sNoteTimeOut	$06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nF6, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nF6, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nF6, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nF6, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nE6, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nE6, $0D
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nC6, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nC6, $09
 	saVolFM		$F2
 	sNoteTimeOut	$00
 	ssMod68k	$16, $01, $08, $04
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nG5, $18
 	sRet
 
 DancingLeaves_Call7:
 	sNoteTimeOut	$06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nG5, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nG5, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nA5, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nA5, $05
 	saVolFM		$F2
 	dc.b nRst, $0C
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nB5, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nB5, $01
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nB5, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nB5, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nB5, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nB5, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nB5, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nB5, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nB5, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nB5, $05
 	saVolFM		$F2
 	sNoteTimeOut	$00
 	dc.b nB5, $04
 	sNoteTimeOut	$06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nA5, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nA5, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nA5, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nA5, $05
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nG5, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nG5, $0D
 	saVolFM		$F2
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nE5, $07
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolFM		$0E
 	dc.b nE5, $09
 	saVolFM		$F2
 	sNoteTimeOut	$00
 	ssMod68k	$16, $01, $08, $04
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b nC5, $18
-	sPan		spLeft, $00
+	sPan		spLeft
 	sRet
 
 DancingLeaves_Call6:

@@ -9,9 +9,9 @@ FunnyAngry_Header:
 	sHeaderFM	FunnyAngry_FM3, $0C, $02
 	sHeaderFM	FunnyAngry_FM4, $00, $18
 	sHeaderFM	FunnyAngry_FM5, $00, $0F
-	sHeaderPSG	FunnyAngry_PSG1, $DC, $02, $00, VolEnv_00
-	sHeaderPSG	FunnyAngry_PSG2, $DC, $01, $00, VolEnv_00
-	sHeaderPSG	FunnyAngry_PSG3, $00, $01, $00, VolEnv_03
+	sHeaderPSG	FunnyAngry_PSG1, $DC, $02, $00, v00
+	sHeaderPSG	FunnyAngry_PSG2, $DC, $01, $00, v00
+	sHeaderPSG	FunnyAngry_PSG3, $00, $01, $00, v03
 
 FunnyAngry_FM1:
 	dc.b nRst, $30, nRst, nRst, nRst
@@ -674,15 +674,15 @@ FunnyAngry_PSG1:
 FunnyAngry_Jump4:
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, nRst, nRst, nRst
-	sVolEnvPSG	VolEnv_09
+	sVolEnvPSG	v09
 	sCall		FunnyAngry_Call5
 	dc.b nRst, $18, nRst, $30, nRst, nRst, nRst, nRst
 	dc.b $12
-	sVolEnvPSG	VolEnv_09
+	sVolEnvPSG	v09
 	sCall		FunnyAngry_Call5
 	dc.b nRst, $06, nRst, $30, nRst, nRst, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst, $2A
-	sVolEnvPSG	VolEnv_09
+	sVolEnvPSG	v09
 	dc.b nC5, $06, nB4, nC5, $0C, nD5, $06, nB4
 	dc.b nA4, nG4
 	saVolPSG	$FF
@@ -772,7 +772,7 @@ FunnyAngry_Call5:
 
 FunnyAngry_PSG2:
 	dc.b nRst, $30, nRst, nRst, $30, nRst
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	sNoteTimeOut	$02
 
 FunnyAngry_Loop9:
@@ -840,7 +840,7 @@ FunnyAngry_Loop10:
 	dc.b nRst, nG4
 	saVolPSG	$FC
 	sLoop		$00, $10, FunnyAngry_Loop10
-	sVolEnvPSG	$0B
+	sVolEnvPSG	v0B
 	sNoteTimeOut	$03
 	dc.b nB3, $06, nD4, nF4, nA4, nRst, $30, nB3
 	dc.b $06, nD4, nF4, nA4, nRst, $18, nB3, $06
@@ -848,7 +848,7 @@ FunnyAngry_Loop10:
 	dc.b nF4, nA4, nRst, $30, nB3, $06, nD4, nF4
 	dc.b nA4, nRst, $18, nB3, $06, nD4, nF4, nA4
 	dc.b nRst, $18, nB3, $06, nD4, nF4, nB3
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	sNoteTimeOut	$02
 
 FunnyAngry_Loop11:
@@ -881,7 +881,7 @@ FunnyAngry_Loop11:
 	dc.b nRst, nG4
 	saVolPSG	$FC
 	sLoop		$00, $10, FunnyAngry_Loop11
-	sVolEnvPSG	$0B
+	sVolEnvPSG	v0B
 	sNoteTimeOut	$03
 
 FunnyAngry_Loop12:
@@ -889,7 +889,7 @@ FunnyAngry_Loop12:
 	dc.b nA4, nA4, nE4, nE5, nRst, nCs5, nD5, nCs5
 	dc.b nA4
 	sLoop		$00, $08, FunnyAngry_Loop12
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	sNoteTimeOut	$02
 
 FunnyAngry_Loop13:
@@ -922,7 +922,7 @@ FunnyAngry_Loop13:
 	dc.b nRst, nG4
 	saVolPSG	$FC
 	sLoop		$00, $08, FunnyAngry_Loop13
-	sVolEnvPSG	$0B
+	sVolEnvPSG	v0B
 	sNoteTimeOut	$03
 	saVolPSG	$01
 
@@ -936,7 +936,7 @@ FunnyAngry_Loop14:
 	dc.b nE5, nE5, nE5, nE5, nE5, nE5, nRst, $60
 	dc.b nRst, $12, nD5, $06, nCs5, nB4, nG4
 	saVolPSG	$FF
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	sNoteTimeOut	$02
 
 FunnyAngry_Loop15:
@@ -969,7 +969,7 @@ FunnyAngry_Loop15:
 	dc.b nRst, nG4
 	saVolPSG	$FC
 	sLoop		$00, $08, FunnyAngry_Loop15
-	sVolEnvPSG	$0B
+	sVolEnvPSG	v0B
 	sNoteTimeOut	$03
 	dc.b nB3, $06, nD4, nF4, nA4, nRst, $30, nB3
 	dc.b $06, nD4, nF4, nA4, nRst, $18, nB3, $06
@@ -977,7 +977,7 @@ FunnyAngry_Loop15:
 	dc.b nF4, nA4, nRst, $30, nB3, $06, nD4, nF4
 	dc.b nA4, nRst, $18, nB3, $06, nD4, nF4, nA4
 	dc.b nRst, $18, nB3, $06, nD4, nF4, nB3
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	sNoteTimeOut	$02
 
 FunnyAngry_Loop16:
@@ -1010,7 +1010,7 @@ FunnyAngry_Loop16:
 	dc.b nRst, nG4
 	saVolPSG	$FC
 	sLoop		$00, $10, FunnyAngry_Loop16
-	sVolEnvPSG	$0B
+	sVolEnvPSG	v0B
 	sNoteTimeOut	$03
 
 FunnyAngry_Loop17:
@@ -1018,7 +1018,7 @@ FunnyAngry_Loop17:
 	dc.b nA4, nA4, nE4, nE5, nRst, nCs5, nD5, nCs5
 	dc.b nA4
 	sLoop		$00, $08, FunnyAngry_Loop17
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	sNoteTimeOut	$02
 
 FunnyAngry_Loop18:
@@ -1051,7 +1051,7 @@ FunnyAngry_Loop18:
 	dc.b nRst, nG4
 	saVolPSG	$FC
 	sLoop		$00, $08, FunnyAngry_Loop18
-	sVolEnvPSG	$0B
+	sVolEnvPSG	v0B
 	sNoteTimeOut	$03
 	saVolPSG	$01
 
@@ -1064,7 +1064,7 @@ FunnyAngry_Loop19:
 	dc.b nE5, nE5, nE5, nE5, nE5, nE5, nE5, nE5
 	dc.b nE5, nE5, nE5, nE5, nE5, nE5, nRst, $60
 	saVolPSG	$FF
-	sVolEnvPSG	VolEnv_05
+	sVolEnvPSG	v05
 	sNoteTimeOut	$02
 
 FunnyAngry_Loop20:
@@ -1165,13 +1165,13 @@ FunnyAngry_Loop25:
 	sCall		FunnyAngry_Call6
 	sLoop		$00, $0E, FunnyAngry_Loop25
 	dc.b d81, $0C, d89, d88, $0C, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d89, $0C, d88, d8A, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 
 FunnyAngry_Loop26:
 	sCall		FunnyAngry_Call6
@@ -1181,113 +1181,113 @@ FunnyAngry_Loop27:
 	sCall		FunnyAngry_Call6
 	sLoop		$00, $0A, FunnyAngry_Loop27
 	dc.b d81, $0C, d89, d88, $0C, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d89, $0C, d88, d8A, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 
 FunnyAngry_Loop28:
 	sCall		FunnyAngry_Call6
 	sLoop		$00, $0E, FunnyAngry_Loop28
 	dc.b d81, $0C, d89, d88, $0C, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d89, $0C, d88, d8A, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 
 FunnyAngry_Loop29:
 	sCall		FunnyAngry_Call6
 	sLoop		$00, $0E, FunnyAngry_Loop29
 	dc.b d81, $0C, d89, d88, $0C, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d89, $0C, d88, d8A, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 
 FunnyAngry_Loop30:
 	sCall		FunnyAngry_Call6
 	sLoop		$00, $0F, FunnyAngry_Loop30
 	dc.b d81, $0C
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b d92, $0C
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d88, $06, d88, d89, d8A
-	sPan		spCenter, $00
+	sPan		spCenter
 
 FunnyAngry_Loop31:
 	sCall		FunnyAngry_Call6
 	sLoop		$00, $07, FunnyAngry_Loop31
 	dc.b d81, $0C
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b d92, $0C
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d8A, $06, d8A
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06, d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d81, $18, d81, d81, d81, d81, d81, d81
 	dc.b d81, d81, d81, d81, d81, d81, d81, $18
 	dc.b d81, d81, d81, d81, d81, d81, d81, d81
 	dc.b d81, d81, $18, d81, d81, $0C, d88, $06
 	dc.b d89, d88, d89, nRst, $0C, d8A, $06, d8A
 	dc.b d89, d88, $0C, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 
 FunnyAngry_Loop32:
 	sCall		FunnyAngry_Call6
 	sLoop		$00, $0E, FunnyAngry_Loop32
 	dc.b d81, $0C, d89, d88, $0C, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d89, $0C, d88, d8A, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 
 FunnyAngry_Loop33:
 	sCall		FunnyAngry_Call6
 	sLoop		$00, $0E, FunnyAngry_Loop33
 	dc.b d81, $0C, d89, d88, $0C, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d89, $0C, d88, d8A, d8A, $06
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 
 FunnyAngry_Loop34:
 	sCall		FunnyAngry_Call6
 	sLoop		$00, $0F, FunnyAngry_Loop34
 	dc.b d81, $0C
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b d92, $0C
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d88, $06, d88, d89, d8A
 
 FunnyAngry_Loop35:
 	sCall		FunnyAngry_Call6
 	sLoop		$00, $07, FunnyAngry_Loop35
 	dc.b d81, $0C
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b d92, $0C
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d8A, $06, d8A
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $06, d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d81, $18, d81, d81, d81, d81, d81, d81
 	dc.b d81, d81, d81, d81, d81, d81, d81, $18
 	dc.b d81, d81, d81, d81, d81, d81, d81, d81
@@ -1296,27 +1296,27 @@ FunnyAngry_Loop35:
 
 FunnyAngry_Loop36:
 	dc.b d81, $0C
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d92, $0C
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d86, $0C
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b d90, $06, d90, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 	sLoop		$00, $10, FunnyAngry_Loop36
 	sJump		FunnyAngry_Loop27
 	dc.b $F2	; Unused
 
 FunnyAngry_Call6:
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d81, $0C
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d90, $0C
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b dB4, $0C
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b d92, $06, d92, $06
-	sPan		spCenter, $00
+	sPan		spCenter
 	sRet
 
 FunnyAngry_Patches:

@@ -215,7 +215,7 @@ sub_CD:					; CODE XREF: sub_7FF+1A6p
 ; End of function sub_CD
 
 ; ---------------------------------------------------------------------------
-DACbanks:	dsb 1Ch, 2h		; S&K samples	; Natsumi: Changed to bank on SRAM
+DACbanks:	dsb 1Ch, 2h		; S&K samples
 		dsb 0Fh, 3h		; S3 samples
 		dsb 07h, 4h		; S3 samples
 		db 2h, 2h		; S&K samples

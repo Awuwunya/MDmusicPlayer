@@ -1,12 +1,13 @@
 ### WORLD OF ILLUSION SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/09
-c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
+c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
 	+Available types: Music, SFX, Voice
+	$.cc
 	;
 }
 
 =endian 'little'
 
-c \type\ == 'voice' {
+c '\type\' == 'voice' {
 	=offset 0
 	~£_Patches .of
 	/ >patch
@@ -14,7 +15,8 @@ c \type\ == 'voice' {
 }
 
 @offset 0 "Please specify offset of this song in Z80 bank"
-c \type\ == 'sfx' {
+
+c '\type\' == 'sfx' {
 	/ >headersfx
 } {
 	/ >header
@@ -39,16 +41,16 @@ c \type\ == 'sfx' {
 	}
 
 	$ .sw
-	* \FMnum\ - 1 {
+	f \FMnum\ - 1 {
 		! > sHeaderFM: .dw, .db, .db {
 			~£_FM? :0
 		}
 	}
 
-	* \PSGnum\ {
+	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
 			~£_PSG? :0
-			:4 {
+			:?4 {
 				?volenv;
 			}
 		}
@@ -110,7 +112,7 @@ c \type\ == 'sfx' {
 	=b2 0
 	=b3 0
 	=b4 0
-	* (.an-.pc)/25 {
+	f (.an-.pc)/25 {
 		%\n\t; Patch {$2!\num\}\r\n\t; {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}\r\n\t; {$2!.db}, {$2!.db}, {$2!.db}, {$2!.db},\t{$2!.db}, {$2!.db}, {$2!.db}, {$2!.db}
 		>b 25
 		! > spAlgorithm: .nb&0x7;
@@ -154,34 +156,34 @@ c \type\ == 'sfx' {
 
 # this subscript will use an index of look-up values. You know, for some speed bonus!
 ?volenv {
-	=VolEnv_00 0
-	=VolEnv_01 1
-	=VolEnv_02 2
-	=VolEnv_03 3
-	=VolEnv_04 4
-	=VolEnv_05 5
-	=VolEnv_06 6
-	=VolEnv_07 7
-	=VolEnv_08 8
-	=VolEnv_09 9
-	=VolEnv_0A 0x0A
-	=VolEnv_0B 0x0B
-	=VolEnv_0C 0x0C
-	=VolEnv_0D 0x0D
-	=VolEnv_0E 0x0E
-	=VolEnv_0F 0x0F
-	=VolEnv_10 0x10
-	=VolEnv_11 0x11
-	=VolEnv_12 0x12
-	=VolEnv_13 0x13
-	=VolEnv_14 0x14
-	=VolEnv_15 0x15
-	=VolEnv_16 0x16
-	=VolEnv_17 0x17
+	=v00 0
+	=v01 1
+	=v02 2
+	=v03 3
+	=v04 4
+	=v05 5
+	=v06 6
+	=v07 7
+	=v08 8
+	=v09 9
+	=v0A 0x0A
+	=v0B 0x0B
+	=v0C 0x0C
+	=v0D 0x0D
+	=v0E 0x0E
+	=v0F 0x0F
+	=v10 0x10
+	=v11 0x11
+	=v12 0x12
+	=v13 0x13
+	=v14 0x14
+	=v15 0x15
+	=v16 0x16
+	=v17 0x17
 }
 
 ?modenv {
-	=ModEnv_00 0
+	=m00 0
 }
 
 ?DAC {
@@ -274,11 +276,15 @@ c \type\ == 'sfx' {
 ?comm {
 	!0xD0-0xDF > ssVolQuick: .lb&0xF;
 	!0xE0 > sPan: .db & 0xC0, .lb & 0x3F {
-		:0 {
+		:?0 {
 			=spNone 0x00
 			=spRight 0x40
 			=spLeft 0x80
 			=spCenter 0xC0
+		}
+
+		c .n1 == 0 {
+			:-1
 		}
 	}
 	!0xE1 > ssDetune: .db;
@@ -309,12 +315,12 @@ c \type\ == 'sfx' {
 	!0xF3 > sNoisePSG: .db;
 	!0xF4, 0x80 > sModOn:;
 	!0xF4 > sModEnv: .db {
-		:0 {
+		:?0 {
 			?modenv;
 		}
 	}
 	!0xF5 > sVolEnvPSG: .db {
-		:0 {
+		:?0 {
 			?volenv;
 		}
 	}

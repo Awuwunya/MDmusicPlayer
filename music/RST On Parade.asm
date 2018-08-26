@@ -10,9 +10,9 @@ OnParade_Header:
 	sHeaderFM	OnParade_FM3, $FF, $0E
 	sHeaderFM	OnParade_FM4, $FF, $14
 	sHeaderFM	OnParade_FM5, $FF, $14
-	sHeaderPSG	OnParade_PSG1, $DB, $03, $00, VolEnv_00
-	sHeaderPSG	OnParade_PSG2, $DB, $03, $00, VolEnv_00
-	sHeaderPSG	OnParade_PSG3, $F7, $00, $00, VolEnv_00
+	sHeaderPSG	OnParade_PSG1, $DB, $03, $00, v00
+	sHeaderPSG	OnParade_PSG2, $DB, $03, $00, v00
+	sHeaderPSG	OnParade_PSG3, $F7, $00, $00, v00
 
 OnParade_FM1:
 	ssPalTempo	$44
@@ -330,7 +330,7 @@ OnParade_FM5:
 	dc.b nRst, $06, nRst, $30
 	sPatFM		$06
 	sNoteTimeOut	$07
-	sPan		spLeft, $00
+	sPan		spLeft
 
 OnParade_Loop10:
 	dc.b nRst, $0C, nG4, $06
@@ -469,7 +469,7 @@ OnParade_Loop15:
 
 OnParade_PSG1:
 	dc.b nRst, $06, nRst, $30
-	sVolEnvPSG	VolEnv_00
+	sVolEnvPSG	v00
 	sNoteTimeOut	$03
 	saVolPSG	$03
 
@@ -477,7 +477,7 @@ OnParade_Loop16:
 	sCall		OnParade_Call5
 	sLoop		$00, $04, OnParade_Loop16
 	saVolPSG	$FD
-	sVolEnvPSG	VolEnv_12
+	sVolEnvPSG	v12
 	sNoteTimeOut	$11
 	dc.b nRst, $30, nRst, nB4, $12, nA4
 	sNoteTimeOut	$00
@@ -485,7 +485,7 @@ OnParade_Loop16:
 	dc.b $12, nC5, nB4, $0C
 	sNoteTimeOut	$00
 	dc.b nG4, $18, nA4
-	sVolEnvPSG	VolEnv_19
+	sVolEnvPSG	v19
 	ssMod68k	$20, $02, $01, $02
 	dc.b nD6, $30, sHold, $30, sHold, $18, nC6, nB5
 	dc.b nA5, nG5, $30, nG6, sHold, nG6, $18, nFs6
@@ -493,7 +493,7 @@ OnParade_Loop16:
 	dc.b nC6, nB5, nA5, nG5, $30, nG6, sHold, nG6
 	dc.b $18, nFs6, nG6, nA6, nG6, $30, sHold, $30
 	ssMod68k	$01, $01, $00, $00
-	sVolEnvPSG	VolEnv_00
+	sVolEnvPSG	v00
 	sNoteTimeOut	$03
 	saVolPSG	$03
 
@@ -504,7 +504,7 @@ OnParade_Loop17:
 
 OnParade_PSG2:
 	dc.b nRst, $06, nRst, $30
-	sVolEnvPSG	VolEnv_00
+	sVolEnvPSG	v00
 	sNoteTimeOut	$03
 	ssDetune	$FF
 	dc.b nRst, $04
@@ -522,7 +522,7 @@ OnParade_Loop18:
 	saVolPSG	$FA
 	saVolPSG	$FD
 	ssDetune	$00
-	sVolEnvPSG	VolEnv_12
+	sVolEnvPSG	v12
 	sNoteTimeOut	$11
 	dc.b nRst, $30, nRst, nG4, $12, nE4
 	sNoteTimeOut	$00
@@ -533,7 +533,7 @@ OnParade_Loop18:
 	ssDetune	$FF
 	dc.b nRst, $03
 	saVolPSG	$04
-	sVolEnvPSG	VolEnv_19
+	sVolEnvPSG	v19
 	ssMod68k	$20, $02, $01, $02
 	dc.b nD6, $30, sHold, $30, sHold, $18, nC6, nB5
 	dc.b nA5, nG5, $30, nG6, sHold, nG6, $18, nFs6
@@ -541,7 +541,7 @@ OnParade_Loop18:
 	dc.b nC6, nB5, nA5, nG5, $30, nG6, sHold, nG6
 	dc.b $18, nFs6, nG6, nA6, nG6, $30, sHold, $2D
 	ssMod68k	$01, $01, $00, $00
-	sVolEnvPSG	VolEnv_00
+	sVolEnvPSG	v00
 	sNoteTimeOut	$03
 	saVolPSG	$FC
 	saVolPSG	$06
@@ -555,18 +555,18 @@ OnParade_Loop19:
 
 OnParade_PSG3:
 	dc.b nRst, $06, nRst, $30
-	sVolEnvPSG	VolEnv_18
+	sVolEnvPSG	v18
 	sNoisePSG	$E7
 	sNoteTimeOut	$03
 
 OnParade_Jump3:
-	sPan		spLeft, $00
+	sPan		spLeft
 	saVolPSG	$03
 	dc.b nC7, $06, nC7
-	sPan		spCenter, $00
+	sPan		spCenter
 	saVolPSG	$FD
 	dc.b nC7, $06
-	sPan		spRight, $00
+	sPan		spRight
 	saVolPSG	$03
 	dc.b nC7, $06
 	saVolPSG	$FD
@@ -577,19 +577,19 @@ OnParade_DAC1:
 
 OnParade_Jump4:
 	dc.b nRst, $24
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d91, $0C
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b d92, $30, nRst, $24
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d91, $0C
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b d92, $30, nRst, $24
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b d91, $0C
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b d92, $30, nRst, $1E
-	sPan		spCenter, $00
+	sPan		spCenter
 	dc.b d93, $06, d93, d93, nRst, $30, nRst, d8D
 	dc.b $12, d8E, d90, $1E, nRst, $0C, d93, $06
 	dc.b nRst, d93, nRst, $30, nRst, d8B, $12, d8C
@@ -711,29 +711,29 @@ OnParade_Call6:
 	sRet
 
 OnParade_Call5:
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nD6, $03, nRst
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nD6, nRst
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nD7, nRst
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nD6, nRst
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nD6, nRst, $09
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nD6, $03, nRst
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nD6, nRst, $09
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nD6, $03, nRst, $03
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nD7, nRst
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nD6, nRst
-	sPan		spLeft, $00
+	sPan		spLeft
 	dc.b nD6, nRst, $09
-	sPan		spRight, $00
+	sPan		spRight
 	dc.b nD6, $03, nRst, $09
 	sRet
 

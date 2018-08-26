@@ -9,9 +9,9 @@ Boss_Header:
 	sHeaderFM	Boss_FM3, $F4, $0F
 	sHeaderFM	Boss_FM4, $F4, $12
 	sHeaderFM	Boss_FM5, $E8, $0F
-	sHeaderPSG	Boss_PSG1, $D0, $03, $00, VolEnv_05
-	sHeaderPSG	Boss_PSG2, $D0, $03, $00, VolEnv_05
-	sHeaderPSG	Boss_PSG3, $DC, $01, $00, VolEnv_08
+	sHeaderPSG	Boss_PSG1, $D0, $03, $00, v05
+	sHeaderPSG	Boss_PSG2, $D0, $03, $00, v05
+	sHeaderPSG	Boss_PSG3, $DC, $01, $00, v08
 
 Boss_FM5:
 	sPatFM		$05
@@ -66,7 +66,7 @@ Boss_PSG2:
 
 Boss_FM3:
 	sPatFM		$01
-	sPan		spLeft, $00
+	sPan		spLeft
 
 Boss_Jump3:
 	dc.b nRst, $30
@@ -90,7 +90,7 @@ Boss_FM1:
 	sJump		Boss_Jump1
 
 Boss_FM4:
-	sPan		spRight, $00
+	sPan		spRight
 
 Boss_Jump1:
 	sPatFM		$02

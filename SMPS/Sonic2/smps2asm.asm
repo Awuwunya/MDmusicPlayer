@@ -2,12 +2,12 @@ smpsIsZ80 =		1
 smpsNoAttack =		$E7
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
-	enum $00,	  VolEnv_00,VolEnv_01,VolEnv_02,VolEnv_03,VolEnv_04,VolEnv_05
-	enum VolEnv_05+1, VolEnv_06,VolEnv_07,VolEnv_08,VolEnv_09,VolEnv_0A,VolEnv_0B
-	enum VolEnv_0B+1, VolEnv_0C
+	enum $00,   v00,v01,v02,v03,v04,v05
+	enum v05+1, v06,v07,v08,v09,v0A,v0B
+	enum v0B+1, v0C
 ; ---------------------------------------------------------------------------------------------
 ; PSG modulation envelope equates
-	enum $00, 	  ModEnv_00
+	enum $00, 	  m00
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
 	enum $81,         dKick,dSnare,dClap,dScratch,dTimpani,dHiTom,dVLowClap,dHiTimpani

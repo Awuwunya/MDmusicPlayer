@@ -10,3 +10,4 @@ _temp/*
 _temp
 bin/SMPS2ASMv2.exe.config
 *.pdb
+*.exe.config
