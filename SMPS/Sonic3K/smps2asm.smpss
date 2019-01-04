@@ -1,4 +1,7 @@
 ### SONIC3K SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
+sversion v1_1
+sdatamacro dc.b
+
 c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
 	+Available types: Music, SFX, Voice
 	$.cc

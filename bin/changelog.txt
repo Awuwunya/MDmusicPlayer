@@ -175,22 +175,27 @@ MDMusicPlayer changelog
 * v1.1
   + Added generic default scripts for 68k and z80 base drivers
   + Added Michael Jackson's Moonwalker SMPS2ASM file
+  + Created specific smps2asm files for AS and ASM68K
+  * Merged code/smps2asm.asm with driver specific smps2asm files
   * Fixed many inconsistent naming conventions and misnomers
   * Migrated all SMPS2ASM scripts to the new format
   * SSG-EG flag was disassembling incorrectly
   * Sonic3K driver had incorrect setup for DAC banks
   * Sonic3K had some incorrect names for commands
   * Sonic3K Universal Voice Bank is now disassembled
+  * Updated some WOI flags to use more user-friendly name
   * QuackShot was incorrectly using dw instead of littleEndian macro
   * QuackShot had some incorrect names for commands
   ~ Moved note definitions into their own separate file
   ~ Switched ICZ1 out in favour of LBZ2 music
+  ~ VolEnv_ and ModEnv_ prefixes for smps2asm changed to v and m respectively
   s+ Added new operators
   s+ Added bugs and weird quirks
   s+ Made it possible to make equate names dynamic
   s+ Arguments can now be removed, and directly updated
   s+ You can refer to arguments using operators
   s+ Files can now finally be included into scripts at parse time
+  s+ You can now decide which macro type to use for disassembled music
   s~ Equates are now stored in a dictionary, instead of individual elements.
   s~ Equates can now overwrite values from any place
   s~ Made console display the validity of data as you type, instead of when you

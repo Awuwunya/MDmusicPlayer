@@ -1,4 +1,6 @@
 ### 68K TYPE 1A GENERIC SMPS2ASM SCRIPT MADE BY NATSUMI 18/08/25
+sversion v1_1
+sdatamacro dc.b
 
 # check for valid script parse type
 c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {

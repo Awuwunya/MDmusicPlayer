@@ -15,8 +15,8 @@ Contents:
     therefore may not be optimal outside of it. SMPS2ASM/Nat works using
     scripting files to convert music. The advantage is that it can support
     theoretically any SMPS format sound driver, or even similar formats.
-    Scripting is fairly easy, even if a little intuitive for a first timer. See
-    chapter 2 and 3 for more info.
+    Scripting is fairly easy, even if a little unintuitive for a first timer.
+    See chapter 2 and 3 for more info.
 
   *1.2 - Basic usage*
     To convert SMPS, put it into the Music folder, then go to exe and lauch
@@ -33,21 +33,21 @@ Contents:
     example:
       "SMPS2ASM "S3K ICZ.bin" Sonic3K IceCap1 0x86AA"
 
-    If you need to specify a different type for your file, you mad append a dot,
+    If you need to specify a different type for your file, you may append a dot,
     and the unique identifier for the type. For example, a script may allow you
     to specify that your file is a SFX file. For example, with script
     "MegaPCM/smps2asm.smpss", you would want to append ".SFX" to the folder
     name, as follows:
       "SMPS2ASM "S1 Jump.bin" MegaPCM.SFX Jump"
 
-    You can also run scripts on the spot, for example to use SMPS2ASM outside of
-    the MDMusicPlayer environment. You simple have to specify, as the first
+    You can also run scripts on the spot to use SMPS2ASM outside of the
+    MDMusicPlayer environment. You simple have to specify, as the first
     argument, the script file. The script MUST have extension smpss, or else it
     will be treated as the input file. Here is an example:
       "SMPS2ASM script.smpss "DyHe Izayoi.bin" Izayoi"
 
   *1.4 - Special flags*
-    The commandline supports you adding special flags to use different special
+    The commandline supports adding special flags to use different special
     functions with SMPS2ASM/Nat. Currently the following flags are supported:
       * -d - Print debug information. This information provides an insight to
         what the interpreter sees during the whole execution. This file is
@@ -368,7 +368,13 @@ Contents:
           be any arguments specific to <macro>:
             * inc - Include another file at the end of the current script.
               <args> will contain the file path of the included file.
-
+            * datamacro - Changes the data macro to different string. In the
+              past, SMPS2ASM would only support 'dc.b', but can now be made to
+              use anything. <args> will be a string containing the string to
+              use.
+            * version - Denotes SMPS2ASM/Nat script version. This may be used in
+              the future for backwards compatibility or letting you know you are
+              using an old version.
 ================================================================================
 
 *3 - Inner functionality*

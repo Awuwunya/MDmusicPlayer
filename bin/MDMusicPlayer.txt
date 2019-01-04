@@ -43,37 +43,38 @@ Contents:
 ================================================================================
 
 *3 - Sound driver*
-  There are 3 SMPS sound drivers installed for you by default; Sonic 3 &
+  There are 4 SMPS sound drivers installed for you by default; Sonic 3 &
   Knuckles Z80 sound driver, Mega PCM DAC driver (including Sonic 1 68k
-  driver), and Dynamite Headdy 68k sound driver and Z80 DAC driver.
-  Additionally, there are are 3 GEMS sound files installed: Aladdin, Sonic
-  Spinball, and Vectorman. You can add yourself more sound drivers as well,
-  provided you can disassemble them, and add appropriate code and data.
-  Sound driver code need to be able to fit in 0x8000 bytes, and they can use
-  additional 0x2000 bytes if they do not require code to be ran on horizontal
-  blanking. Else they may only use 0x1C00 bytes for memory. Each 68k sound
-  driver will be ran from RAM, at address 0xFF0000 and their RAM section
+  driver), Dynamite Headdy 68k sound driver and Z80 DAC driver, and Ristar 68k
+  sound driver. Additionally, there are are 4 GEMS sound files installed:
+  Aladdin, Sonic Spinball, and Vectorman. You can add yourself more sound
+  drivers as well,  provided you can disassemble them, and add appropriate code
+  and data. Sound driver code need to be able to fit in 0x8000 bytes, and they
+  can use additional 0x2000 bytes if they do not require code to be ran on
+  horizontal blanking. Else they may only use 0x1C00 bytes for memory. Each 68k
+  sound driver will be ran from RAM, at address 0xFF0000 and their RAM section
   should be at 0xFF8000.
   You can include the file 'code/macro.asm' for helpful macros and equates of
-  these addresses. Eeach sound driver also has to have few additional files
+  these addresses. Each sound driver also has to have few additional files
   helping the system to run the music files properly. 'load.asm' is used after
   loading the sound driver, and it can be used to set variables, or for example
   construct Z80 banks and overwrite Z80 RAM with them. 'play.asm' is used when
   user requests to play a music file. The pointer to said file is given at d7.
   'update.asm' is used each frame during vertical blanking to update various
   information about the sound driver, including active channels, notes and DAC
-  samples being played, etc. 'smps2asm equ.asm' is used to set the macros and
-  equates for that particular sound driver. This is not required if you do not
-  use ASM format music files. 'smps2asm script.asm' is the script for SMPS2ASM
-  to convert ASM files, and is neither required. You can red more about it in
+  samples being played, etc. 'smps2asm (ASM68K).asm' is used to set the macros
+  and equates for that particular sound driver. This is not required if you do
+  not use ASM format music files. 'smps2asm.smpss' is the script for SMPS2ASM
+  to convert ASM files, and is neither required. You can read more about it in
   SMPS2ASM.txt. '68k.asm' and 'z80.asm' are used to assemble the respective
   sound drivers with. Both files are required even if only one processor is
   used. 'drv.68k' and 'drv.z80' are the built and compressed versions of these
   sound drivers. 'build.bat' is used to build both sound drivers at once. To
-  include additional driver, open 'drivers.asm' in the root folder, add new line
-  under pre-existing 'incdrv' macros, put the driver folder and compression in.
-  You can refer to the new driver with its folder name. The folder may not
-  contain whitespaces, special characters and can not start with a number.
+  include additional driver, open 'drv.asm' in the root folder, add new line
+  under pre-existing 'incdrv' macros, put the driver folder, driver type and
+  compression in. You can refer to the new driver with its folder name. The
+  folder may not contain whitespaces, special characters and can not start with
+  a number.
 ================================================================================
 
 *4 - Whats in where*
@@ -152,10 +153,6 @@ Contents:
 
     *bin/NCalc.dll - Used by SMPS2ASM to help evaluating different things.
 
-    *bin/smps2asm.asm - Contains macros that will forward a request to the
-      current sound driver to resolve. See 'smps2asm equ.asm' in sound driver
-      folders.
-
     *bin/smps2asm.exe - Main SMPS2ASMv2/Nat executable, used to translate binary
       music files into ASM format.
 
@@ -189,8 +186,6 @@ Contents:
       these sound driver to go with my tool. Huge thanks for him, and if it
       weren't for him this may have not ever come to light. He also helped me
       revise the SMPS ASM format.
-
-    *MarkeyJester - Motivation and love <3
 
     *Bakayote - He provided me the great font used in this tool. If it weren't
       for him I'd have to use the awful Sonic 1 menu font, and have to improvise
