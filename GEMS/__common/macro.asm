@@ -1,3 +1,31 @@
+
+; this macro is created to emulate enum in AS
+enum	macro	num, lable
+; copy initial number for referencing later
+.num =	num
+
+	rept narg-1
+\lable		set .num
+.num =	.num+1
+	shift
+	endr
+    endm
+
+; simple macro to create a Z80 pointer (relative to bank)
+Z80PtrROM	macro addr
+	rept narg
+		dc.w	(((\addr)<<8)&$FF00)|(((\addr)>>8)&$FF)|$80
+		shift
+	endr
+    endm
+
+; simple macro to create little endian word values
+littleEndian	macro value
+	rept narg
+		dc.w	(((\value)<<8)&$FF00)|(((\value)>>8)&$FF)
+		shift
+	endr
+    endm
 ; ---------------------------------------------------------------------------------------------
 ; Note Equates
 	enum $00+0, nRst,nC0,nCs0,nD0,nEb0,nE0,nF0,nFs0,nG0,nAb0,nA0,nBb0,nB0,nC1,nCs1,nD1

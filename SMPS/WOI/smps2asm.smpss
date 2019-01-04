@@ -290,7 +290,7 @@ c '\type\' == 'sfx' {
 	!0xE1 > ssDetune: .db;
 	!0xE2 > sComm: .db;
 	!0xE3 > sMuteStopFM:;
-	!0xE4 > sJumpNZ1C05h: .dw {
+	!0xE4 > sLoopExitWOI: .dw {
 		~£_JpCond? :0
 		;
 	}
@@ -308,7 +308,7 @@ c '\type\' == 'sfx' {
 	!0xEE > ssTickMul: .db;
 	!0xEF > sPatFM: .db;
 	!0xF0 > ssModZ80: .db, .db, .db, .db;
-	!0xF1 > saTransp1C04h: .db;
+	!0xF1 > saTranspWOI: .db;
 	!0xF2 > sStop:{
 		;
 	}

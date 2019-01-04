@@ -180,6 +180,7 @@ MDMusicPlayer changelog
   * SSG-EG flag was disassembling incorrectly
   * Sonic3K driver had incorrect setup for DAC banks
   * Sonic3K had some incorrect names for commands
+  * Sonic3K Universal Voice Bank is now disassembled
   * QuackShot was incorrectly using dw instead of littleEndian macro
   * QuackShot had some incorrect names for commands
   ~ Moved note definitions into their own separate file

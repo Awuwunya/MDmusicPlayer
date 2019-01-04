@@ -45,7 +45,7 @@ Contents:
 *3 - Sound driver*
   There are 3 SMPS sound drivers installed for you by default; Sonic 3 &
   Knuckles Z80 sound driver, Mega PCM DAC driver (including Sonic 1 68k
-  driver), and Dynamite Headdy  68k sound driver and Z80 DAC driver.
+  driver), and Dynamite Headdy 68k sound driver and Z80 DAC driver.
   Additionally, there are are 3 GEMS sound files installed: Aladdin, Sonic
   Spinball, and Vectorman. You can add yourself more sound drivers as well,
   provided you can disassemble them, and add appropriate code and data.
@@ -202,5 +202,5 @@ Contents:
       upon further examination was coded terribly badly. So I thought to
       make something a lot more usable.
 
-    *Vladikcomper - Creator of Mega PCM and the Error debugger used in this
+    *Vladikcomper - Creator of MegaPCM and the Error debugger used in this
       project!

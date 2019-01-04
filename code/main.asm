@@ -1,6 +1,5 @@
 ; ===========================================================================
 	include "code/macro.asm"
-	include "code/smps2asm.asm"
 	include "GEMS/__common/a"
 	include "GEMS/__common/macro.asm"
 ; ===========================================================================
