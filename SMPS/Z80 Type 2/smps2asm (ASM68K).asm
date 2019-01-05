@@ -252,7 +252,7 @@ ssModZ80	macro wait,speed,change,step
     endm
 
 ; F1yyxx - For FM channels, set channel modulation envelope to xx. For PSG, use yy (MOD_ENV - MENV_FMP)
-; F4xx - Set channel modulation envelope to xx  (MOD_ENV - MENV_GEN)
+; F4xx - Set channel modulation envelope to xx (MOD_ENV - MENV_GEN)
 sModEnv		macro psg,fm
 	if narg=1
 		dc.b $F4,\psg

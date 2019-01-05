@@ -1,0 +1,121 @@
+### SONIC 2 MASTER SYSTEM SMPS2ASM SCRIPT MADE BY NATSUMI 19/01/05
+sversion v1_1
+sdatamacro .db
+
+c ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
+	+Available types: Music, SFX
+	$.cc
+	;
+}
+
+=endian 'little'
+=uveb 0x8A2F
+@offset 0 "Please specify offset of this song in Z80 bank"
+
+c '\type\' == 'sfx' {
+	/ >headersfx
+} {
+	/ >header
+}
+
+?header {
+	! > sHeaderInit: {
+		~£_Header .of
+		%; Z80 offset is {$4!\offset\}
+	}
+
+	c .nw == \uveb\ {
+		! > sHeaderVolEnvUniv:;
+		$ .sw
+	} {
+		! > sHeaderVolEnv: .dw {
+			~£_VolEnv :0
+		}
+	}
+
+	=PSGnum .db
+	! > sHeaderCh: .db, \PSGnum\;
+	! > sHeaderTempo: .db, .db;
+
+	f \PSGnum\ {
+		! > sHeaderPSG: .dw, .db, .db {
+			~£_PSG? :0
+		}
+	}
+
+	/£_PSG1 ?note ?comm
+	/£_PSG2 ?note ?comm
+	/£_PSG3 ?note ?comm
+	/£_PSG4 ?note4 ?comm
+	/£_VolEnv >volenv
+}
+
+?headersfx {
+	+Currently not implemented
+	$.cc
+	;
+}
+
+?note4 {
+	=nRst 0x80
+	=nn0 0x81
+	=nn1 0x82
+	=nn2 0x84
+	=nn3 0x88
+	=nn4 0x90
+	=nn5 0xA0
+}
+
+	sinc "..\SMPS\SMPS full ModEnv set.smpss"
+	sinc "..\SMPS\SMPS full VolEnv set.smpss"
+	sinc "..\SMPS\SMPS default notes.smpss"
+
+?comm {
+	!0xE0 > ssEnvADSR: .db, .db, .db, .db, .db;
+	!0xE1 > ssDetune: .db;
+	!0xE2 > saVolPSG: .db;
+	!0xE3 > sNop: .db;
+	!0xE4 > saVolNoise: .db;
+	!0xE5 > ssModeADSR: .db;
+	!0xE6 > saVolPSG: .db;
+	=sHold 0xE7
+	!0xE8 > ssDuration: .db;
+	!0xE9-0xEC > sNop: .db;
+	!0xED > ssTempo: .db;
+	!0xEE-0xEF > sNop: .db;
+	# TODO: Check out if the modulation algorithm is same as SMPS Z80!
+	!0xF0 > ssModMS: .db, .db, .db, .db;
+	!0xF1 > sNop: .db;
+	!0xF2 > sStop:{
+		;
+	}
+	!0xF3 > sUnkF3: .db;
+	!0xF4 > sModEnv: .lb {
+		:?0 {
+			?modenv;
+		}
+	}
+	!0xF5 > sVolEnvPSG: .db {
+		:?0 {
+			?volenv;
+		}
+	}
+	!0xF6 > sJump: .dw {
+		~£_Jump? :0
+		;
+	}
+	!0xF7 > sLoop: .db, .db, .dw {
+		~£_Loop? :2
+	}
+	!0xF8 > sCall: .dw {
+		~£_Call? :0
+	}
+	!0xF9 > sRet: {
+		;
+	}
+	!0xFA > ssTickMulCh: .db;
+	!0xFB > saTranspose: .db;
+	!0xFC > sNop: .db;
+	!0xFD > sRawFreq: .db;
+	!0xFE-0xFF > sNop: .db;
+}
