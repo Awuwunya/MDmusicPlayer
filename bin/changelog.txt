@@ -174,7 +174,7 @@ MDMusicPlayer changelog
 
 * v1.1
   + Added generic default scripts for 68k and z80 base drivers
-  + Added Michael Jackson's Moonwalker SMPS2ASM file
+  + Scripts for Sonic 2 Master System and Michael Jackson's Moonwalker
   + Created specific smps2asm files for AS and ASM68K
   * Merged code/smps2asm.asm with driver specific smps2asm files
   * Fixed many inconsistent naming conventions and misnomers

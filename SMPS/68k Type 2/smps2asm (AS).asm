@@ -24,6 +24,16 @@
 	enum v30=v2F+1, v31,v32,v33,v34,v35,v36,v37
 	enum v38=v37+1, v39,v3A,v3B,v3C,v3D,v3E,v3F
 ; ---------------------------------------------------------------------------------------------
+; Modulation envelope equates
+	enum m00=$00,   m01,m02,m03,m04,m05,m06,m07
+	enum m08=m07+1, m09,m0A,m0B,m0C,m0D,m0E,m0F
+	enum m10=m0F+1, m11,m12,m13,m14,m15,m16,m17
+	enum m18=m17+1, m19,m1A,m1B,m1C,m1D,m1E,m1F
+	enum m20=m1F+1, m21,m22,m23,m24,m25,m26,m27
+	enum m28=m27+1, m29,m2A,m2B,m2C,m2D,m2E,m2F
+	enum m30=m2F+1, m31,m32,m33,m34,m35,m36,m37
+	enum m38=m37+1, m39,m3A,m3B,m3C,m3D,m3E,m3F
+; ---------------------------------------------------------------------------------------------
 ; DAC Equates
 	enum d81=$81,   d82,d83,d84,d85,d86,d87,d88,d89,d8A,d8B,d8C,d8D,d8E,d8F
 	enum d90=d8F+1, d91,d92,d93,d94,d95,d96,d97,d98,d99,d9A,d9B,d9C,d9D,d9E,d9F

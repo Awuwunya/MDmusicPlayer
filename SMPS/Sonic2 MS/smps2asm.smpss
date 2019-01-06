@@ -66,8 +66,45 @@ c '\type\' == 'sfx' {
 	=nn5 0xA0
 }
 
-	sinc "..\SMPS\SMPS full ModEnv set.smpss"
-	sinc "..\SMPS\SMPS full VolEnv set.smpss"
+?volenv {
+	=v00 0
+	=v01 1
+	=v02 2
+	=v03 3
+	=v04 4
+	=v05 5
+	=v06 6
+	=v07 7
+	=v08 8
+	=v09 9
+	=v0A 0x0A
+	=v0B 0x0B
+	=v0C 0x0C
+	=v0D 0x0D
+	=v0E 0x0E
+	=v0F 0x0F
+	=v10 0x10
+	=v11 0x11
+	=v12 0x12
+	=v13 0x13
+	=v14 0x14
+	=v15 0x15
+}
+
+?modenv {
+	=m00 0
+	=m01 1
+	=m02 2
+	=m03 3
+	=m04 4
+	=m05 5
+	=m06 6
+	=m07 7
+	=m08 8
+	=m09 9
+	=m0A 0xA
+}
+
 	sinc "..\SMPS\SMPS default notes.smpss"
 
 ?comm {

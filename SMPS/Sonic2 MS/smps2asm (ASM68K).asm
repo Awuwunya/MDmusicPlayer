@@ -1,7 +1,7 @@
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Example SMPS2ASM macro file for Z80 type 1; Meant to be derived from,
-; when creating a game-specific definition
+; Based on Flamewing's SMPS2ASM, and S1SMPS2ASM by Marc (AKA Cinossu)
+; Reworked and improved by Natsumi
 ; ---------------------------------------------------------------------------
 
 ; this macro is created to emulate enum in AS
