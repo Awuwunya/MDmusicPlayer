@@ -177,7 +177,7 @@ c '\type\' == 'sfx' {
 	=dScratch 0x84
 	=dTimpani 0x85
 	=dHiTom 0x86
-	=dFloorSteelDrum 0x87
+	=dFloorBongo 0x87
 	=dHiTimpani 0x88
 	=dMidTimpani 0x89
 	=dLowTimpani 0x8A
@@ -185,9 +185,9 @@ c '\type\' == 'sfx' {
 	=dMidTom 0x8C
 	=dLowTom 0x8D
 	=dFloorTom 0x8E
-	=dHiSteelDrum 0x8F
-	=dMidSteelDrum 0x90
-	=dLowSteelDrum 0x91
+	=dHiBongo 0x8F
+	=dMidBongo 0x90
+	=dLowBongo 0x91
 }
 
 	sinc "..\SMPS\SMPS default notes.smpss"

@@ -241,7 +241,7 @@ ssModZ80	macro wait,speed,change,step
     endm
 
 ; F1yyxx - For FM channels, set channel modulation envelope to xx. For PSG, use yy (MOD_ENV - MENV_FMP)
-; F4xx - Set channel modulation envelope to xx  (MOD_ENV - MENV_GEN)
+; F4xx - Set channel modulation envelope to xx (MOD_ENV - MENV_GEN)
 sModEnv		macro psg,fm
 	if fm==""
 		dc.b $F4,psg
@@ -347,7 +347,7 @@ sSSGEG		macro op1,op2,op3,op4
 
 ; FF06xxyy - Set FM volume envelope to xx, with operator mask yy (FM_VOLENV)
 sVolEnvFM	macro voice,mask
-	dc.b $FF,$06,tone,mask
+	dc.b $FF,$06,voice,mask
     endm
 ; ---------------------------------------------------------------------------------------------
 ; Macros for FM instruments
@@ -451,7 +451,7 @@ spTLMask1 set ((spAl=7)<<7)
 
 	dc.b (spDe1<<4)|spMu1, (spDe3<<4)|spMu3, (spDe2<<4)|spMu2, (spDe4<<4)|spMu4
 	dc.b (spRS1<<6)|spAR1, (spRS3<<6)|spAR3, (spRS2<<6)|spAR2, (spRS4<<6)|spAR4
-	dc.b (spAM1<<7)|spSR1, (spAM3<<7)|spsR3, (spAM2<<7)|spSR2, (spAM4<<7)|spSR4
+	dc.b (spAM1<<7)|spSR1, (spAM3<<7)|spSR3, (spAM2<<7)|spSR2, (spAM4<<7)|spSR4
 	dc.b spDR1,            spDR3,            spDR2,            spDR4
 	dc.b (spSL1<<4)|spRR1, (spSL3<<4)|spRR3, (spSL2<<4)|spRR2, (spSL4<<4)|spRR4
 	dc.b spTL1|spTLMask1,  spTL3|spTLMask3,  spTL2|spTLMask2,  spTL4|spTLMask4

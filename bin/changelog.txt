@@ -200,4 +200,5 @@ MDMusicPlayer changelog
   s~ Equates can now overwrite values from any place
   s~ Made console display the validity of data as you type, instead of when you
     switch line
+  m~ Updated to accommodate the new file structure
   > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.1.1.7z
