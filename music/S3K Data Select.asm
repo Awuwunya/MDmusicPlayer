@@ -15,8 +15,8 @@ DataSelect_Header:
 	dc.b $F2, $F2	; Unused
 
 DataSelect_Call6:
-	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
-	dc.b $06, dKick, $12, dKick, $06, dKick, dElectricMidTom, dElectricLowTom
+	dc.b dKick, $12, dKick, $06, dKick, dHighElecTom, $0C, dKick
+	dc.b $06, dKick, $12, dKick, $06, dKick, dMidElecTom, dLowElecTom
 	dc.b $0C
 	sRet
 
@@ -26,45 +26,45 @@ DataSelect_DAC:
 DataSelect_Loop6:
 	sCall		DataSelect_Call6
 	sLoop		$01, $03, DataSelect_Loop6
-	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
-	dc.b $06, dKick, $02, dHigherMetalHit, $03, dHigherMetalHit, $01, dHigherMetalHit
-	dc.b $0C, dHigherMetalHit, $06, dHigherMetalHit, $08, dHigherMetalHit, dMidMetalHit
+	dc.b dKick, $12, dKick, $06, dKick, dHighElecTom, $0C, dKick
+	dc.b $06, dKick, $02, dHighCowBell, $03, dHighCowBell, $01, dHighCowBell
+	dc.b $0C, dHighCowBell, $06, dHighCowBell, $08, dHighCowBell, dLowCowBell
 
 DataSelect_Loop7:
 	sCall		DataSelect_Call6
 	sLoop		$01, $03, DataSelect_Loop7
-	dc.b dElectricLowTom, $06, dElectricLowTom, dElectricLowTom, $12, dElectricLowTom, $06, dElectricLowTom
-	dc.b dElectricLowTom, $1E, dElectricMidTom, $18
+	dc.b dLowElecTom, $06, dLowElecTom, dLowElecTom, $12, dLowElecTom, $06, dLowElecTom
+	dc.b dLowElecTom, $1E, dMidElecTom, $18
 
 DataSelect_Loop8:
 	sCall		DataSelect_Call6
 	sLoop		$01, $07, DataSelect_Loop8
-	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
-	dc.b $06, dKick, dHigherMetalHit, $0C, dHigherMetalHit, $06, dHigherMetalHit, $0C
-	dc.b dElectricLowTom
+	dc.b dKick, $12, dKick, $06, dKick, dHighElecTom, $0C, dKick
+	dc.b $06, dKick, dHighCowBell, $0C, dHighCowBell, $06, dHighCowBell, $0C
+	dc.b dLowElecTom
 
 DataSelect_Loop9:
 	sCall		DataSelect_Call6
 	sLoop		$01, $02, DataSelect_Loop9
-	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
-	dc.b $06, dKick, $12, dKick, $06, dKick, dElectricMidTom, dElectricLowTom
-	dc.b $0C, dElectricLowTom, $06, dElectricLowTom, dElectricLowTom, $12, dElectricLowTom, $06
-	dc.b dElectricLowTom, dElectricLowTom, $1E, dElectricMidTom, $18
+	dc.b dKick, $12, dKick, $06, dKick, dHighElecTom, $0C, dKick
+	dc.b $06, dKick, $12, dKick, $06, dKick, dMidElecTom, dLowElecTom
+	dc.b $0C, dLowElecTom, $06, dLowElecTom, dLowElecTom, $12, dLowElecTom, $06
+	dc.b dLowElecTom, dLowElecTom, $1E, dMidElecTom, $18
 
 DataSelect_Loop10:
 	sCall		DataSelect_Call6
 	sLoop		$01, $03, DataSelect_Loop10
-	dc.b dElectricLowTom, $06, dKick, $0C, dElectricLowTom, $06, dKick, dElectricLowTom
-	dc.b dElectricLowTom, dElectricMidTom, $0C, dKick, $12, dKick, $06, dKick
-	dc.b dElectricHighTom, $0C
+	dc.b dLowElecTom, $06, dKick, $0C, dLowElecTom, $06, dKick, dLowElecTom
+	dc.b dLowElecTom, dMidElecTom, $0C, dKick, $12, dKick, $06, dKick
+	dc.b dHighElecTom, $0C
 
 DataSelect_Loop11:
 	sCall		DataSelect_Call6
 	sLoop		$01, $02, DataSelect_Loop11
-	dc.b dKick, $12, dKick, $06, dKick, dElectricHighTom, $0C, dKick
-	dc.b $06, dKick, $12, dKick, $06, dKick, dElectricMidTom, dElectricLowTom
-	dc.b $0C, dElectricLowTom, dKick, $06, dElectricLowTom, $0C, dKick, $06
-	dc.b dElectricLowTom, nRst, $36
+	dc.b dKick, $12, dKick, $06, dKick, dHighElecTom, $0C, dKick
+	dc.b $06, dKick, $12, dKick, $06, dKick, dMidElecTom, dLowElecTom
+	dc.b $0C, dLowElecTom, dKick, $06, dLowElecTom, $0C, dKick, $06
+	dc.b dLowElecTom, nRst, $36
 	sJump		DataSelect_Loop6
 	dc.b $F2	; Unused
 

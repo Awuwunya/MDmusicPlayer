@@ -60,11 +60,14 @@ c '\type\' == 'sfx' {
 			:?4 {
 				?volenv;
 			}
+			:?3 {
+				?modenv;
+			}
 		}
 	}
 
-	/£_FM? ?note ?comm
-	/£_PSG? ?note ?comm
+	/£_FM? ?fmc ?note ?comm
+	/£_PSG? ?psgc ?note ?comm
 	/£_DAC ?DAC ?comm
 	/£_Patches >patch
 }
@@ -113,8 +116,8 @@ c '\type\' == 'sfx' {
 
 	}
 
-	/£_FM? ?note ?comm
-	/£_PSG? ?note ?comm
+	/£_FM? ?fmc ?note ?comm
+	/£_PSG? ?psgc ?note ?comm
 	/£_Patches >patch
 }
 
@@ -158,16 +161,17 @@ c '\type\' == 'sfx' {
 		! > spSustainLv: (\b1\&0xF0)>>4, (\b2\&0xF0)>>4, (\b3\&0xF0)>>4, (\b4\&0xF0)>>4;
 		! > spDecayRt: \d1\, \d2\, \d3\, \d4\;
 		! > spReleaseRt: \b1\&0xF, \b2\&0xF, \b3\&0xF, \b4\&0xF;
+		! > spSSGEG: 0, 0, 0, 0;
 		=b1 .db
 		=b3 .db
 		=b2 .db
-		! > spTotalLv: \b1\, \b2\, \b3\, .db;
+		! > spTotalLv: \b1\&0x7F, \b2\&0x7F, \b3\&0x7F, .db&0x7F;
 		=num \num\+1
 	}
 }
 
 ?volenv {
-	=v00 0
+	=vNone 0
 	=v01 1
 	=v02 2
 	=v03 3
@@ -210,7 +214,7 @@ c '\type\' == 'sfx' {
 }
 
 ?modenv {
-	=m00 0
+	=mNone 0
 	=m01 1
 	=m02 2
 	=m03 3
@@ -227,75 +231,81 @@ c '\type\' == 'sfx' {
 	=dHighTom 0x82
 	=dMidTom 0x83
 	=dLowTom 0x84
-	=dFloorTom 0x85
+	=dLowerTom 0x85
 	=dKick 0x86
-	=dMuffledSnare 0x87
+	=dKickSnare 0x87
 	=dCrashCymbal 0x88
 	=dRideCymbal 0x89
-	=dLowMetalHit 0x8A
-	=dMetalHit 0x8B
-	=dHighMetalHit 0x8C
-	=dHigherMetalHit 0x8D
-	=dMidMetalHit 0x8E
+	=dHighMetalBlock 0x8A
+	=dLowMetalBlock 0x8B
+	=dMutedWood 0x8C
+	=dHighCowBell 0x8D
+	=dLowCowBell 0x8E
 	=dClap 0x8F
-	=dElectricHighTom 0x90
-	=dElectricMidTom 0x91
-	=dElectricLowTom 0x92
-	=dElectricFloorTom 0x93
-	=dTightSnare 0x94
-	=dMidpitchSnare 0x95
-	=dLooseSnare 0x96
-	=dLooserSnare 0x97
-	=dHiTimpani 0x98
+	=dHighElecTom 0x90
+	=dMidElecTom 0x91
+	=dLowElecTom 0x92
+	=dLowerElecTom 0x93
+	=dHighHeavyTom 0x94
+	=dMidHeavyTom 0x95
+	=dLowHeavyTom 0x96
+	=dLowerHeavyTom 0x97
+	=dHighTimpani 0x98
 	=dLowTimpani 0x99
 	=dMidTimpani 0x9A
-	=dQuickLooseSnare 0x9B
-	=dClick 0x9C
-	=dPowerKick 0x9D
-	=dQuickGlassCrash 0x9E
-	=dGlassCrashSnare 0x9F
-	=dGlassCrash 0xA0
-	=dGlassCrashKick 0xA1
-	=dQuietGlassCrash 0xA2
-	=dOddSnareKick 0xA3
-	=dKickExtraBass 0xA4
+	=dLooseSnare 0x9B
+	=dVocalClick 0x9C
+	=dVocalKick 0x9D
+	=dVocalSnare 0x9E
+	=dJamHit 0x9F
+	=dJamHitShort 0xA0
+	=dGlassKick 0xA1
+	=dGlassSmash 0xA2
+	=dDanceKickSnare 0xA3
+	=dDanceKick 0xA4
 	=dComeOn 0xA5
-	=dDanceSnare 0xA6
-	=dLooseKick 0xA7
-	=dModLooseKick 0xA8
-	=dWoo 0xA9
+	=dHeavySnare 0xA6
+	=dLowKick 0xA7
+	=dLowKickShort 0xA8
+	=dWhoo 0xA9
 	=dGo 0xAA
 	=dSnareGo 0xAB
 	=dPowerTom 0xAC
-	=dHiWoodBlock 0xAD
-	=dLowWoodBlock 0xAE
-	=dHiHitDrum 0xAF
-	=dLowHitDrum 0xB0
-	=dMetalCrashHit 0xB1
-	=dEchoedClapHit 0xB2
-	=dLowerEchoedClapHit 0xB3
-	=dHipHopHitKick 0xB4
-	=dHipHopHitPowerKick 0xB5
-	=dBassHey 0xB6
-	=dDanceStyleKick 0xB7
-	=dHipHopHitKick2 0xB8
-	=dHipHopHitKick3 0xB9
-	=dReverseFadingWind 0xBA
+	=dHighWood 0xAD
+	=dLowWood 0xAE
+	=dHighCongo 0xAF
+	=dLowCongo 0xB0
+	=dCrashHit 0xB1
+	=dHighEchoClap 0xB2
+	=dLowEchoClap 0xB3
+	=dHighOrchHit 0xB4
+	=dMidOrchHit 0xB5
+	=dKickUh 0xB6
+	=dElecKick 0xB7
+	=dSynthHit 0xB8
+	=dSynthHit2 0xB9
+	=dReverseCrash 0xBA
 	=dScratch 0xBB
-	=dLooseSnareNoise 0xBC
-	=dPowerKick2 0xBD
-	=dCrashingNoiseWoo 0xBE
-	=dQuickHit 0xBF
-	=dKickHey 0xC0
-	=dPowerKickHit 0xC1
-	=dLowPowerKickHit 0xC2
-	=dLowerPowerKickHit 0xC3
-	=dLowestPowerKickHit 0xC4
-	=dEchoedClapHit2 0xC5
-	=dLowerEchoedClapHit2 0xC6
+	=dSynthHit3 0xBC
+	=dHeavyKick 0xBD
+	=dWhooCrash 0xBE
+	=dSideStick 0xBF
+	=dKickOh 0xC0
+	=dLowOrchHit 0xC1
+	=dLowerOrchHit 0xC2
+	=dLowestOrchHit 0xC3
+	=dHigherOrchHit 0xC4
 }
 
 	sinc "..\SMPS\SMPS default notes.smpss"
+
+?fmc {
+	!0xE4 > ssVolFM: $2!-(.db | 0x80);
+}
+
+?psgc {
+	!0xE4 > ssVolPSG: $2!((.db >> 3) ^ 0xF);
+}
 
 ?comm {
 	!0xE0 > sPan: .db & 0xC0, .lb & 0x3F {
@@ -315,18 +325,17 @@ c '\type\' == 'sfx' {
 	!0xE3 > sStopFM: {
 		;
 	}
-	!0xE4 > ssVol: $2!-(.db | 0x80);
 	!0xE5 > saVolFMP: .db, .db;
 	!0xE6 > saVolFM: .db;
 	=sHold 0xE7
-	!0xE8 > sNoteTimeOut: .db;
+	!0xE8 > sGate: .db;
 	!0xE9 > sSpDashRev:;
 	!0xEA > sPlayDAC: .db | 0x80;
 	!0xEB > sLoopExit: .db, .dw {
 		~£_Jumpe? :1
 	}
 	!0xEC > saVolPSG: .db;
-	!0xED > ssTransposeS3K: .db;
+	!0xED > ssTranspose: $2!(.db-0x40);
 	!0xEE > sYM1cmd: .db, .db;
 	!0xEF, 0-0x7F > sPatFM: .lb & 0x7F;
 	!0xEF, 0x80-0xFF > sPatFM: .lb & 0x7F, .db - 0x81;

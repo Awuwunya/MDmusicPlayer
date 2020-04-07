@@ -53,36 +53,34 @@ cFM5 =		$05
 cFM6 =		$06	; Only in S3/S&K/S3D, overrides DAC
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
-	enum $00,   v00,v01,v02,v03,v04,v05
-	enum v05+1, v06,v07,v08,v09,v0A,v0B
-	enum v0B+1, v0C,v0D,v0E,v0F,v10,v11
-	enum v11+1, v12,v13,v14,v15,v16,v17
-	enum v17+1, v18,v19,v1A,v1B,v1C,v1D
-	enum v1D+1, v1E,v1F,v20,v21,v22,v23
-	enum v23+1, v24,v25,v26,v27
+	enum $00,   v00,v01,v02,v03,v04,v05,v06,v07
+	enum v07+1, v08,v09,v0A,v0B,v0C,v0D,v0E,v0F
+	enum v0F+1, v10,v11,v12,v13,v14,v15,v16,v17
+	enum v17+1, v18,v19,v1A,v1B,v1C,v1D,v1E,v1F
+	enum v1F+1, v20,v21,v22,v23,v24,v25,v26,v27
 ; ---------------------------------------------------------------------------------------------
 ; PSG modulation envelope equates
-	enum $00,   m00,m01,m02,m03,m04,m05
-	enum m05+1, m06,m07,m08
+	enum $00,   m00,m01,m02,m03,m04,m05,m06,m07
+	enum m07+1, m08
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
-	enum $81,		    dSnare,dHighTom,dMidTom,dLowTom,dFloorTom,dKick,dMuffledSnare
-	enum dMuffledSnare+1,	    dCrashCymbal,dRideCymbal,dLowMetalHit,dMetalHit,dHighMetalHit
-	enum dHighMetalHit+1,	    dHigherMetalHit,dMidMetalHit,dClap,dElectricHighTom
-	enum dElectricHighTom+1,    dElectricMidTom,dElectricLowTom,dElectricFloorTom
-	enum dElectricFloorTom+1,   dTightSnare,dMidpitchSnare,dLooseSnare,dLooserSnare
-	enum dLooserSnare+1, 	    dHiTimpani,dLowTimpani,dMidTimpani,dQuickLooseSnare
-	enum dQuickLooseSnare+1,    dClick,dPowerKick,dQuickGlassCrash
-	enum dQuickGlassCrash+1,    dGlassCrashSnare,dGlassCrash,dGlassCrashKick,dQuietGlassCrash
-	enum dQuietGlassCrash+1,    dOddSnareKick,dKickExtraBass,dComeOn,dDanceSnare,dLooseKick
-	enum dLooseKick+1,	    dModLooseKick,dWoo,dGo,dSnareGo,dPowerTom,dHiWoodBlock,dLowWoodBlock
-	enum dLowWoodBlock+1,	    dHiHitDrum,dLowHitDrum,dMetalCrashHit,dEchoedClapHit
-	enum dEchoedClapHit+1,	    dLowerEchoedClapHit,dHipHopHitKick,dHipHopHitPowerKick
-	enum dHipHopHitPowerKick+1, dBassHey,dDanceStyleKick,dHipHopHitKick2,dHipHopHitKick3
-	enum dHipHopHitKick3+1,	    dReverseFadingWind,dScratch,dLooseSnareNoise,dPowerKick2
-	enum dPowerKick2+1,	    dCrashingNoiseWoo,dQuickHit,dKickHey,dPowerKickHit
-	enum dPowerKickHit+1,	    dLowPowerKickHit,dLowerPowerKickHit,dLowestPowerKickHit
-	enum dLowestPowerKickHit+1, dEchoedClapHit2,dLowerEchoedClapHit2
+	enum $81,		dSnare,dHighTom,dMidTom,dLowTom,dLowerTom,dKick,dKickSnare
+	enum dKickSnare+1,	dCrashCymbal,dRideCymbal,dHighMetalBlock,dLowMetalBlock,dMutedWood
+	enum dMutedWood+1,	dHighCowBell,dLowCowBell,dClap,dHighElecTom
+	enum dHighElecTom+1,	dMidElecTom,dLowElecTom,dLowerElecTom
+	enum dLowerElecTom+1,	dHighHeavyTom,dMidHeavyTom,dLowHeavyTom,dLowerHeavyTom
+	enum dLowerHeavyTom+1,	dHighTimpani,dLowTimpani,dMidTimpani,dLooseSnare
+	enum dLooseSnare+1,	dVocalClick,dVocalKick,dVocalSnare
+	enum dVocalSnare+1,	dJamHit,dJamHitShort,dGlassKick,dGlassSmash
+	enum dGlassSmash+1,	dDanceKickSnare,dDanceKick,dComeOn,dHeavySnare,dLowKick
+	enum dLowKick+1,	dLowKickShort,dWhoo,dGo,dSnareGo,dPowerTom,dHighWood,dLowWood
+	enum dLowWood+1,	dHighCongo,dLowCongo,dCrashHit,dHighEchoClap
+	enum dHighEchoClap+1,	dLowEchoClap,dHighOrchHit,dMidOrchHit
+	enum dMidOrchHit+1,	dKickUh,dElecKick,dSynthHit,dSynthHit2
+	enum dSynthHit2+1,	dReverseCrash,dScratch,dSynthHit3,dHeavyKick
+	enum dHeavyKick+1,	dWhooCrash,dSideStick,dKickOh,dLowOrchHit
+	enum dLowOrchHit+1,	dLowerOrchHit,dLowestOrchHit,dHigherOrchHit
+	enum dHigherOrchHit+1,	dEchoedClapHit2,dLowerEchoedClapHit2
 ; ---------------------------------------------------------------------------------------------
 ; Header Macros
 sHeaderInit	macro

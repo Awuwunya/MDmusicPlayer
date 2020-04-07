@@ -22,36 +22,33 @@ littleEndian	function v,(((v)<<8)&$FF00)|(((v)>>8)&$FF)
 	enum nC7=nB6+1,nCs7,nD7,nEb7,nE7,nF7,nFs7,nG7,nAb7,nA7,nBb7	; $55 - $5F
 ; ---------------------------------------------------------------------------------------------
 ; PSG volume envelope equates
-	enum v00=$00,	v01,v02,v03,v04,v05
-	enum v06=v05+1,	v07,v08,v09,v0A,v0B
-	enum v0C=v0B+1, v0D,v0E,v0F,v10,v11
-	enum v12=v11+1, v13,v14,v15,v16,v17
-	enum v18=v17+1, v19,v1A,v1B,v1C,v1D
-	enum v1E=v1D+1, v1F,v20,v21,v22,v23
-	enum v24=v23+1, v25,v26,v27
+	enum v00=$00,	v01,v02,v03,v04,v05,v06,v07
+	enum v08=v07+1,	v09,v0A,v0B,v0C,v0D,v0E,v0F
+	enum v10=v0F+1, v11,v12,v13,v14,v15,v16,v17
+	enum v18=v17+1, v19,v1A,v1B,v1C,v1D,v1E,v1F
+	enum v20=v1D+1, v21,v22,v23,v24,v25,v26,v27
 ; ---------------------------------------------------------------------------------------------
 ; PSG modulation envelope equates
-	enum m00=$00,   m01,m02,m03,m04,m05
-	enum m06=m05+1, m07,m08
+	enum m00=$00,   m01,m02,m03,m04,m05,m06,m07
+	enum m08=m07+1
 ; ---------------------------------------------------------------------------------------------
 ; DAC Equates
-	enum dSnare=$81,			    dHighTom,dMidTom,dLowTom,dFloorTom,dKick,dMuffledSnare
-	enum dCrashCymbal=dMuffledSnare+1,	    dRideCymbal,dLowMetalHit,dMetalHit,dHighMetalHit
-	enum dHigherMetalHit=dHighMetalHit+1,	    dMidMetalHit,dClap,dElectricHighTom
-	enum dElectricMidTom=dElectricHighTom+1,    dElectricLowTom,dElectricFloorTom
-	enum dTightSnare=dElectricFloorTom+1,	    dMidpitchSnare,dLooseSnare,dLooserSnare
-	enum dHiTimpani=dLooserSnare+1,		    dLowTimpani,dMidTimpani,dQuickLooseSnare
-	enum dClick=dQuickLooseSnare+1,		    dPowerKick,dQuickGlassCrash
-	enum dGlassCrashSnare=dQuickGlassCrash+1,   dGlassCrash,dGlassCrashKick,dQuietGlassCrash
-	enum dOddSnareKick=dQuietGlassCrash+1,	    dKickExtraBass,dComeOn,dDanceSnare,dLooseKick
-	enum dModLooseKick=dLooseKick+1,	    dWoo,dGo,dSnareGo,dPowerTom,dHiWoodBlock,dLowWoodBlock
-	enum dHiHitDrum=dLowWoodBlock+1,	    dLowHitDrum,dMetalCrashHit,dEchoedClapHit
-	enum dLowerEchoedClapHit=dEchoedClapHit+1,  dHipHopHitKick,dHipHopHitPowerKick
-	enum dBassHey=dHipHopHitPowerKick+1,	    dDanceStyleKick,dHipHopHitKick2,dHipHopHitKick3
-	enum dReverseFadingWind=dHipHopHitKick3+1,  dScratch,dLooseSnareNoise,dPowerKick2
-	enum dCrashingNoiseWoo=dPowerKick2+1,	    dQuickHit,dKickHey,dPowerKickHit
-	enum dLowPowerKickHit=dPowerKickHit+1,	    dLowerPowerKickHit,dLowestPowerKickHit
-	enum dEchoedClapHit2=dLowestPowerKickHit+1, dLowerEchoedClapHit2
+	enum dSnare=$81,		    dHighTom,dMidTom,dLowTom,dLowerTom,dKick,dKickSnare
+	enum dCrashCymbal=dKickSnare+1,	    dRideCymbal,dHighMetalBlock,dLowMetalBlock,dMutedWood
+	enum dHighCowBell=dMutedWood+1,	    dLowCowBell,dClap,dHighElecTom
+	enum dMidElecTom=dHighElecTom+1,    dLowElecTom,dLowerElecTom
+	enum dHighHeavyTom=dLowerElecTom+1, dMidHeavyTom,dLowHeavyTom,dLowerHeavyTom
+	enum dHighTimpani=dLowerHeavyTom+1, dLowTimpani,dMidTimpani,dLowHeavyTom
+	enum dVocalClick=dLooseSnare+1,	    dVocalKick,dVocalSnare
+	enum dJamHit=dVocalSnare+1,	    dJamHitShort,dGlassKick,dGlassSmash
+	enum dDanceKickSnare=dGlassSmash+1, dDanceKick,dComeOn,dHeavySnare,dLowKick
+	enum dLowKickShort=dLowKick+1,	    dWhoo,dGo,dSnareGo,dPowerTom,dHighWood,dLowWood
+	enum dHighCongo=dLowWood+1,	    dLowCongo,dCrashHit,dHighEchoClap
+	enum dLowEchoClap=dHighEchoClap+1,  dHighOrchHit,dMidOrchHit
+	enum dKickUh=dMidOrchHit+1,	    dElecKick,dSynthHit,dSynthHit2
+	enum dReverseCrash=dSynthHit2+1,    dScratch,dSynthHit3,dHeavyKick
+	enum dWhooCrash=dHeavyKick+1,	    dSideStick,dKickOh,dLowOrchHit
+	enum dLowerOrchHit=dLowOrchHit+1,   dLowestOrchHit,dHigherOrchHit
 ; ---------------------------------------------------------------------------------------------
 ; Channel IDs for SFX
 cPSG1 =		$80

@@ -245,19 +245,19 @@ SkySanctuary_DAC:
 
 SkySanctuary_Loop15:
 	sPan		spCenter
-	dc.b dKick, $05, dKick, dKick, $0E, nRst, $0C, dMuffledSnare
-	dc.b $05, dMuffledSnare, dMuffledSnare, $0E, dMuffledSnare, $0C, nRst, dKick
-	dc.b $06, dKick, dKick, $0C, dKick, nRst, dMuffledSnare, $05
-	dc.b dMuffledSnare, dMuffledSnare, $0E, dMuffledSnare, $0C, nRst, dKick, dKick
-	dc.b $0C, dKick, nRst, dMuffledSnare, $05, dMuffledSnare, dMuffledSnare, $0E
-	dc.b dMuffledSnare, $0C, nRst, dKick, $06, dKick, dKick, $0C
-	dc.b dKick, nRst, dMuffledSnare, $05, dMuffledSnare, dMuffledSnare, $08
+	dc.b dKick, $05, dKick, dKick, $0E, nRst, $0C, dKickSnare
+	dc.b $05, dKickSnare, dKickSnare, $0E, dKickSnare, $0C, nRst, dKick
+	dc.b $06, dKick, dKick, $0C, dKick, nRst, dKickSnare, $05
+	dc.b dKickSnare, dKickSnare, $0E, dKickSnare, $0C, nRst, dKick, dKick
+	dc.b $0C, dKick, nRst, dKickSnare, $05, dKickSnare, dKickSnare, $0E
+	dc.b dKickSnare, $0C, nRst, dKick, $06, dKick, dKick, $0C
+	dc.b dKick, nRst, dKickSnare, $05, dKickSnare, dKickSnare, $08
 	sPan		spLeft
-	dc.b dElectricMidTom, $06, dElectricMidTom, dElectricMidTom
+	dc.b dMidElecTom, $06, dMidElecTom, dMidElecTom
 	sPan		spCenter
-	dc.b dElectricLowTom, dElectricLowTom
+	dc.b dLowElecTom, dLowElecTom
 	sPan		spRight
-	dc.b dElectricFloorTom, nRst
+	dc.b dLowerElecTom, nRst
 	sLoop		$00, $08, SkySanctuary_Loop15
 	dc.b nRst, $01
 	sJump		SkySanctuary_DAC

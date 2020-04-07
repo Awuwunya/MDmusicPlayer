@@ -310,68 +310,68 @@ LunchPlace_Call13:
 	sRet
 
 LunchPlace_DAC:
-	dc.b dModLooseKick, $12, nRst, dModLooseKick, $3C
+	dc.b dLowKickShort, $12, nRst, dLowKickShort, $3C
 
 LunchPlace_Loop10:
-	dc.b dModLooseKick, $06, dHiHitDrum, nRst, dHiHitDrum, dLowHitDrum, nRst, dModLooseKick
-	dc.b dHiHitDrum, nRst, dHiHitDrum, dLowHitDrum, dPowerTom, dPowerTom, $18
+	dc.b dLowKickShort, $06, dHighCongo, nRst, dHighCongo, dLowCongo, nRst, dLowKickShort
+	dc.b dHighCongo, nRst, dHighCongo, dLowCongo, dPowerTom, dPowerTom, $18
 	sLoop		$00, $02, LunchPlace_Loop10
-	dc.b dModLooseKick, $0C, dHiWoodBlock, $06, dModLooseKick, dLowWoodBlock, dLowWoodBlock, dModLooseKick
-	dc.b dHiWoodBlock, nRst, dHiWoodBlock, dLowWoodBlock, dLowWoodBlock, dLowWoodBlock, dLowWoodBlock, dLowWoodBlock
-	dc.b dLowWoodBlock
+	dc.b dLowKickShort, $0C, dHighWood, $06, dLowKickShort, dLowWood, dLowWood, dLowKickShort
+	dc.b dHighWood, nRst, dHighWood, dLowWood, dLowWood, dLowWood, dLowWood, dLowWood
+	dc.b dLowWood
 
 LunchPlace_Jump7:
 	sCall		LunchPlace_Call14
-	dc.b dModLooseKick, $06, dHiHitDrum, nRst, dModLooseKick, dSnareGo, nRst, dModLooseKick
-	dc.b dHiHitDrum, nRst, dHiHitDrum, dLowHitDrum, dSnareGo, dSnareGo, nRst, dLowWoodBlock
-	dc.b dLowWoodBlock
+	dc.b dLowKickShort, $06, dHighCongo, nRst, dLowKickShort, dSnareGo, nRst, dLowKickShort
+	dc.b dHighCongo, nRst, dHighCongo, dLowCongo, dSnareGo, dSnareGo, nRst, dLowWood
+	dc.b dLowWood
 	sCall		LunchPlace_Call14
-	dc.b dModLooseKick, $06, nRst, dHiWoodBlock, nRst, dLowWoodBlock, dLowWoodBlock, dLowWoodBlock
-	dc.b dHiWoodBlock, nRst, nRst, $2A, dModLooseKick, $12, dModLooseKick, $06
-	dc.b nRst, $12, dModLooseKick, $1E, dMetalCrashHit, $24, dScratch, $24
+	dc.b dLowKickShort, $06, nRst, dHighWood, nRst, dLowWood, dLowWood, dLowWood
+	dc.b dHighWood, nRst, nRst, $2A, dLowKickShort, $12, dLowKickShort, $06
+	dc.b nRst, $12, dLowKickShort, $1E, dCrashHit, $24, dScratch, $24
 	dc.b dPowerTom, $18, dScratch
 
 LunchPlace_Loop11:
-	dc.b dModLooseKick, $0C, dModLooseKick, nRst, $12, dModLooseKick, $06, nRst
-	dc.b $2A, dModLooseKick, $06, dModLooseKick, $0C, dModLooseKick, nRst, $12
-	dc.b dModLooseKick, $06, nRst, $30
+	dc.b dLowKickShort, $0C, dLowKickShort, nRst, $12, dLowKickShort, $06, nRst
+	dc.b $2A, dLowKickShort, $06, dLowKickShort, $0C, dLowKickShort, nRst, $12
+	dc.b dLowKickShort, $06, nRst, $30
 	sLoop		$00, $02, LunchPlace_Loop11
-	dc.b dModLooseKick, $0C, dModLooseKick, nRst, $12, dModLooseKick, $06, nRst
-	dc.b $2A, dModLooseKick, $06, nRst, $36, dQuietGlassCrash, $12, dMetalCrashHit
-	dc.b $0B, dMetalCrashHit, $0D
+	dc.b dLowKickShort, $0C, dLowKickShort, nRst, $12, dLowKickShort, $06, nRst
+	dc.b $2A, dLowKickShort, $06, nRst, $36, dGlassSmash, $12, dCrashHit
+	dc.b $0B, dCrashHit, $0D
 
 LunchPlace_Loop12:
-	dc.b dModLooseKick, $06, nRst, dHiHitDrum, dModLooseKick, dLowHitDrum, dLowHitDrum, dModLooseKick
-	dc.b dHiHitDrum, nRst, dHiHitDrum, dLowHitDrum, dPowerTom, dPowerTom, nRst, dLowHitDrum
-	dc.b nRst, dModLooseKick, $0C, dHiWoodBlock, $06, dModLooseKick, dLowWoodBlock, dLowWoodBlock
-	dc.b dModLooseKick, dHiWoodBlock, nRst, dHiWoodBlock, dLowWoodBlock, dLowWoodBlock, dLowWoodBlock, dLowWoodBlock
-	dc.b dLowWoodBlock, dLowWoodBlock
+	dc.b dLowKickShort, $06, nRst, dHighCongo, dLowKickShort, dLowCongo, dLowCongo, dLowKickShort
+	dc.b dHighCongo, nRst, dHighCongo, dLowCongo, dPowerTom, dPowerTom, nRst, dLowCongo
+	dc.b nRst, dLowKickShort, $0C, dHighWood, $06, dLowKickShort, dLowWood, dLowWood
+	dc.b dLowKickShort, dHighWood, nRst, dHighWood, dLowWood, dLowWood, dLowWood, dLowWood
+	dc.b dLowWood, dLowWood
 	sLoop		$00, $02, LunchPlace_Loop12
-	dc.b dModLooseKick, $06, dHiHitDrum, nRst, dModLooseKick, dSnareGo, nRst, dModLooseKick
-	dc.b dHiHitDrum, nRst, dHiHitDrum, dLowHitDrum, dPowerTom, dSnareGo, nRst, dLowWoodBlock
-	dc.b dLowWoodBlock, dModLooseKick, nRst, dHiWoodBlock, dModLooseKick, dSnareGo, nRst, dModLooseKick
-	dc.b dHiWoodBlock, nRst, dHiWoodBlock, dLowWoodBlock, dSnareGo, dSnareGo, nRst, dLowWoodBlock
-	dc.b dLowWoodBlock, dModLooseKick, $06, dHiHitDrum, nRst, dModLooseKick, dSnareGo, nRst
-	dc.b dModLooseKick, dHiHitDrum, nRst, dHiHitDrum, dLowHitDrum, dPowerTom, dSnareGo, nRst
-	dc.b dLowWoodBlock, dLowWoodBlock, dModLooseKick, nRst, dHiWoodBlock, dModLooseKick, dSnareGo, nRst
-	dc.b dModLooseKick, dHiWoodBlock, nRst, dSnareGo, nRst, dSnareGo, dSnareGo, nRst
-	dc.b dSnareGo, nRst, nRst, $60, nRst, dModLooseKick, $0C, dModLooseKick
-	dc.b nRst, $48, nRst, $60, dModLooseKick, $06, nRst, dGo
-	dc.b nRst, dModLooseKick, nRst, dGo, dModLooseKick, nRst, nRst, dGo
-	dc.b nRst, nRst, nRst, dGo, dModLooseKick, dModLooseKick, $06, nRst
-	dc.b dGo, nRst, dModLooseKick, nRst, dGo, dModLooseKick, nRst, nRst
-	dc.b dGo, nRst, nRst, nRst, dGo, dModLooseKick, dModLooseKick, nRst
-	dc.b dGo, nRst, dSnareGo, nRst, dGo, dModLooseKick, nRst, nRst
-	dc.b dGo, nRst, dSnareGo, nRst, dGo, dModLooseKick, dModLooseKick, nRst
-	dc.b dGo, nRst, dSnareGo, nRst, dGo, dModLooseKick, dModLooseKick, dSnareGo
-	dc.b dGo, dSnareGo, dSnareGo, nRst, dSnareGo, nRst, dModLooseKick, dModLooseKick
+	dc.b dLowKickShort, $06, dHighCongo, nRst, dLowKickShort, dSnareGo, nRst, dLowKickShort
+	dc.b dHighCongo, nRst, dHighCongo, dLowCongo, dPowerTom, dSnareGo, nRst, dLowWood
+	dc.b dLowWood, dLowKickShort, nRst, dHighWood, dLowKickShort, dSnareGo, nRst, dLowKickShort
+	dc.b dHighWood, nRst, dHighWood, dLowWood, dSnareGo, dSnareGo, nRst, dLowWood
+	dc.b dLowWood, dLowKickShort, $06, dHighCongo, nRst, dLowKickShort, dSnareGo, nRst
+	dc.b dLowKickShort, dHighCongo, nRst, dHighCongo, dLowCongo, dPowerTom, dSnareGo, nRst
+	dc.b dLowWood, dLowWood, dLowKickShort, nRst, dHighWood, dLowKickShort, dSnareGo, nRst
+	dc.b dLowKickShort, dHighWood, nRst, dSnareGo, nRst, dSnareGo, dSnareGo, nRst
+	dc.b dSnareGo, nRst, nRst, $60, nRst, dLowKickShort, $0C, dLowKickShort
+	dc.b nRst, $48, nRst, $60, dLowKickShort, $06, nRst, dGo
+	dc.b nRst, dLowKickShort, nRst, dGo, dLowKickShort, nRst, nRst, dGo
+	dc.b nRst, nRst, nRst, dGo, dLowKickShort, dLowKickShort, $06, nRst
+	dc.b dGo, nRst, dLowKickShort, nRst, dGo, dLowKickShort, nRst, nRst
+	dc.b dGo, nRst, nRst, nRst, dGo, dLowKickShort, dLowKickShort, nRst
+	dc.b dGo, nRst, dSnareGo, nRst, dGo, dLowKickShort, nRst, nRst
+	dc.b dGo, nRst, dSnareGo, nRst, dGo, dLowKickShort, dLowKickShort, nRst
+	dc.b dGo, nRst, dSnareGo, nRst, dGo, dLowKickShort, dLowKickShort, dSnareGo
+	dc.b dGo, dSnareGo, dSnareGo, nRst, dSnareGo, nRst, dLowKickShort, dLowKickShort
 	dc.b dSnareGo, nRst, $4E
 	sJump		LunchPlace_Jump7
 
 LunchPlace_Call14:
-	dc.b dModLooseKick, $06, dHiHitDrum, nRst, dHiHitDrum, dSnareGo, nRst, dModLooseKick
-	dc.b dHiHitDrum, nRst, dHiHitDrum, dLowHitDrum, dPowerTom, dSnareGo, nRst, dLowWoodBlock
-	dc.b dLowWoodBlock
+	dc.b dLowKickShort, $06, dHighCongo, nRst, dHighCongo, dSnareGo, nRst, dLowKickShort
+	dc.b dHighCongo, nRst, dHighCongo, dLowCongo, dPowerTom, dSnareGo, nRst, dLowWood
+	dc.b dLowWood
 	sRet
 	dc.b $A8, $0C, $AB, $12, $A8, $06, $AC, $12	; Unused
 	dc.b $AB, $06, $AB, $18, $F9, $80, $80, $AB	; Unused
