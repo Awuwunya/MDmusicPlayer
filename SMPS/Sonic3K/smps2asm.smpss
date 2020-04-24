@@ -121,6 +121,15 @@ c '\type\' == 'sfx' {
 	/£_Patches >patch
 }
 
+?unused {
+	%\n\t; Unused data
+	=lastlb .an
+
+	w .an == \lastlb\ {
+		// ?fmc ?note ?comm
+	}
+}
+
 ?patch {
 	=num 0
 	=b1 0
@@ -261,7 +270,7 @@ c '\type\' == 'sfx' {
 	=dJamHitShort 0xA0
 	=dGlassKick 0xA1
 	=dGlassSmash 0xA2
-	=dDanceKickSnare 0xA3
+	=dDanceSnare 0xA3
 	=dDanceKick 0xA4
 	=dComeOn 0xA5
 	=dHeavySnare 0xA6
