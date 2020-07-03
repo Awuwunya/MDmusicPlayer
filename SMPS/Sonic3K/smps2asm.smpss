@@ -73,7 +73,7 @@ c '\type\' == 'sfx' {
 }
 
 ?headersfx {
-	! > sHeaderInit: {
+	! > sHeaderInitSFX: {
 		~£_Header .of
 		%; Z80 offset is {$4!\offset\}
 	}
