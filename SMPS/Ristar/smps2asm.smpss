@@ -2,7 +2,7 @@
 sversion v1_1
 sdatamacro dc.b
 
-c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
+c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
 	+Available types: Music, SFX, Voice
 	$.cc
 	;
@@ -11,13 +11,13 @@ c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' 
 =endian 'big'
 =offset 0
 
-c '\type\' == 'voice' {
-	~£_Patches .of
+c \type\ == 'voice' {
+	~"£_Patches" .of
 	/ >patch
 	;
 }
 
-c '\type\' == 'sfx' {
+c \type\ == 'sfx' {
 	/ >headersfx
 } {
 	/ >header
@@ -25,11 +25,11 @@ c '\type\' == 'sfx' {
 
 ?header {
 	! > sHeaderInit: {
-		~£_Header .of
+		~"£_Header" .of
 	}
 
 	! > sHeaderPatch: .dw {
-		~£_Patches :0
+		~"£_Patches" :0
 	}
 
 	=FMnum .db
@@ -38,20 +38,20 @@ c '\type\' == 'sfx' {
 	! > sHeaderTempo: .db, .db;
 	f 2 {
 		! > sHeaderDAC: .dw {
-			~£_DAC? :0
+			~"£_DAC?" :0
 		}
 		$ .sw
 	}
 
 	f \FMnum\ - 2 {
 		! > sHeaderFM: .dw, .db, .db {
-			~£_FM? :0
+			~"£_FM?" :0
 		}
 	}
 
 	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
-			~£_PSG? :0
+			~"£_PSG?" :0
 			:?4 {
 				?volenv;
 			}
@@ -66,11 +66,11 @@ c '\type\' == 'sfx' {
 
 ?headersfx {
 	! > sHeaderInit: {
-		~£_Header .of
+		~"£_Header" .of
 	}
 
 	! > sHeaderPatch: .dw {
-		~£_Patches :0
+		~"£_Patches" :0
 	}
 
 	! > sHeaderTick: .db;
@@ -91,12 +91,12 @@ c '\type\' == 'sfx' {
 			}
 
 			! > sHeaderSFX: .db, .db, .dw, .db, .db {
-				~£_FM\trpn\ :2
+				~"£_FM"+\trpn\ :2
 			}
 		} {
 			=trpn ((\trpd\&0x60)>>5)+1
 			! > sHeaderSFX: .db, .db, .dw, .db, .db {
-				~£_PSG\trpn\ :2
+				~"£_PSG"+\trpn\ :2
 			}
 		}
 
@@ -331,14 +331,14 @@ c '\type\' == 'sfx' {
 		}
 	}
 	!0xF6 > sJump: .rw {
-		~£_Jump? :0
+		~"£_Jump?" :0
 		;
 	}
 	!0xF7 > sLoop: .db, .db, .rw {
-		~£_Loop? :2
+		~"£_Loop?" :2
 	}
 	!0xF8 > sCall: .rw {
-		~£_Call? :0
+		~"£_Call?" :0
 	}
 	!0xF9 > sRet:{
 		;
@@ -360,7 +360,7 @@ c '\type\' == 'sfx' {
 	!0xFF, 5 > sFM4freq: .db;
 	!0xFF, 6 > sNoteTimeIn: .db;
 	!0xFF, 7 > sCondJmp: .rw {
-		~£_Cond? :0
+		~"£_Cond?" :0
 	}
 	!0xFF, 8 > ssPalTempo: .db;
 	!0xFF, 9 > ssPalNoteDur: .db;
