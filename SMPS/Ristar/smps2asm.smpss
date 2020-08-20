@@ -1,5 +1,5 @@
-### RISTAR SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/08
-sversion v1_1
+### RISTAR SMPS2ASM SCRIPT MADE BY AURORAFIELDS 20/08/17
+sversion v1_2
 sdatamacro dc.b
 
 c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
@@ -107,6 +107,15 @@ c \type\ == 'sfx' {
 	/£_Patches >patch
 }
 
+?unused {
+	%\n\t; Unused data
+	=lastlb .an
+
+	w .an == \lastlb\ {
+		// ?fmc ?note ?comm
+	}
+}
+
 ?patch {
 	=num 0
 	=b1 0
@@ -160,7 +169,7 @@ c \type\ == 'sfx' {
 }
 
 ?volenv {
-	=v00 0
+	=vNone 0
 	=v01 1
 	=v02 2
 	=v03 3
@@ -194,7 +203,7 @@ c \type\ == 'sfx' {
 }
 
 ?modenv {
-	=m00 0
+	=mNone 0
 	=m01 1
 	=m02 2
 	=m03 3

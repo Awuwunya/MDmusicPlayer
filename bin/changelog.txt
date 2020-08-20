@@ -202,3 +202,20 @@ MDMusicPlayer changelog
     switch line
   m~ Updated to accommodate the new file structure
   > http://natsumi.eu/dl/MDMusicPlayer/MDMusicPlayer.1.1.7z
+================================================================================
+
+* v1.2
+  + Scripts for Westone sound driver
+  * Update all scripts to v1_2 format
+  * Various fixes to Sonic3K scripts
+  * Z80 drivers preserve Total Level msb's
+  ~ Various DAC samples were renamed
+  s+ New expression engine that is faster and more stable than the old version.
+    Please report if you find any bugs or quirks
+  s+ Unused byte detection and conversion is now possible.
+  s+ Lable numbering can now be configured.
+  s+ LabelMod and LabelDo now accept full-on expressions as label definition.
+  s* Fixed a bug which would force incorrect working directory for direct smpss
+    files.
+  s~ Detection for script reads from invalid addresses.
+  s- NCalc.dll is no longer necessary to run SMPS2ASM.
