@@ -1,8 +1,8 @@
-### CHAOTIX SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
-sversion v1_1
+### CHAOTIX SMPS2ASM SCRIPT MADE BY AURORAFIELDS 20/09/14
+sversion v1_2
 sdatamacro dc.b
 
-c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
+c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
 	+Available types: Music, SFX, Voice
 	$.cc
 	;
@@ -10,7 +10,7 @@ c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' 
 
 =endian 'little'
 
-c '\type\' == 'voice' {
+c \type\ == 'voice' {
 	=offset 0
 	~£_Patches .of
 	/ >patch
@@ -19,7 +19,7 @@ c '\type\' == 'voice' {
 
 @offset 0 "Please specify offset of this song in Z80 bank"
 
-c '\type\' == 'sfx' {
+c \type\ == 'sfx' {
 	/ >headersfx
 } {
 	/ >header
@@ -27,11 +27,11 @@ c '\type\' == 'sfx' {
 
 ?header {
 	! > sHeaderInit: {
-		~£_Header .of
+		~"£_Header" .of
 		%; Z80 offset is {$4!\offset\}
 	}
 	! > sHeaderPatch: .dw {
-		~£_Patches :0
+		~"£_Patches" :0
 	}
 
 	=FMnum .db
@@ -40,13 +40,13 @@ c '\type\' == 'sfx' {
 	! > sHeaderTempo: .db, .db;
 	f \FMnum\ {
 		! > sHeaderFM: .dw, .db, .db {
-			~£_FM? :0
+			~"£_FM?" :0
 		}
 	}
 
 	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
-			~£_PSG? :0
+			~"£_PSG?" :0
 			:?4 {
 				?volenv;
 			}
@@ -55,7 +55,7 @@ c '\type\' == 'sfx' {
 
 	f 4 {
 		! > sHeaderPWM: .dw, .db, .db {
-			~£_PWM? :0
+			~"£_PWM?" :0
 		}
 	}
 
@@ -67,11 +67,11 @@ c '\type\' == 'sfx' {
 
 ?headersfx {
 	! > sHeaderInit: {
-		~£_Header .of
+		~"£_Header" .of
 		%; Z80 offset is {$4!\offset\}
 	}
 	! > sHeaderPatch: .dw {
-		~£_Patches :0
+		~"£_Patches" :0
 	}
 
 	! > sHeaderTick: .db;
@@ -92,13 +92,13 @@ c '\type\' == 'sfx' {
 			}
 
 			! > sHeaderSFX: .db, .db, .dw, .db, .db {
-				~£_FM\trpn\ :2
+				~"£_FM"+\trpn\ :2
 			}
 
 		} {
 			=trpn ((\trpd\&0x60)>>5)+1
 			! > sHeaderSFX: .db, .db, .dw, .db, .db {
-				~£_PSG\trpn\ :2
+				~"£_PSG"+\trpn\ :2
 			}
 		}
 
@@ -107,6 +107,15 @@ c '\type\' == 'sfx' {
 	/£_FM? ?note ?comm
 	/£_PSG? ?note ?comm
 	/£_Patches >patch
+}
+
+?unused {
+	%\n\t; Unused data
+	=lastlb .an
+
+	w .an == \lastlb\ {
+		// ?note ?comm
+	}
 }
 
 ?patch {
@@ -243,7 +252,7 @@ c '\type\' == 'sfx' {
 	!0xE9 > ssLFO: .db, .db;
 	!0xEA > sPlayDAC: .db | 0x80;
 	!0xEB > sLoopExit: .db, .dw {
-		~£_Jumpe? :1
+		~"£_Jumpe?"" :1
 	}
 	!0xEC > saVolPSG: .db;
 	!0xED > sYMcmd: .db, .db;
@@ -273,14 +282,14 @@ c '\type\' == 'sfx' {
 		}
 	}
 	!0xF6 > sJump: .dw {
-		~£_Jump? :0
+		~"£_Jump?" :0
 		;
 	}
 	!0xF7 > sLoop: .db, .db, .dw {
-		~£_Loop? :2
+		~"£_Loop?" :2
 	}
 	!0xF8 > sCall: .dw {
-		~£_Call? :0
+		~"£_Call?" :0
 	}
 	!0xF9 > sRet: {
 		;

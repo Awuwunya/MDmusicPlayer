@@ -45,7 +45,7 @@ c \type\ == 'sfx' {
 	! > sHeaderCh: .lb, .db;
 	! > sHeaderTempo: .db, .db;
 	! > sHeaderDAC: .dw {
-			~"£_DAC?" :0
+		~"£_DAC?" :0
 	}
 	$ .sw
 	f \FMnum\ - 1 {
@@ -387,7 +387,7 @@ c \type\ == 'sfx' {
 	!0xFA > sModOff:;
 	!0xFB > saTranspose: .db;
 	!0xFC > sCont: .dw {
-		~"£_Continous?"" :0
+		~"£_Continous?" :0
 	}
 	!0xFD > sRawFreq: .db;
 	!0xFE > sSpecFM3: .db, .db, .db, .db {
@@ -405,6 +405,10 @@ c \type\ == 'sfx' {
 		:=2 .a1
 		:=1 \op2\
 	}
-	!0xFF, 6 > sVolEnvFM: .db, .db;
+	!0xFF, 6 > sVolEnvFM: .db, .db {
+		:?0 {
+			?volenv;
+		}
+	}
 	!0xFF, 7 > sSpDashReset:;
 }
