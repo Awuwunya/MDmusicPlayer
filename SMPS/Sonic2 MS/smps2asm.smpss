@@ -1,8 +1,8 @@
-### SONIC 2 MASTER SYSTEM SMPS2ASM SCRIPT MADE BY NATSUMI 19/01/05
-sversion v1_1
+### SONIC 2 (MASTER SYSTEM) SMPS2ASM SCRIPT MADE BY AURORA*FIELDS 21/01/12
+sversion v1_2
 sdatamacro .db
 
-c ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
+c (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
 	+Available types: Music, SFX
 	$.cc
 	;
@@ -12,7 +12,7 @@ c ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
 =uveb 0x8A2F
 @offset 0 "Please specify offset of this song in Z80 bank"
 
-c '\type\' == 'sfx' {
+c \type\ == 'sfx' {
 	/ >headersfx
 } {
 	/ >header
@@ -20,7 +20,7 @@ c '\type\' == 'sfx' {
 
 ?header {
 	! > sHeaderInit: {
-		~£_Header .of
+		~"£_Header" .of
 		%; Z80 offset is {$4!\offset\}
 	}
 
@@ -29,7 +29,7 @@ c '\type\' == 'sfx' {
 		$ .sw
 	} {
 		! > sHeaderVolEnv: .dw {
-			~£_VolEnv :0
+			~"£_VolEnv" :0
 		}
 	}
 
@@ -39,7 +39,7 @@ c '\type\' == 'sfx' {
 
 	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db {
-			~£_PSG? :0
+			~"£_PSG?" :0
 		}
 	}
 
@@ -138,14 +138,14 @@ c '\type\' == 'sfx' {
 		}
 	}
 	!0xF6 > sJump: .dw {
-		~£_Jump? :0
+		~"£_Jump?" :0
 		;
 	}
 	!0xF7 > sLoop: .db, .db, .dw {
-		~£_Loop? :2
+		~"£_Loop?" :2
 	}
 	!0xF8 > sCall: .dw {
-		~£_Call? :0
+		~"£_Call?" :0
 	}
 	!0xF9 > sRet: {
 		;

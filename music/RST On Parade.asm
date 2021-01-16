@@ -33,15 +33,15 @@ OnParade_Jump1:
 	sPatFM		$00
 	sCall		OnParade_Call2
 	dc.b nG4, $06, nRst, $12
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB4, $12, nA4, nG4, $1E, nRst, $0C
 	sPatFM		$04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nD4, $06, nRst, nD4
 	sPatFM		$00
 	sCall		OnParade_Call2
 	dc.b nG4, $06, nRst, $12
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD5, $12, nC5, nB4, $0C, nG4, $18, nA4
 	dc.b $06
 	sPatFM		$04
@@ -49,12 +49,12 @@ OnParade_Jump1:
 	sPatFM		$00
 	sCall		OnParade_Call3
 	dc.b nB4, $08
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA4, $0A, nG4, $03, nRst
 	sCall		OnParade_Call3
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nB4, $0C, nA4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $30, sHold, $1E
 	sPatFM		$03
 	ssMod68k	$07, $01, $04, $05
@@ -70,7 +70,7 @@ OnParade_Jump1:
 	dc.b nRst, $02, nG4, $30, sHold, $30
 	ssMod68k	$01, $01, $00, $00
 	sPatFM		$04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nRst, $30, nRst, $1E, nD4, $06, nD4, nD4
 	sJump		OnParade_Jump1
 
@@ -100,43 +100,43 @@ OnParade_Jump2:
 	dc.b nG4, $02
 	saVolFM		$FA
 	sPatFM		$01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nD4, $06, nD4, nD4
-	sNoteTimeOut	$0C
+	sGate		$0C
 	dc.b nG4, $12, nE4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD4, $1E, nRst, $0C
 	sPatFM		$05
 	dc.b nD3, $06, nRst, nD3
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nRst, $04
 	saVolFM		$06
 	sPatFM		$00
 	dc.b nG4, $06, $0C, nG4, nG4, $06, nE4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $0B, nRst, $01, nG4, $06, nA4, $08
 	saVolFM		$FA
 	sPatFM		$01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nD4, $06, nE4, nG4, nA4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB4, $12, nA4, nG4, $0C, nE4, $18, nFs4
 	dc.b $06
 	sPatFM		$05
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nD3, $06, nD3, nD3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nRst, $04
 	saVolFM		$06
 	sPatFM		$00
 	sCall		OnParade_Call3
 	dc.b nB4, $08
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA4, $0A, nG4, $06
 	sCall		OnParade_Call3
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nB4, $0C, nA4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $30, sHold, $1E
 	sPatFM		$03
 	ssMod68k	$07, $01, $04, $05
@@ -153,7 +153,7 @@ OnParade_Jump2:
 	ssMod68k	$01, $01, $00, $00
 	saVolFM		$FA
 	sPatFM		$05
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nRst, $30, nRst, $1E, nD3, $06, nD3, nD3
 	sJump		OnParade_Jump2
 
@@ -189,7 +189,7 @@ OnParade_Loop3:
 OnParade_FM4:
 	dc.b nRst, $06, nRst, $30
 	sPatFM		$06
-	sNoteTimeOut	$07
+	sGate		$07
 
 OnParade_Loop4:
 	dc.b nRst, $0C, nB4, $06
@@ -329,7 +329,7 @@ OnParade_Loop9:
 OnParade_FM5:
 	dc.b nRst, $06, nRst, $30
 	sPatFM		$06
-	sNoteTimeOut	$07
+	sGate		$07
 	sPan		spLeft
 
 OnParade_Loop10:
@@ -470,7 +470,7 @@ OnParade_Loop15:
 OnParade_PSG1:
 	dc.b nRst, $06, nRst, $30
 	sVolEnvPSG	v00
-	sNoteTimeOut	$03
+	sGate		$03
 	saVolPSG	$03
 
 OnParade_Loop16:
@@ -478,12 +478,12 @@ OnParade_Loop16:
 	sLoop		$00, $04, OnParade_Loop16
 	saVolPSG	$FD
 	sVolEnvPSG	v12
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nRst, $30, nRst, nB4, $12, nA4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $30, nRst, $0C, nRst, $30, nRst, nD5
 	dc.b $12, nC5, nB4, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $18, nA4
 	sVolEnvPSG	v19
 	ssMod68k	$20, $02, $01, $02
@@ -494,7 +494,7 @@ OnParade_Loop16:
 	dc.b $18, nFs6, nG6, nA6, nG6, $30, sHold, $30
 	ssMod68k	$01, $01, $00, $00
 	sVolEnvPSG	v00
-	sNoteTimeOut	$03
+	sGate		$03
 	saVolPSG	$03
 
 OnParade_Loop17:
@@ -505,7 +505,7 @@ OnParade_Loop17:
 OnParade_PSG2:
 	dc.b nRst, $06, nRst, $30
 	sVolEnvPSG	v00
-	sNoteTimeOut	$03
+	sGate		$03
 	ssDetune	$FF
 	dc.b nRst, $04
 	saVolPSG	$06
@@ -523,12 +523,12 @@ OnParade_Loop18:
 	saVolPSG	$FD
 	ssDetune	$00
 	sVolEnvPSG	v12
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nRst, $30, nRst, nG4, $12, nE4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD4, $30, nRst, $0C, nRst, $30, nRst, nB4
 	dc.b $12, nA4, nG4, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nE4, $18, nFs4
 	ssDetune	$FF
 	dc.b nRst, $03
@@ -542,7 +542,7 @@ OnParade_Loop18:
 	dc.b $18, nFs6, nG6, nA6, nG6, $30, sHold, $2D
 	ssMod68k	$01, $01, $00, $00
 	sVolEnvPSG	v00
-	sNoteTimeOut	$03
+	sGate		$03
 	saVolPSG	$FC
 	saVolPSG	$06
 	dc.b nRst, $04
@@ -557,7 +557,7 @@ OnParade_PSG3:
 	dc.b nRst, $06, nRst, $30
 	sVolEnvPSG	v18
 	sNoisePSG	$E7
-	sNoteTimeOut	$03
+	sGate		$03
 
 OnParade_Jump3:
 	sPan		spLeft
@@ -635,68 +635,68 @@ OnParade_Loop23:
 	sJump		OnParade_Loop21
 
 OnParade_Call1:
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nG4, $06, nG4, nG4, nG4, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $0B, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nG4, $06, nA4, $0C, nB4, $0C
 	sPatFM		$04
 	dc.b nG5, $06, nRst, nG4, nRst
 	sPatFM		$00
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nG4, $06, nG4, nG4, nG4, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB4, $0B, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nB4, $06, nA4, $0C
 	sRet
 
 OnParade_Call2:
 	dc.b nG4, $06, $0C, nG4, nG4, $06, nE4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $0B, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nG4, $06, nA4, $0C
 	sRet
 
 OnParade_Call3:
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nRst, $0C, nD5, nB4, nRst, nRst, $0C, nE5
 	dc.b nC5, nRst, nRst, $0C, nD5, nB4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB4, $08
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nA4, $04, nG4, $0C, $08, $04
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $0B, nRst, $01, nA4, $0B, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nRst, $0C, nB4, nD5, nRst, nRst, $0C, nC5
 	dc.b nE5, nRst, nRst, $0C, nD5, nB4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB4, $08
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA4, $04, nB4, $08, nA4, $04, nB4, $08
 	dc.b nA4, $04
 	sRet
 
 OnParade_Call4:
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nG4, $06, nG4, nG4, nG4, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $0B, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nG4, $06, nA4, $0C, nB4, $08
 	saVolFM		$FA
 	sPatFM		$05
 	dc.b nG3, $06, nRst, nG2, nRst, nRst, $04
 	saVolFM		$06
 	sPatFM		$00
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nG4, $06, nG4, nG4, nG4, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB4, $0B, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nB4, $06, nA4, $0C
 	sRet
 

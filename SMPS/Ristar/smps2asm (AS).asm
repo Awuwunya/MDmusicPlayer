@@ -171,7 +171,7 @@ saVolFM		macro vol
 sHold =		$E7
 
 ; E8xx - Stop note after xx frames (NOTE_STOP - NSTOP_MULT)
-sNoteTimeOut	macro val
+sGate		macro val
 	dc.b $E8,val
     endm
 
@@ -328,7 +328,7 @@ sFM4freq	macro val
     endm
 
 ; FF06xx - Start note after xx frames (NOTE_STOP_REV - NSREV_RST)
-sNoteTimeIn	macro val
+sGateIn		macro val
 	dc.b $FF,$06,val
     endm
 

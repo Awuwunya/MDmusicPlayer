@@ -1,8 +1,8 @@
-### CHAOTIX SMPS2ASM SCRIPT MADE BY NATSUMI 17/09/10
-sversion v1_1
+### CHAOTIX SMPS2ASM SCRIPT MADE BY AURORA*FIELDS 21/01/12
+sversion v1_2
 sdatamacro dc.b
 
-c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
+c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
 	+Available types: Music, SFX, Voice
 	$.cc
 	;
@@ -11,14 +11,14 @@ c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' 
 =offset 0
 =endian 'big'
 
-c '\type\' == 'voice' {
-	~£_Patches .of
+c \type\ == 'voice' {
+	~"£_Patches" .of
 	/ >patch
 	;
 }
 
 
-c '\type\' == 'sfx' {
+c \type\ == 'sfx' {
 	/ >headersfx
 } {
 	/ >header
@@ -26,11 +26,11 @@ c '\type\' == 'sfx' {
 
 ?header {
 	! > sHeaderInit: {
-		~£_Header .of
+		~"£_Header" .of
 	}
 
 	! > sHeaderPatch: .dw {
-		~£_Patches :0
+		~"£_Patches" :0
 	}
 
 	=FMnum .db
@@ -38,19 +38,22 @@ c '\type\' == 'sfx' {
 	! > sHeaderCh: .lb, .db;
 	! > sHeaderTempo: .db, .db;
 	! > sHeaderDAC: .dw {
-		~£_DAC :0
+		~"£_DAC?" :0
 	}
 
 	$ .sw
 	f \FMnum\ - 1 {
 		! > sHeaderFM: .dw, .db, .db {
-			~£_FM? :0
+			~"£_FM?" :0
 		}
 	}
 
 	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
-			~£_PSG? :0
+			~"£_PSG?" :0
+			:?3 {
+				?modenv;
+			}
 			:?4 {
 				?volenv;
 			}
@@ -65,11 +68,10 @@ c '\type\' == 'sfx' {
 
 ?headersfx {
 	! > sHeaderInit: {
-		~£_Header .of
-		%; Z80 offset is {$4!\offset\}
+		~"£_Header" .of
 	}
 	! > sHeaderPatch: .dw {
-		~£_Patches :0
+		~"£_Patches" :0
 	}
 
 	! > sHeaderTick: .db;
@@ -90,13 +92,13 @@ c '\type\' == 'sfx' {
 			}
 
 			! > sHeaderSFX: .db, .db, .dw, .db, .db {
-				~£_FM\trpn\ :2
+				~"£_FM"+\trpn\ :2
 			}
 
 		} {
 			=trpn ((\trpd\&0x60)>>5)+1
 			! > sHeaderSFX: .db, .db, .dw, .db, .db {
-				~£_PSG\trpn\ :2
+				~"£_PSG"+\trpn\ :2
 			}
 		}
 
@@ -105,6 +107,15 @@ c '\type\' == 'sfx' {
 	/£_FM? ?note ?comm
 	/£_PSG? ?note ?comm
 	/£_Patches >patch
+}
+
+?unused {
+	%\n\t; Unused data
+	=lastlb .an
+
+	w .an == \lastlb\ {
+		// ?note ?comm
+	}
 }
 
 ?patch {
@@ -201,7 +212,7 @@ c '\type\' == 'sfx' {
 	!0xE5 > saVolFM: .db, .db;
 	!0xE6 > saVolFM: .db;
 	=sHold 0xE7
-	!0xE8 > sNoteTimeOut: .db;
+	!0xE8 > sGate: .db;
 	!0xE9 > ssLFO: .db, .db;
 	!0xEA > ssDetune: .db;
 	!0xEB > sPlaySound: .db;
@@ -222,14 +233,14 @@ c '\type\' == 'sfx' {
 		}
 	}
 	!0xF6 > sJump: .ow {
-		~£_Jump? :0
+		~"£_Jump?" :0
 		;
 	}
 	!0xF7 > sLoop: .db, .db, .ow {
-		~£_Loop? :2
+		~"£_Loop?" :2
 	}
 	!0xF8 > sCall: .ow {
-		~£_Call? :0
+		~"£_Call?" :0
 	}
 	!0xF9 > sRet: {
 		;

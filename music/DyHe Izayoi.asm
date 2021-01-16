@@ -73,39 +73,39 @@ Izayoi_Call1:
 	sPan		spRight
 	ssMod68k	$0F, $01, $04, $05
 	saVolFM		$FA
-	sNoteTimeOut	$02
+	sGate		$02
 	sPatFM		$44
 	dc.b nA2, $06, nA2, nA2, nA2
-	sNoteTimeOut	$08
+	sGate		$08
 	sPatFM		$41
 	dc.b nE3, nD3, nC3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, sHold, nD3, nC3, nB2, nA2, $0C, nB2
 	dc.b $06, nG2, $0C
-	sNoteTimeOut	$02
+	sGate		$02
 	sPatFM		$44
 	dc.b nA2, $06, nA2, nA2, nA2
 	sPatFM		$41
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nE3, nD3, nC3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, sHold, nD3, $30
-	sNoteTimeOut	$02
+	sGate		$02
 	sPatFM		$44
 	dc.b nA2, $06, nA2, nA2, nA2
 	sPatFM		$41
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nE3, nD3, nC3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, sHold, nD3, nC3, nB2, nA2, $0C, nB2
 	dc.b $06, nG2, $0C
-	sNoteTimeOut	$02
+	sGate		$02
 	sPatFM		$44
 	dc.b nA2, $06, nA2, nA2, nA2
 	sPatFM		$41
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nE3, nD3, nC3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, sHold, nD3, $30, sHold, nD3, $30
 	saVolFM		$06
 	sRet
@@ -331,17 +331,17 @@ Izayoi_FM2:
 Izayoi_Jump2:
 	saVolFM		$FE
 	sPatFM		$08
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA2, $06, nA2, nRst, $24, nRst, $30
 	saVolFM		$02
 	ssMod68k	$01, $01, $60, $03
 	ssLFO		$0C, $5A
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	saVolFM		$04
 	dc.b nA2, $06, nA3, nA2, nA3
 	ssLFO		$00, $00
-	sNoteTimeOut	$00
+	sGate		$00
 	sModOff
 	saVolFM		$FC
 	dc.b nRst, $18, nRst, $30
@@ -352,11 +352,11 @@ Izayoi_Jump2:
 	ssMod68k	$01, $01, $60, $03
 	ssLFO		$0C, $5A
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	saVolFM		$04
 	dc.b nA2, $06, nA3, nA2, nA3
 	ssLFO		$00, $00
-	sNoteTimeOut	$00
+	sGate		$00
 	sModOff
 	saVolFM		$FC
 	dc.b nRst, $12
@@ -592,31 +592,31 @@ Izayoi_Call5:
 	ssMod68k	$0C, $01, $05, $03
 	saVolFM		$FA
 	saTranspose	$0C
-	sNoteTimeOut	$02
+	sGate		$02
 	dc.b nA1, $06, nA1, nA1, nA1
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nB3, nA3, nG3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA3, sHold, nA3, nG3, nFs3, nE3, $0C, nFs3
 	dc.b $06, nD3, $0C
-	sNoteTimeOut	$02
+	sGate		$02
 	dc.b nA1, $06, nA1, nA1, nA1
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nB3, nA3, nG3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA3, sHold, nA3, $30
-	sNoteTimeOut	$02
+	sGate		$02
 	dc.b nA1, $06, nA1, nA1, nA1
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nB3, nA3, nG3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA3, sHold, nA3, nG3, nFs3, nE3, $0C, nFs3
 	dc.b $06, nD3, $0C
-	sNoteTimeOut	$02
+	sGate		$02
 	dc.b nA1, $06, nA1, nA1, nA1
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nB3, nA3, nG3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA3, sHold, nA3, $30, sHold, nA3, $30
 	saVolFM		$06
 	saTranspose	$F4
@@ -628,31 +628,31 @@ Izayoi_Call6:
 	ssMod68k	$0C, $01, $05, $03
 	saVolFM		$FA
 	saTranspose	$0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nE2, $06, nE2, nE2, nE2
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nB3, nA3, nG3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA3, sHold, nA3, nG3, nFs3, nE3, $0C, nFs3
 	dc.b $06, nD3, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nE2, $06, nE2, nE2, nE2
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nB3, nA3, nG3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA3, sHold, nA3, $30
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nE2, $06, nE2, nE2, nE2
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nB3, nA3, nG3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA3, sHold, nA3, nG3, nFs3, nE3, $0C, nFs3
 	dc.b $06, nD3, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nE2, $06, nE2, nE2, nE2
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nB3, nA3, nG3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA3, sHold, nA3, $30, sHold, nA3, $30
 	saVolFM		$06
 	saTranspose	$F4
@@ -665,7 +665,7 @@ Izayoi_Call7:
 	saVolFM		$FB
 
 Izayoi_Loop11:
-	sNoteTimeOut	$05
+	sGate		$05
 	saVolFM		$FE
 	dc.b nA2, $06
 	saVolFM		$02
@@ -678,14 +678,14 @@ Izayoi_Loop11:
 	dc.b nA2
 	saVolFM		$02
 	dc.b nA2
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nA2
 	saVolFM		$FE
 	dc.b nC3, sHold, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	saVolFM		$02
 	dc.b nG2, $18
-	sNoteTimeOut	$05
+	sGate		$05
 	saVolFM		$FE
 	dc.b nA2, $06
 	saVolFM		$02
@@ -698,11 +698,11 @@ Izayoi_Loop11:
 	dc.b nA2
 	saVolFM		$02
 	dc.b nA2
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nA2
 	saVolFM		$FE
 	dc.b nE3, sHold, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nEb3, $06, nRst, nE3, nRst
 	saVolFM		$02
 	sLoop		$00, $02, Izayoi_Loop11
@@ -717,81 +717,81 @@ Izayoi_Call8:
 	saVolFM		$FC
 	dc.b nA2, $30
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nA2, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA2
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nA2, nD4
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA2, $0C
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nA2, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA2, sHold, $18
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nA2, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA2
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nA2
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA2, sHold, $0C
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nA2, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA2, $06, sHold, $18, nC3, $30
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nC3, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC3
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nC3, nC4
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC3, $0C
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nC3, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF2, sHold, $0C
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nF2, $06
 	saVolFM		$FF
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG2, $12
 	saVolFM		$01
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nG2, $06
 	saVolFM		$FE
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA2, $12
 	saVolFM		$02
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nA2, $06
 	saVolFM		$FD
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB2, $06, sHold, $18, sHold, $18
 	saVolFM		$04
 	sRet
@@ -955,7 +955,7 @@ Izayoi_Call11:
 	saVolFM		$F9
 
 Izayoi_Loop13:
-	sNoteTimeOut	$05
+	sGate		$05
 	saVolFM		$FE
 	dc.b nE3, $06
 	saVolFM		$02
@@ -968,14 +968,14 @@ Izayoi_Loop13:
 	dc.b nE3
 	saVolFM		$02
 	dc.b nE3
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nE3
 	saVolFM		$FE
 	dc.b nG3, sHold, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	saVolFM		$02
 	dc.b nC3, $18
-	sNoteTimeOut	$05
+	sGate		$05
 	saVolFM		$FE
 	dc.b nE3, $06
 	saVolFM		$02
@@ -988,11 +988,11 @@ Izayoi_Loop13:
 	dc.b nE3
 	saVolFM		$02
 	dc.b nE3
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nE3
 	saVolFM		$FE
 	dc.b nB3, sHold, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nBb3, $06, nRst, nB3, nRst
 	saVolFM		$02
 	sLoop		$00, $02, Izayoi_Loop13
@@ -1006,81 +1006,81 @@ Izayoi_Call12:
 	ssMod68k	$1C, $01, $0A, $04
 	dc.b nD3, $30
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3, nD4
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, $0C
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, sHold, $18
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, sHold, $0C
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, $06, sHold, $18, nF3, $30
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nF3, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF3
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nF3, nF4
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF3, $0C
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nF3, $06
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA2, sHold, $0C
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nA2, $06
 	saVolFM		$FF
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB2, $12
 	saVolFM		$01
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nB2, $06
 	saVolFM		$FE
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nCs3, $12
 	saVolFM		$02
 	sPatFM		$1F
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nCs3, $06
 	saVolFM		$FD
 	sPatFM		$42
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nEb3, $06, sHold, $18, sHold, $18
 	saVolFM		$03
 	sRet
@@ -1146,7 +1146,7 @@ Izayoi_Call17:
 
 Izayoi_Loop14:
 	sVolEnvPSG	v08
-	sNoteTimeOut	$05
+	sGate		$05
 	saVolPSG	$FE
 	dc.b nE3, $06
 	saVolPSG	$02
@@ -1159,14 +1159,14 @@ Izayoi_Loop14:
 	dc.b nE3
 	saVolPSG	$02
 	dc.b nE3
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nE3
 	saVolPSG	$FE
 	dc.b nG3, sHold, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	saVolPSG	$02
 	dc.b nC3, $18
-	sNoteTimeOut	$05
+	sGate		$05
 	saVolPSG	$FE
 	dc.b nE3, $06
 	saVolPSG	$02
@@ -1179,11 +1179,11 @@ Izayoi_Loop14:
 	dc.b nE3
 	saVolPSG	$02
 	dc.b nE3
-	sNoteTimeOut	$08
+	sGate		$08
 	dc.b nE3
 	saVolPSG	$FE
 	dc.b nB3, sHold, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nBb3, $06, nRst, nB3, nRst
 	saVolPSG	$02
 	sLoop		$00, $02, Izayoi_Loop14
@@ -1195,58 +1195,58 @@ Izayoi_Call18:
 	ssMod68k	$0C, $02, $02, $03
 	sVolEnvPSG	v08
 	dc.b nD3, $30
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3, nD4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, $0C
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, sHold, $18
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, sHold, $0C
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nD3, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3, $06, sHold, $18, nF3, $30
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nF3, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF3
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nF3, nF4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF3, $0C
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nF3, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA2, sHold, $0C
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nA2, $06
 	saVolPSG	$FF
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB2, $12
 	saVolPSG	$01
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nB2, $06
 	saVolPSG	$FE
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nCs3, $12
 	saVolPSG	$02
-	sNoteTimeOut	$01
+	sGate		$01
 	dc.b nCs3, $06
 	saVolPSG	$FD
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nEb3, $06, sHold, $18, sHold, $18
 	saVolPSG	$03
 	saTranspose	$F4
@@ -1297,48 +1297,48 @@ Izayoi_Jump6:
 
 Izayoi_Loop16:
 	sVolEnvPSG	v01
-	sNoteTimeOut	$02
+	sGate		$02
 	dc.b nA5, $06, nA5, nA5, nA5
 	sLoop		$00, $1D, Izayoi_Loop16
 
 Izayoi_Loop17:
 	sVolEnvPSG	v01
-	sNoteTimeOut	$14
+	sGate		$14
 	dc.b nA5, $0C, nA5, nA5, nA5
 	sLoop		$00, $09, Izayoi_Loop17
 	dc.b nRst, $30
 
 Izayoi_Loop18:
 	sVolEnvPSG	v01
-	sNoteTimeOut	$02
+	sGate		$02
 	dc.b nA5, $06, nA5, nA5, nA5
 	sLoop		$00, $10, Izayoi_Loop18
 
 Izayoi_Loop19:
 	sVolEnvPSG	v01
-	sNoteTimeOut	$14
+	sGate		$14
 	dc.b nA5, $0C, nA5, nA5, nA5
 	sLoop		$00, $0B, Izayoi_Loop19
 	dc.b nRst, $18
 
 Izayoi_Loop20:
 	sVolEnvPSG	v01
-	sNoteTimeOut	$0F
+	sGate		$0F
 	dc.b nA5, $18
 	sLoop		$00, $18, Izayoi_Loop20
 
 Izayoi_Loop21:
-	sNoteTimeOut	$02
+	sGate		$02
 	dc.b nA5, $06, nA5, nA5, nA5
 	sLoop		$00, $08, Izayoi_Loop21
 
 Izayoi_Loop22:
 	sVolEnvPSG	v01
-	sNoteTimeOut	$14
+	sGate		$14
 	dc.b nA5, $0C, nA5, nA5, nA5
 	sLoop		$00, $10, Izayoi_Loop22
 	dc.b nA5, $06, nA5, nA5, nA5, nA5, nA5, nRst
-	sNoteTimeOut	$1E
+	sGate		$1E
 	dc.b nA5, $06, sHold, $18, nRst, nRst, $30
 	sJump		Izayoi_Jump6
 	dc.b $F2	; Unused

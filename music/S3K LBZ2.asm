@@ -243,7 +243,7 @@ LunchPlace_Call11:
 	sRet
 
 LunchPlace_PSG1:
-	sNoteTimeOut	$05
+	sGate		$05
 	sVolEnvPSG	v11
 	dc.b nRst, $60, nRst, nRst
 	sCall		LunchPlace_Call12

@@ -1,4 +1,4 @@
-### RISTAR SMPS2ASM SCRIPT MADE BY AURORAFIELDS 20/08/17
+### RISTAR SMPS2ASM SCRIPT MADE BY AURORA*FIELDS 21/01/12
 sversion v1_2
 sdatamacro dc.b
 
@@ -308,7 +308,7 @@ c \type\ == 'sfx' {
 	!0xE5 > saVolFMP: .db, .db;
 	!0xE6 > saVolFM: .db;
 	=sHold 0xE7
-	!0xE8 > sNoteTimeOut: .db;
+	!0xE8 > sGate: .db;
 	!0xE9 > ssLFO: .db, .db;
 	!0xEA > ssTempo: .db;
 	!0xEB > sPlaySound: .db;
@@ -367,7 +367,7 @@ c \type\ == 'sfx' {
 	!0xFF, 3 > sFadeSPC: .db, .db;
 	!0xFF, 4 > sFadeSPC:;
 	!0xFF, 5 > sFM4freq: .db;
-	!0xFF, 6 > sNoteTimeIn: .db;
+	!0xFF, 6 > sGateIn: .db;
 	!0xFF, 7 > sCondJmp: .rw {
 		~"£_Cond?" :0
 	}

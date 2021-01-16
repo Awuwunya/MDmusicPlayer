@@ -1,9 +1,9 @@
-### Z80 TYPE 1 GENERIC SMPS2ASM SCRIPT MADE BY NATSUMI 18/08/25
-sversion v1_1
+### Z80 TYPE 1 GENERIC SMPS2ASM SCRIPT MADE BY AURORA*FIELDS 21/01/12
+sversion v1_2
 sdatamacro dc.b
 
 # check for valid script parse type
-c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' != 'music') {
+c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'music') {
 	+Available types: Music, SFX, Voice
 	$.cc
 	;
@@ -13,9 +13,9 @@ c ('\type\' != 'voice') && ('\type\' != 'sfx') && ('\type\' != '') && ('\type\' 
 =endian 'little'
 
 # if this is a voice, just go straight to parsing them
-c '\type\' == 'voice' {
+c \type\ == 'voice' {
 	=offset 0
-	~£_Patches .of
+	~"£_Patches" .of
 	/ >patch
 	;
 }
@@ -24,7 +24,7 @@ c '\type\' == 'voice' {
 @offset 0 "Please specify offset of this song in Z80 bank"
 
 # determine parse routine
-c '\type\' == 'sfx' {
+c \type\ == 'sfx' {
 	/ >headersfx
 } {
 	/ >header
@@ -33,13 +33,13 @@ c '\type\' == 'sfx' {
 ?header {
 	# this line will initialize SMPS2ASM assembly
 	! > sHeaderInit: {
-		~£_Header .of
+		~"£_Header" .of
 		%; Z80 offset is {$4!\offset\}
 	}
 
 	# pointer to voice table
 	! > sHeaderPatch: .dw {
-		~£_Patches :0
+		~"£_Patches" :0
 	}
 
 	# load number of channels into variables
@@ -50,7 +50,7 @@ c '\type\' == 'sfx' {
 	# prepare tempo and DAC header
 	! > sHeaderTempo: .db, .db;
 	! > sHeaderDAC: .dw {
-		~£_DAC :0
+		~"£_DAC?" :0
 	}
 
 	$ .sw
@@ -58,14 +58,17 @@ c '\type\' == 'sfx' {
 	# process each FM channel
 	f \FMnum\ - 1 {
 		! > sHeaderFM: .dw, .db, .db {
-			~£_FM? :0
+			~"£_FM?" :0
 		}
 	}
 
 	# process each PSG channel
 	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
-			~£_PSG? :0
+			~"£_PSG?" :0
+			:?3 {
+				?modenv;
+			}
 			:?4 {
 				?volenv;
 			}
@@ -82,13 +85,13 @@ c '\type\' == 'sfx' {
 ?headersfx {
 	# this line will initialize SMPS2ASM assembly
 	! > sHeaderInit: {
-		~£_Header .of
+		~"£_Header" .of
 		%; Z80 offset is {$4!\offset\}
 	}
 
 	# pointer to voice table
 	! > sHeaderPatch: .dw {
-		~£_Patches :0
+		~"£_Patches" :0
 	}
 
 	# load tick count and channel count
@@ -116,14 +119,14 @@ c '\type\' == 'sfx' {
 
 			# initialize FM channel
 			! > sHeaderSFX: .db, .db, .dw, .db, .db {
-				~£_FM\trpn\ :2
+				~"£_FM"+\trpn\ :2
 			}
 
 		} {
 			# initialize PSG channel
 			=trpn ((\trpd\&0x60)>>5)+1
 			! > sHeaderSFX: .db, .db, .dw, .db, .db {
-				~£_PSG\trpn\ :2
+				~"£_PSG"+\trpn\ :2
 			}
 		}
 
@@ -133,6 +136,15 @@ c '\type\' == 'sfx' {
 	/£_FM? ?note ?comm
 	/£_PSG? ?note ?comm
 	/£_Patches >patch
+}
+
+?unused {
+	%\n\t; Unused data
+	=lastlb .an
+
+	w .an == \lastlb\ {
+		// ?note ?comm
+	}
 }
 
 ?patch {
@@ -238,7 +250,7 @@ c '\type\' == 'sfx' {
 	=sHold 0xE7
 
 	# NOTE_STOP	NSTOP_NORMAL
-	!0xE8 > sNoteTimeOut: .db;
+	!0xE8 > sGate: .db;
 
 	# SET_LFO 	LFO_AMSEN
 	!0xE9 > ssLFO: .db, .db;
@@ -256,7 +268,7 @@ c '\type\' == 'sfx' {
 	!0xED > sYMcmd: .db, .db;
 
 	# FM_COMMAND	FMW_FM1
-	!0xEE > sYM1cmd: .db, .db;
+	!0xEE > sYM1: .db, .db;
 
 	# INSTRUMENT	INS_C_FM
 	!0xEF > sPatFM: .db;
@@ -299,18 +311,18 @@ c '\type\' == 'sfx' {
 
 	# GOTO
 	!0xF6 > sJump: .dw {
-		~£_Jump? :0
+		~"£_Jump?" :0
 		;
 	}
 
 	# LOOP
 	!0xF7 > sLoop: .db, .db, .dw {
-		~£_Loop? :2
+		~"£_Loop?" :2
 	}
 
 	# GOSUB
 	!0xF8 > sCall: .dw {
-		~£_Call? :0
+		~"£_Call?" :0
 	}
 
 	# RETURN

@@ -1,4 +1,4 @@
-### SONIC3K SMPS2ASM SCRIPT MADE BY AURORAFIELDS 20/08/17
+### SONIC3K SMPS2ASM SCRIPT MADE BY AURORA*FIELDS 21/01/12
 sversion v1_2
 sdatamacro dc.b
 
@@ -13,7 +13,7 @@ c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'musi
 
 c \type\ == 'voice' {
 	=offset 0
-	~£_Patches .of
+	~"£_Patches" .of
 	/ >patch
 	;
 }
@@ -57,11 +57,11 @@ c \type\ == 'sfx' {
 	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
 			~"£_PSG?" :0
-			:?4 {
-				?volenv;
-			}
 			:?3 {
 				?modenv;
+			}
+			:?4 {
+				?volenv;
 			}
 		}
 	}
@@ -340,7 +340,7 @@ c \type\ == 'sfx' {
 	!0xE9 > sSpDashRev:;
 	!0xEA > sPlayDAC: .db | 0x80;
 	!0xEB > sLoopExit: .db, .dw {
-		~"£_Jumpe?"" :1
+		~"£_Jumpe?" :1
 	}
 	!0xEC > saVolPSG: .db;
 	!0xED > ssTranspose: $2!(.db-0x40);

@@ -1,10 +1,10 @@
-### WESTONE GENERIC DISASSEMBLER
-sversion v1_1
+### WESTONE GENERIC DISASSEMBLER MADE BY AURORA*FIELDS 21/01/12
+sversion v1_2
 sdatamacro dc.b
 slablenumber hex
 
 # check for valid script parse type
-c ('\type\' != 'bank') && ('\type\' != '') {
+c (\type\ != 'bank') && (\type\ != '') {
 	+Available types: Bank
 	# wait for user to press a key before exit
 	$.cc
@@ -32,7 +32,7 @@ w .al==0||.al!=.pc {
 
 		w 0!=.nw {
 			! > dw: .dw {
-				~%_? :0
+				~"%_?" :0
 			}
 		}
 
@@ -44,7 +44,7 @@ w .al==0||.al!=.pc {
 
 		w 0xFF!=.nb {
 			! > wChSFX: .db, .dw {
-				~%_? :1
+				~"%_?" :1
 			}
 		}
 
@@ -57,7 +57,7 @@ w .al==0||.al!=.pc {
 
 ?comm {
 	!0xD0-0xD7 > wLoopGo: .lb&7, .dw {
-		~%_Loop? :1
+		~"%_Loop?" :1
 	}
 	!0xD8-0xDF > wLoopBackInit: .lb&7;
 	!0xE0 > wModOn:;
@@ -80,7 +80,7 @@ w .al==0||.al!=.pc {
 	=wStopHw 0xFB
 	!0xFC > wFC:;
 	!0xFD > wJump: .dw {
-		~%_Jump? :0
+		~"%_Jump?" :0
 		;
 	}
 	!0xFE > wLoopBack:;

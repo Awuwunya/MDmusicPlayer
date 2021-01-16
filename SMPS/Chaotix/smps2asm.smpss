@@ -1,4 +1,4 @@
-### CHAOTIX SMPS2ASM SCRIPT MADE BY AURORAFIELDS 20/09/14
+### CHAOTIX SMPS2ASM SCRIPT MADE BY AURORA*FIELDS 21/01/12
 sversion v1_2
 sdatamacro dc.b
 
@@ -12,7 +12,7 @@ c (\type\ != 'voice') && (\type\ != 'sfx') && (\type\ != '') && (\type\ != 'musi
 
 c \type\ == 'voice' {
 	=offset 0
-	~£_Patches .of
+	~"£_Patches" .of
 	/ >patch
 	;
 }
@@ -47,6 +47,9 @@ c \type\ == 'sfx' {
 	f \PSGnum\ {
 		! > sHeaderPSG: .dw, .db, .db, .db, .db {
 			~"£_PSG?" :0
+			:?3 {
+				?modenv;
+			}
 			:?4 {
 				?volenv;
 			}
@@ -248,11 +251,11 @@ c \type\ == 'sfx' {
 	!0xE5 > saVolFMP: .db, .db;
 	!0xE6 > saVolFM: .db;
 	=sHold 0xE7
-	!0xE8 > sNoteTimeOut: .db;
+	!0xE8 > sGate: .db;
 	!0xE9 > ssLFO: .db, .db;
 	!0xEA > sPlayDAC: .db | 0x80;
 	!0xEB > sLoopExit: .db, .dw {
-		~"£_Jumpe?"" :1
+		~"£_Jumpe?" :1
 	}
 	!0xEC > saVolPSG: .db;
 	!0xED > sYMcmd: .db, .db;

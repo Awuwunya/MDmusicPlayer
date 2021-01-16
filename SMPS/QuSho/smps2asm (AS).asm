@@ -168,7 +168,7 @@ saVolFM		macro val
 sHold =		$E7
 
 ; E8xx - Stop note after xx ticks (NOTE_STOP - NSTOP_MULT)
-sNoteTimeOut	macro val
+sGate		macro val
 	dc.b $E8,val
     endm
 
@@ -184,7 +184,7 @@ ssTimerAQu	macro timer
     endm
 
 ; EBxx - Ignore ignore ignore (IGNORE)
-sNop	macro val
+sNop		macro val
 	dc.b $EB,val
     endm
 

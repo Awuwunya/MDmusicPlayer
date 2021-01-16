@@ -138,7 +138,7 @@ FunnyAngry_Call1:
 
 FunnyAngry_FM2:
 	sPatFM		$10
-	sNoteTimeOut	$02
+	sGate		$02
 
 FunnyAngry_Loop1:
 	dc.b nE3, $06, nE3, nE3, nE3, nE3, nE3, nE3
@@ -154,7 +154,7 @@ FunnyAngry_Loop2:
 	sCall		FunnyAngry_Call2
 	sPatFM		$15
 	saVolFM		$F6
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nD4, $06, nD4, nD4, nD4, nD4, nD4, nD4
 	dc.b nD4, nD4, nD4, nD4, nD4, nD4, nD4, nD4
 	dc.b nD4, nD4, nD4, nRst, nD4, $0C, nD4
@@ -163,14 +163,14 @@ FunnyAngry_Loop2:
 	sCall		FunnyAngry_Call2
 	sPatFM		$15
 	saVolFM		$F6
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nD4, $06, nD4, nD4, nD4, nD4, nD4, nD4
 	dc.b nD4, nD4, nD4, nD4, nD4, nD4, nD4, nD4
 	dc.b nD4
 	saVolFM		$0A
 	dc.b nRst, $06, nRst, $30, nRst, nRst, nRst, nRst
 	dc.b nRst, nRst, $2A
-	sNoteTimeOut	$00
+	sGate		$00
 	saVolFM		$FE
 	sPatFM		$1A
 	dc.b nG4, $06, nF4, nG4, $0C, nA4, $06, nG4
@@ -182,12 +182,12 @@ FunnyAngry_Loop2:
 	saVolFM		$02
 	dc.b nRst, $30, nRst, nRst, nRst, nRst, nRst, nRst
 	sPatFM		$10
-	sNoteTimeOut	$02
+	sGate		$02
 	sJump		FunnyAngry_Loop2
 	dc.b $F2	; Unused
 
 FunnyAngry_Call2:
-	sNoteTimeOut	$00
+	sGate		$00
 	saVolFM		$01
 	sPatFM		$1A
 	dc.b nD5, $06, nE5, nRst, nE5, $04, nRst, $08
@@ -211,37 +211,37 @@ FunnyAngry_Call2:
 	dc.b nE5, $30
 	sModOff
 	dc.b nRst, nRst, nRst
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nFs5, $06, nFs5, nFs5, nFs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nFs5, $12, nRst, $30, nRst, $06
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nFs5, $06, nFs5, nFs5, nFs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nFs5, $06
 	saVolFM		$FE
 	dc.b sHold, nG5, $08, nRst, $30, nRst, $0A
 	saVolFM		$02
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nFs5, $06, nFs5, nFs5, nFs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nFs5, $12, nRst, $30, nRst, $06
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nFs5, $06, nFs5, nFs5, nFs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nFs5, $06
 	saVolFM		$FE
 	dc.b sHold, nG5, $08, nRst, $30, nRst, $0A
 	saVolFM		$02
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nFs5, $06, nFs5, nFs5, nFs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nFs5, $12, nRst, $30, nRst, $06
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nFs5, $06, nFs5, nFs5, nFs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nFs5, $05, nRst, $01
-	sNoteTimeOut	$00
+	sGate		$00
 	ssMod68k	$1E, $01, $DF, $FF
 	dc.b nG5, $28
 	sModOff
@@ -259,7 +259,7 @@ FunnyAngry_Call2:
 	saVolFM		$05
 	sModOff
 	ssLFO		$00, $00
-	sNoteTimeOut	$00
+	sGate		$00
 	sPatFM		$1A
 	saVolFM		$FF
 	dc.b nB4, $48
@@ -281,11 +281,11 @@ FunnyAngry_Call2:
 	dc.b nE5, nRst, $0C, nE5, $06, nE5, nE5, nE5
 	dc.b nRst, $0C, nE5, $06, nE5, nE5, nE5, nRst
 	dc.b $0C, nF6, $10, nF6, nF6
-	sNoteTimeOut	$07
+	sGate		$07
 	dc.b nE6, $06, nE6, nE6, nE6, nRst, $0C, nE6
 	dc.b $06, nE6, nE6, nE6, nRst, $0C, nE6, $06
 	dc.b nE6
-	sNoteTimeOut	$00
+	sGate		$00
 	sRet
 
 FunnyAngry_FM3:
@@ -479,37 +479,37 @@ FunnyAngry_Call4:
 	dc.b nRst, nRst, nRst, nCs5, $04, nRst, $02, nCs5
 	dc.b $04, nRst, $02, nCs5, $04, nRst, $02, nCs5
 	dc.b $04, nRst, $02
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nCs5, $12, nRst, $30, nRst, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nCs5, $04, nRst, $02, nCs5, $04, nRst, $02
 	dc.b nCs5, $04, nRst, $02, nCs5, $04, nRst, $02
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nCs5, $06, sHold, nD5, $08, nRst, $30, nRst
 	dc.b $0A
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nCs5, $04, nRst, $02, nCs5, $04, nRst, $02
 	dc.b nCs5, $04, nRst, $02, nCs5, $04, nRst, $02
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nCs5, $12, nRst, $30, nRst, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nCs5, $04, nRst, $02, nCs5, $04, nRst, $02
 	dc.b nCs5, $04, nRst, $02, nCs5, $04, nRst, $02
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nCs5, $06, sHold, nD5, $08, nRst, $30, nRst
 	dc.b $0A
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nCs5, $04, nRst, $02, nCs5, $04, nRst, $02
 	dc.b nCs5, $04, nRst, $02, nCs5, $04, nRst, $02
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nCs5, $12, nRst, $30, nRst, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nCs5, $04, nRst, $02, nCs5, $04, nRst, $02
 	dc.b nCs5, $04, nRst, $02, nCs5, $04, nRst, $02
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nCs5, $05, nRst, $01
 	ssMod68k	$1E, $01, $DF, $FF
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD5, $28
 	sModOff
 	dc.b nRst, $02, nE5, $18, nRst, $30, nRst, nRst
@@ -535,11 +535,11 @@ FunnyAngry_Call4:
 	dc.b nB4, nRst, $0C, nB4, $06, nB4, nB4, nB4
 	dc.b nRst, $0C, nB4, $06, nB4, nB4, nB4, nRst
 	dc.b $0C, nC6, $10, nC6, nC6
-	sNoteTimeOut	$07
+	sGate		$07
 	dc.b nB5, $06, nB5, nB5, nB5, nRst, $0C, nB5
 	dc.b $06, nB5, nB5, nB5, nRst, $0C, nB5, $06
 	dc.b nB5
-	sNoteTimeOut	$00
+	sGate		$00
 	sRet
 
 FunnyAngry_FM5:
@@ -715,32 +715,32 @@ FunnyAngry_Call5:
 	dc.b nB5, $30
 	sModOff
 	dc.b nRst, nRst, nRst
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nCs5, $06, nCs5, nCs5, nCs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nCs5, $12, nRst, $30, nRst, $06
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nCs5, nCs5, nCs5, nCs5, nCs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nD5, $0C, nRst, $30, nRst, $06
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nCs5, nCs5, nCs5, nCs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nCs5, $12, nRst, $30, nRst, $06
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nCs5, nCs5, nCs5, nCs5, nCs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nD5, $0C, nRst, $30, nRst, $06
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nCs5, nCs5, nCs5, nCs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nCs5, $12, nRst, $30, nRst, $06
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nCs5, nCs5, nCs5, nCs5
-	sNoteTimeOut	$0A
+	sGate		$0A
 	dc.b nCs5, $04, nRst, $02
 	ssMod68k	$1B, $02, $20, $FF
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD5, $28
 	sModOff
 	dc.b nRst, $02, nE5, $18, nRst, $30, nRst, nRst
@@ -763,17 +763,17 @@ FunnyAngry_Call5:
 	dc.b nRst, $0C, nB4, $06, nB4, nB4, nB4, nRst
 	dc.b $0C, nB4, $06, nB4, nB4, nB4, nRst, $0C
 	dc.b nC6, $10, nC6, nC6
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nB5, $06, nB5, nB5, nB5, nRst, $0C, nB5
 	dc.b $06, nB5, nB5, nB5, nRst, $0C, nB5, $06
 	dc.b nB5
-	sNoteTimeOut	$00
+	sGate		$00
 	sRet
 
 FunnyAngry_PSG2:
 	dc.b nRst, $30, nRst, nRst, $30, nRst
 	sVolEnvPSG	v05
-	sNoteTimeOut	$02
+	sGate		$02
 
 FunnyAngry_Loop9:
 	dc.b nB4, $02
@@ -841,7 +841,7 @@ FunnyAngry_Loop10:
 	saVolPSG	$FC
 	sLoop		$00, $10, FunnyAngry_Loop10
 	sVolEnvPSG	v0B
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nB3, $06, nD4, nF4, nA4, nRst, $30, nB3
 	dc.b $06, nD4, nF4, nA4, nRst, $18, nB3, $06
 	dc.b nD4, nF4, nA4, nRst, $30, nB3, $06, nD4
@@ -849,7 +849,7 @@ FunnyAngry_Loop10:
 	dc.b nA4, nRst, $18, nB3, $06, nD4, nF4, nA4
 	dc.b nRst, $18, nB3, $06, nD4, nF4, nB3
 	sVolEnvPSG	v05
-	sNoteTimeOut	$02
+	sGate		$02
 
 FunnyAngry_Loop11:
 	dc.b nB4, $02
@@ -882,7 +882,7 @@ FunnyAngry_Loop11:
 	saVolPSG	$FC
 	sLoop		$00, $10, FunnyAngry_Loop11
 	sVolEnvPSG	v0B
-	sNoteTimeOut	$03
+	sGate		$03
 
 FunnyAngry_Loop12:
 	dc.b nA4, $06, nE4, nD5, nRst, nCs5, nD5, nCs5
@@ -890,7 +890,7 @@ FunnyAngry_Loop12:
 	dc.b nA4
 	sLoop		$00, $08, FunnyAngry_Loop12
 	sVolEnvPSG	v05
-	sNoteTimeOut	$02
+	sGate		$02
 
 FunnyAngry_Loop13:
 	dc.b nB4, $02
@@ -923,7 +923,7 @@ FunnyAngry_Loop13:
 	saVolPSG	$FC
 	sLoop		$00, $08, FunnyAngry_Loop13
 	sVolEnvPSG	v0B
-	sNoteTimeOut	$03
+	sGate		$03
 	saVolPSG	$01
 
 FunnyAngry_Loop14:
@@ -937,7 +937,7 @@ FunnyAngry_Loop14:
 	dc.b nRst, $12, nD5, $06, nCs5, nB4, nG4
 	saVolPSG	$FF
 	sVolEnvPSG	v05
-	sNoteTimeOut	$02
+	sGate		$02
 
 FunnyAngry_Loop15:
 	dc.b nB4, $02
@@ -970,7 +970,7 @@ FunnyAngry_Loop15:
 	saVolPSG	$FC
 	sLoop		$00, $08, FunnyAngry_Loop15
 	sVolEnvPSG	v0B
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nB3, $06, nD4, nF4, nA4, nRst, $30, nB3
 	dc.b $06, nD4, nF4, nA4, nRst, $18, nB3, $06
 	dc.b nD4, nF4, nA4, nRst, $30, nB3, $06, nD4
@@ -978,7 +978,7 @@ FunnyAngry_Loop15:
 	dc.b nA4, nRst, $18, nB3, $06, nD4, nF4, nA4
 	dc.b nRst, $18, nB3, $06, nD4, nF4, nB3
 	sVolEnvPSG	v05
-	sNoteTimeOut	$02
+	sGate		$02
 
 FunnyAngry_Loop16:
 	dc.b nB4, $02
@@ -1011,7 +1011,7 @@ FunnyAngry_Loop16:
 	saVolPSG	$FC
 	sLoop		$00, $10, FunnyAngry_Loop16
 	sVolEnvPSG	v0B
-	sNoteTimeOut	$03
+	sGate		$03
 
 FunnyAngry_Loop17:
 	dc.b nA4, $06, nE4, nD5, nRst, nCs5, nD5, nCs5
@@ -1019,7 +1019,7 @@ FunnyAngry_Loop17:
 	dc.b nA4
 	sLoop		$00, $08, FunnyAngry_Loop17
 	sVolEnvPSG	v05
-	sNoteTimeOut	$02
+	sGate		$02
 
 FunnyAngry_Loop18:
 	dc.b nB4, $02
@@ -1052,7 +1052,7 @@ FunnyAngry_Loop18:
 	saVolPSG	$FC
 	sLoop		$00, $08, FunnyAngry_Loop18
 	sVolEnvPSG	v0B
-	sNoteTimeOut	$03
+	sGate		$03
 	saVolPSG	$01
 
 FunnyAngry_Loop19:
@@ -1065,7 +1065,7 @@ FunnyAngry_Loop19:
 	dc.b nE5, nE5, nE5, nE5, nE5, nE5, nRst, $60
 	saVolPSG	$FF
 	sVolEnvPSG	v05
-	sNoteTimeOut	$02
+	sGate		$02
 
 FunnyAngry_Loop20:
 	dc.b nB4, $02
@@ -1102,7 +1102,7 @@ FunnyAngry_Loop20:
 
 FunnyAngry_PSG3:
 	sNoisePSG	$E7
-	sNoteTimeOut	$02
+	sGate		$02
 
 FunnyAngry_Loop21:
 	dc.b nA5, $06, nRst, nA5, nA5, nA5, nRst, nA5

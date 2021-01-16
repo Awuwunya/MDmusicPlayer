@@ -62,51 +62,51 @@ DancingLeaves_FM2:
 DancingLeaves_Jump2:
 	sPatFM		$02
 	sCall		DancingLeaves_Call1
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nG6, $0C, nE6, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nE6, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nE6, $08, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF6, $0C, nF6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG6, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA6, $08, nG6, nF6
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nE6, $0C
 	sCall		DancingLeaves_Call1
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nG6, $0C, nC7, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nC7, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nC7, $08, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nB6, $0C, nB6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nC7, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nD7, $08, nC7, nB6
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC7, $30, sHold, $30, nRst, $30, nRst, nRst
 	dc.b nRst, nRst, nRst, $18
 	saVolFM		$FC
 	sPatFM		$05
 	sCall		DancingLeaves_Call2
-	sNoteTimeOut	$1F
+	sGate		$1F
 	dc.b nG5, $20
 	ssMod68k	$03, $01, $05, $03
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG5, $03, nRst, $01
 	sCall		DancingLeaves_Call3
 	dc.b sHold, nG5, $0C
 	sCall		DancingLeaves_Call2
-	sNoteTimeOut	$1F
+	sGate		$1F
 	dc.b nG5, $20
 	ssMod68k	$03, $01, $05, $03
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG5, $03, nRst, $01
 	sCall		DancingLeaves_Call3
 	saVolFM		$04
@@ -115,14 +115,14 @@ DancingLeaves_Jump2:
 	dc.b nC7, $24
 	ssMod68k	$01, $01, $00, $00
 	sCall		DancingLeaves_Call4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG6, $04, sHold, $30, sHold, $2F, nRst, $01
 	sCall		DancingLeaves_Call4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG6, $04, sHold, $30, sHold, $07, nRst, $01
 	sPatFM		$03
 	saTranspose	$F4
-	sNoteTimeOut	$07
+	sGate		$07
 	dc.b nG4, $04, nA4, $08, nB4, $04, nC5, $08
 	dc.b nD5, $04, nE5, $08, nF5, $04
 	saVolFM		$0C
@@ -131,18 +131,18 @@ DancingLeaves_Loop4:
 	dc.b nG5, $04
 	saVolFM		$FF
 	sLoop		$00, $0C, DancingLeaves_Loop4
-	sNoteTimeOut	$06
+	sGate		$06
 	saVolFM		$FC
 	dc.b nG5, $13, nRst, $01
 	saVolFM		$04
 	dc.b nE5, $0C
-	sNoteTimeOut	$07
+	sGate		$07
 	dc.b nF5, $04, nG5, $08, nF5, $04, nE5, $08
 	dc.b $0C, nC5, nC5, $04
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $1F, nRst, $01, nG4, $04, nE5, $0B
 	dc.b nRst, $01, nF5, $0B, nRst, $01, nRst, $0C
-	sNoteTimeOut	$07
+	sGate		$07
 	dc.b nG5, $08, nC6, $04, nA5, $0C, nF5, $08
 	dc.b nB5, $04, nG5, $0C, nE5, $08, nA5, $04
 	dc.b nF5, $0C, nD5, $08
@@ -152,68 +152,68 @@ DancingLeaves_Loop5:
 	saVolFM		$01
 	sLoop		$00, $13, DancingLeaves_Loop5
 	saVolFM		$ED
-	sNoteTimeOut	$00
+	sGate		$00
 	saTranspose	$0C
 	saVolFM		$FC
 	sPatFM		$05
 	sCall		DancingLeaves_Call2
-	sNoteTimeOut	$1F
+	sGate		$1F
 	dc.b nG5, $20
 	ssMod68k	$03, $01, $05, $03
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG5, $03, nRst, $01
 	sCall		DancingLeaves_Call3
 	dc.b nRst, $24
 	ssMod68k	$01, $01, $00, $00
 	saVolFM		$04
 	sPatFM		$01
-	sNoteTimeOut	$03
+	sGate		$03
 
 DancingLeaves_Loop6:
 	dc.b nG5, $04, nG4
 	saVolFM		$01
 	sLoop		$00, $09, DancingLeaves_Loop6
 	saVolFM		$F7
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nE5, $08, nF5, $04, nG5, $08, nF5, $04
 	dc.b nE5, $14, nCs5, $10
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $0C, nRst, $0C, nRst, $08, nG4, $03
 	dc.b nRst, $01, nE5, $07, nRst, $01, nCs5, $03
 	dc.b nRst, $01, nAb5, $07, nRst, $01, nA5, $03
 	dc.b nRst, $01
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nE5, $04, nCs5, nD5, nE5, nF5, nA5
-	sNoteTimeOut	$0C
+	sGate		$0C
 	dc.b nE6, $18, nE6, nB5
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD6, $12, nRst, $02, nC6, $27, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nD6, $14
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nEb6, $0F, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nE6, $0C, nEb6
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nE6, $07, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nEb6, $0C, nE6, $24
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nEb6, $03, nRst, $01, nE6, $07, nRst, $01
 	dc.b nEb6, $03, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nE6, $0C, nEb6
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nE6, $07, nRst, $01, nEb6, $03, nRst, $01
 	dc.b nE6, $07, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nG6, $24
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG6, $04
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nE6, $07, nRst, $01, nF6, $03, nRst, $01
 	dc.b nG6, $0C, nRst
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nG6, $04, nE6, nF6, nG6, nF6, nE6, nD6
 	dc.b nC6, nB5, nA5, nG5, nFs5, nF5, nE5, nEb5
 	dc.b nD5, nCs5, nAb5
@@ -222,31 +222,31 @@ DancingLeaves_Loop7:
 	dc.b nA5, nE5
 	saVolFM		$02
 	sLoop		$00, $03, DancingLeaves_Loop7
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA5, $0C, nRst, nRst, $18
 	saVolFM		$FA
 	saVolFM		$FC
 	sPatFM		$02
 	dc.b nAb6, $07, nRst, $01
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nB6, $0C, nB6, $04, nRst, $0C, nB6, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nB6, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nB6, $08, $0C, nCs7, nCs7
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nEb7, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nE7, $08, nEb7, nCs7
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB6, $17, nRst, $01, nAb6, $13, nRst, $01
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nA6, $0C, nA6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nB6, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nC7, $08, nB6, nA6
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nAb6, $17, nRst, $01, nE6, $03, nRst, nRst
 	dc.b $06, nFs6, $07, nRst, $01, nG6, $1B, nRst
 	dc.b $01, nFs6, $0B, nRst, $01, nE6, $0B, nRst
@@ -263,52 +263,52 @@ DancingLeaves_FM3:
 DancingLeaves_Jump3:
 	sPatFM		$02
 	sCall		DancingLeaves_Call5
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nE6, $0C, nC6, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nC6, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nC6, $08, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nD6, $0C, nD6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nE6, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF6, $08, nE6, nD6
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nC6, $0C
 	sCall		DancingLeaves_Call5
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nD6, $0C, nG6, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG6, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nG6, $08, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nG6, $0C, nG6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG6, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nG6, $08, nG6, nG6
 	sPatFM		$04
-	sNoteTimeOut	$04
+	sGate		$04
 
 DancingLeaves_Loop8:
 	sCall		DancingLeaves_Call6
 	sLoop		$00, $10, DancingLeaves_Loop8
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nRst, $30, nRst, nRst, nRst, $18
 	sPatFM		$07
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nE5, $0C, nF5, nRst, nG5, $08, $0C, nG5
 	dc.b nG5, nG5
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG5, $03, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nF5, $0C, nF5
-	sNoteTimeOut	$0F
+	sGate		$0F
 	dc.b nE5, $14, nC5, $10
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $23, nRst, $01
 	ssMod68k	$16, $01, $79, $22
 	dc.b nG4, $18
@@ -316,33 +316,33 @@ DancingLeaves_Loop8:
 	dc.b nG5, $30, sHold, $13, nRst, $01, nE5, $06
 	dc.b nRst, nF5, $03, nRst, $01, nG5, $07, nRst
 	dc.b $01, nF5, $03, nRst, $01
-	sNoteTimeOut	$0F
+	sGate		$0F
 	dc.b nE5, $14, nC5, $10
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $23, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nE5, $0C, nF5, nRst, nG5, $08, $0C, nG5
 	dc.b nG5, nG5
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG5, $03, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nF5, $0C, nF5
-	sNoteTimeOut	$0F
+	sGate		$0F
 	dc.b nE5, $14, nC5, $10
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $17, nRst, $01
 	saVolFM		$FA
 	saTranspose	$0C
 	sPatFM		$02
 	dc.b nG5, $04, nRst
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG5, $04
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nA5, $08, nC6, $0C
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nA5, $04
 	saVolFM		$06
-	sNoteTimeOut	$00
+	sGate		$00
 	saVolFM		$0A
 	sPatFM		$06
 	ssMod68k	$0E, $01, $04, $03
@@ -356,7 +356,7 @@ DancingLeaves_Loop8:
 	sPan		spLeft
 	saVolFM		$FC
 	sPatFM		$08
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nG4, $04
 	saVolFM		$13
 	dc.b nG4, $08
@@ -365,9 +365,9 @@ DancingLeaves_Loop8:
 	saVolFM		$13
 	dc.b nFs4, $08
 	saVolFM		$ED
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $08
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nFs4, $04
 	saVolFM		$13
 	dc.b nFs4, $08
@@ -386,14 +386,14 @@ DancingLeaves_Loop8:
 	saVolFM		$13
 	dc.b nFs4, $08
 	saVolFM		$ED
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $08, nFs4, $04, nG4, $08
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nBb4, $04
 	saVolFM		$13
 	dc.b nBb4, $20
 	saVolFM		$ED
-	sNoteTimeOut	$00
+	sGate		$00
 	sPatFM		$07
 	saVolFM		$04
 	sPan		spCenter
@@ -425,35 +425,35 @@ DancingLeaves_Jump4:
 	sPan		spRight
 	ssMod68k	$0C, $01, $02, $05
 	sCall		DancingLeaves_Call1
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nG6, $0C, nE6, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nE6, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nE6, $08, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF6, $0C, nF6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG6, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA6, $08, nG6, nF6
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nE6, $0C
 	sCall		DancingLeaves_Call1
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nG6, $0C, nC7, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nC7, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nC7, $08, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nB6, $0C, nB6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nC7, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nD7, $08, nC7, $09
 	saVolFM		$ED
-	sNoteTimeOut	$00
+	sGate		$00
 	sPan		spCenter
 	dc.b nG6, $30, sHold, $30, nRst, $30, nRst, nRst
 	dc.b nRst, nRst, nRst, $18, nRst, $09
@@ -482,10 +482,10 @@ DancingLeaves_Jump4:
 	dc.b nRst, $07, nC7, $24
 	ssMod68k	$0C, $01, $02, $05
 	sCall		DancingLeaves_Call4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG6, $04, sHold, $30, sHold, $2F, nRst, $01
 	sCall		DancingLeaves_Call4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG6, $04, sHold, $30, sHold, $07, nRst, $01
 	ssMod68k	$01, $01, $00, $00
 	dc.b nRst, $02
@@ -493,7 +493,7 @@ DancingLeaves_Jump4:
 	sPatFM		$03
 	sPan		spLeft
 	saTranspose	$F4
-	sNoteTimeOut	$07
+	sGate		$07
 	dc.b nG4, $04, nA4, $08, nB4, $04, nC5, $08
 	dc.b nD5, $04, nE5, $08, nF5, $04
 	saVolFM		$0C
@@ -502,18 +502,18 @@ DancingLeaves_Loop9:
 	dc.b nG5, $04
 	saVolFM		$FF
 	sLoop		$00, $0C, DancingLeaves_Loop9
-	sNoteTimeOut	$06
+	sGate		$06
 	saVolFM		$FC
 	dc.b nG5, $13, nRst, $01
 	saVolFM		$04
 	dc.b nE5, $0C
-	sNoteTimeOut	$07
+	sGate		$07
 	dc.b nF5, $04, nG5, $08, nF5, $04, nE5, $08
 	dc.b $0C, nC5, nC5, $04
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $1F, nRst, $01, nG4, $04, nE5, $0B
 	dc.b nRst, $01, nF5, $0B, nRst, $01, nRst, $0C
-	sNoteTimeOut	$07
+	sGate		$07
 	dc.b nG5, $08, nC6, $04, nA5, $0C, nF5, $08
 	dc.b nB5, $04, nG5, $0C, nE5, $08, nA5, $04
 	dc.b nF5, $0C, nD5, $08
@@ -523,7 +523,7 @@ DancingLeaves_Loop10:
 	saVolFM		$01
 	sLoop		$00, $13, DancingLeaves_Loop10
 	saVolFM		$ED
-	sNoteTimeOut	$00
+	sGate		$00
 	saTranspose	$0C
 	saVolFM		$FC
 	sPatFM		$05
@@ -546,7 +546,7 @@ DancingLeaves_Loop10:
 	dc.b nRst, $09
 	saVolFM		$0E
 	sPatFM		$01
-	sNoteTimeOut	$03
+	sGate		$03
 	saVolFM		$03
 
 DancingLeaves_Loop11:
@@ -554,46 +554,46 @@ DancingLeaves_Loop11:
 	saVolFM		$01
 	sLoop		$00, $06, DancingLeaves_Loop11
 	saVolFM		$F7
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nE5, $08, nF5, $04, nG5, $08, nF5, $04
 	dc.b nE5, $14, nCs5, $10
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $0C, nRst, $0C, nRst, $08, nG4, $03
 	dc.b nRst, $01, nE5, $07, nRst, $01, nCs5, $03
 	dc.b nRst, $01, nAb5, $07, nRst, $01, nA5, $03
 	dc.b nRst, $01
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nE5, $04, nCs5, nD5, nE5, nF5, nA5
-	sNoteTimeOut	$0C
+	sGate		$0C
 	dc.b nE6, $18, nE6, nB5
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD6, $12, nRst, $02, nC6, $27, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nD6, $14
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nEb6, $0F, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nE6, $0C, nEb6
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nE6, $07, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nEb6, $0C, nE6, $24
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nEb6, $03, nRst, $01, nE6, $07, nRst, $01
 	dc.b nEb6, $03, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nE6, $0C, nEb6
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nE6, $07, nRst, $01, nEb6, $03, nRst, $01
 	dc.b nE6, $07, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nG6, $24
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG6, $04
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nE6, $07, nRst, $01, nF6, $03, nRst, $01
 	dc.b nG6, $0C, nRst
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nG6, $04, nE6, nF6, nG6, nF6, nE6, nD6
 	dc.b nC6, nB5, nA5, nG5, nFs5, nF5, nE5, nEb5
 	dc.b nD5, nCs5, nAb5
@@ -602,7 +602,7 @@ DancingLeaves_Loop12:
 	dc.b nA5, nE5
 	saVolFM		$02
 	sLoop		$00, $03, DancingLeaves_Loop12
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA5, $0C, nRst, nRst, $16
 	saVolFM		$FA
 	saVolFM		$05
@@ -611,25 +611,25 @@ DancingLeaves_Loop12:
 	sPatFM		$02
 	sPan		spRight
 	dc.b nAb6, $07, nRst, $01
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nB6, $0C, $04, nRst, $0C, nB6, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nB6, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nB6, $08, $0C, nCs7, nCs7
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nEb7, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nE7, $08, nEb7, nCs7
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB6, $17, nRst, $01, nAb6, $13, nRst, $01
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nA6, $0C, nA6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nB6, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nC7, $08, nB6, nA6
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nAb6, $17, nRst, $01, nE6, $03, nRst, nRst
 	dc.b $06, nFs6, $07, nRst, $01, nG6, $1B, nRst
 	dc.b $01, nFs6, $0B, nRst, $01, nE6, $0B, nRst
@@ -651,36 +651,36 @@ DancingLeaves_Jump5:
 	dc.b nRst, $07
 	sPatFM		$02
 	sCall		DancingLeaves_Call5
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nE6, $0C, nC6, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nC6, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nC6, $08, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nD6, $0C, nD6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nE6, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF6, $08, nE6, nD6
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nC6, $0C
 	sCall		DancingLeaves_Call5
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nD6, $0C, nG6, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG6, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nG6, $08, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nG6, $0C, nG6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG6, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nG6, $08, nG6, $09
 	saVolFM		$ED
 	sPan		spCenter
-	sNoteTimeOut	$04
+	sGate		$04
 	ssMod68k	$01, $01, $00, $00
 	dc.b nRst, $01
 	sPatFM		$04
@@ -688,21 +688,21 @@ DancingLeaves_Jump5:
 DancingLeaves_Loop13:
 	sCall		DancingLeaves_Call8
 	sLoop		$00, $10, DancingLeaves_Loop13
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nRst, $2F, nRst, $30, nRst, nRst, $18
 	saVolFM		$13
 	dc.b nRst, $07
 	sPatFM		$07
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nE5, $0C, nF5, nRst, nG5, $08, $0C, nG5
 	dc.b nG5, nG5
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG5, $03, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nF5, $0C, nF5
-	sNoteTimeOut	$0F
+	sGate		$0F
 	dc.b nE5, $14, nC5, $10
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $23, nRst, $01
 	ssMod68k	$16, $01, $79, $22
 	dc.b nG4, $18
@@ -710,31 +710,31 @@ DancingLeaves_Loop13:
 	dc.b nG5, $30, sHold, $13, nRst, $01, nE5, $06
 	dc.b nRst, nF5, $03, nRst, $01, nG5, $07, nRst
 	dc.b $01, nF5, $03, nRst, $01
-	sNoteTimeOut	$0F
+	sGate		$0F
 	dc.b nE5, $14, nC5, $10
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $23, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nE5, $0C, nF5, nRst, nG5, $08, $0C, nG5
 	dc.b nG5, nG5
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG5, $03, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nF5, $0C, nF5
-	sNoteTimeOut	$0F
+	sGate		$0F
 	dc.b nE5, $14, nC5, $10
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $17, nRst, $01
 	saVolFM		$FA
 	saTranspose	$0C
 	sPatFM		$02
 	dc.b nG5, $04, nRst
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG5, $04
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nA5, $08, nC6, $09
 	saVolFM		$ED
-	sNoteTimeOut	$00
+	sGate		$00
 	saVolFM		$06
 	saVolFM		$0A
 	sPatFM		$06
@@ -768,7 +768,7 @@ DancingLeaves_Jump6:
 	dc.b nRst, $07, nRst, $24, nRst, $30, nRst, nRst
 	dc.b nRst, nRst, nRst, nRst
 	sVolEnvPSG	v04
-	sNoteTimeOut	$04
+	sGate		$04
 
 DancingLeaves_Loop14:
 	sCall		DancingLeaves_Call6
@@ -790,7 +790,7 @@ DancingLeaves_Loop16:
 	saVolPSG	$02
 	saVolPSG	$03
 	saVolPSG	$FD
-	sNoteTimeOut	$00
+	sGate		$00
 	sVolEnvPSG	v1B
 	ssMod68k	$08, $02, $05, $02
 	dc.b nE5, $30, sHold, $18, nRst, $08, nE5, $04
@@ -818,7 +818,7 @@ DancingLeaves_Jump7:
 	dc.b nRst, nRst, nRst, nRst
 	sVolEnvPSG	v04
 	dc.b nRst, $01
-	sNoteTimeOut	$04
+	sGate		$04
 
 DancingLeaves_Loop17:
 	sCall		DancingLeaves_Call8
@@ -841,7 +841,7 @@ DancingLeaves_Loop19:
 	dc.b $08, $0C, nA5, nA5, nA5, $03
 	saVolPSG	$02
 	saVolPSG	$03
-	sNoteTimeOut	$00
+	sGate		$00
 	saVolPSG	$FD
 	sVolEnvPSG	v1B
 	ssMod68k	$0C, $02, $05, $02
@@ -963,40 +963,40 @@ DancingLeaves_Loop30:
 	sJump		DancingLeaves_DAC2
 
 DancingLeaves_Call1:
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nG6, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG6, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nG6, $08, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA6, $0C, nA6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nB6, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nC7, $08, nB6, nA6
 	sRet
 
 DancingLeaves_Call4:
 	dc.b nRst, $08, nG5, $03, nRst, $01, nE6, $07
 	dc.b nRst, $01, nG6, $03, nRst, $01
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nC7, $0C, nG6, $08, nA6, $0C, nC7, nF6
 	dc.b nA6
 	sRet
 
 DancingLeaves_Call5:
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nE6, $08
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nE6, $04
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nE6, $08, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF6, $0C, nF6
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nG6, $04
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA6, $08, nG6, nF6
 	sRet
 
@@ -1008,13 +1008,13 @@ DancingLeaves_Call2:
 	ssMod68k	$03, $01, $05, $03
 	dc.b nE6, $06, nRst, nF6, $03, nRst, $01, nG6
 	dc.b $07, nRst, $01, nF6, $03, nRst, $01
-	sNoteTimeOut	$0F
+	sGate		$0F
 	dc.b nE6, $14, nC6, $10
 	ssMod68k	$16, $01, $08, $04
 	sRet
 
 DancingLeaves_Call3:
-	sNoteTimeOut	$06
+	sGate		$06
 	sPan		spCenter
 	dc.b nE6, $07
 	sPan		spLeft
@@ -1058,9 +1058,9 @@ DancingLeaves_Call3:
 	saVolFM		$0E
 	dc.b nG6, $05
 	saVolFM		$F2
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG6, $04
-	sNoteTimeOut	$06
+	sGate		$06
 	sPan		spCenter
 	dc.b nF6, $07
 	sPan		spLeft
@@ -1085,14 +1085,14 @@ DancingLeaves_Call3:
 	saVolFM		$0E
 	dc.b nC6, $09
 	saVolFM		$F2
-	sNoteTimeOut	$00
+	sGate		$00
 	ssMod68k	$16, $01, $08, $04
 	sPan		spCenter
 	dc.b nG5, $18
 	sRet
 
 DancingLeaves_Call7:
-	sNoteTimeOut	$06
+	sGate		$06
 	sPan		spCenter
 	dc.b nG5, $07
 	sPan		spLeft
@@ -1136,9 +1136,9 @@ DancingLeaves_Call7:
 	saVolFM		$0E
 	dc.b nB5, $05
 	saVolFM		$F2
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nB5, $04
-	sNoteTimeOut	$06
+	sGate		$06
 	sPan		spCenter
 	dc.b nA5, $07
 	sPan		spLeft
@@ -1163,7 +1163,7 @@ DancingLeaves_Call7:
 	saVolFM		$0E
 	dc.b nE5, $09
 	saVolFM		$F2
-	sNoteTimeOut	$00
+	sGate		$00
 	ssMod68k	$16, $01, $08, $04
 	sPan		spCenter
 	dc.b nC5, $18

@@ -51,13 +51,13 @@ GreenHill_Jump1:
 	saTranspose	$F4
 	saVolFM		$0A
 	dc.b nRst, $08, nE7, $0C, nRst, $04
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nE7, $08, nF7, nE7, nG7
-	sNoteTimeOut	$14
+	sGate		$14
 	dc.b nE7, $10
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nC7, $08
-	sNoteTimeOut	$00
+	sGate		$00
 	saVolFM		$F6
 	saTranspose	$18
 	sJump		GreenHill_Jump1
@@ -83,34 +83,34 @@ GreenHill_FM2:
 	sComm		$01
 	dc.b nRst, $08, nA2, nA3, nA2, nBb2, nBb3, nB2
 	dc.b nB3
-	sNoteTimeOut	$04
+	sGate		$04
 	sPatFM		$01
 
 GreenHill_Loop2:
 	dc.b nC3, $08
 	sLoop		$00, $18, GreenHill_Loop2
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC3, $04, nRst, nC3, $08, nA2, $04, nRst
 	dc.b nA2, $08, nBb2, $04, nRst, nBb2, $08, nB2
 	dc.b $04, nRst, nB2, $08
-	sNoteTimeOut	$04
+	sGate		$04
 
 GreenHill_Loop3:
 	dc.b nC3, $08
 	sLoop		$00, $1D, GreenHill_Loop3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC3, nD3, nE3
 
 GreenHill_Jump2:
 	sPatFM		$01
 	sCall		GreenHill_Call3
 	sCall		GreenHill_Call4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC3, nD3, nE3
 	sCall		GreenHill_Call3
 	sCall		GreenHill_Call4
 	dc.b nC3, nC3, nC3
-	sNoteTimeOut	$00
+	sGate		$00
 	sPatFM		$00
 	dc.b nBb2, $18, nA2, nG2, nF2, nE2, $08, nRst
 	dc.b nD2, nRst, nA2, $18, nB2, nC3, nD3, nE3
@@ -118,43 +118,43 @@ GreenHill_Jump2:
 	dc.b nEb3, nD3, $08, nRst, nC3, nRst, nG2, $18
 	dc.b nD3, nG2, nG3, $08, nE2, nE3, nF2, nF3
 	dc.b nG2, nG3
-	sNoteTimeOut	$04
+	sGate		$04
 	sComm		$01
 	sJump		GreenHill_Jump2
 
 GreenHill_Call3:
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nF3, $08, nF3, nF3, nF3, nF3, nF3, nF3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF3
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nE3, nE3, nE3, nE3, nE3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC3, nD3, nE3
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nF3, nF3, nF3, nF3, nF3, nF3, nF3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF3
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nE3, nE3, nE3, nE3, nE3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC3, nD3, nE3
 	sRet
 
 GreenHill_Call4:
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nF3, nF3, nF3, nF3, nF3, nF3, nF3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF3
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nE3, nE3, nE3, nE3, nE3, nE3, nE3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nE3
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nD3, nD3, nD3, nD3, nD3, nD3, nD3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD3
-	sNoteTimeOut	$04
+	sGate		$04
 	dc.b nC3, nC3, nC3, nC3, nC3
 	sRet
 
@@ -215,7 +215,7 @@ GreenHill_Jump3:
 	saTranspose	$18
 	sPatFM		$07
 	sPan		spCenter
-	sNoteTimeOut	$1E
+	sGate		$1E
 	saVolFM		$06
 	dc.b nF5, $18, $18, $18, $18, $08, nRst, nF5
 	dc.b nRst, nE5, $18, $18, $18, $18, $08, nRst
@@ -223,7 +223,7 @@ GreenHill_Jump3:
 	dc.b nRst, nEb5, nRst, nA5, $18, $18, $18, $18
 	dc.b $08, nRst, nA5, nRst
 	saVolFM		$FA
-	sNoteTimeOut	$00
+	sGate		$00
 	sJump		GreenHill_Jump3
 
 GreenHill_Call5:
@@ -293,7 +293,7 @@ GreenHill_Jump4:
 	saVolFM		$07
 	saVolFM		$E8
 	sPatFM		$07
-	sNoteTimeOut	$1E
+	sGate		$1E
 	sPan		spCenter
 	saVolFM		$12
 	dc.b nD5, $18, $18, $18, $18, $08, nRst, nD5
@@ -302,7 +302,7 @@ GreenHill_Jump4:
 	dc.b nRst, nC5, nRst, nF5, $18, $18, $18, $18
 	dc.b $08, nRst, nF5, nRst
 	saVolFM		$EE
-	sNoteTimeOut	$00
+	sGate		$00
 	sJump		GreenHill_Jump4
 
 GreenHill_Call7:
@@ -396,15 +396,15 @@ GreenHill_PSG1:
 	sVolEnvPSG	v05
 	ssMod68k	$0E, $01, $01, $03
 	dc.b nRst, $40
-	sNoteTimeOut	$10
+	sGate		$10
 	dc.b nE5, $18, nD5, nE5, nD5, nE5, $08, nRst
 	dc.b nD5, nRst, nF5, $18, nE5
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD5, $28, sHold, $28
-	sNoteTimeOut	$10
+	sGate		$10
 	dc.b nD5, $18, nE5, nF5, $10, nD5, $18, nE5
 	dc.b nF5, $10, $18
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nE5, $34, sHold, $34
 	sModOff
 
@@ -437,11 +437,11 @@ GreenHill_PSG2:
 	saVolPSG	$FE
 
 GreenHill_Loop16:
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nC7, $08, nB6, nA6, nG6, nC7, nB6, nA6
 	dc.b nG6
 	sLoop		$00, $08, GreenHill_Loop16
-	sNoteTimeOut	$00
+	sGate		$00
 
 GreenHill_Loop18:
 	sVolEnvPSG	v01
@@ -466,7 +466,7 @@ GreenHill_Loop17:
 
 GreenHill_PSG3:
 	sNoisePSG	$E7
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nA5, $10, $10, $10
 
 GreenHill_Jump6:

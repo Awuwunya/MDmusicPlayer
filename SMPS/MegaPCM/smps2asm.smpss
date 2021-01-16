@@ -1,4 +1,4 @@
-### MEGA PCM SMPS2ASM SCRIPT MADE BY AURORAFIELDS 20/08/17
+### MEGA PCM SMPS2ASM SCRIPT MADE BY AURORA*FIELDS 21/01/12
 sversion v1_2
 sdatamacro dc.b
 
@@ -215,7 +215,7 @@ c \type\ == 'sfx' {
 	!0xE5 > ssTickMulCh: .db;
 	!0xE6 > saVolFM: .db;
 	=sHold 0xE7
-	!0xE8 > sNoteTimeOut: .db;
+	!0xE8 > sGate: .db;
 	!0xE9 > saTranspose: .db;
 	!0xEA > ssTempo: .db;
 	!0xEB > ssTickMul: .db;

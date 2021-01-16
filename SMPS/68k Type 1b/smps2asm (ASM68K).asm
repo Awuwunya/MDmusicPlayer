@@ -185,7 +185,7 @@ saVolFM		macro vol
 sHold =		$E7
 
 ; E8xx - Stop note after xx ticks (NOTE_STOP - NSTOP_MULT)
-sNoteTimeOut	macro val
+sGate		macro val
 	dc.b $E8,\val
     endm
 
@@ -215,7 +215,7 @@ sYMcmd		macro reg,val
     endm
 
 ; EExxyy - Write yy to YM port 1 reg xx (FM_COMMAND - FMW_FM1)
-sYM1cmd		macro reg,val
+sYM1		macro reg,val
 	dc.b $EE,\reg,\val
     endm
 

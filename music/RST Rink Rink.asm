@@ -86,46 +86,46 @@ RinkRink_Jump1:
 	ssMod68k	$09, $01, $04, $03
 	sCall		RinkRink_Call5
 	dc.b nA3, $18, nF3, $12
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG3, $0B, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF3, $06, nE3, nF3, nE3, nD3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC3, $30, sHold, $24, sHold, $30, sHold, $24
 	sCall		RinkRink_Call5
 	dc.b nA3, $12, nF3, $0C, nC4, $06, nD4, nC4
 	dc.b nF4, nE4, nD4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC4, sHold, nC4, $30, sHold, $30, nRst, $30
 	dc.b nRst, $0C
 	ssMod68k	$01, $01, $00, $00
 	sPatFM		$02
 	sCall		RinkRink_Call6
 	dc.b nC3, $0C, nF3, nE3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF3, $30, sHold, $0B, nRst, $01
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nF3, $0C, nG3, nA3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG3, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nC4, $0C, $06, $0C, nC4, $0C
 	sCall		RinkRink_Call6
 	dc.b nC3, $0C, nF3, nG3
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nBb3, $12, nA3
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nF3, $0C
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nBb3, $12, nA3
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nF3, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG3, $30
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nRst, $06, nC4, nD4, nC4, nF4, nE4, nD4
 	dc.b nC4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF4, $30, sHold, $1E
 	sPatFM		$05
 	ssMod68k	$09, $01, $04, $03
@@ -168,37 +168,37 @@ RinkRink_Loop10:
 	sCall		RinkRink_Call11
 	saVolFM		$F1
 	dc.b nC5, $06, $0C, nC4, nC4, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC4, $30, sHold, $03
 	sCall		RinkRink_Call12
 	dc.b nC5, $06, $0C, nC6, nC6, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC6, $18
 
 RinkRink_Loop12:
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nA5, $0C, nG5
-	sNoteTimeOut	$12
+	sGate		$12
 	dc.b nF5, $18
 	sLoop		$00, $02, RinkRink_Loop12
 
 RinkRink_Loop13:
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nBb5, $0C, nA5
-	sNoteTimeOut	$12
+	sGate		$12
 	dc.b nG5, $18
 	sLoop		$00, $02, RinkRink_Loop13
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nC6, $0C, nD6
-	sNoteTimeOut	$12
+	sGate		$12
 	dc.b nC6, $18
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nBb5, $0C, nA5
-	sNoteTimeOut	$12
+	sGate		$12
 	dc.b nBb5, $18
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nC6, $0C, nD6
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC6, $0C, sHold, $30, sHold, $0B, nRst, $01
 	dc.b nF6, $18, nE6, $0C
 	saVolFM		$02
@@ -244,18 +244,18 @@ RinkRink_Loop17:
 	saVolFM		$FE
 
 RinkRink_Loop19:
-	sNoteTimeOut	$2F
+	sGate		$2F
 	dc.b nC5, $30, nD5
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nF5, $12, nE5, $12
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD5, $0B, nRst, $01, nC5, $2F, nRst, $01
 	sLoop		$00, $03, RinkRink_Loop19
-	sNoteTimeOut	$2F
+	sGate		$2F
 	dc.b nC5, $30, nD5
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nF5, $12, nE5
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nA5, $23, nRst, $01, nG5, $17, nRst, $01
 	saVolFM		$02
 	sPatFM		$03
@@ -288,7 +288,7 @@ RinkRink_Jump2:
 	sPatFM		$05
 	sCall		RinkRink_Call5
 	dc.b nA3, $18, nF3, $12
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG3, $0B, nRst, $01, nF3, $06, nE3, $03
 	saVolFM		$F7
 	sPan		spCenter
@@ -323,7 +323,7 @@ RinkRink_Jump2:
 	sCall		RinkRink_Call5
 	dc.b nA3, $12, nF3, $0C, nC4, $06, nD4, nC4
 	dc.b nF4, nE4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nD4, $03
 	sPan		spCenter
 	saVolFM		$F7
@@ -360,37 +360,37 @@ RinkRink_Jump2:
 	dc.b nRst, $06
 	saVolFM		$0F
 	dc.b nC5, $06, $0C, nC4, nC4, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC4, $30, sHold, $03
 	sCall		RinkRink_Call12
 	dc.b nC5, $06, $0C, nC6, nC6, $06
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC6, $18
 
 RinkRink_Loop22:
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nA5, $0C, nG5
-	sNoteTimeOut	$12
+	sGate		$12
 	dc.b nF5, $18
 	sLoop		$00, $02, RinkRink_Loop22
 
 RinkRink_Loop23:
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nBb5, $0C, nA5
-	sNoteTimeOut	$12
+	sGate		$12
 	dc.b nG5, $18
 	sLoop		$00, $02, RinkRink_Loop23
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nC6, $0C, nD6
-	sNoteTimeOut	$12
+	sGate		$12
 	dc.b nC6, $18
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nBb5, $0C, nA5
-	sNoteTimeOut	$12
+	sGate		$12
 	dc.b nBb5, $18
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nC6, $0C, nD6
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC6, $0C, sHold, $30, sHold, $0B, nRst, $01
 	dc.b nF6, $17, nRst, $01, nE6, $06
 	saVolFM		$F1
@@ -448,18 +448,18 @@ RinkRink_Loop26:
 	sLoop		$02, $02, RinkRink_Loop27
 
 RinkRink_Loop28:
-	sNoteTimeOut	$2F
+	sGate		$2F
 	dc.b nA4, $30, nBb4
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nC5, $12, nC5, $12
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC5, $0B, nRst, $01, nG4, $2F, nRst, $01
 	sLoop		$00, $03, RinkRink_Loop28
-	sNoteTimeOut	$2F
+	sGate		$2F
 	dc.b nA4, $30, nBb4
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nC5, $12, nC5
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF5, $23, nRst, $01, nE5, $17, nRst, $01
 
 RinkRink_Loop29:
@@ -488,30 +488,30 @@ RinkRink_Jump3:
 	sVolEnvPSG	v08
 	sCall		RinkRink_Call6
 	dc.b nC3, $0C, nF3, nE3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF3, $30, sHold, $0B, nRst, $01
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nF3, $0C, nG3, nA3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG3, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nC4, $0C, $06, $0C, nC4, $0C
 	sCall		RinkRink_Call6
 	dc.b nC3, $0C, nF3, nG3
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nBb3, $12, nA3
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nF3, $0C
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nBb3, $12, nA3
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nF3, $0C
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG3, $30
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nRst, $06, nC4, nD4, nC4, nF4, nE4, nD4
 	dc.b $05
-	sNoteTimeOut	$00
+	sGate		$00
 	sVolEnvPSG	v19
 	dc.b nF4, $30, sHold, $30, sHold, $30, sHold, $30
 	dc.b sHold, $30, sHold, $30, sHold, $30, sHold, $18
@@ -606,25 +606,25 @@ RinkRink_Call3:
 	sRet
 
 RinkRink_Call8:
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nRst, $0C, nC4, $06
 	saVolFM		$08
 	sPan		spRight
 	dc.b nC4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC4, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nC4, $06
 	saVolFM		$08
 	sPan		spRight
 	dc.b nC4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC4, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nC4, $06
 	saVolFM		$08
 	sPan		spRight
@@ -637,30 +637,30 @@ RinkRink_Call8:
 	dc.b nC4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	sRet
 
 RinkRink_Call17:
 	dc.b nRst, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF4, $06
 	saVolFM		$08
 	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF4, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF4, $06
 	saVolFM		$08
 	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF4, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF4, $06
 	saVolFM		$08
 	sPan		spRight
@@ -673,30 +673,30 @@ RinkRink_Call17:
 	dc.b nE4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	sRet
 
 RinkRink_Call18:
 	dc.b nRst, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF4, $06
 	saVolFM		$08
 	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF4, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF4, $06
 	saVolFM		$08
 	sPan		spRight
 	dc.b nF4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF4, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF4, $06
 	saVolFM		$08
 	sPan		spRight
@@ -709,30 +709,30 @@ RinkRink_Call18:
 	dc.b nF4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	sRet
 
 RinkRink_Call13:
 	dc.b nRst, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA4, $06
 	saVolFM		$08
 	sPan		spRight
 	dc.b nA4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nBb4, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA4, $06
 	saVolFM		$08
 	sPan		spRight
 	dc.b nA4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nBb4, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA4, $06
 	saVolFM		$08
 	sPan		spRight
@@ -745,30 +745,30 @@ RinkRink_Call13:
 	dc.b nG4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	sRet
 
 RinkRink_Call14:
 	dc.b nRst, $0C
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA4, $06
 	saVolFM		$08
 	sPan		spRight
 	dc.b nA4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nBb4, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA4, $06
 	saVolFM		$08
 	sPan		spRight
 	dc.b nA4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nBb4, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA4, $06
 	saVolFM		$08
 	sPan		spRight
@@ -781,11 +781,11 @@ RinkRink_Call14:
 	dc.b nBb4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	sRet
 
 RinkRink_Call9:
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nC4, $06
 	saVolFM		$08
 	sPan		spRight
@@ -799,12 +799,12 @@ RinkRink_Call9:
 	saVolFM		$F8
 	sPan		spCenter
 	dc.b nRst
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC4, $30, sHold, $0B, nRst, $01
 	sRet
 
 RinkRink_Call15:
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nA4, $06
 	saVolFM		$08
 	sPan		spRight
@@ -818,12 +818,12 @@ RinkRink_Call15:
 	saVolFM		$F8
 	sPan		spCenter
 	dc.b nRst
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG4, $30, sHold, $0B, nRst, $01
 	sRet
 
 RinkRink_Call19:
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF4, $06
 	saVolFM		$08
 	sPan		spRight
@@ -837,13 +837,13 @@ RinkRink_Call19:
 	saVolFM		$F8
 	sPan		spCenter
 	dc.b nRst
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nE4, $30, sHold, $0B, nRst, $01
 	sRet
 
 RinkRink_Call10:
 	dc.b nF4, $11, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 
 RinkRink_Loop9:
 	dc.b nF4, $06
@@ -884,27 +884,27 @@ RinkRink_Loop9:
 	dc.b nG4
 	saVolFM		$F8
 	sPan		spCenter
-	sNoteTimeOut	$00
+	sGate		$00
 	sRet
 
 RinkRink_Call4:
 	dc.b nF3, $17, nRst, $01
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nE3, $0C, nF3
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nG3, $12, nF3
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nE3, $0C, nF3, nF3, nE3, nF3
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nG3, $12, nF3
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nC4, $09, nC4, $03
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nF4, $0C, nE4, nD4, nC4, nBb3, nA3, nG3
 	dc.b nF3
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nC4, $12, nC4
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG3, $2F, nRst, $01
 	sRet
 
@@ -941,52 +941,52 @@ RinkRink_Call16:
 	sRet
 
 RinkRink_Call7:
-	sNoteTimeOut	$02
+	sGate		$02
 	dc.b nF2, $03, nC3, nG2, nF2, nC2, nF2
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nG2, $30, sHold, $20, nRst, $01
-	sNoteTimeOut	$02
+	sGate		$02
 	dc.b nC3, $03, nF3, nC3, nF3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nC3, $03, sHold, $30, sHold, $2F, nRst, $01
 	sRet
 
 RinkRink_Call5:
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF3, $06, nE3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF3, $1D, nRst, $01
-	sNoteTimeOut	$05
+	sGate		$05
 	dc.b nF3, $06, nG3, nA3, nG3, nF3, nE3, nF3
 	dc.b $0C, $06, nG3, nF3, nC4, $18
 	sRet
 
 RinkRink_Call6:
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nC3, $0C, nF3, nE3
-	sNoteTimeOut	$00
+	sGate		$00
 	dc.b nF3, $30, sHold, $0B, nRst, $01
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nF3, $0C, nG3, nA3
-	sNoteTimeOut	$11
+	sGate		$11
 	dc.b nG3, $12, nE3
-	sNoteTimeOut	$0B
+	sGate		$0B
 	dc.b nD3, $0C, nC3
 	sRet
 
 RinkRink_Call12:
-	sNoteTimeOut	$02
+	sGate		$02
 	dc.b nC5, $03, nD5, nE5
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nF5, $0C, nE5, nD5, nC5
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nD5, $12, nA4, nBb4, $0C
 	sRet
 
 RinkRink_Call11:
-	sNoteTimeOut	$03
+	sGate		$03
 	dc.b nD4, $03, nE5, nF5, $0C, nE5, nD5, nC5
-	sNoteTimeOut	$06
+	sGate		$06
 	dc.b nD5, $12, nA4, nBb4, $06
 	sRet
 
